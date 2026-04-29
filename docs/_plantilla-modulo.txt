@@ -1,0 +1,45 @@
+================================================================================
+DOCUMENTACIÓN DEL MÓDULO
+================================================================================
+
+NOMBRE DEL MÓDULO   : [Nombre descriptivo del módulo]
+ÚLTIMA ACTUALIZACIÓN: [DD/MM/YYYY]
+
+--------------------------------------------------------------------------------
+DESCRIPCIÓN GENERAL
+--------------------------------------------------------------------------------
+[Descripción clara de qué hace el módulo, cuál es su propósito dentro del
+sistema y qué problema resuelve.]
+
+--------------------------------------------------------------------------------
+DEPENDENCIAS DE BASE DE DATOS
+--------------------------------------------------------------------------------
+TABLAS:
+  - [nombre_tabla_1]  : [descripción breve del uso]
+  - [nombre_tabla_2]  : [descripción breve del uso]
+
+VISTAS:
+  - [nombre_vista_1]  : [descripción breve del uso]
+  (Si no aplica, escribir: NINGUNA)
+
+--------------------------------------------------------------------------------
+DEPENDENCIAS DE SERVICIOS EXTERNOS
+--------------------------------------------------------------------------------
+ENDPOINTS / APIs:
+  - [URL o nombre del endpoint] : [descripción del uso]
+  (Si no aplica, escribir: NINGUNO)
+
+CONEXIÓN SAP:
+  - [Nombre del objeto SAP / BAPI / consulta] : [descripción]
+  (Si no aplica, escribir: NINGUNA)
+
+CONEXIÓN MICROSOFT (Azure, Graph API, etc.):
+  - [Nombre del servicio] : [descripción]
+  (Si no aplica, escribir: NINGUNA)
+
+--------------------------------------------------------------------------------
+HISTORIAL DE ACTUALIZACIONES
+--------------------------------------------------------------------------------
+[DD/MM/YYYY] - [Descripción del cambio realizado]
+
+================================================================================

@@ -1,0 +1,44 @@
+================================================================================
+DOCUMENTACIÓN DEL MÓDULO
+================================================================================
+
+NOMBRE DEL MÓDULO   : Página Principal (Home Page)
+ÚLTIMA ACTUALIZACIÓN: 10/06/2026
+
+--------------------------------------------------------------------------------
+DESCRIPCIÓN GENERAL
+--------------------------------------------------------------------------------
+La página principal de la aplicación. Imita la experiencia de usuario de 
+firplak.com. Consiste en una estructura modular y moderna que incluye un 
+Navbar interactivo, un Banner Hero animado, un catálogo de Categorías, una 
+sección de Productos Destacados y un Footer con enlaces.
+Está diseñada usando Next.js 15 App Router y Tailwind v4.
+
+--------------------------------------------------------------------------------
+DEPENDENCIAS DE BASE DE DATOS
+--------------------------------------------------------------------------------
+TABLAS:
+  - (Futuro) Categories : Extrae las categorías a mostrar.
+  - (Futuro) Products   : Extrae los productos destacados (is_featured = true).
+
+VISTAS:
+  - NINGUNA
+
+--------------------------------------------------------------------------------
+DEPENDENCIAS DE SERVICIOS EXTERNOS
+--------------------------------------------------------------------------------
+ENDPOINTS / APIs:
+  - NINGUNO (Usa home-service.ts con datos estáticos temporalmente).
+
+CONEXIÓN SAP:
+  - NINGUNA
+
+CONEXIÓN MICROSOFT (Azure, Graph API, etc.):
+  - NINGUNA
+
+--------------------------------------------------------------------------------
+HISTORIAL DE ACTUALIZACIONES
+--------------------------------------------------------------------------------
+10/06/2026 - Creación de la página principal completa con Hero, Categorías, 
+             Productos Destacados, Navbar y Footer.
+================================================================================

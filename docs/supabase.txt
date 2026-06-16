@@ -1,0 +1,44 @@
+================================================================================
+DOCUMENTACIÓN DEL MÓDULO
+================================================================================
+
+NOMBRE DEL MÓDULO   : Conexión Supabase (Database Layer)
+ÚLTIMA ACTUALIZACIÓN: 10/06/2026
+
+--------------------------------------------------------------------------------
+DESCRIPCIÓN GENERAL
+--------------------------------------------------------------------------------
+Este módulo provee la conexión centralizada a la base de datos Supabase para
+toda la aplicación, utilizando @supabase/ssr. Soporta clientes tanto
+para Server Components (ssr) como para Client Components (edge/browser).
+Sigue la arquitectura obligatoria de 4 capas.
+
+--------------------------------------------------------------------------------
+DEPENDENCIAS DE BASE DE DATOS
+--------------------------------------------------------------------------------
+TABLAS:
+  - NINGUNA ESPECÍFICA TODAVÍA (Es el driver genérico de conexión)
+
+VISTAS:
+  - NINGUNA
+
+--------------------------------------------------------------------------------
+DEPENDENCIAS DE SERVICIOS EXTERNOS
+--------------------------------------------------------------------------------
+ENDPOINTS / APIs:
+  - https://lnphhmowklqiomownurw.supabase.co : URL de la base de datos y
+    servicios asociados de Supabase (Auth, Storage, PostgREST).
+
+CONEXIÓN SAP:
+  - NINGUNA
+
+CONEXIÓN MICROSOFT (Azure, Graph API, etc.):
+  - NINGUNA
+
+--------------------------------------------------------------------------------
+HISTORIAL DE ACTUALIZACIONES
+--------------------------------------------------------------------------------
+10/06/2026 - Creación inicial del módulo, configuración de cliente browser
+             y server para compatibilidad con Next.js 15 App Router.
+
+================================================================================

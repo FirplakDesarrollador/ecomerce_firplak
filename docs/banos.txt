@@ -1,0 +1,46 @@
+================================================================================
+DOCUMENTACIÓN DEL MÓDULO
+================================================================================
+
+NOMBRE DEL MÓDULO   : Categoría de Baños (Muebles de Baño)
+ÚLTIMA ACTUALIZACIÓN: 14/07/2026
+
+--------------------------------------------------------------------------------
+DESCRIPCIÓN GENERAL
+--------------------------------------------------------------------------------
+Este módulo representa la página de categoría dedicada a baños (/categoria/banos)
+en la cual se exhibe una selección premium de muebles de baño de Firplak. 
+Permite a los usuarios navegar por diferentes líneas de diseño (muebles 
+suspendidos, de piso, gabinetes y espejos, y auxiliares), filtrar productos por
+atributos clave (tipo, material, color, garantía) y ordenar los resultados. 
+Tiene como objetivo incentivar la compra y guiar al usuario en la elección del
+mueble perfecto para su espacio personal.
+
+--------------------------------------------------------------------------------
+DEPENDENCIAS DE BASE DE DATOS
+--------------------------------------------------------------------------------
+TABLAS:
+  - NINGUNA (Se consumen datos mock estáticos desde el servicio en esta fase)
+
+VISTAS:
+  - NINGUNA
+
+--------------------------------------------------------------------------------
+DEPENDENCIAS DE SERVICIOS EXTERNOS
+--------------------------------------------------------------------------------
+ENDPOINTS / APIs:
+  - NINGUNO
+
+CONEXIÓN SAP:
+  - NINGUNA
+
+CONEXIÓN MICROSOFT (Azure, Graph API, etc.):
+  - NINGUNA
+
+--------------------------------------------------------------------------------
+HISTORIAL DE ACTUALIZACIONES
+--------------------------------------------------------------------------------
+14/07/2026 - Creación inicial del módulo, componentes de interfaz de usuario
+             y servicio de datos simulados para la categoría de baños.
+
+================================================================================

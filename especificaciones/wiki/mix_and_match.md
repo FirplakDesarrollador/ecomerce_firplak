@@ -6,16 +6,17 @@ Esta página detalla el comportamiento, lógica visual e interacción del config
 
 ## 1. Concepto Funcional
 
-El visualizador permite a los clientes combinar e interactuar con diferentes lavamanos y muebles de forma dinámica y alineada verticalmente, ofreciendo una experiencia similar a una cinta de selección horizontal.
+El visualizador permite a los clientes combinar e interactuar con diferentes lavamanos y muebles de forma dinámica y alineada verticalmente. Las imágenes del lavamanos se alinean y superponen sobre la imagen del mueble, simulando visualmente ambos productos instalados juntos en un solo entorno de baño.
 
 ```
           ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
           │  Lavamanos   │ ◄ │  Lavamanos   │ ► │  Lavamanos   │  (Fila Superior - Desplazamiento Lateral)
           │  Modelo A    │   │  Modelo B    │   │  Modelo C    │
           └──────────────┘   └──────────────┘   └──────────────┘
-                                    ▲
-                                Alineación
-                                    ▼
+                                     ▲
+                          Superposición y Alineación
+                            (Simulación de Instalación)
+                                     ▼
           ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
           │    Mueble    │ ◄ │    Mueble    │ ► │    Mueble    │  (Fila Inferior - Desplazamiento Lateral)
           │  Modelo X    │   │  Modelo Y    │   │  Modelo Z    │
@@ -29,9 +30,9 @@ El visualizador permite a los clientes combinar e interactuar con diferentes lav
 ### Desplazamiento Lateral (Deslizar / Carrusel Sincronizado)
 *   **Fila Superior (Lavamanos):** El usuario puede arrastrar o usar botones laterales de navegación para cambiar el lavamanos actual.
 *   **Fila Inferior (Muebles):** El usuario puede deslizar lateralmente para cambiar el mueble base.
-*   **Coincidencia de Ajuste Perfecta:**
+*   **Coincidencia de Ajuste y Superposición (Simulación de Instalación):**
     *   Los assets de imagen de lavamanos y muebles deben poseer dimensiones proporcionales consistentes.
-    *   La zona inferior del lavamanos se alinea exactamente sobre la parte superior del mueble, simulando el ensamble físico real del producto.
+    *   La imagen del lavamanos se alinea y superpone directamente sobre la parte superior del mueble, proyectando una visualización unificada que simula la instalación física real del lavamanos montado sobre el mueble.
 
 ### Lógica de Variación y Colores
 1.  **Selección de Color del Mueble:** Cada mueble puede cambiar su color (ej. Madera, Blanco, Grafito) de forma dinámica.
@@ -48,4 +49,4 @@ El visualizador permite a los clientes combinar e interactuar con diferentes lav
 ## 3. Requerimientos de Assets y Multimedia
 
 *   **Imágenes Transparentes (PNG/WebP):** Las imágenes deben tener fondo transparente y estar recortadas exactamente con la misma proporción y punto de anclaje (bounding box alineada) para lograr un montaje perfecto por CSS overlay.
-*   **Renderización Dinámica:** En lugar de imágenes estáticas de combinaciones precalculadas, el frontend superpone la imagen del Lavamanos seleccionada (`image_url`) encima de la imagen del Mueble seleccionada.
+*   **Renderización Dinámica (Overlay):** En lugar de imágenes estáticas de combinaciones precalculadas, el frontend superpone la imagen del Lavamanos seleccionada (`image_url`) directamente sobre la imagen del Mueble seleccionada, logrando la simulación exacta de la instalación conjunta en tiempo real.

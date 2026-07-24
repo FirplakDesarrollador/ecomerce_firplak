@@ -9,6 +9,7 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 ## 🏗️ Arquitectura y Sistema
 - **[arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md)**: Estructura de base de datos en Supabase, escalabilidad de SKUs e integración con SAP Service Layer.
 - **[pagos_e_integraciones.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagos_e_integraciones.md)**: Integración técnica y flujos de ePayco, PSE, y el financiamiento de ADDI vinculados a Supabase y SAP.
+- **[recomendaciones_pagos_y_productos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/recomendaciones_pagos_y_productos.md)**: Buenas prácticas para el manejo de tipos de productos, variaciones, control de stock y ciclo de vida de pagos.
 - **[integracion_servicios_pedidos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/integracion_servicios_pedidos.md)**: Agendamiento de servicios técnicos y consulta de estados de producción en planta mediante Supabase OAuth y federación de base de datos.
 
 ## 📦 Catálogo de Productos

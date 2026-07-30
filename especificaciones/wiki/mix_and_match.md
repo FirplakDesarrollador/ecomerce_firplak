@@ -34,15 +34,23 @@ El visualizador permite a los clientes combinar e interactuar con diferentes lav
     *   Los assets de imagen de lavamanos y muebles deben poseer dimensiones proporcionales consistentes.
     *   La imagen del lavamanos se alinea y superpone directamente sobre la parte superior del mueble, proyectando una visualización unificada que simula la instalación física real del lavamanos montado sobre el mueble.
 
-### Lógica de Variación y Colores
-1.  **Selección de Color del Mueble:** Cada mueble puede cambiar su color (ej. Madera, Blanco, Grafito) de forma dinámica.
-2.  **Validación de Compatibilidad en Base de Datos:**
-    *   Al cambiar el Lavamanos (A), se consultará la base de datos para obtener el listado de Muebles (X, Y) que son físicamente compatibles con sus dimensiones y desagües.
-    *   Si el mueble seleccionado no es compatible, el sistema sugerirá la combinación recomendada o auto-ajustará al mueble compatible más cercano para evitar combinaciones inviables.
+### Lógica de Variaciones, Colores Independientes y Complementos
+1.  **Selección de Color Independiente:**
+    *   **Color del Mueble:** Se puede alternar el acabado o color del mueble (ej. Madera, Blanco, Grafito, Roble) de forma independiente.
+    *   **Color del Lavamanos:** Se puede alternar la variación de color o acabado del lavamanos (ej. Blanco, Negro Mate, Gris Marmoleado) de forma independiente sin cambiar el modelo.
+2.  **Adición de Complementos (Add-ons):**
+    *   El usuario puede seleccionar e incorporar complementos opcionales al conjunto en tiempo real:
+        *   **Griferías:** Selección de grifería compatible (alta, baja, monocontrol, cromo, negro mate).
+        *   **Incrustaciones:** Detalles decorativos o apliques para el mueble/lavamanos.
+        *   **Accesorios:** Espejos, sifones decorativos, desagües pop-up y toalleros.
+    *   Los complementos seleccionados se previsualizan e integran en la combinación visual (cuando aplique asset 2D) y agregan sus SKUs independientes al total de la compra.
+3.  **Validación de Compatibilidad en Base de Datos:**
+    *   Al cambiar el Lavamanos (A), se consultará la base de datos para obtener el listado de Muebles (X, Y) y Griferías/Complementos que son físicamente compatibles con sus dimensiones, orificios y desagües.
+    *   Si el mueble o complemento seleccionado no es compatible, el sistema sugerirá la combinación recomendada o auto-ajustará a la opción compatible más cercana.
 
 ### Cantidades y Adición al Carrito
-*   **Selector de Cantidad:** Permite especificar la cantidad requerida para el conjunto completo o de forma individual para el lavamanos y el mueble.
-*   **Compra en Combo:** El botón de "Añadir al Carrito" agrega los SKUs correspondientes (Lavamanos SKU y Mueble SKU) vinculándolos en el pedido, permitiendo aplicar descuentos promocionales si aplica.
+*   **Selector de Cantidad:** Permite especificar la cantidad requerida para el conjunto completo o de forma individual para cada componente (lavamanos, mueble y complementos).
+*   **Compra en Combo / Configurado:** El botón de "Añadir al Carrito" agrega la lista completa de SKUs correspondientes (SKU Lavamanos + SKU Mueble + SKUs de Complementos) vinculándolos bajo el mismo identificador de conjunto configurado en el pedido.
 
 ---
 

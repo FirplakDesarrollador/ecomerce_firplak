@@ -53,6 +53,7 @@ ADDI se integrará como una opción de financiamiento a plazos ("Compra ahora, p
 2.  **Confirmación:** Addi enviará una notificación vía Webhook a la Edge Function de Supabase para validar la aprobación del crédito.
 3.  **Procesamiento:** Una vez aprobado, el flujo en backend procesa e inyecta la orden en SAP igual que un pago de ePayco.
 
+
 ---
 
 ## 3. Requerimientos y Preguntas Clave: Plataforma de Pagos
@@ -94,4 +95,3 @@ La estructura de tablas de producto en la base de datos debe contemplar todos lo
 
 ### D. Listas de Precios y Perfiles de Cliente
 * **Relación SKU - Lista de Precios (`PRICE_LIST`):** ¿Cómo se consulta dinámicamente el precio de un SKU según la sesión del usuario (Público general, Distribuidor B2B, Constructor) al momento de armar el payload del checkout?
-

@@ -6,7 +6,7 @@ Esta página detalla el comportamiento, lógica visual e interacción del config
 
 ## 1. Concepto Funcional
 
-El visualizador permite a los clientes combinar e interactuar con diferentes lavamanos y muebles de forma dinámica y alineada verticalmente. Las imágenes del lavamanos se alinean y superponen sobre la imagen del mueble, simulando visualmente ambos productos instalados juntos en un solo entorno de baño.
+El visualizador permite a los clientes combinar e interactuar con diferentes lavamanos y muebles de forma dinámica y alineada verticalmente. Las imágenes del lavamanos se alinean y superponen sobre la imagen del mueble, simulando visualmente ambos productos instalados juntos en un solo entorno de baño y ofreciendo una experiencia interactiva fluida.
 
 ```
           ┌──────────────┐   ┌──────────────┐   ┌──────────────┐

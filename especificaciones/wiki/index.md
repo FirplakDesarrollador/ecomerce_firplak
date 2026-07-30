@@ -5,6 +5,7 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 ## 📌 General
 - **[README.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/README.md)**: Manual de uso y estructura del wiki.
 - **[log.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/log.md)**: Historial cronológico de cambios.
+- **[seo.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/seo.md)**: Guía oficial y especificaciones de SEO para motores tradicionales y de IA.
 
 ## 🏗️ Arquitectura y Sistema
 - **[arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md)**: Estructura de base de datos en Supabase, escalabilidad de SKUs e integración con SAP Service Layer.

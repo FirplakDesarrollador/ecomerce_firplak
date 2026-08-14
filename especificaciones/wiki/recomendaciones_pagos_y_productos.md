@@ -110,7 +110,7 @@ A continuación se analizan las plataformas de e-commerce más representativas y
 * **Puntos Fuertes Nativos:** Motor B2B robusto, soporte nativo de listas de precios complejas, múltiples almacenes y catálogos masivos de SKUs.
 * **Limitaciones para Firplak:** Alta complejidad técnica, costos elevados de licencias e infraestructura, y curva de desarrollo lenta para personalizar la experiencia visual de Mix & Match.
 * **Ampliación de Capacidades Requerida:**
-  * **Front-end:** Reemplazar el frontend nativo por Luma/PWA Studio o un frontend desacoplado en React para el visualizador 2D/3D de Mix & Match.
+  * **Front-end:** Reemplazar el frontend nativo por Luma/PWA Studio o un frontend desacoplado en React para el visualizador 2D de Mix & Match.
   * **Integración SAP:** Configurar conectores de Enterprise Service Bus (ESB) o Magento Web APIs (REST/GraphQL) para sincronizar inventario y pedidos con SAP.
 
 ### D. Stack Propuesto: Headless A Medida (Next.js + Supabase + SAP Service Layer)

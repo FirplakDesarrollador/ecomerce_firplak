@@ -2,6 +2,12 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-08-12] ingest | Especificaciones de Hidromasajes, PDP (Scroll Animado) y Sistema de Diseño UI
+- Creación de especificación comercial y técnica de Spas e Hidromasajes en [hidromasajes.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/hidromasajes.md).
+- Creación de especificación UI/UX, Scroll Animado por categoría y SEO para la PDP en [pagina_producto.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagina_producto.md).
+- Creación de especificación del sistema de diseño, tokens CSS, paleta de colores, fuentes, degradados y animaciones en [sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md).
+- Actualización de índice en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
+
 ## [2026-07-08] update | Refinamiento de Arquitectura de Datos de Catálogo
 - Auditoría de especificaciones de catálogo de Firplak (RETIE, materiales Mármol Sintético/Quartzstone, tolerancias físicas de fabricación).
 - Refinamiento de la entidad `PRODUCT_VARIATION` con soporte para atributos JSONB indexados y descargables PDF en [arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md).

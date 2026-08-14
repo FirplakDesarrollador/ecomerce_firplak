@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firplak E-commerce - Experiencia Ultra Premium</title>
+
+  <!-- Google Fonts: Outfit (Titles & Numbers) & Inter (Body & Labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. TOKENS Y SISTEMA DE DISEÑO (SISTEMA_DISENO.MD)
+       ========================================================================== */
+    :root {
+      /* Marca Principal */
+      --color-primary-50:  #eef7ff;
+      --color-primary-100: #d8edff;
+      --color-primary-500: #0077c8; /* Azul Firplak */
+      --color-primary-700: #004b87;
+      --color-primary-900: #00264d;
+
+      /* Hydro & Bienestar */
+      --color-hydro-cyan:   #00d2d3;
+      --color-hydro-teal:   #01a3a4;
+
+      /* Materiales */
+      --color-stone-marble:  #f8f9fa;
+      --color-stone-quartz:  #e9ecef;
+      --color-wood-rh:        #4a3728;
+
+      /* Neutros */
+      --color-surface-bg:    #0b1325;
+      --color-surface-card:  #152238;
+      --color-text-main:     #ffffff;
+      --color-text-muted:    #94a3b8;
+      --color-border-subtle: rgba(255, 255, 255, 0.1);
+
+      /* Acciones & Estado */
+      --color-accent:   #00d2d3;
+      --color-success:  #10b981;
+
+      /* Fuentes */
+      --font-heading: 'Outfit', sans-serif;
+      --font-body:    'Inter', sans-serif;
+
+      /* Sombras & Elevación */
+      --shadow-floating: 0 16px 36px rgba(0, 119, 200, 0.35);
+      --glass-bg: rgba(21, 34, 56, 0.75);
+      --glass-border: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-surface-bg);
+      color: var(--color-text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: var(--font-heading);
+      letter-spacing: -0.02em;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ==========================================================================
+       2. HEADER & NAVIGATION GLASSMORPHISM
+       ========================================================================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(11, 19, 37, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .brand-logo span {
+      color: var(--color-primary-500);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-hydro-cyan);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .btn-cart {
+      position: relative;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-cart:hover {
+      background: var(--color-primary-500);
+      border-color: var(--color-primary-500);
+      box-shadow: 0 0 20px rgba(0, 119, 200, 0.5);
+    }
+
+    .cart-badge {
+      background: var(--color-hydro-cyan);
+      color: #0b1325;
+      font-size: 0.75rem;
+      font-weight: 800;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       3. HERO SECTION - SPA & HYDRO-MASSAGE HIGHLIGHT
+       ========================================================================== */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 2rem 4rem;
+      background: radial-gradient(circle at 80% 30%, rgba(0, 210, 211, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 10% 70%, rgba(0, 119, 200, 0.2) 0%, transparent 50%);
+    }
+
+    .hero-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 210, 211, 0.1);
+      border: 1px solid rgba(0, 210, 211, 0.3);
+      color: var(--color-hydro-cyan);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-hydro-cyan) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      margin-bottom: 2.5rem;
+      max-width: 540px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-700) 100%);
+      color: #fff;
+      padding: 1rem 2.2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 119, 200, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 210, 211, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--glass-border);
+    }
+
+    .hero-image-wrapper img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-image-wrapper:hover img {
+      transform: scale(1.03);
+    }
+
+    .hero-floating-card {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      padding: 1.25rem;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ==========================================================================
+       4. TRUST BADGES STRIP
+       ========================================================================== */
+    .trust-strip {
+      background: rgba(21, 34, 56, 0.6);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 1.5rem 2rem;
+    }
+
+    .trust-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 119, 200, 0.15);
+      border: 1px solid rgba(0, 119, 200, 0.3);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--color-hydro-cyan);
+    }
+
+    .trust-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .trust-desc {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    /* ==========================================================================
+       5. CATEGORIES GRID (6 FIRPLAK CATEGORIES)
+       ========================================================================== */
+    .categories-section {
+      max-width: 1300px;
+      margin: 6rem auto;
+      padding: 0 2rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-subtitle {
+      color: var(--color-hydro-cyan);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .category-card {
+      position: relative;
+      height: 380px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: var(--color-surface-card);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .category-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--color-primary-500);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .category-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(11, 19, 37, 0.95) 100%);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .category-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .category-desc {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+
+    .category-link {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-hydro-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ==========================================================================
+       6. INTERACTIVE PDP DEMO - APPLE STYLE CONTINUOUS SCROLL EXPERIENCE
+       ========================================================================== */
+    .pdp-demo-section {
+      background: radial-gradient(circle at 50% 20%, rgba(0, 119, 200, 0.15) 0%, rgba(11, 19, 37, 1) 80%);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 5rem 2rem 8rem;
+      position: relative;
+    }
+
+    .pdp-demo-container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .pdp-demo-header {
+      padding: 1.25rem 2rem;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+      position: sticky;
+      top: 80px;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Apple PDP Main Layout: 2 Columns with Sticky Media on the Right */
+    .pdp-apple-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .pdp-narrative-column {
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+    }
+
+    .pdp-sticky-column {
+      position: sticky;
+      top: 170px;
+      height: calc(100vh - 210px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .pdp-sticky-card {
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 2.5rem;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .pdp-sticky-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(0, 210, 211, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .pdp-sticky-card img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      margin-bottom: 1.5rem;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+
+    .pdp-sticky-card img:hover {
+      transform: scale(1.03);
+    }
+
+    .pdp-step-card {
+      background: rgba(21, 34, 56, 0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 3rem;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .pdp-step-card:hover {
+      border-color: rgba(0, 210, 211, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .pdp-step-number {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--color-hydro-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .pdp-step-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .pdp-spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .pdp-spec-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      padding: 1.25rem 1rem;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .spec-val {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--color-hydro-cyan);
+    }
+
+    .spec-lbl {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Interactive Version Swapper */
+    .version-picker {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.75rem 0;
+    }
+
+    .version-btn {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      border-radius: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .version-btn small {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    .version-btn.active {
+      background: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-700) 100%);
+      border-color: var(--color-hydro-cyan);
+      box-shadow: 0 8px 20px rgba(0, 119, 200, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .version-btn.active small {
+      color: #e0f2fe;
+    }
+
+    /* Technical Requirements List */
+    .tech-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .tech-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 1rem 1.25rem;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .tech-icon {
+      font-size: 1.4rem;
+      background: rgba(0, 210, 211, 0.15);
+      padding: 0.5rem;
+      border-radius: 10px;
+      line-height: 1;
+    }
+
+    /* Floating CTA Window Bar - Apple Sticky Window Bottom */
+    .pdp-sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(11, 19, 37, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ==========================================================================
+       7. FOOTER
+       ========================================================================== */
+    .footer {
+      background: #070c18;
+      border-top: 1px solid var(--glass-border);
+      padding: 4rem 2rem 2rem;
+    }
+
+    .footer-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      max-width: 340px;
+    }
+
+    .footer-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: #fff;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--color-hydro-cyan);
+    }
+
+    .footer-bottom {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER GLASSMORPHISM
+       ========================================================================== -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        FIRPLAK <span>.</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#spas">Spas e Hidromasajes</a></li>
+        <li><a href="#banos">Baños</a></li>
+        <li><a href="#cocinas">Cocinas</a></li>
+        <li><a href="#labores">Zona de Labores</a></li>
+        <li><a href="#outdoor">Outdoor</a></li>
+        <li><a href="#pdp-demo">PDP Interactive</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn-cart" onclick="alert('Carrito de Compras: 1 producto cargado (Jacuzzi Spa)')">
+          🛒 Carrito
+          <span class="cart-badge">1</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+  <section class="hero">
+    <div class="hero-container">
+      <div>
+        <div class="hero-badge">
+          ✨ Innovación en Bienestar & Agua
+        </div>
+        <h1 class="hero-title">
+          Transforma tu espacio en un <span>Spa de Lujo</span>
+        </h1>
+        <p class="hero-subtitle">
+          Diseño arquitectónico, Mármol Sintético, Quartzstone y tecnología avanzada de hidromasaje respaldada por 5 años de garantía directa de fábrica.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="scrollToDemo()">Explorar Jacuzzis & Spas</button>
+          <button class="btn-secondary" onclick="alert('Abriendo Visualizador Mix & Match...')">Visualizador Mix & Match</button>
+        </div>
+      </div>
+
+      <div class="hero-image-wrapper">
+        <img src="assets/hero_jacuzzi.png" alt="Jacuzzi Spa Firplak">
+        <div class="hero-floating-card">
+          <div>
+            <div style="font-size: 0.75rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;">Modelo Destacado</div>
+            <div style="font-weight: 800; font-size: 1.1rem;">Spa Jacuzzi Sunset Hydro 220V</div>
+            <div style="font-size: 0.85rem; color: var(--color-hydro-cyan); font-weight: 700;">Promesa: Despacho en 15 días hábiles</div>
+          </div>
+          <div style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 800; color: #fff;">
+            $14.890.000 COP
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       TRUST BADGES STRIP
+       ========================================================================== -->
+  <div class="trust-strip">
+    <div class="trust-container">
+      <div class="trust-item">
+        <div class="trust-icon">🚚</div>
+        <div>
+          <div class="trust-title">Despacho 15 Días Hábiles</div>
+          <div class="trust-desc">Entrega estricta en 1er piso</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🛡️</div>
+        <div>
+          <div class="trust-title">Garantía Directa Firplak</div>
+          <div class="trust-desc">5 Años casco / 1 Año electromecánico</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💳</div>
+        <div>
+          <div class="trust-title">Financiación ADDI / ePayco</div>
+          <div class="trust-desc">Cuotas mensuales inmediatas</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🔧</div>
+        <div>
+          <div class="trust-title">Instalación Certificada</div>
+          <div class="trust-desc">Agendamiento técnico en línea</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CATEGORIES GRID
+       ========================================================================== -->
+  <section class="categories-section" id="banos">
+    <div class="section-header">
+      <div class="section-subtitle">Catálogo Completo Firplak</div>
+      <h2 class="section-title">Soluciones Integrales para el Hogar</h2>
+    </div>
+
+    <div class="categories-grid">
+      <!-- 1. Spas e Hidromasajes -->
+      <div class="category-card" onclick="scrollToDemo()">
+        <img src="assets/hero_jacuzzi.png" alt="Spas e Hidromasajes">
+        <div class="category-overlay">
+          <div class="category-name">Spas e Hidromasajes</div>
+          <div class="category-desc">Jacuzzis exentos, tinas empotrables, aeromasaje y saunas.</div>
+          <div class="category-link">Ver Ficha & Scroll Animado →</div>
+        </div>
+      </div>
+
+      <!-- 2. Baños -->
+      <div class="category-card">
+        <img src="assets/lavamanos.png" alt="Baños Firplak">
+        <div class="category-overlay">
+          <div class="category-name">Baños & Lavamanos</div>
+          <div class="category-desc">Lavamanos Mármol Sintético, muebles flotantes RH y combos.</div>
+          <div class="category-link">Explorar Colección →</div>
+        </div>
+      </div>
+
+      <!-- 3. Cocinas -->
+      <div class="category-card">
+        <img src="assets/cocina.png" alt="Cocinas Quartzstone">
+        <div class="category-overlay">
+          <div class="category-name">Cocinas & Mesones</div>
+          <div class="category-desc">Superficies en Quartzstone, lavaplatos y campanas integradas.</div>
+          <div class="category-link">Explorar Cocinas →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       INTERACTIVE PDP DEMO - APPLE STYLE CONTINUOUS SCROLL EXPERIENCE
+       ========================================================================== -->
+  <section class="pdp-demo-section" id="pdp-demo">
+    <div class="pdp-demo-container">
+
+      <!-- Sticky Sub-Navigation Header (Apple Style) -->
+      <div class="pdp-demo-header">
+        <div style="font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 0.75rem;">
+          <span style="color: var(--color-hydro-cyan); font-size: 0.9rem;">●</span> Spa Jacuzzi Sunset Hydro-Plus
+        </div>
+        <div style="display: flex; align-items: center; gap: 1.5rem; font-size: 0.85rem; color: #94a3b8; font-weight: 600;">
+          <span style="color: #fff;">Demostración Scroll Continuo</span>
+          <button class="btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.85rem; border-radius: 50px;" onclick="alert('Iniciando compra directa...')">Comprar Ahora</button>
+        </div>
+      </div>
+
+      <!-- Main Apple PDP 2-Column Continuous Scroll Layout -->
+      <div class="pdp-apple-layout">
+        
+        <!-- Left Column: Rich Extended Narrative Cards -->
+        <div class="pdp-narrative-column">
+          
+          <!-- PASO 1: Impacto Visual & Especificaciones Base -->
+          <div class="pdp-step-card" id="pdp-step-1">
+            <div class="pdp-step-number">01 / Diseño & Arquitectura</div>
+            <h3 class="pdp-step-title">Jacuzzi Spa Sunset Hydro-Plus</h3>
+            <p style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.7;">
+              Diseñado para ofrecer una experiencia inmersiva de relajación hidroterapéutica en espacios exteriores e interiores. Estructura autoportante autolimpiante con faldón en madera teca sintética de alta resistencia a la intemperie y radiación UV.
+            </p>
+
+            <div class="pdp-spec-grid">
+              <div class="pdp-spec-item">
+                <div class="spec-val">6</div>
+                <div class="spec-lbl">Personas</div>
+              </div>
+              <div class="pdp-spec-item">
+                <div class="spec-val">1.200 L</div>
+                <div class="spec-lbl">Capacidad</div>
+              </div>
+              <div class="pdp-spec-item">
+                <div class="spec-val">2.5 HP</div>
+                <div class="spec-lbl">Motobomba</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 2: Ingeniería Hydro & Masaje Ergonómico -->
+          <div class="pdp-step-card" id="pdp-step-2">
+            <div class="pdp-step-number">02 / Tecnología Hidromasaje</div>
+            <h3 class="pdp-step-title">Sistema de Hidroterapia Avanzada</h3>
+            <p style="color: #cbd5e1; font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.5rem;">
+              Equipado con 14 hydro-jets de alta presión orientables, 8 micro-jets dorsales de efecto relajante y sistema de cromoterapia LED sumergible multicolor.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: rgba(0, 210, 211, 0.06); border: 1px solid rgba(0, 210, 211, 0.2); padding: 1.25rem; border-radius: 16px;">
+                <div style="font-weight: 700; color: var(--color-hydro-cyan); margin-bottom: 0.25rem;">🌊 Hydro-Jets Ajustables</div>
+                <div style="font-size: 0.85rem; color: #cbd5e1;">Control de flujo de aire/agua individual en cada zona del cuerpo.</div>
+              </div>
+              <div style="background: rgba(0, 119, 200, 0.08); border: 1px solid rgba(0, 119, 200, 0.2); padding: 1.25rem; border-radius: 16px;">
+                <div style="font-weight: 700; color: #38bdf8; margin-bottom: 0.25rem;">💡 Cromoterapia LED</div>
+                <div style="font-size: 0.85rem; color: #cbd5e1;">7 secuencias lumínicas programables para relajación nocturna.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 3: Selector Interactivo de Versiones -->
+          <div class="pdp-step-card" id="pdp-step-3">
+            <div class="pdp-step-number">03 / Configuración In-Scroll</div>
+            <h3 class="pdp-step-title">Selecciona la Versión Ideal</h3>
+            <p style="color: #cbd5e1; font-size: 1rem;">
+              Cambia la versión en tiempo real para visualizar las diferencias estéticas, equipamiento y costo:
+            </p>
+
+            <div class="version-picker">
+              <button class="version-btn active" onclick="setVersion('Spa Exento', '$14.890.000', 'Faldón Teca Sintético incluido', 'assets/hero_jacuzzi.png')">
+                <span>Spa Exento</span>
+                <small>Faldón Teca Incluido</small>
+              </button>
+              <button class="version-btn" onclick="setVersion('Plus Hydro', '$12.450.000', 'Aeromasaje + Cromoterapia LED', 'assets/hero_jacuzzi.png')">
+                <span>Plus Hydro</span>
+                <small>Aeromasaje + LED</small>
+              </button>
+              <button class="version-btn" onclick="setVersion('Empotrada', '$9.990.000', 'Para mampostería de obra', 'assets/hero_jacuzzi.png')">
+                <span>Empotrada</span>
+                <small>Sin Faldón Exterior</small>
+              </button>
+            </div>
+
+            <div id="versionDetail" style="background: rgba(0,210,211,0.08); border: 1px solid rgba(0,210,211,0.3); padding: 1.25rem; border-radius: 16px; color: var(--color-hydro-cyan); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.75rem;">
+              <span>✨</span> <span id="versionDetailText">Opción Activa: Spa Exento - Faldón Teca Sintético incluido</span>
+            </div>
+          </div>
+
+          <!-- PASO 4: Pre-instalación & Acometidas Técnicas -->
+          <div class="pdp-step-card" id="pdp-step-4">
+            <div class="pdp-step-number">04 / Preparación Técnica</div>
+            <h3 class="pdp-step-title">Acometidas & Requerimientos de Obra</h3>
+            <p style="color: #cbd5e1; font-size: 1rem;">
+              Para garantizar una instalación limpia y segura, asegúrate de contar con los siguientes puntos técnicos en el sitio de montaje:
+            </p>
+
+            <ul class="tech-list">
+              <li class="tech-item">
+                <div class="tech-icon">⚡</div>
+                <div>
+                  <div style="font-weight: 700; color: #fff;">Acometida Eléctrica 220V</div>
+                  <div style="font-size: 0.85rem; color: #94a3b8;">Bifásica con protección de breaker GFCI independiente de 30 Amperios.</div>
+                </div>
+              </li>
+              <li class="tech-item">
+                <div class="tech-icon">💧</div>
+                <div>
+                  <div style="font-weight: 700; color: #fff;">Suministro Hidráulico 3/4"</div>
+                  <div style="font-size: 0.85rem; color: #94a3b8;">Punto de agua fría y caliente con presión mínima de 30 PSI y trampa de olor.</div>
+                </div>
+              </li>
+              <li class="tech-item">
+                <div class="tech-icon">🛠️</div>
+                <div>
+                  <div style="font-weight: 700; color: #fff;">Registro Técnico de Registro 40x40 cm</div>
+                  <div style="font-size: 0.85rem; color: #94a3b8;">Obligatorio para permitir ventilación e inspección técnica de la motobomba.</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- PASO 5: Descargables Técnicos PDF -->
+          <div class="pdp-step-card" id="pdp-step-5">
+            <div class="pdp-step-number">05 / Recursos Técnicos</div>
+            <h3 class="pdp-step-title">Fichas Técnicas & Manuales PDF</h3>
+            <p style="color: #cbd5e1; font-size: 1rem; margin-bottom: 1.5rem;">
+              Descarga la documentación oficial para tu arquitecto o instalador hidráulico:
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <button class="btn-secondary" style="flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onclick="alert('Descargando Ficha Técnica PDF oficial...')">
+                📄 Ficha Técnica (PDF)
+              </button>
+              <button class="btn-secondary" style="flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onclick="alert('Descargando Manual de Instalación PDF...')">
+                🛠️ Manual de Instalación
+              </button>
+            </div>
+          </div>
+
+          <!-- PASO 6: Confianza & Financiación -->
+          <div class="pdp-step-card" id="pdp-step-6">
+            <div class="pdp-step-number">06 / Respaldo Firplak</div>
+            <h3 class="pdp-step-title">Garantía Directa & Financiación</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 1.25rem; border-radius: 16px;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🛡️</div>
+                <div style="font-weight: 700; font-size: 1rem; color: #fff;">5 Años de Garantía</div>
+                <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.25rem;">Cobertura directa de fábrica en casco y 1 año en partes electromecánicas.</div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 1.25rem; border-radius: 16px;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💳</div>
+                <div style="font-weight: 700; font-size: 1rem; color: #fff;">Cuotas con ADDI</div>
+                <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.25rem;">Págalo en cuotas mensuales desde $620.000 COP sin papeleos.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Sticky Visual Showcase (Apple Style Fixed Media) -->
+        <div class="pdp-sticky-column">
+          <div class="pdp-sticky-card">
+            <div id="pdpDisplayBadge" style="display: inline-block; background: rgba(0, 210, 211, 0.12); border: 1px solid rgba(0, 210, 211, 0.3); color: var(--color-hydro-cyan); padding: 0.35rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1.25rem;">
+              ✨ Simulación 3D Animada In-Scroll
+            </div>
+
+            <img id="pdpDisplayImage" src="assets/hero_jacuzzi.png" alt="Jacuzzi Spa Sunset Firplak">
+
+            <div id="pdpDisplayTitle" style="font-weight: 800; font-size: 1.3rem; margin-bottom: 0.25rem;">
+              Spa Jacuzzi Sunset Hydro-Plus
+            </div>
+            
+            <div id="pdpDisplaySubtitle" style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.5rem;">
+              Versión Spa Exento con Faldón en Teca Sintética
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--glass-border); padding: 0.85rem 1.25rem; border-radius: 14px; display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 0.85rem; color: #cbd5e1; font-weight: 600;">Despacho Estimado:</span>
+              <span style="font-size: 0.85rem; color: var(--color-hydro-cyan); font-weight: 700;">15 Días Hábiles</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Floating Window Bottom Buy Bar (Apple Sticky Bar) -->
+    <div class="pdp-sticky-bar">
+      <div>
+        <div id="stickyName" style="font-weight: 800; font-size: 1.15rem;">Spa Jacuzzi Sunset (Spa Exento)</div>
+        <div style="font-size: 0.8rem; color: var(--color-hydro-cyan); font-weight: 700;">Promesa: Despacho 15 días hábiles | 5 Años Garantía</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1.75rem;">
+        <div id="stickyPrice" style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: #fff;">
+          $14.890.000 COP
+        </div>
+        <button class="btn-primary" style="padding: 0.85rem 2rem; font-size: 1rem; border-radius: 14px;" onclick="alert('¡Producto agregado al carrito de compras!')">
+          🛒 Agregar al Carrito
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand-logo" style="margin-bottom: 1rem;">
+          FIRPLAK <span>.</span>
+        </div>
+        <p style="color: #94a3b8; font-size: 0.9rem;">
+          Líderes en soluciones de baño, cocinas, lavaderos y spas con Mármol Sintético, Quartzstone y tecnología de hidromasaje.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-title">Categorías</div>
+        <ul class="footer-links">
+          <li><a href="#">Spas e Hidromasajes</a></li>
+          <li><a href="#">Lavamanos & Muebles</a></li>
+          <li><a href="#">Cocinas & Mesones</a></li>
+          <li><a href="#">Zona de Labores</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-title">Soporte Técnico</div>
+        <ul class="footer-links">
+          <li><a href="#">Agendamiento Citas</a></li>
+          <li><a href="#">Seguimiento de Producción</a></li>
+          <li><a href="#">Garantías & Repuestos</a></li>
+          <li><a href="#">Manuales de Instalación</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-title">Contacto Firplak</div>
+        <p style="color: #94a3b8; font-size: 0.9rem;">
+          Medellín & Bogotá, Colombia<br>
+          Línea de Atención: 01 8000 123 456<br>
+          servicioalcliente@firplak.com
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Firplak S.A. Todos los derechos reservados.</div>
+      <div>Desarrollado para e-Commerce Firplak Next.js + Supabase</div>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToDemo() {
+      document.getElementById('pdp-demo').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function setVersion(name, price, detail, imgSrc) {
+      // Toggle active states on version buttons
+      document.querySelectorAll('.version-btn').forEach(btn => btn.classList.remove('active'));
+      if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+      }
+
+      // Update text details
+      document.getElementById('versionDetailText').innerText = `Opción Activa: ${name} - ${detail}`;
+      document.getElementById('pdpDisplaySubtitle').innerText = `Versión: ${name} (${detail})`;
+      document.getElementById('stickyName').innerText = `Spa Jacuzzi Sunset (${name})`;
+      document.getElementById('stickyPrice').innerText = `${price} COP`;
+      document.getElementById('pdpDisplayTitle').innerText = `Spa Jacuzzi Sunset ${name}`;
+
+      // Smooth visual feedback on sticky image
+      const img = document.getElementById('pdpDisplayImage');
+      img.style.opacity = '0.4';
+      img.style.transform = 'scale(0.96)';
+      setTimeout(() => {
+        if (imgSrc) img.src = imgSrc;
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+      }, 200);
+    }
+  </script>
+</body>
+</html>

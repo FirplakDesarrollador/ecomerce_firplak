@@ -6,6 +6,11 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-09-04] update | Redefinición Estratégica de Carpintería de Obra (Showcase B2B sin Precios ni SAP)
+- Redefinición de [carpinteria_obra.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/carpinteria_obra.md): se elimina la integración transaccional con SAP y listas de precios públicas.
+- Se redefine como una galería de casos de éxito y proyectos emblemáticos que expone los features clave de ingeniería y manufactura a escala para constructores y arquitectos.
+- Establecimiento del embudo hacia un formulario consultivo de intención de contacto y carga de planos para concursar y licitar proyectos.
+
 ## [2026-09-03] update | Integración del FIRPLAK Experience Stack (R3F, GSAP, Blender y Higgsfield REAL)
 - Definición de la arquitectura visual sobre Next.js: GSAP 3 + ScrollTrigger + React Three Fiber + Drei + KTX2/Draco + Higgsfield REAL para cinematografía lifestyle.
 - Adopción del modelo de 3 Tiers de producto (Tier 1 Hero 3D, Tier 2 Core GSAP+Fotos, Tier 3 Long Tail ágil) y 5 templates maestros (`StoryLavamanos`, `StoryMuebleBaño`, `StoryCocina`, `StoryHidromasaje`, `StoryOutdoor`).

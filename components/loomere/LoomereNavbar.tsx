@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
+import FirplakLogo from '@/components/layout/FirplakLogo';
 import { LOOMERE_SCENES } from './sceneData';
 
 interface LoomereNavbarProps {
@@ -39,9 +40,8 @@ export default function LoomereNavbar({
             >
               <span>Capítulos</span>
               <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  isChaptersOpen ? 'rotate-180 text-cyan-400' : 'text-white/50'
-                }`}
+                className={`w-3.5 h-3.5 transition-transform duration-200 ${isChaptersOpen ? 'rotate-180 text-cyan-400' : 'text-white/50'
+                  }`}
               />
             </button>
 
@@ -64,16 +64,14 @@ export default function LoomereNavbar({
                           onSelectScene(idx);
                           setIsChaptersOpen(false);
                         }}
-                        className={`w-full text-left px-4 py-2.5 text-xs flex items-center gap-3 transition-colors ${
-                          isActive
-                            ? 'bg-cyan-500/20 text-cyan-300 font-medium'
-                            : 'text-white/70 hover:text-white hover:bg-white/10'
-                        }`}
+                        className={`w-full text-left px-4 py-2.5 text-xs flex items-center gap-3 transition-colors ${isActive
+                          ? 'bg-cyan-500/20 text-cyan-300 font-medium'
+                          : 'text-white/70 hover:text-white hover:bg-white/10'
+                          }`}
                       >
                         <span
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isActive ? 'bg-cyan-400' : 'bg-white/30'
-                          }`}
+                          className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-cyan-400' : 'bg-white/30'
+                            }`}
                         />
                         <span className="font-mono text-[10px] text-white/40">
                           0{idx + 1}
@@ -91,15 +89,8 @@ export default function LoomereNavbar({
         {/* Center: Logo FIRPLAK */}
         <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
           <Link href="/" className="flex items-center group">
-            <div className="flex items-center h-9">
-              <Image
-                src="/logo.webp"
-                alt="FIRPLAK"
-                width={140}
-                height={36}
-                className="object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105"
-                priority
-              />
+            <div className="flex items-center h-[18px]">
+              <FirplakLogo height={18} letterSpacing="0.48em" className="group-hover:scale-105" />
             </div>
           </Link>
         </div>

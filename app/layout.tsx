@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,8 +14,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Firplak | E-commerce",
-  description: "Fabricamos y comercializamos soluciones innovadoras que promueven salud y bienestar, mejoran la calidad de vida de nuestros clientes.",
+  title: "FIRPLAK | Experiencia Cinematográfica & Diseño",
+  description: "Descubre un día a través del diseño y la innovación de FIRPLAK: lavamanos, cocinas integrales, zonas de labores e hidromasajes de lujo.",
 };
 
 export default function RootLayout({
@@ -29,12 +28,10 @@ export default function RootLayout({
       lang="es"
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white">
-        <Navbar />
-        <main className="flex-grow">
+      <body className="min-h-full">
+        <ConditionalLayout>
           {children}
-        </main>
-        <Footer />
+        </ConditionalLayout>
       </body>
     </html>
   );

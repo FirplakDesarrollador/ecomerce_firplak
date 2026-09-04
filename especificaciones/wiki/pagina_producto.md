@@ -1,72 +1,90 @@
-# Especificaciones UI/UX: Página de Detalle de Producto (PDP)
+# Especificaciones UI/UX: Página de Detalle de Producto (PDP) y Scrollytelling
 
-Este documento establece la arquitectura de información, los componentes interactivos, las reglas de negocio y los requisitos de SEO para la Página de Detalle de Producto (PDP) de Firplak E-commerce.
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Convertir la PDP en un motor cinematográfico parametrizable por familia de producto (5 templates maestros) clasificado en 3 Tiers (Hero 3D, Core interactivo, Long Tail ágil). La narrativa de 8 pasos orquestada por GSAP y React Three Fiber guía al usuario desde la atmósfera inicial (clips Higgsfield) y el giro del modelo CAD real hasta la configuración física de color, instalación y ensamble Mix & Match, cerrando con una conversión comercial convencional impulsada por precios en tiempo real de SAP y pasarelas ePayco/ADDI. El SEO semántico vive estrictamente en el SSR, nunca dentro del canvas.
+
+Este documento establece la arquitectura de información, la narrativa de scrollytelling en 8 fases, los componentes interactivos, las reglas de tiers y los requisitos de SEO para la PDP de Firplak E-commerce.
 
 ---
 
-## 1. Arquitectura de Layout: Experiencia Scroll Animado (Scroll-Driven PDP)
+## 1. Arquitectura de Layout: Narrativa Scrollytelling en 8 Fases
 
-La PDP adopta un formato inmersivo de **Scroll Animado (Multi-step Scroll)** donde la información, animaciones, datos técnicos y descargables se descubren progresivamente al desplazar la página, manteniendo siempre el foco en la conversión mediante una barra/botón flotante persistente:
+La PDP de productos insignia (Tier 1) adopta una estructura de **8 fases progresivas sincronizadas al scroll** mediante GSAP ScrollTrigger y React Three Fiber, antes de desembocar en el flujo transaccional:
 
 ```
-+-----------------------------------------------------------------------+
-|  [Header / Navigation Bar]                                            |
-+-----------------------------------------------------------------------+
-|                                                                       |
-|  PASO 1: HERO IMPACTO VISUAL                                          |
-|  - Imagen / Animación 3D principal del producto                      |
-|  - Título, Rating, Precio base, Selección de variante rápida          |
-|                                                                       |
-|  PASO 2: DESPIECE Y CARACTERÍSTICAS TÉCNICAS (ANIMACIÓN AL SCROLL)    |
-|  - Transiciones de componentes clave según avance del scroll           |
-|  - Datos técnicos graficados (medidas, capacidad, resistencia)       |
-|                                                                       |
-|  PASO 3: CONFIGURACIÓN INTERACTIVA IN-SCROLL                          |
-|  - Interactividad en vivo: Cambio de color, dimensiones, tipo de     |
-|    montaje (ej. para Hidromasajes: Versiones Plus, Spa, Empotradas)   |
-|                                                                       |
-|  PASO 4: REQUERIMIENTOS, DESCARGABLES & MANUALES                     |
-|  - Descarga directa de Fichas Técnicas PDF y Manuales de Instalación |
-|                                                                       |
-|  PASO 5: CROSS-SELLING, RESEÑAS & FAQS                               |
-|                                                                       |
-+-----------------------------------------------------------------------+
-| [STICKY / FLOATING CTA BAR]                                           |
-| Nombre Producto | Precio Dinámico | [Agregar al Carrito] [Comprar Ahora]|
-+-----------------------------------------------------------------------+
+[ SCROLL PROGRESS ]
+0%  ────► 15% : FASE 1 - CONTEXTO & ATMÓSFERA (Clip Higgsfield: producto integrado en ambiente real de lujo)
+15% ────► 30% : FASE 2 - AISLAMIENTO DEL PRODUCTO (El entorno desaparece; foco absoluto en el diseño Firplak)
+30% ────► 45% : FASE 3 - GIRO 3D CAD REAL (Three.js rota geometría exacta: 0° -> 45° -> 90° -> vista inferior)
+45% ────► 60% : FASE 4 - DEMOSTRACIÓN FÍSICA (Callouts dinámicos: Mármol Sintético / Quartzstone, 5 años garantía)
+60% ────► 70% : FASE 5 - COLOR SWAP INSTANTÁNEO (El modelo 3D estático transmuta entre acabados comerciales)
+70% ────► 80% : FASE 6 - INGENIERÍA DE INSTALACIÓN (Demostración visual: Sobreponer vs. Submontar en el mesón)
+80% ────► 90% : FASE 7 - MIX & MATCH INTERACTIVO (El lavamanos desciende sobre el mueble y entra el configurador)
+90% ────► 100%: FASE 8 - COMERCIO & CHECKOUT (Resumen, precio real SAP B1, botón de compra, ePayco y ADDI)
++---------------------------------------------------------------------------------------------------------+
+| [STICKY / FLOATING CTA BAR] (Activa desde fase 2)                                                       |
+| Nombre Producto | Acabado Seleccionado | Precio Dinámico | [Agregar al Carrito] [Comprar Ahora con ADDI]|
++---------------------------------------------------------------------------------------------------------+
 ```
 
 ---
 
 ## 2. Componentes Clave de la PDP
 
-### A. Vista por Scroll Animado Multipaso (Scroll Animation)
-- **Secuencia Narrativa Visual**: Conforme el usuario navega hacia abajo, el producto revela sus características en capas mediante animaciones activadas por scroll (Scroll-Driven Animations / GSAP ScrollTrigger o CSS Scroll-driven Animations).
-- **Graficación de Datos Clave**: Indicadores visuales destacados (ej. Capacidad en Litros, Potencia de Motobomba, Resistencia Térmica RH, Grado de Garantía) integrados dinámicamente en la experiencia.
+### A. Vista por Scroll Animado Multipaso (Canvas Frame Scrubbing Engine)
+- **Tecnología Oficial**: Implementada mediante **HTML5 `<canvas>` 2D**, **GSAP 3 + ScrollTrigger** y **Lenis Smooth Scroll**.
+- **Mecánica de Scrollytelling**:
+  - Al entrar al contenedor de animación, la sección se fija a la pantalla (`pin: true`).
+  - El desplazamiento del usuario avanza progresivamente la secuencia fotográfica pre-renderizada en 3D (`scrub: 0.5`).
+  - No se utiliza WebGL pesado en tiempo real; se dibuja una secuencia de fotogramas WebP optimizados (<40 KB c/u), asegurando **60 a 120 FPS sin lag de GPU** en cualquier dispositivo móvil o de escritorio.
+- **Graficación Dinámica de Datos**: Overlays flotantes con información clave (Capacidad en Litros, Potencia de Bomba 2 HP, Voltaje 110V/220V, Grado de Garantía) que entran y salen en momentos exactos de la secuencia animada.
 
-### B. Barra CTA Flotante Persistente (Floating Buy Bar)
-- **Visibilidad Permanente**: Al desplazar la vista pasando la sección Hero, se activa una barra flotante (Sticky Bottom/Top Bar en mobile y desktop).
-- **Acciones Directas**: Muestra el nombre de la variante seleccionada, el precio dinámico actualizado y dos botones principales:
+### A. Los Tres Niveles de Experiencia por Producto (Product Tiers)
+No todos los SKUs justifican 3D o scrollytelling complejo. Se define una estrategia escalable en 3 niveles:
+*   **Tier 1 — Hero Products (Lanzamientos e Insignias)**:
+    - Productos de alto impacto (ej. colecciones insignia, lavamanos diferenciados tipo Koa, hidromasajes de lujo, cocinas modulares completas).
+    - Incluyen **3D real en React Three Fiber (geometría CAD)** + **clips Higgsfield lifestyle** + **GSAP ScrollTrigger avanzado** + **Mix & Match interactivo**.
+*   **Tier 2 — Core Products (Catálogo Principal)**:
+    - Fotografías de estudio de alta resolución + GSAP suave + parallax + switch de acabados/colores + Mix & Match (sin Three.js).
+*   **Tier 3 — Long Tail (Accesorios y Piezas Simples)**:
+    - PDP convencional ultra-optimizada + microanimaciones CSS + galería fotográfica + ficha técnica + carrito rápido.
+
+### B. Los 5 Templates Maestros de Storytelling
+Para evitar programar 300 páginas individuales, el sistema opera con 5 plantillas parametrizadas en Supabase (`PRODUCT_STORY`):
+1. **`StoryLavamanos`**: Foco en pureza geométrica, asepsia de mármol sintético, orificios de grifería, instalación sobreponer/submontar y ensamble con mueble.
+2. **`StoryMuebleBaño`**: Foco en tableros melamínicos RH, cierre suave de herrajes, capacidad de almacenamiento y compatibilidad de lavamanos.
+3. **`StoryCocina`**: Foco en ergonomía del triángulo de trabajo, resistencia térmica de mesón Quartzstone y orientación de poceta (L/R).
+4. **`StoryHidromasaje`**: Foco en hidroterapia, potencia de motobomba (2 HP), acometida eléctrica GFCI y selector in-scroll de versiones (Plus/Spa).
+5. **`StoryOutdoor`**: Foco en resistencia a intemperie, acero 304, cálculo de carga en terrazas (kg/m²) y aislamiento térmico.
+
+### C. Reglas de Adaptación Responsive (Desktop vs. Mobile)
+*   **En Desktop**:
+    - Se habilita WebGL completo (React Three Fiber) con escenas ancladas (`pin: true`), control milimétrico de cámara 3D (`camera.position`, `camera.target`) y scrubbing continuo.
+*   **En Mobile**:
+    - Por consumo de batería y memoria, Three.js se carga de forma diferida (`next/dynamic` con `ssr: false`).
+    - Las transiciones complejas se sustituyen por clips de video ultracortos (3 a 6s) o secuencias de imágenes WebP ligeras con anclajes mínimos para garantizar fluidez táctil natural.
+
+### D. Regla de Oro: Separación Estricta entre SEO y Experiencia Visual
+*   **El SEO NUNCA vive dentro del Canvas/WebGL**:
+    - Los motores de búsqueda (Googlebot, SearchGPT, Perplexity) deben recibir el contenido semántico completo desde el servidor mediante SSR/ISR en Next.js (`<h1>`, `<h2>`, tablas de especificaciones, Schema.org JSON-LD).
+    - La capa de experiencia (Three.js / GSAP) se monta **encima del HTML semántico** en el cliente sin ocultar ni reemplazar el texto base.
+*   **Presupuesto de Rendimiento (Performance First)**:
+    - El primer viewport siempre se renderiza con HTML + imagen estática optimizada (`next/image`), logrando un LCP < 1.5s.
+    - Los módulos pesados de Three.js y GSAP solo se inicializan cuando el usuario comienza el desplazamiento hacia la sección interactiva.
+
+### E. Barra CTA Flotante Persistente (Floating Buy Bar)
+- **Visibilidad Permanente**: Se activa suavemente al avanzar más allá del Hero.
+- **Acciones Directas**: Muestra la variante activa, precio dinámico sincronizado con SAP B1 y botones directos:
   - 🛒 *Agregar al Carrito*
-  - ⚡ *Comprar Ahora* (Checkout Directo)
+  - ⚡ *Comprar Ahora con ADDI* (cálculo de cuotas en vivo)
 
-### C. Selector e Interactividad Inline In-Scroll
-- Permite cambiar atributos del producto sin perder la posición del scroll ni recargar la página:
-  - **Variaciones Estéticas**: Colores y texturas (Mármol sintético, Quartzstone, Maderas RH).
-  - **Dimensiones y Tipos de Montaje**: Cambio entre versiones empotrables, sobreponer o flotantes.
-  - **Configuración de Hidromasajes**: Alternar en tiempo real entre versiones **Básica / Plus / Spa / Empotrada**, actualizando de forma fluida los renders, animaciones y el precio final.
-
-### D. Galería Multimedia de Alta Resolución
-- **Imágenes de Ambiente y Producto Aislado**: Fondos limpios y fotos contextuales en ambientes de baño/cocina reales.
-- **Plano Técnico / Diagrama Dimensional**: Imagen obligatoria que muestre las medidas exactas (Ancho, Alto, Profundidad, Diámetros de desagüe).
-- **Simulaciones 3D Animadas por Scroll**: Secuencias visuales y renders animados 3D impulsados por la navegación de la página (no se utilizan visores 3D de manipulación directa ni AR).
-
-### E. Banners Informativos de Confianza (Trust Badges)
-Ubicados en la zona Hero y dentro de la barra flotante:
+### F. Banners Informativos de Confianza (Trust Badges)
+Ubicados tanto en la cabecera como en la barra flotante:
 - 🚚 **Promesa de Despacho**: "Despacho estimado en **15 días hábiles**".
 - 📦 **Política de Entrega**: "Entrega estricta en **primer piso**".
 - 🛡️ **Garantía Directa**: "Hasta **5 años** de garantía de fábrica".
-- 💳 **Financiación ADDI / ePayco**: Cálculo de cuotas en tiempo real (ej. "Llévalo desde \$XX/mes con ADDI").
+- 💳 **Financiación ADDI / ePayco**: Integración transparente de crédito inmediato.
 
 ---
 
@@ -90,8 +108,9 @@ La PDP debe incluir tabs estructurados para evitar la saturación visual:
 
 ## 4. Estrategia de Venta Cruzada (Cross-Selling / Up-Selling)
 
-- **Accesorios Imprescindibles**: Si el usuario ve un lavamanos, la PDP debe sugerir el desagüe/sifón y la grifería compatible.
-- **Arma tu Mueble / Mix & Match**: Botón alternativo "Ver en Visualizador Mix & Match" para combinar el producto con muebles o mesones.
+- **Accesorios Imprescindibles**: Si el usuario ve un lavamanos o tina, la PDP debe sugerir el desagüe/sifón y la grifería compatible (especificados en [accesorios.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/accesorios.md) y [griferia_plomeria.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/griferia_plomeria.md)).
+- **Arma tu Mueble / Mix & Match**: Botón alternativo "Ver en Visualizador Mix & Match" para combinar el producto con muebles o mesones (ver [mix_and_match.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mix_and_match.md)).
+- **Servicios Técnicos e Instalación**: Checkbox interactivo para añadir el paquete de instalación oficial (ver [servicios.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/servicios.md)).
 - **Kits de Limpieza y Mantenimiento**: Productos recomendados para el cuidado del Mármol Sintético o Quartzstone.
 
 ---

@@ -1,5 +1,9 @@
 # Sistema de Diseño y Estilo Gráfico (Design System & UI Tokens)
 
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Construir una identidad visual de nivel ultra-premium (estilo Apple / Kohler / Laufen) que transmita agua, piedra y bienestar arquitectónico. Establece tokens CSS globales, tipografía distintiva (Outfit para titulares y números de impacto, Inter para precisión técnica), degradados de firma (Hydro Glow), elevación con glassmorphism y micro-animaciones fluidas para posicionar a Firplak como una marca de lujo accesible.
+
 Este documento define la especificación del sistema de diseño, tokens gráficos, tipografía, paleta de colores, componentes de interfaz y guías de animación para la experiencia visual premium de Firplak E-commerce.
 
 ---
@@ -122,15 +126,35 @@ Se especifica el uso de **Outfit** (titulares, datos destacados y números) e **
 
 ---
 
-## 6. Animaciones y Transiciones (Scroll-Driven Motion)
+## 6. Animaciones y Transiciones (FIRPLAK Experience Stack)
 
-### A. Curvas de Tiempo (Easing Curves)
-- **Smooth Premium**: `cubic-bezier(0.16, 1, 0.3, 1)` (para apertura de modales y transiciones in-scroll).
+Para lograr una experiencia visual cinematográfica y de producto inmersiva estilo Apple / Laufen sin sacrificar rendimiento móvil ni Core Web Vitals, se define el siguiente stack oficial de experiencia visual:
+
+### A. Stack Tecnológico de Experiencia
+- **GSAP 3 + ScrollTrigger**: Librería núcleo para el anclaje de secciones (*pinning*), sincronización precisa fotograma a fotograma (*scrub*), transiciones de cámara y timelines narrativos.
+- **Lenis Smooth Scroll (`@studio-freight/lenis`)**: Motor de desplazamiento inercial suave que unifica la sensación de scroll en mouse, trackpad y touch.
+- **Three.js + React Three Fiber + Drei (Tier 1 Hero Products)**: Renderizado WebGL de modelos CAD reales para rotación interactiva al scroll, explosión de partes y transmutación de materiales PBR.
+- **Compresión 3D**: Modelos exportados en **GLB / glTF** con compresión de geometría **Draco / Meshopt** y texturas GPU comprimidas en **KTX2** (<2.5 MB).
+- **Canvas Frame Scrubbing Engine (Secuencias 2D)**: Alternativa ligera para despieces de producto pre-renderizados en Blender exportados a fotogramas WebP/AVIF (<40 KB c/u).
+- **Higgsfield REAL (Cinematografía Lifestyle)**: Motor de generación de clips cortos de video (3 a 6 segundos) para fondos ambientales, iluminación arquitectónica y movimiento de agua/vapor.
+
+### B. La Regla de Oro de Higgsfield (Atmósfera vs. Realidad de Producto)
+*   ✅ **Higgsfield define el mundo alrededor del producto**: Baños contemporáneos, iluminación cenital, caídas de agua, vapor, destellos de luz, transiciones entre espacios y lifestyle.
+*   ❌ **Higgsfield NUNCA define el producto**: Medidas, geometría física, ubicación del desagüe, orificios de grifería, color comercial exacto, espesores ni compatibilidades técnicas. Para el producto se utiliza estrictamente el modelo CAD industrial de Firplak o fotografía de estudio.
+
+### C. Estrategia de Prototipado y Despliegue Escalonado
+No se construye una web tipo Awwwards personalizada para cada SKU (lo que sería inmantenible). Se implementa:
+1. **Fase 1 (Prototipo Inicial)**: Validación exhaustiva de la experiencia en **un solo producto representativo (ej. Lavamanos Koa)** con narrativa de 8 pasos.
+2. **Fase 2 (Templates de Categoría)**: Parametrización en 5 templates maestros (`StoryLavamanos`, `StoryMuebleBaño`, `StoryCocina`, `StoryHidromasaje`, `StoryOutdoor`).
+3. **Fase 3 (Tiers Comerciales)**: Despliegue según criticidad (Tier 1 Hero con 3D R3F, Tier 2 Core con fotografía y GSAP, Tier 3 Long Tail ágil).
+
+### D. Curvas de Tiempo (Easing Curves)
+- **Smooth Premium**: `cubic-bezier(0.16, 1, 0.3, 1)` (para modales, menús y transiciones in-scroll).
 - **Hover Micro-interaction**: `cubic-bezier(0.34, 1.56, 0.64, 1)` (efecto elástico sutil al presionar botones).
 
-### B. Scroll-Driven Animations (Pasos de la PDP)
-- **Fade & Scale In**: Los elementos técnicos y despieces animados emergen gradualmente al alcanzar el viewport (`opacity: 0 -> 1`, `transform: translateY(20px) -> translateY(0)`).
-- **Parallax Sutil**: Efecto de capas en las fotos de ambiente al hacer scroll.
+### E. Scroll-Driven Animations y Separación de Capas
+- **Capa Base SSR (HTML/SEO)**: Texto, encabezados, precios base y tablas técnicas renderizadas en servidor para indexación inmediata de motores de búsqueda.
+- **Capa de Experiencia (Client Overlay)**: Canvas 2D / Canvas WebGL superpuesto que responde al scroll sin ocultar el contenido a los rastreadores web.
 
 ---
 

@@ -1,33 +1,61 @@
 # Conceptos del Catálogo: Productos, Materiales y Variaciones
 
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Unificar las reglas maestras de taxonomía comercial, materialidad y políticas logísticas para toda la plataforma. Define la convivencia entre ventas en Combo vs. Mix & Match, los materiales insignia (Mármol sintético, Quartzstone y RH) y establece las directrices inquebrantables de cara al cliente: promesa estándar de 15 días hábiles, entrega obligatoria en primer piso y ventana de 3 días para reporte de averías.
+
 Este documento define la taxonomía de productos, materiales, variables de configuración comerciales e implicaciones operativas de Firplak.
 
 ---
 
 ## 1. Clasificación y Árbol de Categorías
 
-El catálogo comercial del e-commerce debe replicar y optimizar las siguientes categorías y subcategorías:
+El catálogo comercial del e-commerce replica la taxonomía viva de Firplak optimizada para navegación multinivel:
 
-### 1. Baños
+### 1. Spas e Hidromasajes (Bienestar) — Ver [hidromasajes.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/hidromasajes.md)
+*   **1 Persona y 2 Personas:** Modelos compactos y dobles con hidromasaje.
+*   **Freestanding (Exentas):** Bañeras independientes de diseño arquitectónico.
+*   **Multipersonales:** Spas de gran formato para terrazas o exteriores.
+*   **Tinas y Accesorios:** Tinas sin hidromasaje, almohadillas, mantenedores térmicos y desagües.
+*   *Filtro especial:* **Envío Rápido Hidromasajes**.
+
+### 2. Baños — Ver [mix_and_match.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mix_and_match.md)
+*   **Combos Lavamanos con Mueble:** Packs preconfigurados de alta rotación.
 *   **Lavamanos:** Vanity (empotrar), Vessel (sobreponer) y mesones integrales.
-*   **Muebles de Baño:** Muebles elevados (flotantes), muebles a piso, botiquines y espejos.
-*   **Griferías y Accesorios:** Griferías de pared, de mesa, desagües y sifones.
-*   **Otros:** Sanitarios, duchas, cabinas, bañeras y combos preconfigurados de mueble + lavamanos.
+*   **Muebles:** Muebles bajo lavamanos (elevados o a piso) y muebles complementarios.
+*   **Colecciones de Diseño:** Línea Godai y espejos con iluminación o marco.
+*   **Grifería y Plomería:** Griferías de lavamanos, desagües tipo push y sifones.
+*   *Filtros especiales:* **Envío Rápido Baños** y **Saldos / Oportunidades**.
 
-### 2. Cocinas
-*   Mesones completos, lavaplatos independientes, campanas, cubiertas y combos de cocina.
+### 3. Zona de Labores (Ropas) — Ver [zona_labores.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/zona_labores.md)
+*   **Combos Lavaderos:** Lavadero en mármol sintético + mueble organizador RH.
+*   **Tipologías de Lavaderos:** Líneas Pro, Aqua y Eco.
+*   **Mobiliario y Plomería:** Muebles para lavadora, alacenas de aseo y llaves de pared.
+*   *Filtros especiales:* **Envío Rápido** y **Saldos**.
 
-### 3. Zona de Labores (Ropas)
-*   Lavaderos en mármol sintético, muebles organizadores y combos de lavadero + mueble.
+### 4. Cocinas — Ver [cocinas.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/cocinas.md)
+*   **Cocinas Integrales:** Soluciones completas superiores e inferiores.
+*   **Módulos Independientes:** Muebles solos inferiores y superiores, barras auxiliares.
+*   **Superficies y Lavaplatos:** Mesones en Quartzstone o mármol sintético y pocetas/lavaplatos de sobreponer/submontar.
+*   **Grifería / Plomería:** Mezcladores cuello de ganso y accesorios.
+*   *Filtros especiales:* **Envío Rápido** y **Saldos**.
 
-### 4. Spas e Hidromasajes (Bienestar)
-*   Jacuzzis (tinas, spas para 1 o 2 personas, multipersonales), tinas empotrables o exentas (freestanding) y saunas.
+### 5. Accesorios — Ver [accesorios.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/accesorios.md) y [griferia_plomeria.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/griferia_plomeria.md)
+*   Accesorios para tinas, organizadores de baño, plomería técnica y complementos de cocina.
 
-### 5. Zona Outdoor
-*   Asadores empotrables y modulares para exteriores.
+### 6. Zona Outdoor — Ver [zona_outdoor.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/zona_outdoor.md)
+*   Asadores de empotrar y modulares, Multipersonales Spa exteriores, Saunas secos/húmedos, mantenedores de agua y cubiertas protectoras.
 
-### 6. Institucional / Proyectos
-*   Lavamanos colectivos, orinales, tinas de aseo y soluciones especiales para constructoras.
+### 7. Segmentos Institucionales y B2B — Ver [carpinteria_obra.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/carpinteria_obra.md)
+*   **Carpintería de Obra:** Muebles a medida para proyectos inmobiliarios.
+*   **Atención Constructor / Distribuidor:** Canal con condiciones mayoristas y acompañamiento técnico.
+
+---
+
+## 1.1. Flags y Filtros Transversales Comerciales
+*   ⚡ **Envío Rápido (`is_fast_shipping`):** Productos con stock físico disponible para despacho inmediato (<48h), contrarrestando la fricción del tiempo estándar de fabricación (15 días hábiles).
+*   🏷️ **Saldos / Outlet (`is_clearance`):** Descuentos agresivos (hasta 65%) para liquidar últimas unidades o colecciones salientes.
+*   🔥 **Oferta Especial (`is_on_sale`):** Productos con descuento activo y cálculo visible del ahorro en $ COP.
 
 ---
 
@@ -55,13 +83,15 @@ El e-commerce admite dos modalidades de venta para estas categorías:
 Estas directrices deben estar integradas en el flujo de checkout, carrito de compras y fichas de producto:
 
 ### A. Promesa y Tiempos de Entrega
-*   **Tiempo de despacho:** El sistema debe notificar al cliente una promesa estándar de **15 días hábiles** de entrega a partir de la confirmación del pago.
+*   **Tiempo de despacho:** El sistema debe notificar al cliente una promesa estándar de **15 días hábiles** de entrega a partir de la confirmación del pago (excepción: spas multipersonales de exterior con prueba hidrostática en 15 a 20 días hábiles).
 *   **Restricción de Alturas:** En el checkout y en las políticas de envío, debe advertirse al cliente: *"La entrega se realiza estrictamente en el primer nivel (primer piso) del domicilio. La transportadora no sube productos a pisos superiores"*.
 
 ### B. Gestión de Garantías y Averías Físicas
-*   **Alerta de Inspección Inmediata (3 Días):** El frontend debe mostrar un banner o correo post-venta informando que el cliente tiene un plazo máximo de **3 días hábiles** tras la entrega para reportar daños físicos (piezas rotas, fisuras, rayones). A partir del 4to día, Firplak no asume responsabilidad por daños estéticos.
+*   **Alerta de Inspección Inmediata (3 Días):** El frontend debe mostrar un banner o correo post-venta informando que el cliente tiene un plazo máximo de **3 días hábiles** tras la entrega para reportar daños físicos (piezas rotas, fisuras, rayones). A partir del 4to día, Firplak no asume responsabilidad por daños estéticos (amparado bajo los 5 días de retracto de la Ley 1480).
 *   **Duraciones de Garantía (Fichas de Producto):**
-    *   Mármol Sintético y Fibra de Vidrio (Bañeras/Hidromasajes): **5 años** de garantía estructural.
-    *   Sistemas eléctricos y motores de hidromasajes: **1 año**.
-    *   Muebles de Madera RH: **1 a 5 años** (según línea de producto).
+    *   **Mármol Sintético, Quartzstone y Fibra de Vidrio (Bañeras/Hidromasajes/Mesones):** **5 años** de garantía estructural.
+    *   **Muebles de Madera RH:** **1 a 3 años** (líneas estándar) hasta **5 años** (líneas premium).
+    *   **Griferías:** **5 años** en cuerpo y mecanismo cerámico; **1 año** en acabados superficiales y plomería plástica.
+    *   **Sistemas eléctricos, motobombas y sopladores (blowers):** **1 año**.
+    *   **Asadores en Acero AISI 304:** **3 años** en estructura y quemadores.
 

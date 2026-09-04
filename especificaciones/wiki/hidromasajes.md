@@ -1,5 +1,9 @@
 # Especificaciones de Producto: Spas e Hidromasajes
 
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Consolidar el liderazgo de Firplak como referente de bienestar, spa y relajación en el hogar. La estrategia de UX/UI expone visualmente los kits y configuraciones mediante scroll interactivo, previene reclamaciones mediante advertencias rigurosas de pre-instalación eléctrica (GFCI/amperaje) e hidráulica, e incrementa la rentabilidad mediante la venta cruzada de visitas previas de inspección y paquetes de instalación certificada que habilitan la garantía de 5 años.
+
 Este documento define la especificación técnica, funcional, logística y de experiencia de usuario (UX/UI) para la comercialización de spas, jacuzzis y tinas de hidromasaje en la plataforma Firplak E-commerce.
 
 ---
@@ -16,32 +20,20 @@ Los productos de hidromasaje se organizan según su tipo de instalación y capac
 
 ---
 
-### Experiencia de Navegación Animada (In-Scroll)
-En la PDP con formato **Scroll Animado**, el cliente puede alternar en tiempo real entre las versiones **Empotradas, Plus o Spa**:
-- **Renderizado Dinámico al Scroll**: La secuencia animada y renders del producto se actualizan fluidamente mostrando los componentes de cada versión (ej. adición del faldón sintético en versión Spa o el acabado empotrado).
-- **Indicadores de Acometida In-Scroll**: Al seleccionar cada versión, el scroll despliega automáticamente los datos clave graficados (potencia de motobomba requerida, esquema de desagüe y espacio de escotilla de mantenimiento).
+## 2. Experiencia de Navegación Animada y Configuración
 
-### Kits de Equipamiento Predeterminados
-1. **Kit Básico / Estándar**:
-   - Motobomba de agua de alto rendimiento.
-   - Sistema de hidromasaje (Jets orientables de agua).
-   - Botón neumático de encendido (On/Off).
-   - Control de aire manual.
-   - Succión de seguridad y desagüe.
+### A. Navegación Animada (In-Scroll Canvas Frame Scrubbing)
+En la PDP con formato **Scroll Animado**, el producto se renderiza mediante el motor **Canvas Frame Scrubbing con GSAP + ScrollTrigger**:
+- **Secuencia Fotográfica Pre-renderizada**: 60 a 120 fotogramas en formato WebP (<40 KB c/u) que revelan progresivamente el despiece del casco, faldones WPC, tuberías perimetrales de PVC flexible y luces LED subacuáticas sin exigir procesamiento WebGL al dispositivo móvil.
+- **Conmutación Instantánea de Versiones**: Al alternar entre las versiones **Empotradas, Plus o Spa**, el `<canvas>` conmuta fluidamente a la secuencia de fotogramas correspondiente.
+- **Indicadores de Acometida In-Scroll**: Al fijarse la vista al scroll (*pinning*), se proyectan overlays con datos técnicos acotados (motobomba de 2 HP, acometida 220V/110V GFCI, trampa de desagüe y escotilla de 40x40 cm).
 
-2. **Kit Intermedio (Confort)**:
-   - Todo lo del Kit Básico.
-   - Sistema de iluminación LED / Cromoterapia (cambio de color).
-   - Microjets dorsales/plantares.
-   - Calentador de agua eléctrico mantiene/eleva temperatura.
-
-3. **Kit Premium (Lujo / Spa Complet):**
-   - Todo lo del Kit Intermedio.
-   - Sistema de aeromasaje (Blower de burbujas de aire).
-   - Panel de control digital / táctil.
-   - Sistema de desinfección (Ozonificador / Filtro de cartucho).
-   - Cascadas decorativas y llenado integrado.
-   - Grifería monocontrol y regadera de mano integrada.
+### B. Configuración de Equipamiento y Sistema de Hydro
+Cada modelo de hidromasaje incluye su **set de jets específico** integrado de fábrica:
+- **Set de Jets Especificado por Producto**: La cantidad, tipo y distribución de jets están definidos específicamente según el diseño y dimensiones de cada hidromasaje/tina.
+- **Potencia de Motobomba**: 
+  - **Spas**: Equipados con motobombas de alta potencia de **2 HP**.
+  - **Tina / Hidromasaje Estándar**: Equipados con la motobomba especificada técnicamente para su respectivo set de jets.
 
 ---
 
@@ -78,16 +70,17 @@ Para evitar devoluciones o garantías por mala instalación, la PDP y el flujo d
 ### C. Garantía Firplak
 - **Casco / Fibra de Vidrio / Acrílico / Mármol Sintético**: **5 años** de garantía por defectos de fabricación o fisuras estructurales.
 - **Componentes Electromecánicos (Motobomba, Blower, Panel, Luces, Calentador)**: **1 año** de garantía.
+- **Plazo de Reporte de Averías**: Máximo **3 días hábiles** tras la entrega para reportar daños físicos o estéticos de transporte.
 
 ---
 
 ## 5. Integración con Servicios Técnicos de Agendamiento
 
-El e-commerce debe ofrecer servicios complementarios para hidromasajes:
+El e-commerce debe ofrecer servicios complementarios para hidromasajes (detallados en [servicios.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/servicios.md)):
 
 1. **Visita Previa de Inspección Técnica (Opcional/Pago)**:
    - Permite agendar a un técnico Firplak para evaluar si el espacio del cliente cumple con los requisitos eléctricos y de espacio antes de la compra.
 2. **Servicio de Instalación Autorizada Firplak**:
    - Posibilidad de añadir al carrito el paquete de *"Instalación Certificada Firplak"* para activar cobertura extendida de garantía.
 3. **Agendamiento en Línea**:
-   - Integrado directamente con el sistema de citas Firplak (`integracion_servicios_pedidos.md`).
+   - Integrado directamente con el sistema de citas Firplak ([integracion_servicios_pedidos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/integracion_servicios_pedidos.md)).

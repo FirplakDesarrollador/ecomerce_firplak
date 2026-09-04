@@ -1,5 +1,9 @@
 # Especificación: Módulo Visualizador Mix & Match
 
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Empoderar al comprador permitiéndole personalizar su conjunto de baño mediante un carrusel interactivo sincronizado en dos niveles (lavamanos superior + mueble inferior). El frontend consulta en tiempo real la matriz de compatibilidad en Supabase, asegurando que solo se puedan combinar piezas dimensionalmente exactas, e inyecta ambos SKUs al carrito con un incentivo de descuento por bundle para elevar el ticket promedio.
+
 Esta página detalla el comportamiento, lógica visual e interacción del configurador interactivo "Mix & Match" para lavamanos y muebles de baño.
 
 ---
@@ -40,9 +44,9 @@ El visualizador permite a los clientes combinar e interactuar con diferentes lav
     *   **Color del Lavamanos:** Se puede alternar la variación de color o acabado del lavamanos (ej. Blanco, Negro Mate, Gris Marmoleado) de forma independiente sin cambiar el modelo.
 2.  **Adición de Complementos (Add-ons):**
     *   El usuario puede seleccionar e incorporar complementos opcionales al conjunto en tiempo real:
-        *   **Griferías:** Selección de grifería compatible (alta, baja, monocontrol, cromo, negro mate).
+        *   **Griferías y Plomería:** Selección de grifería compatible (alta, baja, monocontrol) y desagües/sifones según la matriz de compatibilidad en [griferia_plomeria.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/griferia_plomeria.md) y [accesorios.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/accesorios.md).
         *   **Incrustaciones:** Detalles decorativos o apliques para el mueble/lavamanos.
-        *   **Accesorios:** Espejos, sifones decorativos, desagües pop-up y toalleros.
+        *   **Accesorios de Confort:** Espejos, repisas de vidrio templado y toalleros.
     *   Los complementos seleccionados se previsualizan e integran en la combinación visual (cuando aplique asset 2D) y agregan sus SKUs independientes al total de la compra.
 3.  **Validación de Compatibilidad en Base de Datos:**
     *   Al cambiar el Lavamanos (A), se consultará la base de datos para obtener el listado de Muebles (X, Y) y Griferías/Complementos que son físicamente compatibles con sus dimensiones, orificios y desagües.

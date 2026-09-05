@@ -94,8 +94,16 @@ export default function LoomereCursorPriceTag({
         transform: `translate3d(${currentPos.current.x}px, ${currentPos.current.y}px, 0)`
       }}
     >
-      {/* Tag slim minimalista idéntico al señalado */}
-      <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 text-white shadow-2xl">
+      {/* Tag slim minimalista idéntico */}
+      <div
+        className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 text-white shadow-2xl"
+        style={{
+          backgroundColor: 'rgba(70, 70, 70, 0.6)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
+        }}
+      >
         <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-pulse flex-shrink-0" />
         <span className="text-xs font-medium text-white/95 whitespace-nowrap">
           {product.name}

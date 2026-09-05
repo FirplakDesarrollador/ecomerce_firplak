@@ -129,8 +129,8 @@ export default function LoomereExperience() {
                     />
                   )}
 
-                  {/* Vignette gradients */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none" />
+                  {/* Top subtle vignette for navbar legibility (no bottom darkening) */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent pointer-events-none" />
                 </div>
               );
             })}

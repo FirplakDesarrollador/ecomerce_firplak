@@ -30,10 +30,10 @@ export const LOOMERE_SCENES: LoomereScene[] = [
   {
     id: 0,
     time: "07:00 AM",
-    tag: "CAPÍTULO 01 — RITUAL MATUTINO",
+    tag: "LAVAMANOS Y MUEBLES",
     title: "El Despertar",
-    headline: "Pureza sensorial para comenzar el día",
-    description: "La luz dorada de la mañana baña el baño arquitectónico. La suavidad del mármol sintético satinado y la fluidez del agua acompañan el primer momento de introspección y cuidado personal.",
+    headline: "Diseños que superan el tiempo",
+    description: "Elige y combina más de 300 referencias para crear espacios que inspiren cada momento del día.",
     product: {
       id: "lavamanos-sobreponer-vessel",
       name: "Lavamanos Sobreponer Milán",
@@ -95,27 +95,27 @@ export const LOOMERE_SCENES: LoomereScene[] = [
     headline: "Robustez higiénica para tus pasiones al aire libre",
     description: "Al volver de una expedición de senderismo por la cordillera, la zona de labores recibe el calzado y equipo de montaña. Un pozo amplio y profundo que resiste el uso rudo manteniendo impecable el hogar.",
     product: {
-      id: "lavadero-ergonomico-alpes",
-      name: "Lavadero Ergonómico Alpes con Mueble RH",
+      id: "combo-lavadero-pro-rh",
+      name: "Combo Lavadero Pro con Mueble RH",
       category: "Zona de Labores",
-      material: "Resina Sintética de Alto Impacto & Gabinete RH",
-      price: "$689.000 COP",
-      dimensions: "60 cm × 50 cm × 88 cm",
+      material: "Mármol Sintético No Poroso & Aglomerado RH",
+      price: "$899.900 COP",
+      dimensions: "Módulos configurables (Lavadero 80/100cm + Módulo Lavadora)",
       specs: [
-        "Pozo profundo de 28 litros con fregadero inclinado estriado",
-        "Mueble inferior con bisagras inoxidables para almacenamiento",
-        "Resistente a químicos de limpieza, detergentes y rayos UV"
+        "Pozo profundo en mármol sintético no poroso con estregadero ergonómico",
+        "Mueble en aglomerado RH resistente a humedad con tapacantos PUR",
+        "Resistente a químicos de limpieza domésticos, cloro y rayos UV"
       ],
       features: [
-        "Ergonomía certificada para evitar molestias lumbares",
-        "Gabinete ventilado anti-humedad",
-        "Acabado granítico texturizado de larga durabilidad"
+        "Garantía de 5 años en mármol sintético",
+        "Selector de orientación de estregadero (Izquierda / Derecha)",
+        "Despacho prioritario en Envío Rápido (<48h)"
       ],
-      badge: "Esencial Hogar"
+      badge: "Envío Rápido <48h"
     },
-    fallbackImage: "/images/loomere/lavadero.webp",
+    fallbackImage: "/images/loomere/PORTADA.jpg",
     videoUrl: "/videos/loomere/video_2.mp4",
-    hotspot: { x: 64, y: 54 }
+    hotspot: { x: 44, y: 55 }
   },
   {
     id: 3,

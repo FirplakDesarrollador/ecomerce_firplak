@@ -2,42 +2,40 @@ import React from 'react';
 
 interface FirplakLogoProps {
   className?: string;
-  /**
-   * Modifica este valor para cambiar la separación entre letras:
-   * Ejemplos: '0.25em' (compacto), '0.35em' (medio), '0.48em' (amplio actual), '0.60em' (ultra)
-   */
-  letterSpacing?: string;
   height?: number | string;
+  color?: string;
+  letterSpacing?: string; // Mantenido por compatibilidad
 }
 
 export default function FirplakLogo({
   className = '',
-  letterSpacing = '0.48em', // <-- EDITA AQUÍ DIRECTAMENTE LA SEPARACIÓN
   height = 18,
+  color = '#ffffff',
 }: FirplakLogoProps) {
   return (
     <svg
-      viewBox="0 0 340 32"
+      viewBox="0 0 512 46"
       height={height}
-      className={`w-auto text-white fill-current transition-transform duration-300 ${className}`}
+      className={`w-auto transition-transform duration-300 ${className}`}
       aria-label="FIRPLAK"
       role="img"
     >
-      <text
-        x="50%"
-        y="23"
-        textAnchor="middle"
-        style={{
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Montserrat", "Helvetica Neue", Arial, sans-serif',
-          fontWeight: 800,
-          letterSpacing,
-          fontSize: '20px',
-          textTransform: 'uppercase',
-        }}
-      >
-        FIRPLAK
-      </text>
+      <g fill={color} fillRule="nonzero">
+        {/* F */}
+        <path d="M0.00,0.00L33.56,0.00L33.56,6.29L8.56,6.29L8.56,22.33L32.76,22.33L32.76,28.62L8.56,28.62L8.56,46.00L0.00,46.00L0.00,0.00Z" />
+        {/* I */}
+        <path d="M78.00,0.00L86.63,0.00L86.63,46.00L78.00,46.00Z" />
+        {/* R */}
+        <path d="M154.20,21.66C159.95,21.66 163.36,18.86 163.36,13.84C163.36,8.89 160.15,6.35 154.00,6.35L140.56,6.35L140.56,21.66L154.20,21.66ZM132.00,0.00L154.00,0.00C165.70,0.00 171.98,4.68 171.98,13.44C171.98,20.06 167.70,25.07 161.08,26.34L173.79,46.00L164.29,46.00L153.26,28.01L140.56,28.01L140.56,46.00L132.00,46.00L132.00,0.00Z" />
+        {/* P */}
+        <path d="M238.86,23.00C244.81,23.00 248.08,19.99 248.08,14.44C248.08,9.09 244.81,6.35 238.52,6.35L227.63,6.35L227.63,23.00L238.86,23.00ZM219.00,0.00L238.52,0.00C250.22,0.00 256.64,5.02 256.64,14.31C256.64,23.33 250.22,29.35 238.86,29.35L227.63,29.35L227.63,46.00L219.00,46.00L219.00,0.00Z" />
+        {/* L */}
+        <path d="M301.00,0.00L309.63,0.00L309.63,39.65L334.96,39.65L334.96,46.00L301.00,46.00L301.00,0.00Z" />
+        {/* A */}
+        <path d="M424.57,46.00L407.55,0.00L397.02,0.00L380.00,46.00L388.69,46.00L402.28,9.27L415.87,46.00L424.57,46.00ZM407.27,46.00L402.28,32.51L397.29,46.00L407.27,46.00Z" />
+        {/* K */}
+        <path d="M469.00,0.00L477.63,0.00L477.63,20.53L499.29,0.00L509.52,0.00L490.06,19.32L511.46,46.00L501.49,46.00L484.11,25.01L477.63,31.09L477.63,46.00L469.00,46.00L469.00,0.00Z" />
+      </g>
     </svg>
   );
 }

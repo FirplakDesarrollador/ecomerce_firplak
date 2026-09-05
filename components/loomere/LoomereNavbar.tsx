@@ -21,8 +21,16 @@ export default function LoomereNavbar({
   const [isChaptersOpen, setIsChaptersOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-black/30 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between relative">
+    <header
+      className="fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-white/20"
+      style={{
+        backgroundColor: 'rgba(70, 70, 70, 0.6)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
+      }}
+    >
+      <div className="max-w-[1620px] mx-auto px-4 sm:px-8 h-20 flex items-center justify-between relative">
         {/* Left Navigation: Colecciones & Capítulos */}
         <div className="flex items-center gap-2 sm:gap-3">
           <button
@@ -90,7 +98,7 @@ export default function LoomereNavbar({
         <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
           <Link href="/" className="flex items-center group">
             <div className="flex items-center h-[18px]">
-              <FirplakLogo height={18} letterSpacing="0.48em" className="group-hover:scale-105" />
+              <FirplakLogo height={18} letterSpacing="0.48em" color="#ffffff" className="group-hover:scale-105" />
             </div>
           </Link>
         </div>

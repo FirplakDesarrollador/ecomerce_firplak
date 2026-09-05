@@ -34,8 +34,12 @@ export default function LoomereExperience() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Sincroniza la escena con el scroll restaurado por el navegador, fuera del render.
+    const syncId = requestAnimationFrame(handleScroll);
+    return () => {
+      cancelAnimationFrame(syncId);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [handleScroll]);
 
   // Ensure all videos play smoothly without transition glitches

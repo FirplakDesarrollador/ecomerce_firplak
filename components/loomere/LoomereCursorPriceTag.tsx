@@ -4,6 +4,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { SceneProduct } from './sceneData';
 import { Sparkles, ArrowRight } from 'lucide-react';
 
+// Posición inicial fuera de pantalla: el rAF toma el control del transform apenas monta.
+const OFFSCREEN = { x: -400, y: -400 };
+const OFFSCREEN_TRANSFORM = `translate3d(${OFFSCREEN.x}px, ${OFFSCREEN.y}px, 0)`;
+
 interface LoomereCursorPriceTagProps {
   product: SceneProduct;
   isActive: boolean;
@@ -14,8 +18,8 @@ export default function LoomereCursorPriceTag({
   isActive
 }: LoomereCursorPriceTagProps) {
   const tagRef = useRef<HTMLDivElement>(null);
-  const targetPos = useRef({ x: -400, y: -400 });
-  const currentPos = useRef({ x: -400, y: -400 });
+  const targetPos = useRef({ ...OFFSCREEN });
+  const currentPos = useRef({ ...OFFSCREEN });
   const [isVisible, setIsVisible] = useState(false);
   const [isOverInteractive, setIsOverInteractive] = useState(false);
   const rafId = useRef<number | null>(null);
@@ -91,7 +95,7 @@ export default function LoomereCursorPriceTag({
       className="fixed top-0 left-0 z-50 pointer-events-none select-none transition-opacity duration-300 will-change-transform"
       style={{
         opacity: shouldShow ? (isOverInteractive ? 0.2 : 1) : 0,
-        transform: `translate3d(${currentPos.current.x}px, ${currentPos.current.y}px, 0)`
+        transform: OFFSCREEN_TRANSFORM
       }}
     >
       {/* Tag slim minimalista idéntico */}

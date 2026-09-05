@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Category } from '@/services/home-service';
 
 export default function CategoryGrid({ categories }: { categories: Category[] }) {
@@ -17,10 +18,12 @@ export default function CategoryGrid({ categories }: { categories: Category[] })
               {/* Circular Image */}
               <Link href={category.href} className="relative block w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden mb-6 shadow-md group-hover:shadow-xl transition-shadow duration-300 border-4 border-transparent group-hover:border-zinc-100">
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
-                <img 
-                  src={category.imageUrl} 
-                  alt={category.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                <Image
+                  src={category.imageUrl}
+                  alt={category.name}
+                  fill
+                  sizes="(min-width: 1024px) 12rem, (min-width: 640px) 10rem, 8rem"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </Link>
               
@@ -43,10 +46,12 @@ export default function CategoryGrid({ categories }: { categories: Category[] })
              <div className="flex flex-col items-center text-center group w-full max-w-[200px] hidden lg:flex">
              <Link href="/categoria/accesorios" className="relative block w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden mb-6 shadow-md group-hover:shadow-xl transition-shadow duration-300 border-4 border-transparent group-hover:border-zinc-100">
                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
-               <img 
-                 src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                 alt="Accesorios" 
-                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+               <Image
+                 src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                 alt="Accesorios"
+                 fill
+                 sizes="(min-width: 1024px) 12rem, (min-width: 640px) 10rem, 8rem"
+                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                />
              </Link>
              <h3 className="text-lg font-bold text-[#254153] mb-2 group-hover:text-[#1d3342] transition-colors">

@@ -5,6 +5,13 @@
 > Mantener un registro histórico inmutable y auditable de cada decisión técnica, ingesta de requerimientos y ajuste arquitectónico en el wiki, garantizando trazabilidad completa para el equipo de desarrollo y agentes autónomos.
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
+## [2026-09-08] ingest | Mapa del Sitio y Catálogo de Accesos Globales
+- Creación de [mapa_del_sitio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mapa_del_sitio.md): mapa integral de accesos y taxonomía de `www.firplak.com` (Top Bar, 6 macrocategorías de catálogo, portales B2B/institucionales, flujo transaccional, sedes físicas, marco legal colombiano y matriz de redirecciones 301 para Next.js).
+- Actualización de [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
+
+## [2026-09-07] ingest | Síntesis Maestra de Diseño y Lineamientos UI/UX
+- Creación de [sintesis_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sintesis_diseno.md): compilación exhaustiva de filosofía visual, tokens globales, scrollytelling en 8 fases, Product Tiers, templates maestros, configurador Mix & Match, requisitos de pre-instalación por categoría y políticas comerciales de impacto en UX/UI.
+- Actualización de [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md) para integrar la nueva página en el catálogo general.
 
 ## [2026-09-07] ingest | Referentes Externos de Diseño y UX (Awwwards + NN/g)
 - Creación de [referentes_externos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/referentes_externos.md): banco curado de 9 referentes externos (Palet, Material Kitchen, European Cabinets, Provider Store, Arteriors Home, Insta360 Luna Ultra, Bombon, Nielsen Norman Group, Pear) investigados en Awwwards y visitados en vivo.

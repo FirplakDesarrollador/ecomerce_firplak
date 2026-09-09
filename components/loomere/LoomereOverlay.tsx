@@ -47,7 +47,7 @@ export default function LoomereOverlay({
         </p>
 
         {/* Action button único: Conoce los productos */}
-        <div className="pt-2 flex items-center justify-center border-t border-white/20 mt-5">
+        <div className="pt-3 flex items-center border-t border-white/10 mt-3">
           <button
             onClick={() => onOpenProduct(currentScene.product)}
             className="px-4 sm:px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs hover:scale-105 transition-all duration-200 shadow-lg shadow-cyan-400/20 flex items-center gap-2"

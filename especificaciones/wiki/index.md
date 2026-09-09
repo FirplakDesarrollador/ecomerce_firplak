@@ -8,9 +8,11 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 
 ## 📌 General
 - **[README.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/README.md)**: Manual de uso y estructura del wiki.
+- **[sintesis_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sintesis_diseno.md)**: Síntesis maestra unificada de elementos, tokens, lineamientos UI/UX, pre-instalación y condiciones de diseño.
 - **[sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md)**: Guía de estilo gráfico, paleta de colores, degradados, fuentes, glassmorphism, elevación y animaciones UI.
 - **[log.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/log.md)**: Historial cronológico de cambios.
 - **[seo.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/seo.md)**: Guía oficial y especificaciones de SEO para motores tradicionales y de IA.
+- **[mapa_del_sitio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mapa_del_sitio.md)**: Mapa del sitio y accesos globales de firplak.com (Top Bar, taxonomía de catálogo, portales B2B, flujo transaccional y marco legal).
 - **[referentes_externos.md](referentes_externos.md)**: Banco de referentes externos (Awwwards y benchmarks de UX) para baños, cocinas, configuradores de producto, PDP narrativa y dirección de arte en scroll-scrubbing, con nota al pie de qué patrón es aplicable a Firplak en cada caso.
 
 ## 🏗️ Arquitectura y Sistema

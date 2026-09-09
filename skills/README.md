@@ -22,6 +22,7 @@ que estás realizando, **debes usarla en lugar de improvisar**.
 - [`gpt-taste/`](gpt-taste/SKILL.md) — Calibración de calidad y estilo en UI.
 - [`high-end-visual-design/`](high-end-visual-design/SKILL.md) — Visuales de alta gama para productos premium.
 - [`industrial-brutalist-ui/`](industrial-brutalist-ui/SKILL.md) — Estilo de diseño brutalista industrial.
+- [`laws-of-ux/`](laws-of-ux/SKILL.md) — Leyes de UX (Hick, Fitts, Jakob, Miller) aplicadas a la interfaz.
 - [`minimalist-ui/`](minimalist-ui/SKILL.md) — Principios de diseño minimalista y limpio.
 - [`nng-ecommerce-pdp/`](nng-ecommerce-pdp/SKILL.md) ([`nng-ecommerce-pdp.md`](nng-ecommerce-pdp.md)) — Directrices de UX de Nielsen Norman Group (NN/g) para PDP.
 - [`scroll-craft/`](scroll-craft/SKILL.md) — Artesanía de animaciones e interacciones por scroll.

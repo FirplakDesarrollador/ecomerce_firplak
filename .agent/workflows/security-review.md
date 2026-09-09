@@ -15,8 +15,8 @@ Mandatory for any changes involving authentication, data access, or API endpoint
 5. **Document**: Record findings in the security audit files.
 
 ## Skills to Invoke
-- `.agent/skills/supabase-review/SKILL.md`
-- `.agent/skills/code-review/SKILL.md`
+- `skills/supabase-review/SKILL.md`
+- `skills/code-review/SKILL.md`
 
 ## Final Validations
 - No secrets exposed.

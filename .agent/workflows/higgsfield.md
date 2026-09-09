@@ -10,8 +10,8 @@ Usa este comando para generar imágenes de producto, videos, mockups o kits de m
 ## Pasos
 1. **Identificar Objetivo**: Determinar el tipo de asset (foto de producto, video, kit de marca o miniatura).
 2. **Consultar Skill Específica**:
-   - Fotos de producto: `.agent/skills/higgsfield-product-photoshoot/SKILL.md`
-   - Generación / Video / UGC: `.agent/skills/higgsfield-generate/SKILL.md`
-   - Brand system / identidad: `.agent/skills/higgsfield-brandkit/SKILL.md`
-   - Tarjetas de marketplace: `.agent/skills/higgsfield-marketplace-cards/SKILL.md`
+   - Fotos de producto: `skills/higgsfield-product-photoshoot/SKILL.md`
+   - Generación / Video / UGC: `skills/higgsfield-generate/SKILL.md`
+   - Brand system / identidad: `skills/higgsfield-brandkit/SKILL.md`
+   - Tarjetas de marketplace: `skills/higgsfield-marketplace-cards/SKILL.md`
 3. **Ejecutar Generación**: Llamar las herramientas de Higgsfield configurando los parámetros idóneos.

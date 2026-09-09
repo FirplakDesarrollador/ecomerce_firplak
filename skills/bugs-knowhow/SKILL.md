@@ -11,4 +11,4 @@ Whenever a bug is fixed, record the following details:
 4. **Future Prevention**: Steps or rules to ensure this specific bug never returns.
 
 ## Usage
-Append new entries to `.agent/skills/bugs-knowhow/history.md` (create it if it doesn't exist).
+Append new entries to `skills/bugs-knowhow/history.md` (create it if it doesn't exist).

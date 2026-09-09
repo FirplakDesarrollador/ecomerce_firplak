@@ -7,7 +7,7 @@ Mandatory check to ensure no new regressions were introduced after code changes.
 - **ALWAYS** after any code change (creation, modification, or deletion).
 
 ## Mandatory Behavior
-- The agent MUST execute the skill: `.agent/skills/bugs-knowhow-enforcer/SKILL.md`.
+- The agent MUST execute the skill: `skills/bugs-knowhow-enforcer/SKILL.md`.
 - Verify that the new code does not violate any "lesson learned" from the bug history.
 
 ## Restrictions

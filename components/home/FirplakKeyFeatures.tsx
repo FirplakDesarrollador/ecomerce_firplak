@@ -4,10 +4,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { 
   ShieldCheck, 
-  Layers, 
-  Droplets, 
-  Wrench, 
-  Truck, 
   MapPin, 
   BookOpen, 
   MessageSquareText, 

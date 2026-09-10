@@ -8,6 +8,21 @@ const nextConfig: NextConfig = {
         hostname: 'images.unsplash.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.firplak.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'firplak.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.delivery.rocketcdn.me',
+        pathname: '/**',
+      },
     ],
   },
 };

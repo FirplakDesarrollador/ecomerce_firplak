@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { LoomereScene, SceneProduct } from './sceneData';
-import { ChevronDown, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface LoomereOverlayProps {
   currentScene: LoomereScene;

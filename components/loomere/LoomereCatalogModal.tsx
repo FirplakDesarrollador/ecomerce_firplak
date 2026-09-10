@@ -44,10 +44,19 @@ export default function LoomereCatalogModal({ isOpen, onClose }: LoomereCatalogM
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-black/80 backdrop-blur-md"
+        className="absolute inset-0 bg-black/40 backdrop-blur-[4px]"
       />
 
-      <div className="relative w-full max-w-5xl bg-[#090f1d] border border-white/15 rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-10 z-10 space-y-8 animate-in zoom-in-95 duration-200">
+      <div 
+        className="relative w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-10 z-10 space-y-8 animate-in zoom-in-95 duration-200"
+        style={{
+          backgroundColor: 'rgba(70, 70, 70, 0.65)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '0 30px 70px rgba(0, 0, 0, 0.65)'
+        }}
+      >
         <div className="flex items-center justify-between border-b border-white/10 pb-6">
           <div>
             <span className="text-xs uppercase tracking-[0.3em] text-cyan-400 font-semibold block">
@@ -70,7 +79,11 @@ export default function LoomereCatalogModal({ isOpen, onClose }: LoomereCatalogM
             <Link
               key={i}
               href={cat.href}
-              className="group relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.02] hover:border-cyan-400/50 transition-all duration-300 flex flex-col h-72"
+              className="group relative rounded-2xl overflow-hidden transition-all duration-300 flex flex-col h-72 hover:scale-[1.02]"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(255, 255, 255, 0.15)'
+              }}
             >
               <div className="relative w-full h-44 bg-black/30 overflow-hidden">
                 <Image
@@ -79,7 +92,7 @@ export default function LoomereCatalogModal({ isOpen, onClose }: LoomereCatalogM
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#090f1d] via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               </div>
               <div className="p-4 flex-1 flex flex-col justify-between">
                 <div>

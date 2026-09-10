@@ -29,9 +29,24 @@ export default function LoomereProductDrawer({
       />
 
       {/* Drawer Panel */}
-      <div className="relative w-full max-w-xl h-full bg-[#0d1527]/95 border-l border-white/10 text-white shadow-2xl flex flex-col z-10 overflow-hidden animate-in slide-in-from-right duration-300">
+      <div 
+        className="relative w-full max-w-xl h-full text-white shadow-2xl flex flex-col z-10 overflow-hidden animate-in slide-in-from-right duration-300"
+        style={{
+          backgroundColor: 'rgba(70, 70, 70, 0.7)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderLeft: '1px solid rgba(255, 255, 255, 0.2)',
+          boxShadow: '-20px 0 60px rgba(0, 0, 0, 0.65)'
+        }}
+      >
         {/* Header */}
-        <div className="p-6 border-b border-white/10 flex items-center justify-between">
+        <div 
+          className="p-6 flex items-center justify-between"
+          style={{ 
+            backgroundColor: 'rgba(50, 50, 50, 0.4)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.15)'
+          }}
+        >
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
               {product.badge}
@@ -57,7 +72,7 @@ export default function LoomereProductDrawer({
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0d1527] via-transparent to-transparent opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
             <div className="absolute bottom-4 left-4 right-4">
               <span className="text-[11px] font-mono uppercase tracking-widest text-cyan-400">
                 FIRPLAK LUXURY COLLECTION
@@ -67,7 +82,13 @@ export default function LoomereProductDrawer({
           </div>
 
           {/* Pricing & Guarantee Bar */}
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+          <div 
+            className="p-4 rounded-xl flex items-center justify-between"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(255, 255, 255, 0.15)'
+            }}
+          >
             <div>
               <span className="text-[11px] uppercase tracking-wider text-white/50 block">Precio Referencial</span>
               <span className="text-2xl font-bold text-white tracking-tight">{product.price}</span>
@@ -80,14 +101,26 @@ export default function LoomereProductDrawer({
 
           {/* Physical Attributes */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 space-y-1">
+            <div 
+              className="p-3.5 rounded-xl space-y-1"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                border: '1px solid rgba(255, 255, 255, 0.12)'
+              }}
+            >
               <div className="flex items-center gap-1.5 text-white/50 text-xs">
                 <Layers className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Materialidad</span>
               </div>
               <p className="text-xs font-medium text-white/90">{product.material}</p>
             </div>
-            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 space-y-1">
+            <div 
+              className="p-3.5 rounded-xl space-y-1"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                border: '1px solid rgba(255, 255, 255, 0.12)'
+              }}
+            >
               <div className="flex items-center gap-1.5 text-white/50 text-xs">
                 <Ruler className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Dimensiones</span>
@@ -131,7 +164,13 @@ export default function LoomereProductDrawer({
         </div>
 
         {/* Action Footer */}
-        <div className="p-6 border-t border-white/10 bg-black/40 space-y-3">
+        <div 
+          className="p-6 space-y-3"
+          style={{
+            backgroundColor: 'rgba(40, 40, 40, 0.5)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.15)'
+          }}
+        >
           <a
             href={`https://wa.me/573000000000?text=Hola%20FIRPLAK,%20deseo%20cotizar%20y%20conocer%20disponibilidad%20de:%20${encodeURIComponent(product.name)}`}
             target="_blank"

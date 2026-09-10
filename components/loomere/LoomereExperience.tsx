@@ -7,14 +7,19 @@ import LoomereNavbar from './LoomereNavbar';
 import LoomereOverlay from './LoomereOverlay';
 import LoomereProductDrawer from './LoomereProductDrawer';
 import LoomereCatalogModal from './LoomereCatalogModal';
+import LoomereMegamenu from './LoomereMegamenu';
 import LoomereCursorPriceTag from './LoomereCursorPriceTag';
 import FirplakKeyFeatures from '@/components/home/FirplakKeyFeatures';
+import FirplakEcosystemSection from '@/components/home/FirplakEcosystemSection';
+import FirplakGlobalFooter from '@/components/layout/FirplakGlobalFooter';
+import AccessFeedbackToast from '@/components/ui/AccessFeedbackToast';
 
 export default function LoomereExperience() {
   const [activeSceneIndex, setActiveSceneIndex] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState<SceneProduct | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
+  const [isMegamenuOpen, setIsMegamenuOpen] = useState(false);
   const [isAtVideoSection, setIsAtVideoSection] = useState(true);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -71,6 +76,8 @@ export default function LoomereExperience() {
   const handleOpenProduct = (product: SceneProduct) => {
     setSelectedProduct(product);
     setIsDrawerOpen(true);
+    setIsMegamenuOpen(false);
+    setIsCatalogOpen(false);
   };
 
   const currentScene = LOOMERE_SCENES[activeSceneIndex];
@@ -92,8 +99,11 @@ export default function LoomereExperience() {
           {/* Header Navbar */}
           <LoomereNavbar
             currentSceneIndex={activeSceneIndex}
-            onSelectScene={scrollToScene}
-            onOpenCatalog={() => setIsCatalogOpen(true)}
+            onOpenMegamenu={() => {
+              setIsMegamenuOpen(true);
+              setIsCatalogOpen(false);
+              setIsDrawerOpen(false);
+            }}
           />
 
           {/* Video & Image Background Layers */}
@@ -195,6 +205,12 @@ export default function LoomereExperience() {
       {/* 2. KEY FEATURES & ATRIBUTOS DE MARCA FIRPLAK (Fondo degradado oscuro, Apple design y Humanizer) */}
       <FirplakKeyFeatures onOpenCatalog={() => setIsCatalogOpen(true)} />
 
+      {/* 3. ECOSISTEMA Y TODAS LAS CATEGORÍAS & SOLUCIONES FIRPLAK */}
+      <FirplakEcosystemSection />
+
+      {/* 4. FOOTER CORPORATIVO & REGULATORIO (SIC / COLOMBIA) */}
+      <FirplakGlobalFooter />
+
       {/* Product Detail Drawer */}
       <LoomereProductDrawer
         product={selectedProduct}
@@ -208,6 +224,15 @@ export default function LoomereExperience() {
         isOpen={isCatalogOpen}
         onClose={() => setIsCatalogOpen(false)}
       />
+
+      {/* Megamenú Completo con 6 Categorías, Subcategorías y B2B */}
+      <LoomereMegamenu
+        isOpen={isMegamenuOpen}
+        onClose={() => setIsMegamenuOpen(false)}
+      />
+
+      {/* Notificación interactiva no intrusiva de feedback para accesos en integración */}
+      <AccessFeedbackToast />
     </div>
   );
 }

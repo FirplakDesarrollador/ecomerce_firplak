@@ -12,139 +12,163 @@ export interface SceneProduct {
 
 export interface LoomereScene {
   id: number;
+  /** Marcador de tramo mostrado en los dots de progreso (ej. "01 · Exterior"). */
   time: string;
   tag: string;
   title: string;
   headline: string;
   description: string;
   product: SceneProduct;
+  /** Poster del video: debe coincidir con el primer fotograma del clip. */
   fallbackImage: string;
+  /** Foto de catálogo del producto para el drawer. Cae a fallbackImage si falta. */
+  productImage?: string;
   videoUrl?: string;
+  /** Variante 720p con GOP mas denso para movil. */
+  videoUrlMobile?: string;
   hotspot: {
     x: number; // percentage from left
     y: number; // percentage from top
   };
 }
 
+/**
+ * Guion: "El Viaje de los Sentidos".
+ * Cuatro tramos que el usuario recorre con el scroll:
+ * Exterior (jacuzzi) → Baño → Lavandería → Cocina → CTA final.
+ *
+ * ⚠️ DATO COMERCIAL PLACEHOLDER: `price`, `dimensions`, `specs` y `badge` son
+ * provisionales para el prototipo. Deben venir del catálogo real (Supabase)
+ * antes de cualquier publicación — no son datos verificados de Firplak.
+ * La única medida tomada de un asset real es 155×48 del lavamanos Oslo/Macao.
+ */
 export const LOOMERE_SCENES: LoomereScene[] = [
   {
     id: 0,
-    time: "07:00 AM",
-    tag: "LAVAMANOS Y MUEBLES",
-    title: "El Despertar",
-    headline: "Diseños que superan el tiempo",
-    description: "Elige y combina más de 300 referencias para crear espacios que inspiren cada momento del día.",
+    time: "01 · Exterior",
+    tag: "JACUZZI MYDAS 180",
+    title: "El Exterior",
+    headline: "El Despertar de los Sentidos.",
+    description: "Espacios diseñados para tu bienestar exterior.",
     product: {
-      id: "lavamanos-sobreponer-vessel",
-      name: "Lavamanos Sobreponer Milán",
-      category: "Baños & Bienestar",
-      material: "Mármol Sintético Blanco Satinado",
-      price: "$429.900 COP",
-      dimensions: "45 cm × 38 cm × 12 cm",
+      id: "jacuzzi-mydas-180",
+      name: "Jacuzzi Mydas 180",
+      category: "Hidromasajes y Spas",
+      material: "Acrílico sanitario reforzado con faldón en madera",
+      price: "Consultar con asesor",
+      dimensions: "180 cm × 180 cm",
       specs: [
-        "Material de alta resistencia a manchas y rayones",
-        "Superficie ultra lisa y no porosa (fácil asepsia)",
-        "Compatible con grifería monocontrol alta o de pared"
+        "Sistema de hidromasaje con jets direccionables",
+        "Requiere pre-instalación eléctrica con GFCI dedicado",
+        "Apto para instalación en terraza o exterior cubierto"
       ],
       features: [
-        "Garantía extendida de 10 años",
-        "Diseño escultural minimalista",
-        "Tecnología Firplak Eco-Drain"
+        "Garantía de 5 años con instalación certificada",
+        "Cromoterapia LED integrada",
+        "Cubierta térmica protectora disponible"
       ],
-      badge: "Lanzamiento 2026"
+      badge: "Instalación certificada"
     },
-    fallbackImage: "/images/loomere/cat-lavamanos.webp",
-    videoUrl: "/videos/loomere/video_0.mp4",
-    hotspot: { x: 64, y: 54 }
+    fallbackImage: "/images/loomere/viaje_1_exterior.webp",
+    productImage: "/images/loomere/Hidromasaje Galapagos Básica empotrar 250X200 Blanco Sin luces.jpg",
+    videoUrl: "/videos/loomere/viaje_1_exterior.mp4",
+    videoUrlMobile: "/videos/loomere/viaje_1_exterior-m.mp4",
+    hotspot: { x: 50, y: 58 }
   },
   {
     id: 1,
-    time: "08:30 AM",
-    tag: "CAPÍTULO 02 — VITALIDAD & DISEÑO",
-    title: "El Ritmo del Hogar",
-    headline: "El epicentro culinario que reúne a la familia",
-    description: "Sol matutino, café recién preparado y el desayuno compartido. El mesón de cuarzo y la grifería de precisión responden con silenciosa ergonomía al movimiento dinámico de la mañana.",
+    time: "02 · Baño",
+    tag: "LAVAMANOS OSLO / MUEBLE MACAO",
+    title: "El Baño Boutique",
+    headline: "Elegancia en Cada Detalle.",
+    description: "Materiales que transforman lo cotidiano en un ritual.",
     product: {
-      id: "cocina-integral-nordic",
-      name: "Cocina Integral Nórdica & Mesón Cuarzo",
-      category: "Cocinas Integrales",
-      material: "Madera Termotratada RH & Cuarzo Calacatta",
-      price: "$3.850.000 COP",
-      dimensions: "Módulos modulares a medida (desde 1.80m hasta 3.20m)",
+      id: "lavamanos-oslo-mueble-macao",
+      name: "Lavamanos Oslo con Mueble Macao",
+      category: "Baños",
+      material: "Mármol sintético no poroso + aglomerado RH",
+      price: "Consultar con asesor",
+      dimensions: "155 cm × 48 cm",
       specs: [
-        "Herrajes alemanes con sistema Soft-Close de cierre lento",
-        "Mesón anti-bacteriano resistente a calor y líquidos",
-        "Módulos inferiores y superiores 100% resistentes a humedad (RH)"
+        "Superficie no porosa, resistente a manchas y rayones",
+        "Mueble en aglomerado resistente a la humedad (RH)",
+        "Compatible con grifería monocontrol o de pared"
       ],
       features: [
-        "Diseño ergonómico sin tiradores visibles (Push-to-open)",
-        "Distribución inteligente para electrodomésticos empotrados",
-        "Instalación y asesoría especializada incluida"
+        "Confirmá la orientación del mueble antes de comprar",
+        "Sifón y desagüe incluidos",
+        "Disponible en Envío Rápido según referencia"
       ],
-      badge: "Más Vendido"
+      badge: "Línea Oslo"
     },
-    fallbackImage: "/images/loomere/cocina.png",
-    videoUrl: "/videos/loomere/video_1.mp4",
-    hotspot: { x: 66, y: 52 }
+    fallbackImage: "/images/loomere/viaje_2_bano.webp",
+    productImage: "/images/loomere/Oslo-Blanco-Macao-Class-Gracia-155x48-Web.webp",
+    videoUrl: "/videos/loomere/viaje_2_bano.mp4",
+    videoUrlMobile: "/videos/loomere/viaje_2_bano-m.mp4",
+    hotspot: { x: 42, y: 56 }
   },
   {
     id: 2,
-    time: "15:00 PM",
-    tag: "CAPÍTULO 03 — CUIDADO & RESISTENCIA",
-    title: "El Retorno Activo",
-    headline: "Robustez higiénica para tus pasiones al aire libre",
-    description: "Al volver de una expedición de senderismo por la cordillera, la zona de labores recibe el calzado y equipo de montaña. Un pozo amplio y profundo que resiste el uso rudo manteniendo impecable el hogar.",
+    time: "03 · Lavandería",
+    tag: "ZONA DE LAVANDERÍA — LÍNEA PRO",
+    title: "Zona de Lavandería",
+    headline: "Funcionalidad Reinventada.",
+    description: "Soluciones inteligentes que mantienen la armonía de tu hogar.",
     product: {
-      id: "combo-lavadero-pro-rh",
-      name: "Combo Lavadero Pro con Mueble RH",
-      category: "Zona de Labores",
-      material: "Mármol Sintético No Poroso & Aglomerado RH",
-      price: "$899.900 COP",
-      dimensions: "Módulos configurables (Lavadero 80/100cm + Módulo Lavadora)",
+      id: "combo-lavadero-linea-pro",
+      name: "Combo Lavadero Línea Pro con Mueble RH",
+      category: "Zona de Ropas",
+      material: "Mármol sintético no poroso + aglomerado RH",
+      price: "Consultar con asesor",
+      dimensions: "Disponible en 80, 100 y 120 cm",
       specs: [
-        "Pozo profundo en mármol sintético no poroso con estregadero ergonómico",
-        "Mueble en aglomerado RH resistente a humedad con tapacantos PUR",
-        "Resistente a químicos de limpieza domésticos, cloro y rayos UV"
+        "Tanque profundo con estregadero ergonómico en una sola pieza",
+        "Selector de orientación de estregadero (izquierda o derecha)",
+        "Sifón flexible de 2\" para desagüe de lavadora"
       ],
       features: [
-        "Garantía de 5 años en mármol sintético",
-        "Selector de orientación de estregadero (Izquierda / Derecha)",
-        "Despacho prioritario en Envío Rápido (<48h)"
+        "Envío Rápido en referencias seleccionadas (<48 h)",
+        "Mueble organizador que oculta la tubería",
+        "Compatible con grifería de pared y llave terminal"
       ],
-      badge: "Envío Rápido <48h"
+      badge: "Línea Pro"
     },
-    fallbackImage: "/images/loomere/PORTADA.jpg",
-    videoUrl: "/videos/loomere/video_2.mp4",
-    hotspot: { x: 44, y: 55 }
+    fallbackImage: "/images/loomere/viaje_3_lavanderia.webp",
+    productImage: "/images/loomere/lavadero.webp",
+    videoUrl: "/videos/loomere/viaje_3_lavanderia.mp4",
+    videoUrlMobile: "/videos/loomere/viaje_3_lavanderia-m.mp4",
+    hotspot: { x: 55, y: 60 }
   },
   {
     id: 3,
-    time: "18:30 PM",
-    tag: "CAPÍTULO 04 — SANTUARIO & FAMILIA",
-    title: "La Gran Inmersión",
-    headline: "Hidroterapia en el santuario del atardecer",
-    description: "Cielo crepuscular, brisa fresca y vapor tibio. Los niños ríen mientras los micro-chorros de hidroterapia envuelven a la familia en un oasis de relajación profunda bajo las estrellas.",
+    time: "04 · Cocina",
+    tag: "COCINA JADE",
+    title: "La Cocina",
+    headline: "El Corazón del Hogar.",
+    description: "Diseño abierto que inspira tus mejores momentos.",
     product: {
-      id: "hidromasaje-galapagos",
-      name: "Hidromasaje Exterior Galápagos",
-      category: "Hidromasajes & Spas",
-      material: "Acrílico Sanitario Reforzado con Fibra de Vidrio",
-      price: "$9.450.000 COP",
-      dimensions: "210 cm × 210 cm × 92 cm (Capacidad: 5 personas)",
+      id: "cocina-integral-jade",
+      name: "Cocina Integral Jade",
+      category: "Cocinas Integrales",
+      material: "Tableros RH con mesón en Quartzstone",
+      price: "Consultar con asesor",
+      dimensions: "Módulos de 1.20 m a 2.00 m lineales",
       specs: [
-        "24 hidrojets de precisión (masaje lumbar, dorsal y plantar)",
-        "Sistema de calentador digital inteligente con sensor térmico",
-        "Sistema de cromoterapia subacuática LED multicolor"
+        "Mesón en Quartzstone o mármol sintético",
+        "Confirmá la orientación de la poceta (izquierda o derecha)",
+        "Espacio previsto para estufa y campana extractora"
       ],
       features: [
-        "Estructura autoportante de alta rigidez",
-        "Filtración de ozono para agua cristalina permanente",
-        "Cobertor térmico de protección incluido"
+        "Muebles superiores con pistones de gas",
+        "Cajones caceroleros y cubierteros",
+        "Venta cruzada con grifería flexible y canastillas en acero"
       ],
-      badge: "Lujo & Exclusividad"
+      badge: "Cocina Jade"
     },
-    fallbackImage: "/images/loomere/hero_jacuzzi.png",
-    videoUrl: "/videos/loomere/video_3.mp4",
-    hotspot: { x: 62, y: 56 }
+    fallbackImage: "/images/loomere/viaje_4_cocina.webp",
+    productImage: "/images/loomere/cocina.png",
+    videoUrl: "/videos/loomere/viaje_4_cocina.mp4",
+    videoUrlMobile: "/videos/loomere/viaje_4_cocina-m.mp4",
+    hotspot: { x: 60, y: 55 }
   }
 ];

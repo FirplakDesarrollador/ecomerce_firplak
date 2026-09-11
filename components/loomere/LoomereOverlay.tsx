@@ -8,19 +8,28 @@ interface LoomereOverlayProps {
   currentScene: LoomereScene;
   currentSceneIndex: number;
   totalScenes: number;
+  /** 0 mientras se ve la pantalla inicial o el cierre; 1 durante el tramo. */
+  opacity?: number;
   onOpenProduct: (product: SceneProduct) => void;
   onNextScene?: () => void;
 }
 
 export default function LoomereOverlay({
   currentScene,
-  currentSceneIndex,
-  totalScenes,
+  currentSceneIndex: _currentSceneIndex,
+  totalScenes: _totalScenes,
+  opacity = 1,
   onOpenProduct,
-  onNextScene
+  onNextScene: _onNextScene
 }: LoomereOverlayProps) {
+  const isGone = opacity <= 0.01;
+
   return (
-    <div className="absolute inset-0 pointer-events-none z-30 flex flex-col justify-end p-6 sm:p-10 md:p-12">
+    <div
+      aria-hidden={isGone}
+      className="absolute inset-0 pointer-events-none z-30 flex flex-col justify-end p-6 sm:p-10 md:p-12"
+      style={{ opacity, visibility: isGone ? 'hidden' : 'visible' }}
+    >
 
       {/* 2. Cuadro con efecto de blur y opacidad (bg-black/60 y backdrop-blur-md) */}
       <div
@@ -37,7 +46,7 @@ export default function LoomereOverlay({
           <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-cyan-400 font-semibold">
             <span>{currentScene.tag}</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white drop-shadow-md leading-tight">
+          <h2 className="font-serif font-light text-2xl sm:text-3xl md:text-4xl tracking-tight text-white drop-shadow-md leading-tight text-balance">
             {currentScene.headline}
           </h2>
         </div>

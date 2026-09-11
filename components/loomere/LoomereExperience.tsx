@@ -9,10 +9,14 @@ import LoomereProductDrawer from './LoomereProductDrawer';
 import LoomereCatalogModal from './LoomereCatalogModal';
 import LoomereMegamenu from './LoomereMegamenu';
 import LoomereCursorPriceTag from './LoomereCursorPriceTag';
+import LoomereHero from './LoomereHero';
+import LoomereFinalCta from './LoomereFinalCta';
 import FirplakKeyFeatures from '@/components/home/FirplakKeyFeatures';
 import FirplakEcosystemSection from '@/components/home/FirplakEcosystemSection';
 import FirplakGlobalFooter from '@/components/layout/FirplakGlobalFooter';
 import AccessFeedbackToast from '@/components/ui/AccessFeedbackToast';
+
+const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
 
 export default function LoomereExperience() {
   const [activeSceneIndex, setActiveSceneIndex] = useState(0);
@@ -21,7 +25,32 @@ export default function LoomereExperience() {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [isMegamenuOpen, setIsMegamenuOpen] = useState(false);
   const [isAtVideoSection, setIsAtVideoSection] = useState(true);
+  // Pantalla inicial visible al cargar; cierre apagado hasta el ultimo tramo.
+  const [heroOpacity, setHeroOpacity] = useState(1);
+  const [ctaProgress, setCtaProgress] = useState(0);
+  // null hasta resolver la media query: asi un movil no descarga el master
+  // de desktop antes de saber que le toca la variante ligera.
+  const [videoVariant, setVideoVariant] = useState<'desktop' | 'mobile' | null>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  // Ultimo objetivo de scrub calculado; el rAF es el unico que toca el DOM.
+  const scrubRef = useRef({ index: 0, local: 0 });
+  const rafRef = useRef<number | null>(null);
+
+  // El scroll es el transporte del video: la rueda escribe currentTime.
+  // Los clips estan codificados con GOP denso (skills/scroll-craft/scripts/
+  // encode.sh) precisamente para que este seek sea barato.
+  const applyScrub = useCallback(() => {
+    rafRef.current = null;
+    const { index, local } = scrubRef.current;
+    const video = videoRefs.current[index];
+    if (!video) return;
+    const duration = video.duration;
+    if (!Number.isFinite(duration) || duration <= 0) return;
+    const target = local * duration;
+    // Un seek por fotograma basta; pedir mas hace temblar el decoder.
+    if (Math.abs(video.currentTime - target) < 1 / 48) return;
+    video.currentTime = target;
+  }, []);
 
   // Calculate active scene smoothly based on scroll position
   const handleScroll = useCallback(() => {
@@ -29,13 +58,33 @@ export default function LoomereExperience() {
     const windowHeight = window.innerHeight;
     const totalScenes = LOOMERE_SCENES.length;
 
-    // Each scene takes 1 windowHeight of scroll in the 400vh container
-    const rawIndex = Math.floor((scrollY + windowHeight * 0.4) / windowHeight);
+    // El viewport queda fijado durante (n - 1) alturas de pantalla del
+    // contenedor de 400vh; ese es el recorrido completo del viaje.
+    const pinTravel = (totalScenes - 1) * windowHeight;
+    const journey = pinTravel > 0 ? clamp01(scrollY / pinTravel) : 0;
+
+    // Reparto uniforme: cada tramo ocupa exactamente 1/n del recorrido, para
+    // que ningun texto quede sin tiempo en pantalla.
+    const rawIndex = Math.floor(journey * totalScenes);
     const clampedIndex = Math.min(Math.max(rawIndex, 0), totalScenes - 1);
 
     setActiveSceneIndex(clampedIndex);
     setIsAtVideoSection(scrollY < (totalScenes - 0.2) * windowHeight);
-  }, []);
+
+    // Hero: se desvanece dentro del primer 35% de viewport de scroll.
+    const fadeSpan = windowHeight * 0.35;
+    setHeroOpacity(fadeSpan > 0 ? clamp01(1 - scrollY / fadeSpan) : 0);
+
+    // Cierre: overlay negro + CTA entran en el ultimo 12% del recorrido.
+    setCtaProgress(clamp01((journey - 0.88) / 0.12));
+
+    // Progreso dentro del tramo activo: 0 al entrar, 1 al salir.
+    const local = clamp01(journey * totalScenes - clampedIndex);
+    scrubRef.current = { index: clampedIndex, local };
+    if (rafRef.current === null) {
+      rafRef.current = requestAnimationFrame(applyScrub);
+    }
+  }, [applyScrub]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -43,16 +92,25 @@ export default function LoomereExperience() {
     const syncId = requestAnimationFrame(handleScroll);
     return () => {
       cancelAnimationFrame(syncId);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
       window.removeEventListener('scroll', handleScroll);
     };
   }, [handleScroll]);
 
-  // Ensure all videos play smoothly without transition glitches
+  // Elige la variante de video segun el ancho real del dispositivo.
   useEffect(() => {
-    videoRefs.current.forEach((video) => {
-      if (!video) return;
-      video.play().catch(() => {});
-    });
+    const query = window.matchMedia('(max-width: 899px)');
+    const sync = () => setVideoVariant(query.matches ? 'mobile' : 'desktop');
+    // Diferido: no se hace setState en el cuerpo del effect (ver bug 002).
+    const syncId = requestAnimationFrame(sync);
+    query.addEventListener('change', sync);
+    return () => {
+      cancelAnimationFrame(syncId);
+      query.removeEventListener('change', sync);
+    };
   }, []);
 
   // Smooth scroll to a specific scene index
@@ -81,6 +139,10 @@ export default function LoomereExperience() {
   };
 
   const currentScene = LOOMERE_SCENES[activeSceneIndex];
+  // El texto de tramo entra cuando el hero ya se fue y sale en la primera
+  // mitad de la rampa del cierre, para no dejar fantasma bajo el CTA.
+  const sceneTextOpacity = (1 - heroOpacity) * (1 - clamp01(ctaProgress * 2));
+  const isHeroOrCtaVisible = heroOpacity > 0.5 || ctaProgress > 0.5;
 
   return (
     <div className="relative bg-[#060a15] text-white selection:bg-cyan-500 selection:text-black">
@@ -93,6 +155,8 @@ export default function LoomereExperience() {
           onClick={(e) => {
             const target = e.target as HTMLElement | null;
             if (target?.closest('button, a, input, [data-interactive]')) return;
+            // Durante la pantalla inicial y el cierre, el clic no abre producto.
+            if (isHeroOrCtaVisible) return;
             handleOpenProduct(currentScene.product);
           }}
         >
@@ -126,16 +190,19 @@ export default function LoomereExperience() {
                     className="object-cover filter brightness-[0.85] contrast-[1.03]"
                   />
 
-                  {/* Video loop */}
-                  {scene.videoUrl && (
+                  {/* Video scrubbeado por el scroll (sin autoplay) */}
+                  {scene.videoUrl && videoVariant && (
                     <video
+                      key={videoVariant}
                       ref={(el) => {
                         videoRefs.current[idx] = el;
                       }}
-                      src={scene.videoUrl}
+                      src={
+                        videoVariant === 'mobile'
+                          ? scene.videoUrlMobile ?? scene.videoUrl
+                          : scene.videoUrl
+                      }
                       poster={scene.fallbackImage}
-                      autoPlay
-                      loop
                       muted
                       playsInline
                       preload="auto"
@@ -153,7 +220,16 @@ export default function LoomereExperience() {
           {/* Dynamic Cursor Price Tag following mouse pointer across the 4 videos */}
           <LoomereCursorPriceTag
             product={currentScene.product}
-            isActive={isAtVideoSection}
+            isActive={isAtVideoSection && !isHeroOrCtaVisible}
+          />
+
+          {/* Pantalla inicial: "Diseno que fluye contigo." */}
+          <LoomereHero opacity={heroOpacity} />
+
+          {/* Cierre: overlay negro al 50% + "Haz realidad tu espacio ideal." */}
+          <LoomereFinalCta
+            progress={ctaProgress}
+            onOpenCatalog={() => setIsCatalogOpen(true)}
           />
 
           {/* Clean Scene Overlay (Bottom-left opacity box + scene locator beacon) */}
@@ -161,6 +237,7 @@ export default function LoomereExperience() {
             currentScene={currentScene}
             currentSceneIndex={activeSceneIndex}
             totalScenes={LOOMERE_SCENES.length}
+            opacity={sceneTextOpacity}
             onOpenProduct={handleOpenProduct}
             onNextScene={() => {
               if (activeSceneIndex < LOOMERE_SCENES.length - 1) {
@@ -214,7 +291,7 @@ export default function LoomereExperience() {
       {/* Product Detail Drawer */}
       <LoomereProductDrawer
         product={selectedProduct}
-        imageSrc={currentScene.fallbackImage}
+        imageSrc={currentScene.productImage ?? currentScene.fallbackImage}
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
       />

@@ -96,26 +96,26 @@ export const LOOMERE_SCENES: LoomereScene[] = [
     description: "Al volver de una expedición de senderismo por la cordillera, la zona de labores recibe el calzado y equipo de montaña. Un pozo amplio y profundo que resiste el uso rudo manteniendo impecable el hogar.",
     product: {
       id: "combo-lavadero-pro-rh",
-      name: "Combo Lavadero Pro con Mueble RH",
+      name: "Lavadero Pro 140×60 con Mueble RH",
       category: "Zona de Labores",
       material: "Mármol Sintético No Poroso & Aglomerado RH",
-      price: "$899.900 COP",
-      dimensions: "Módulos configurables (Lavadero 80/100cm + Módulo Lavadora)",
+      price: "$1.489.900 COP",
+      dimensions: "140 cm × 60 cm × 90 cm (Pozo Derecho)",
       specs: [
-        "Pozo profundo en mármol sintético no poroso con estregadero ergonómico",
-        "Mueble en aglomerado RH resistente a humedad con tapacantos PUR",
-        "Resistente a químicos de limpieza domésticos, cloro y rayos UV"
+        "Pozo profundo en mármol sintético no poroso con tina a la derecha y grifería monocontrol",
+        "Mueble en aglomerado RH hidrófugo con compuertas de almacenamiento amplio",
+        "Superficie ultra lisa resistente a químicos de limpieza, cloro y rayos UV"
       ],
       features: [
         "Garantía de 5 años en mármol sintético",
-        "Selector de orientación de estregadero (Izquierda / Derecha)",
+        "Orientación de tina a la derecha con desagüe de alto caudal",
         "Despacho prioritario en Envío Rápido (<48h)"
       ],
       badge: "Envío Rápido <48h"
     },
-    fallbackImage: "/images/loomere/PORTADA.jpg",
+    fallbackImage: "/images/loomere/lavadero_pro_140.webp",
     videoUrl: "/videos/loomere/video_2.mp4",
-    hotspot: { x: 44, y: 55 }
+    hotspot: { x: 58, y: 44 }
   },
   {
     id: 3,

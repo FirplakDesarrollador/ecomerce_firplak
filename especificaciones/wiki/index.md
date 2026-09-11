@@ -8,8 +8,8 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 
 ## 📌 General
 - **[README.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/README.md)**: Manual de uso y estructura del wiki.
-- **[sintesis_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sintesis_diseno.md)**: Síntesis maestra unificada de elementos, tokens, lineamientos UI/UX, pre-instalación y condiciones de diseño.
-- **[sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md)**: Guía de estilo gráfico, paleta de colores, degradados, fuentes, glassmorphism, elevación y animaciones UI.
+- **[sistema_diseno.md](sistema_diseno.md)**: **Master Document unificado** del sistema de diseño, tokens CSS, Brand Book AIR 2026, componentes UI, scrollytelling en 8 fases, Mix & Match, pre-instalación y políticas comerciales.
+- **[sintesis_diseno.md](sintesis_diseno.md)**: Puntero canónico hacia `sistema_diseno.md`.
 - **[log.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/log.md)**: Historial cronológico de cambios.
 - **[seo.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/seo.md)**: Guía oficial y especificaciones de SEO para motores tradicionales y de IA.
 - **[mapa_del_sitio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mapa_del_sitio.md)**: Mapa del sitio y accesos globales de firplak.com (Top Bar, taxonomía de catálogo, portales B2B, flujo transaccional y marco legal).

@@ -65,29 +65,22 @@ export default function LoomereNavbar({
         <div className="max-w-[1620px] mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between relative">
 
           {/* Left: Categorías Trigger Button */}
-          <div className="flex items-center gap-1.5 sm:gap-2 z-10">
+          <div className="flex items-center gap-2">
             <button
               onClick={onOpenMegamenu}
-              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold bg-cyan-500/15 border border-cyan-400/30 text-cyan-200 hover:bg-cyan-500/25 hover:scale-105 transition-all duration-200 shadow-lg shadow-cyan-950/40"
+              className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-cyan-500/15 border border-cyan-400/30 text-cyan-200 hover:bg-cyan-500/25 hover:scale-105 transition-all duration-200 shadow-lg shadow-cyan-950/40"
               aria-label="Abrir catálogo y categorías"
             >
               <LayoutGrid className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="hidden min-[400px]:inline">Categorías</span>
+              <span>Categorías</span>
             </button>
           </div>
 
           {/* Center: Logo FIRPLAK */}
           <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
             <Link href="/" className="flex items-center group">
-              <div className="flex items-center h-[16px] sm:h-[18px]">
-                {/* Logo compacto para pantallas pequeñas (< 400px como iPhone SE) */}
-                <div className="block sm:hidden">
-                  <FirplakLogo height={15} letterSpacing="0.28em" color="#ffffff" className="group-hover:scale-105 transition-transform" />
-                </div>
-                {/* Logo estándar para pantallas medianas y grandes */}
-                <div className="hidden sm:block">
-                  <FirplakLogo height={18} letterSpacing="0.48em" color="#ffffff" className="group-hover:scale-105 transition-transform" />
-                </div>
+              <div className="flex items-center h-[18px]">
+                <FirplakLogo height={18} letterSpacing="0.48em" color="#ffffff" className="group-hover:scale-105 transition-transform" />
               </div>
             </Link>
           </div>

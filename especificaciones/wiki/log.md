@@ -6,6 +6,14 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-09-16] update | Actualización Master del Sistema de Diseño (sistema_diseno.md)
+- Redefinición del Negro Puro (#000000) como color neutro de soporte con restricciones de contraste y no como color corporativo principal.
+- Inclusión de advertencia explícita sobre el uso moderado del Lino Cálido (#F6F3EE) para no sobresaturar la interfaz.
+- Actualización de tipografía oficial: Montserrat como Primaria (lectura, UI, botones, datos) y Orborn Medium como Secundaria (encabezados específicos y acentos de marca).
+- Redefinición del módulo Mix & Match bajo el enfoque Mobile First con flujo en 4 pasos (lavamanos, color lavamanos, mueble, color mueble).
+- Enfoque UX/UI para Cocinas Integrales (Opciones de diseño y Medidas) y Zona Outdoor (Selección basada en medidas, Espacio disponible y Diseño).
+- Actualización del Checklist Heurístico con validación de las nuevas reglas tipográficas y cromáticas.
+
 ## [2026-09-15] ingest | Unificación de Referentes Externos de GUI/UI/UX en referentes_externo.md
 - Consolidadación de los 7 referentes internacionales (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung) en un archivo único e inmutable: [referentes_externo.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externo.md).
 - Eliminación de la carpeta `referentes_externos/` a favor del esquema plano de la wiki (`especificaciones/wiki/`).

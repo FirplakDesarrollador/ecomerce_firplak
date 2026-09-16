@@ -28,12 +28,6 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 - **[griferia_plomeria.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/griferia_plomeria.md)**: Estándares técnicos, ahorro hídrico (Resolución MinVivienda), cartuchos cerámicos y matriz de compatibilidad con lavamanos/lavaderos.
 
 ## 🎨 Referentes Externos de GUI
-- **[referentes_externos/index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/index.md)**: Benchmark de UI/UX con 7 referentes internacionales (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung) para la creación del nuevo sitio web de Firplak.
-  - **[Apple AirPods Pro](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/apple_airpods_pro.md)**: Scroll-driven 3D scrubbing y animación despiece PDP.
-  - **[Andbro Co](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/andbro_co.md)**: Retícula editorial minimalista para carpintería de obra B2B.
-  - **[Antonio Lupi](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/antonio_lupi.md)**: Lujo sanitario italiano y dirección de arte en materialidad.
-  - **[Kohler](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/kohler.md)**: Megamenú multinivel e-commerce y catálogo por ambiente.
-  - **[Cowboy E-Bikes](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/cowboy_ebikes.md)**: Personalizador 360° en vivo y motion UI para Mix & Match.
-  - **[DJI Mavic 3 Pro](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/dji_mavic.md)**: Visualización técnica, acometidas y despiece para Spas/Outdoor.
-  - **[Samsung Galaxy S25 Ultra](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/samsung_galaxy_s25.md)**: Wizard de compra PDP, cuotas/financiamiento y add-ons.
+- **[referentes_externo.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externo.md)**: Compendio unificado del benchmark UI/UX con 7 referentes internacionales (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung) para la creación del nuevo sitio web de Firplak.
+
 

@@ -6,10 +6,12 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
-## [2026-09-15] ingest | Ingesta de Referentes Externos de GUI/UI/UX (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung)
-- Creación de la carpeta [referentes_externos/index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/index.md) con 7 documentos detallados de benchmark de interfaz y experiencia de usuario.
+## [2026-09-15] ingest | Unificación de Referentes Externos de GUI/UI/UX en referentes_externo.md
+- Consolidadación de los 7 referentes internacionales (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung) en un archivo único e inmutable: [referentes_externo.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externo.md).
+- Eliminación de la carpeta `referentes_externos/` a favor del esquema plano de la wiki (`especificaciones/wiki/`).
 - Mapeo estratégico de patrones GUI a componentes de Firplak: Scroll 3D Scrubbing (Apple), Retícula Editorial B2B (Andbro), Lujo Sanitario (Antonio Lupi), Megamenú E-commerce (Kohler), Personalizador 360° en vivo (Cowboy), Visualización de Ingeniería Pesada (DJI) y Wizard transaccional con Financiamiento (Samsung).
-- Actualización de enlaces en [index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/index.md).
+- Actualización de la referencia en [index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/index.md).
+
 
 ## [2026-09-04] update | Redefinición Estratégica de Carpintería de Obra (Showcase B2B sin Precios ni SAP)
 - Redefinición de [carpinteria_obra.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/carpinteria_obra.md): se elimina la integración transaccional con SAP y listas de precios públicas.

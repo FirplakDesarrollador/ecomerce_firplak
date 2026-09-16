@@ -19,6 +19,21 @@ Registro de auditorías, ingestas y consultas realizadas en el wiki de especific
 - Incorporación posterior de Pear (pear.no, Honorable Mention Awwwards) como validación externa del motor de scroll-scrubbing (GSAP + Canvas + Lenis) ya definido en [sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md).
 - Actualización del índice general en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
 
+## [2026-09-16] update | Actualización Master del Sistema de Diseño (sistema_diseno.md)
+- Redefinición del Negro Puro (#000000) como color neutro de soporte con restricciones de contraste y no como color corporativo principal.
+- Inclusión de advertencia explícita sobre el uso moderado del Lino Cálido (#F6F3EE) para no sobresaturar la interfaz.
+- Actualización de tipografía oficial: Montserrat como Primaria (lectura, UI, botones, datos) y Orborn Medium como Secundaria (encabezados específicos y acentos de marca).
+- Redefinición del módulo Mix & Match bajo el enfoque Mobile First con flujo en 4 pasos (lavamanos, color lavamanos, mueble, color mueble).
+- Enfoque UX/UI para Cocinas Integrales (Opciones de diseño y Medidas) y Zona Outdoor (Selección basada en medidas, Espacio disponible y Diseño).
+- Actualización del Checklist Heurístico con validación de las nuevas reglas tipográficas y cromáticas.
+
+## [2026-09-15] ingest | Unificación de Referentes Externos de GUI/UI/UX en referentes_externo.md
+- Consolidadación de los 7 referentes internacionales (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung) en un archivo único e inmutable: [referentes_externo.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externo.md).
+- Eliminación de la carpeta `referentes_externos/` a favor del esquema plano de la wiki (`especificaciones/wiki/`).
+- Mapeo estratégico de patrones GUI a componentes de Firplak: Scroll 3D Scrubbing (Apple), Retícula Editorial B2B (Andbro), Lujo Sanitario (Antonio Lupi), Megamenú E-commerce (Kohler), Personalizador 360° en vivo (Cowboy), Visualización de Ingeniería Pesada (DJI) y Wizard transaccional con Financiamiento (Samsung).
+- Actualización de la referencia en [index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/index.md).
+
+
 ## [2026-09-04] update | Redefinición Estratégica de Carpintería de Obra (Showcase B2B sin Precios ni SAP)
 - Redefinición de [carpinteria_obra.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/carpinteria_obra.md): se elimina la integración transaccional con SAP y listas de precios públicas.
 - Se redefine como una galería de casos de éxito y proyectos emblemáticos que expone los features clave de ingeniería y manufactura a escala para constructores y arquitectos.

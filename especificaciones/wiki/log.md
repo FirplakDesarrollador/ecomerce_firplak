@@ -6,6 +6,11 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-09-15] ingest | Ingesta de Referentes Externos de GUI/UI/UX (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung)
+- Creación de la carpeta [referentes_externos/index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externos/index.md) con 7 documentos detallados de benchmark de interfaz y experiencia de usuario.
+- Mapeo estratégico de patrones GUI a componentes de Firplak: Scroll 3D Scrubbing (Apple), Retícula Editorial B2B (Andbro), Lujo Sanitario (Antonio Lupi), Megamenú E-commerce (Kohler), Personalizador 360° en vivo (Cowboy), Visualización de Ingeniería Pesada (DJI) y Wizard transaccional con Financiamiento (Samsung).
+- Actualización de enlaces en [index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/index.md).
+
 ## [2026-09-04] update | Redefinición Estratégica de Carpintería de Obra (Showcase B2B sin Precios ni SAP)
 - Redefinición de [carpinteria_obra.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/carpinteria_obra.md): se elimina la integración transaccional con SAP y listas de precios públicas.
 - Se redefine como una galería de casos de éxito y proyectos emblemáticos que expone los features clave de ingeniería y manufactura a escala para constructores y arquitectos.

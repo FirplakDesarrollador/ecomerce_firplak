@@ -7,6 +7,7 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 - **[sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md)**: Guía de estilo gráfico, paleta de colores, degradados, fuentes, glassmorphism, elevación y animaciones UI.
 - **[log.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/log.md)**: Historial cronológico de cambios.
 - **[seo.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/seo.md)**: Guía oficial y especificaciones de SEO para motores tradicionales y de IA.
+- **[referentes_externos.md](file:///c:/Users/isabel.isaza/OneDrive%20-%20FIRPLAK%20SA/Escritorio/Proyecto%20AI%20Pagina%20web/especificaciones/wiki/referentes_externos.md)**: Benchmark global de UX/UI y comercio electrónico (IKEA, Pure Cycles, Bullfrog, Hot Spring, Jacuzzi, Tonal), navegación dual (Wellness vs Hogar), Shoppable Images y Spa Match Test.
 
 ## 🏗️ Arquitectura y Sistema
 - **[arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md)**: Estructura de base de datos en Supabase, escalabilidad de SKUs e integración con SAP Service Layer.
@@ -18,6 +19,8 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 - **[conceptos_catalogo.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/conceptos_catalogo.md)**: Definición de tipologías de producto, materiales (Mármol sintético, Quartzstone, RH) y la lógica de Combos vs Mix & Match.
 - **[hidromasajes.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/hidromasajes.md)**: Especificaciones técnicas, kits de equipamiento, acometidas, logística y comercialización de spas e hidromasajes.
 
-## 🛍️ Módulos Funcionales
+## 🛍️ Módulos y Requerimientos Funcionales
 - **[pagina_producto.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagina_producto.md)**: Arquitectura visual, layout, selectores de variante, configuradores, trust badges y marcado SEO de la Página de Detalle de Producto (PDP).
 - **[mix_and_match.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mix_and_match.md)**: Especificación funcional del visualizador interactivo lateral para combinaciones de lavamanos y muebles.
+- **[requerimientos_funcionales.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/requerimientos_funcionales.md)**: Requerimientos categorizados de Marketing/CRM, CMS, UX/UI (Quickview, video, colores), Gobernanza, Seguridad e Infraestructura.
+

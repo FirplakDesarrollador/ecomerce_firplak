@@ -26,6 +26,12 @@ export interface LoomereScene {
   videoUrl?: string;
   /** Variante 720p con GOP mas denso para movil. */
   videoUrlMobile?: string;
+  /**
+   * Anclaje del recorte en escritorio (`object-position`). El master es
+   * cuadrado y sirve a 16:9 y 9:16; al recortar a 16:9 un encuadre centrado
+   * decapita a la protagonista en algunas escenas. Por defecto centrado.
+   */
+  focusDesktop?: string;
   hotspot: {
     x: number; // percentage from left
     y: number; // percentage from top

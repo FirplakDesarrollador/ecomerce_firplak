@@ -111,6 +111,9 @@ export const LOOMERE_SCENES: LoomereScene[] = [
     productImage: "/images/loomere/Oslo-Blanco-Macao-Class-Gracia-155x48-Web.webp",
     videoUrl: "/videos/loomere/viaje_2_bano.mp4",
     videoUrlMobile: "/videos/loomere/viaje_2_bano-m.mp4",
+    // Su cabeza queda en el ~20% superior del master; el recorte 16:9
+    // centrado la corta a la altura del cuello.
+    focusDesktop: "center 20%",
     hotspot: { x: 42, y: 56 }
   },
   {
@@ -143,6 +146,10 @@ export const LOOMERE_SCENES: LoomereScene[] = [
     productImage: "/images/loomere/lavadero_pro_140.webp",
     videoUrl: "/videos/loomere/viaje_3_lavanderia.mp4",
     videoUrlMobile: "/videos/loomere/viaje_3_lavanderia-m.mp4",
+    // El recorte centrado corta la cabeza en viewports 16:9 anchos (1920x1080):
+    // durante el clip ella se estira hacia el estante y su cabeza sube mas que
+    // en el poster estatico. Ancla hacia arriba para conservarla en cuadro.
+    focusDesktop: "center 22%",
     hotspot: { x: 58, y: 44 }
   },
   {

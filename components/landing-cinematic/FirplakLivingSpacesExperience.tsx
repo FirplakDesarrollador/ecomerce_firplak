@@ -75,6 +75,17 @@ export default function FirplakLivingSpacesExperience() {
     };
   }, [handleScroll]);
 
+  // Asegurar que los videos se reproduzcan sin ser bloqueados por directivas de autoplay del navegador
+  useEffect(() => {
+    videoRefs.current.forEach((video) => {
+      if (video) {
+        video.muted = true;
+        video.play().catch(() => {});
+      }
+    });
+  }, [activeSceneIndex]);
+
+
   // Manejador de apertura de detalle de producto
   const handleOpenProduct = (product: SceneProduct) => {
     setSelectedProduct(product);
@@ -111,7 +122,10 @@ export default function FirplakLivingSpacesExperience() {
         style={{ height: `${(LIVING_SPACES_SCENES.length + 1) * 100}vh` }}
       >
         {/* VIEWPORT FIJO STICKY (100vh / 100dvh) - PANTALLA ÚNICA UNIFICADA */}
-        <div className="sticky top-0 left-0 w-full h-screen h-[100dvh] overflow-hidden flex items-center justify-center bg-[#0b0d11]">
+        <div
+          className="sticky top-0 left-0 w-full h-screen h-[100dvh] overflow-hidden flex items-center justify-center bg-[#0b0d11]"
+          style={{ height: '100vh', minHeight: '100vh' }}
+        >
           
           {/* ========================================================================= */}
           {/* FONDO ÚNICO FULL-BLEED: VIDEO EN LOOP SEEDANCE 2.5 (Cero pantallas divididas) */}

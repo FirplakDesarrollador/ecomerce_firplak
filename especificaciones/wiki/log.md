@@ -19,6 +19,11 @@ Registro de auditorías, ingestas y consultas realizadas en el wiki de especific
 - Incorporación posterior de Pear (pear.no, Honorable Mention Awwwards) como validación externa del motor de scroll-scrubbing (GSAP + Canvas + Lenis) ya definido en [sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md).
 - Actualización del índice general en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
 
+## [2026-09-16] ingest | Ingesta Oficial del Manual de Identidad Corporativa (Brand Book FIRPLAK 2026)
+- Creación de [manual_identidad_corporativa.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/manual_identidad_corporativa.md) con las 17 secciones completas del Brand Book oficial.
+- Especificación de filosofía de marca ("Fuerza con alma"), isotipo Λ (el símbolo del pico), retícula modular 1X x 5.4X, área de seguridad, tamaños mínimos (120px web / 25mm impreso), paleta Dulux (Navy #324354, Sage #7B8E90, Crema #F6F3EE), regla 60-30-10, jerarquía tipográfica (Montserrat + Orborn), estilo fotográfico y reglas de uso del logotipo.
+- Vinculación del manual como documento base de apoyo para el Design System en [sistema_diseno.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/sistema_diseno.md) y actualización de [index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/index.md).
+
 ## [2026-09-16] update | Actualización Master del Sistema de Diseño (sistema_diseno.md)
 - Redefinición del Negro Puro (#000000) como color neutro de soporte con restricciones de contraste y no como color corporativo principal.
 - Inclusión de advertencia explícita sobre el uso moderado del Lino Cálido (#F6F3EE) para no sobresaturar la interfaz.

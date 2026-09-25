@@ -81,12 +81,12 @@ La paleta se deriva de la colección **Dutch Boy 2025 ("Captivate Palette")** of
 | :--- | :--- | :--- | :--- | :--- |
 | **`#324354`** | Azul Oscuro Base (Marca Principal) | C:88 M:63 Y:44 K:41 | R:50 G:67 B:84 | Identidad corporativa, botones primarios y encabezados principales. |
 | **`#7B8E90`** | Slate Green (Acento Neutro) | C:43 M:4 Y:100 K:0 | R:123 G:142 B:144 | Acentuación serena, bordes técnicos y tags de bienestar. |
-| **`#000000`** | Negro Neutro (Contraste Específico) | C:0 M:0 Y:0 K:100 | R:0 G:0 B:0 | **Color Neutro**: NO es color corporativo principal. Uso exclusivo bajo parámetros estrictos. |
+| **`#000000`** | Negro (Uso Menor / Puntual) | C:0 M:0 Y:0 K:100 | R:0 G:0 B:0 | **Color Menor**: NO es color corporativo principal. Aplicación exclusivamente puntual en textos, detalles o necesidades específicas de contraste. |
 | **`#F6F3EE`** | Lino Cálido (Superficie Noble) | C:2 M:3 Y:6 K:0 | R:246 G:243 B:238 | Fondo orgánico de tarjetas y superficies. Usar con moderación. |
 
 > [!IMPORTANT]
 > **Categorización del Negro Puro (`#000000`)**:
-> El negro puro **NO es un color principal ni corporativo** de la marca Firplak. Se categoriza estrictamente como un **color neutro de soporte**, utilizable únicamente bajo parámetros específicos de alto contraste para titulares de impacto y tipografía principal (ratio WCAG > 13:1), o en elementos neutros de interfaz que requieran aislamiento cromático absoluto.
+> El negro puro **NO es un color principal ni corporativo** de la marca Firplak. `#324354` es el color principal/base de la identidad visual. El negro se categoriza estrictamente como un **color de uso menor y puntual**, reservado para aplicaciones específicas como ciertos textos, detalles gráficos o necesidades concretas de contraste (ratio WCAG > 13:1).
 
 > [!WARNING]
 > **Advertencia de Uso del Lino Cálido (`#F6F3EE`)**:
@@ -116,9 +116,10 @@ La paleta se deriva de la colección **Dutch Boy 2025 ("Captivate Palette")** of
   --color-accent-dark:   #58696b;
   --color-hydro-flow:    #688285; /* Hidroterapia & Spas */
 
-  /* Color Neutro de Soporte (No corporativo / Contraste) */
-  --color-brand-neutral-black: #000000; /* Uso restringido a tipografía H1 y contraste neutro */
-  --color-text-main:     #000000; /* Ratio > 13:1 */
+  /* Color de Uso Menor / Puntual (No corporativo / Contraste) */
+  --color-brand-neutral-black: #000000; /* Uso puntual restringido a detalles y contraste específico */
+  --color-text-main:     #324354; /* Color de texto principal */
+  --color-text-black-accent: #000000; /* Uso puntual: ratio > 13:1 */
   --color-text-body:     #324354; /* Lectura confortable / párrafos */
   --color-text-muted:    #58696b; /* Subtítulos y datos secundarios (WCAG AA) */
 
@@ -435,18 +436,13 @@ Cada fase del scrollytelling en productos Tier 1 responde a un principio psicol�
 
 ## 8. Condiciones Técnicas y Requisitos de Pre-Instalación
 
-*Detalle extendido en [hidromasajes.md](hidromasajes.md), [cocinas.md](cocinas.md), [zona_labores.md](zona_labores.md) y [zona_outdoor.md](zona_outdoor.md).*
+*Detalle extendido en [hidromasajes.md](hidromasajes.md)*.
 
-La presentación de datos técnicos se organiza bajo **Miller's Law (Chunking de 3-5 especificaciones por bloque)**:
+Las condiciones específicas de pre-instalación aplican exclusivamente a la categoría de Spas e Hidromasajes, dado que es la única línea del catálogo que requiere acometidas eléctricas, hidráulicas y de inspección previas a la entrega. La presentación de estos datos técnicos se organiza bajo **Miller's Law (Chunking de 3-5 especificaciones por bloque)**:
 
 | CATEGORÍA | REQUISITOS CRÍTICOS DE PRE-INSTALACIÓN | ENFOQUE UX / UI EN LA INTERFAZ |
 | :--- | :--- | :--- |
 | **Spas e Hidromasajes** | • Voltaje 110V o 220V Bifásico (Motobomba 2 HP).<br>• Circuito independiente con protección **GFCI**.<br>• Desagüe de 1.5" a 2" con trampa de olores.<br>• **Escotilla de inspección obligatoria de 40x40 cm**. | Despiece animado in-scroll, conmutador de versiones (Plus/Spa) y opción de agendar visita técnica previa. |
-| **Cocinas Integrales** | • Puntos hidrosanitarios.<br>• Ergonomía del triángulo de trabajo (conservación, lavado, cocción).<br>• Resistencia térmica y antimanchas en mesones. | **Exploración enfocada en "Opciones de diseños" y "Medidas disponibles"** (selectores de ancho/profundidad y orientación de poceta). |
-| **Zona Outdoor (BBQ & Spas)** | • Asadores en acero inoxidable AISI 304.<br>• Acometida de gas ventilada o soporte de carbón.<br>• **Cálculo de carga estructural en terrazas (kg/m²)**. | **Selección de productos basada en "Medidas", "Espacio disponible" y "Diseño"** (filtro inteligente por área en m² y estilo del espacio). |
-| **Zona de Labores** | • Doble toma de agua y desagüe para lavadora y lavadero.<br>• Muebles en aglomerado RH resistentes al vapor y detergentes.<br>• Líneas Pro, Aqua y Eco. | Demostración visual de pozo + restregadero, y cotas de ajuste en nichos. |
-| **Grifería y Plomería** | • Cartuchos cerámicos antigoteo.<br>• Ahorro de agua (Resolución MinVivienda).<br>• Desagües tipo push y sifones compatibles. | Matriz de compatibilidad en vivo según altura de grifería (baja para empotrar, alta para vessel). |
-| **Carpintería de Obra (B2B)** | • Para constructoras y firmas de diseño.<br>• Mobiliario seriado para proyectos inmobiliarios. | Formulario exclusivo de licitación/leads con descarga de fichas y modelos BIM. |
 
 ---
 
@@ -521,8 +517,8 @@ Para evitar fricción post-venta sin asustar al comprador en el embudo (*Cogniti
 
 Todo nuevo componente, pantalla o flujo nuevo en el e-commerce de Firplak debe validar el siguiente checklist antes de su publicación:
 
-- [ ] **Actualización e implementación correcta de la nueva paleta de colores (reglas del negro como color neutro y restricción de no sobresaturación del lino cálido) y las nuevas fuentes (Montserrat como tipografía primaria y Orborn Medium como tipografía secundaria).**
-- [ ] **Paleta Oficial Dutch Boy 2025**: ¿Se respeta la base Azul Oscuro `#324354`, el Slate Green `#7B8E90`, el Negro Neutro `#000000` y el Lino Cálido `#F6F3EE`?
+- [ ] **Actualización e implementación correcta de la nueva paleta de colores (reglas del negro como color de uso menor/puntual, `#324354` como color principal de marca y restricción de no sobresaturación del lino cálido) y las nuevas fuentes (Montserrat como tipografía primaria y Orborn Medium como tipografía secundaria).**
+- [ ] **Paleta Oficial Dutch Boy 2025**: ¿Se respeta la base Azul Oscuro `#324354` (color principal de marca), el Slate Green `#7B8E90`, el Negro `#000000` (uso menor/puntual) y el Lino Cálido `#F6F3EE`?
 - [ ] **Tipografía Oficial**: ¿Se emplea Montserrat para cuerpos de texto/UI/jerarquías principales y Orborn Medium para titulares de marca y acentos?
 - [ ] **Isotipo "Λ" y Contraste**: ¿El isotipo y logotipo respetan los ratios de contraste sobre fondo claro (`#324354` o `#000000`) y sobre fondo oscuro (`#F6F3EE` o blanco)?
 - [ ] **Opacidad y Glassmorphism sobre Video**: ¿Los paneles flotantes aplican fondo con opacidad calibrada (60-70% en dark slate o 80% en light linen), `backdrop-filter: blur(12-16px)` y borde translúcido de 1px?

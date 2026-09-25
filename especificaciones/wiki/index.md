@@ -7,13 +7,11 @@
 Catálogo de páginas de especificaciones y conocimiento compilado del proyecto Firplak E-commerce.
 
 ## 📌 General
-- **[README.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/README.md)**: Manual de uso y estructura del wiki.
-- **[sistema_diseno.md](sistema_diseno.md)**: **Master Document unificado** del sistema de diseño, tokens CSS, Brand Book AIR 2026, componentes UI, scrollytelling en 8 fases, Mix & Match, pre-instalación y políticas comerciales.
-- **[sintesis_diseno.md](sintesis_diseno.md)**: Puntero canónico hacia `sistema_diseno.md`.
-- **[log.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/log.md)**: Historial cronológico de cambios.
-- **[seo.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/seo.md)**: Guía oficial y especificaciones de SEO para motores tradicionales y de IA.
-- **[mapa_del_sitio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mapa_del_sitio.md)**: Mapa del sitio y accesos globales de firplak.com (Top Bar, taxonomía de catálogo, portales B2B, flujo transaccional y marco legal).
-- **[referentes_externos.md](referentes_externos.md)**: Banco de referentes externos (Awwwards y benchmarks de UX) para baños, cocinas, configuradores de producto, PDP narrativa y dirección de arte en scroll-scrubbing, con nota al pie de qué patrón es aplicable a Firplak en cada caso.
+- **[README.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/README.md)**: Manual de uso y estructura del wiki.
+- **[manual_identidad_corporativa.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/manual_identidad_corporativa.md)**: Manual oficial de identidad corporativa FIRPLAK (Brand Book AIR 2026), construcción de logo, retícula, regla 60-30-10 y tono de comunicación.
+- **[sistema_diseno.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/sistema_diseno.md)**: Guía de estilo gráfico, paleta de colores, degradados, fuentes, glassmorphism, elevación y animaciones UI.
+- **[log.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/log.md)**: Historial cronológico de cambios.
+- **[seo.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/seo.md)**: Guía oficial y especificaciones de SEO para motores tradicionales y de IA.
 
 ## 🏗️ Arquitectura y Sistema
 - **[arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md)**: Estructura de base de datos en Supabase, escalabilidad de SKUs e integración con SAP Service Layer.

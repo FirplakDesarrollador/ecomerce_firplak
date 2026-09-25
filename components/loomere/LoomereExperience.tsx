@@ -187,6 +187,13 @@ export default function LoomereExperience() {
                     alt={scene.title}
                     fill
                     priority={idx === 0}
+                    // Mismo anclaje que el video: si difieren, se ve un salto
+                    // al reemplazar el poster por el clip.
+                    style={
+                      videoVariant === 'desktop' && scene.focusDesktop
+                        ? { objectPosition: scene.focusDesktop }
+                        : undefined
+                    }
                     className="object-cover filter brightness-[0.85] contrast-[1.03]"
                   />
 
@@ -206,6 +213,13 @@ export default function LoomereExperience() {
                       muted
                       playsInline
                       preload="auto"
+                      // El master es cuadrado: en 9:16 el centro funciona, en
+                      // 16:9 algunas escenas necesitan subir el encuadre.
+                      style={
+                        videoVariant === 'desktop' && scene.focusDesktop
+                          ? { objectPosition: scene.focusDesktop }
+                          : undefined
+                      }
                       className="absolute inset-0 w-full h-full object-cover filter brightness-[0.88] contrast-[1.03]"
                     />
                   )}

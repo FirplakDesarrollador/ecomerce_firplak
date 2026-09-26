@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  LayoutGrid,
+  Menu,
   Phone,
   User,
   ShoppingCart,
   ShoppingBag,
-  ArrowUpRight
+  ArrowUpRight,
+  LayoutGrid
 } from 'lucide-react';
 import FirplakLogo from '@/components/layout/FirplakLogo';
 import { LOOMERE_SCENES } from './sceneData';
@@ -16,15 +17,95 @@ import { triggerAccessFeedback } from '@/components/ui/AccessFeedbackToast';
 
 interface LoomereNavbarProps {
   currentSceneIndex: number;
-  onOpenMegamenu: () => void;
+  onOpenMegamenu?: () => void;
 }
+
+interface SubcategoryItem {
+  title: string;
+  url: string;
+}
+
+interface ProductLine {
+  id: string;
+  title: string;
+  url: string;
+  subcategories: SubcategoryItem[];
+}
+
+const PRODUCT_LINES: ProductLine[] = [
+  {
+    id: 'hidromasajes',
+    title: 'hidromasajes & spas',
+    url: '/categoria-producto/jacuzzis-e-hidromasajes/',
+    subcategories: [
+      { title: 'hidromasajes indor', url: '/categoria-producto/jacuzzis-e-hidromasajes/1-persona/' },
+      { title: 'freestanding', url: '/categoria-producto/jacuzzis-e-hidromasajes/freestanding/' },
+      { title: 'multipersonales', url: '/categoria-producto/jacuzzis-e-hidromasajes/multipersonales/' },
+      { title: 'tinas', url: '/categoria-producto/jacuzzis-e-hidromasajes/tinas/' },
+      { title: 'accesorios', url: '/categoria-producto/jacuzzis-e-hidromasajes/accesorios-tinas/' },
+    ]
+  },
+  {
+    id: 'lavamanos',
+    title: 'lavamanos & muebles',
+    url: '/categoria-producto/banos/',
+    subcategories: [
+      { title: 'lavamanos & muebles', url: '/categoria-producto/banos/combos-lavamanos-con-mueble/' },
+      { title: 'griferías & accesorios', url: '/categoria-producto/banos/griferia-plomeria-banos/' },
+      { title: 'espejos', url: '/categoria-producto/banos/espejos/' },
+    ]
+  },
+  {
+    id: 'labores',
+    title: 'zona de labores',
+    url: '/categoria-producto/zona-de-ropas/',
+    subcategories: [
+      { title: 'lavarropas & muebles', url: '/categoria-producto/zona-de-ropas/combos-lavaderos/' },
+      { title: 'lavatraperos & muebles', url: '/categoria-producto/zona-de-ropas/lavaderos-pro/' },
+      { title: 'grifería & accesorios', url: '/categoria-producto/zona-de-ropas/llaves-plomeria-zona-de-ropas/' },
+    ]
+  },
+  {
+    id: 'cocinas',
+    title: 'cocinas',
+    url: '/categoria-producto/cocinas-integrales/',
+    subcategories: [
+      { title: 'cocinas integradas', url: '/categoria-producto/cocinas-integrales/cocinas-integrales-cocinas-integrales/' },
+      { title: 'cocinas modulares', url: '/categoria-producto/cocinas-integrales/muebles-solos-cocinas/' },
+      { title: 'lavaplatos', url: '/categoria-producto/cocinas-integrales/lavaplatos/' },
+    ]
+  },
+  {
+    id: 'accesorios',
+    title: 'accesorios & repuestos',
+    url: '/categoria-producto/accesorios/',
+    subcategories: [
+      { title: 'accesorios hidromasajes', url: '/categoria-producto/jacuzzis-e-hidromasajes/accesorios-tinas/' },
+      { title: 'accesorios baños', url: '/categoria-producto/banos/accesorios-banos/' },
+      { title: 'accesorios cocina', url: '/categoria-producto/cocinas-integrales/griferia-plomeria-cocinas/' },
+    ]
+  },
+  {
+    id: 'outdoor',
+    title: 'zona outdoor',
+    url: '/categoria-producto/zona-outdoor/',
+    subcategories: [
+      { title: 'asadores', url: '/categoria-producto/zona-outdoor/asadores/' },
+      { title: 'turcos & saunas', url: '/categoria-producto/zona-outdoor/saunas/' },
+    ]
+  },
+];
 
 export default function LoomereNavbar({
   currentSceneIndex,
   onOpenMegamenu
 }: LoomereNavbarProps) {
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const activeLine = PRODUCT_LINES.find(l => l.id === selectedCategory);
 
   const handleTopAccess = (title: string, url: string, category: string) => {
     triggerAccessFeedback({
@@ -46,10 +127,14 @@ export default function LoomereNavbar({
 
   return (
     <>
-      {isContactOpen && (
+      {(isContactOpen || isCategoriesOpen) && (
         <div
-          className="fixed inset-0 z-60"
-          onClick={() => setIsContactOpen(false)}
+          className="fixed inset-0 z-40"
+          onClick={() => {
+            setIsContactOpen(false);
+            setIsCategoriesOpen(false);
+            setSelectedCategory(null);
+          }}
         />
       )}
       <header
@@ -64,15 +149,25 @@ export default function LoomereNavbar({
         {/* Header Único: Navegación Principal con Marca FIRPLAK */}
         <div className="max-w-[1620px] mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between relative">
 
-          {/* Left: Categorías Trigger Button */}
+          {/* Left: Menú de Líneas de Producto Trigger Button (Hamburguesa simple de 3 líneas) */}
           <div className="flex items-center gap-1.5 sm:gap-2 z-10">
             <button
-              onClick={onOpenMegamenu}
-              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold bg-cyan-500/15 border border-cyan-400/30 text-cyan-200 hover:bg-cyan-500/25 hover:scale-105 transition-all duration-200 shadow-lg shadow-cyan-950/40"
-              aria-label="Abrir catálogo y categorías"
+              onClick={() => {
+                const nextState = !isCategoriesOpen;
+                setIsCategoriesOpen(nextState);
+                if (!nextState) setSelectedCategory(null);
+                if (isContactOpen) setIsContactOpen(false);
+                if (isCartOpen) setIsCartOpen(false);
+              }}
+              className={`p-2 sm:px-3 sm:py-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5 ${isCategoriesOpen ? 'bg-white/20 text-white ring-1 ring-white/30' : ''
+                }`}
+              aria-label="Abrir líneas de producto"
+              title="Líneas de Producto"
             >
-              <LayoutGrid className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="hidden min-[400px]:inline">Categorías</span>
+              <div className="relative flex items-center justify-center">
+                <Menu className="w-4 h-4 text-white" />
+              </div>
+              <span className="text-xs font-medium hidden md:inline">Menú</span>
             </button>
           </div>
 
@@ -98,6 +193,10 @@ export default function LoomereNavbar({
             <button
               onClick={() => {
                 setIsContactOpen(!isContactOpen);
+                if (isCategoriesOpen) {
+                  setIsCategoriesOpen(false);
+                  setSelectedCategory(null);
+                }
                 if (isCartOpen) setIsCartOpen(false);
               }}
               className={`p-2 sm:px-3 sm:py-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5 ${isContactOpen ? 'bg-white/20 text-white ring-1 ring-white/30' : ''
@@ -106,7 +205,7 @@ export default function LoomereNavbar({
               title="Líneas de Contacto & WhatsApp"
             >
               <div className="relative flex items-center justify-center">
-                <Phone className="w-4 h-4 text-emerald-400" />
+                <Phone className="w-4 h-4 text-white/80" />
               </div>
               <span className="text-xs font-medium hidden md:inline">Contacto</span>
             </button>
@@ -128,18 +227,17 @@ export default function LoomereNavbar({
                 onClick={() => {
                   setIsCartOpen(!isCartOpen);
                   if (isContactOpen) setIsContactOpen(false);
+                  if (isCategoriesOpen) {
+                    setIsCategoriesOpen(false);
+                    setSelectedCategory(null);
+                  }
                 }}
-                className={`p-2 sm:px-3 sm:py-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5 group ${isCartOpen ? 'bg-white/15 text-white ring-1 ring-cyan-400/50' : ''
+                className={`p-2 sm:px-3 sm:py-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 flex items-center gap-1.5 group ${isCartOpen ? 'bg-white/20 text-white ring-1 ring-white/30' : ''
                   }`}
                 aria-label="Carrito de Compras"
                 title="Carrito de Compras"
               >
-                <div className="relative flex items-center justify-center">
-                  <ShoppingCart className="w-4 h-4 text-white/80 group-hover:text-white transition-colors" />
-                  <span className="absolute -top-1.5 -right-2 flex h-3.5 min-w-3.5 px-0.5 items-center justify-center rounded-full bg-cyan-400 text-[8px] font-extrabold text-black ring-1 ring-zinc-900 shadow-sm">
-                    0
-                  </span>
-                </div>
+                <ShoppingCart className="w-4 h-4 text-white/80 group-hover:text-white transition-colors" />
                 <span className="text-xs font-medium hidden md:inline">Carrito</span>
               </button>
 
@@ -160,11 +258,11 @@ export default function LoomereNavbar({
                     }}
                   >
                     <div
-                      className="pb-2.5 text-[10px] font-semibold uppercase tracking-widest text-cyan-400/90 flex items-center justify-between gap-2"
+                      className="pb-2.5 text-[10px] font-semibold uppercase tracking-widest text-white/90 flex items-center justify-between gap-2"
                       style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.15)' }}
                     >
                       <div className="flex items-center gap-1.5 whitespace-nowrap">
-                        <ShoppingBag className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                        <ShoppingBag className="w-3.5 h-3.5 text-white/80 shrink-0" />
                         <span className="whitespace-nowrap">Tu Carrito de Compras</span>
                       </div>
                       <span className="text-[10px] text-white/60 font-mono whitespace-nowrap shrink-0">0 productos</span>
@@ -173,7 +271,7 @@ export default function LoomereNavbar({
                     {/* Estado Carrito Vacío */}
                     <div className="py-6 flex flex-col items-center justify-center text-center space-y-3">
                       <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 shadow-inner">
-                        <ShoppingCart className="w-6 h-6 text-cyan-300/60" />
+                        <ShoppingCart className="w-6 h-6 text-white/60" />
                       </div>
                       <div className="space-y-1 max-w-[250px]">
                         <p className="text-sm font-semibold text-white">Tu carrito está vacío</p>
@@ -184,11 +282,15 @@ export default function LoomereNavbar({
                       <button
                         onClick={() => {
                           setIsCartOpen(false);
-                          onOpenMegamenu();
+                          if (onOpenMegamenu) {
+                            onOpenMegamenu();
+                          } else {
+                            setIsCategoriesOpen(true);
+                          }
                         }}
-                        className="mt-1 py-2 px-4 rounded-xl text-xs font-semibold bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 hover:bg-cyan-500/30 hover:scale-105 transition-all shadow-md flex items-center gap-1.5"
+                        className="mt-1 py-2 px-4 rounded-xl text-xs font-semibold bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:scale-105 transition-all shadow-md flex items-center gap-1.5"
                       >
-                        <LayoutGrid className="w-3.5 h-3.5 text-cyan-400" />
+                        <LayoutGrid className="w-3.5 h-3.5 text-white/80" />
                         <span>Explorar Categorías</span>
                       </button>
                     </div>
@@ -207,10 +309,10 @@ export default function LoomereNavbar({
                           handleTopAccess('Carrito de Compras', '/carrito/', 'Transaccional');
                           setIsCartOpen(false);
                         }}
-                        className="py-2 px-3 rounded-xl text-xs font-semibold text-cyan-300 hover:text-white hover:bg-cyan-500/20 transition-all flex items-center gap-1"
+                        className="py-2 px-3 rounded-xl text-xs font-semibold text-white hover:bg-white/20 transition-all flex items-center gap-1"
                         style={{
-                          backgroundColor: 'rgba(34, 211, 238, 0.1)',
-                          border: '1px solid rgba(34, 211, 238, 0.25)'
+                          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                          border: '1px solid rgba(255, 255, 255, 0.2)'
                         }}
                       >
                         <span>Ir al Carrito</span>
@@ -224,6 +326,96 @@ export default function LoomereNavbar({
 
           </div>
 
+        </div>
+
+        {/* Franja de Líneas de Producto Expandible: Animación CSS Grid 0fr -> 1fr */}
+        <div
+          className="grid transition-[grid-template-rows,opacity] duration-300 ease-out"
+          style={{
+            gridTemplateRows: isCategoriesOpen ? '1fr' : '0fr',
+            opacity: isCategoriesOpen ? 1 : 0,
+            pointerEvents: isCategoriesOpen ? 'auto' : 'none'
+          }}
+        >
+          <div className="overflow-hidden">
+            <div
+              className="max-w-[1620px] mx-auto px-4 sm:px-8 relative transition-all duration-300"
+              style={{
+                paddingTop: '16px',
+                paddingBottom: activeLine ? '22px' : '24px'
+              }}
+            >
+              <nav
+                aria-label="Líneas de producto Firplak"
+                className="w-full grid grid-cols-2 sm:flex sm:flex-row items-center gap-3 sm:gap-4 text-[14.5px] sm:text-[15.5px] tracking-wide text-white lowercase"
+                style={{ justifyContent: 'space-evenly' }}
+              >
+                {PRODUCT_LINES.map((line) => {
+                  const isSelected = selectedCategory === line.id;
+                  const isDimmed = selectedCategory !== null && !isSelected;
+
+                  return (
+                    <button
+                      key={line.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedCategory(prev => prev === line.id ? null : line.id);
+                      }}
+                      className={`py-1 px-3 rounded-lg transition-all duration-200 text-center sm:text-left whitespace-nowrap lowercase cursor-pointer ${isSelected
+                        ? 'text-white font-semibold opacity-100'
+                        : isDimmed
+                          ? 'text-white/50 opacity-50 hover:opacity-75 hover:text-white/80'
+                          : 'text-white/85 hover:text-white opacity-100 font-medium'
+                        }`}
+                    >
+                      <span>{line.title}</span>
+                    </button>
+                  );
+                })}
+              </nav>
+
+              {/* Segunda expansión: Subcategorías de la categoría seleccionada */}
+              <div
+                className="grid transition-[grid-template-rows,opacity] duration-300 ease-out"
+                style={{
+                  gridTemplateRows: activeLine ? '1fr' : '0fr',
+                  opacity: activeLine ? 1 : 0,
+                  pointerEvents: activeLine ? 'auto' : 'none'
+                }}
+              >
+                <div className="overflow-hidden">
+                  <div
+                    className="border-t border-white/15"
+                    style={{
+                      marginTop: '16px',
+                      paddingTop: '20px'
+                    }}
+                  >
+                    <nav
+                      aria-label="Subcategorías de producto"
+                      className="w-full grid grid-cols-2 sm:flex sm:flex-row items-center gap-3 sm:gap-4 text-[14px] sm:text-[14.5px] tracking-wide text-white/90 lowercase"
+                      style={{ justifyContent: 'space-evenly' }}
+                    >
+                      {activeLine?.subcategories.map((sub) => (
+                        <Link
+                          key={sub.title}
+                          href={sub.url}
+                          onClick={() => {
+                            setIsCategoriesOpen(false);
+                            setSelectedCategory(null);
+                            handleTopAccess(sub.title, sub.url, activeLine.title);
+                          }}
+                          className="py-1 px-3 rounded-lg hover:bg-white/10 text-white/75 hover:text-white transition-all text-center whitespace-nowrap font-normal lowercase"
+                        >
+                          <span>{sub.title}</span>
+                        </Link>
+                      ))}
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Franja de Contacto Expandible: Animación CSS Grid 0fr -> 1fr */}
@@ -261,7 +453,7 @@ export default function LoomereNavbar({
                 <a
                   href="tel:+573158173390"
                   onClick={() => handleContactClick('Línea Ventas PBX 1', 'tel:+573158173390')}
-                  className="hover:text-cyan-300 transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   +57 315 817 3390
                 </a>
@@ -269,7 +461,7 @@ export default function LoomereNavbar({
                 <a
                   href="tel:+573176650987"
                   onClick={() => handleContactClick('Línea Ventas Móvil 2', 'tel:+573176650987')}
-                  className="hover:text-cyan-300 transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   +57 317 665 0987
                 </a>
@@ -281,23 +473,13 @@ export default function LoomereNavbar({
                 <a
                   href="tel:+6044441771"
                   onClick={() => handleContactClick('Conmutador General', 'tel:+6044441771')}
-                  className="hover:text-cyan-300 transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   +57 (604) 444 1771 Llamar (Opcion 2)
                 </a>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Progress Bar under navbar */}
-        <div className="w-full h-[1.5px] relative overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 transition-all duration-300 ease-out"
-            style={{
-              width: `${((currentSceneIndex + 1) / LOOMERE_SCENES.length) * 100}%`
-            }}
-          />
         </div>
       </header>
     </>

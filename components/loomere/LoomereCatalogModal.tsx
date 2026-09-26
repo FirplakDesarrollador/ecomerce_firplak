@@ -59,7 +59,7 @@ export default function LoomereCatalogModal({ isOpen, onClose }: LoomereCatalogM
       >
         <div className="flex items-center justify-between border-b border-white/10 pb-6">
           <div>
-            <span className="text-xs uppercase tracking-[0.3em] text-cyan-400 font-semibold block">
+            <span className="text-xs uppercase tracking-[0.3em] text-white/70 font-medium block">
               Catálogo Integral Firplak
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
@@ -96,7 +96,7 @@ export default function LoomereCatalogModal({ isOpen, onClose }: LoomereCatalogM
               </div>
               <div className="p-4 flex-1 flex flex-col justify-between">
                 <div>
-                  <h4 className="text-base font-bold text-white group-hover:text-cyan-400 transition-colors flex items-center justify-between">
+                  <h4 className="text-base font-bold text-white group-hover:text-white transition-colors flex items-center justify-between">
                     <span>{cat.name}</span>
                     <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </h4>
@@ -115,7 +115,7 @@ export default function LoomereCatalogModal({ isOpen, onClose }: LoomereCatalogM
             href="https://wa.me/573000000000"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-cyan-400 hover:underline font-semibold"
+            className="text-white/80 hover:text-white hover:underline font-medium"
           >
             ¿Necesitas un proyecto institucional o a medida? Contáctanos
           </a>

@@ -75,21 +75,21 @@ export default function AccessFeedbackToast() {
       >
         {/* Glow accent */}
         <div 
-          className="absolute top-0 left-0 right-0 h-[2px]" 
-          style={{ background: 'linear-gradient(to right, transparent, #22d3ee, transparent)' }} 
+          className="absolute top-0 left-0 right-0 h-[1px]" 
+          style={{ background: 'linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent)' }} 
         />
 
         <div className="flex items-start gap-3">
           <div 
-            className="p-2 rounded-xl text-cyan-300 shrink-0 mt-0.5"
-            style={{ backgroundColor: 'rgba(34, 211, 238, 0.15)', border: '1px solid rgba(34, 211, 238, 0.3)' }}
+            className="p-2 rounded-xl text-white shrink-0 mt-0.5"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255, 255, 255, 0.2)' }}
           >
             <Info className="w-4 h-4" />
           </div>
 
           <div className="flex-1 min-w-0 pr-6">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase font-bold tracking-widest text-cyan-400">
+              <span className="text-[10px] uppercase font-bold tracking-widest text-white/70">
                 {current.category || 'Acceso firplak.com'}
               </span>
               <span 
@@ -105,8 +105,8 @@ export default function AccessFeedbackToast() {
             </h5>
 
             {current.url && (
-              <div className="flex items-center gap-1.5 mt-1 text-xs text-cyan-300/80 font-mono break-all line-clamp-1">
-                <ExternalLink className="w-3 h-3 text-cyan-400 shrink-0" />
+              <div className="flex items-center gap-1.5 mt-1 text-xs text-white/70 font-mono break-all line-clamp-1">
+                <ExternalLink className="w-3 h-3 text-white/70 shrink-0" />
                 <span className="truncate">{current.url}</span>
               </div>
             )}

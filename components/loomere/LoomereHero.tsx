@@ -31,7 +31,7 @@ export default function LoomereHero({ opacity }: LoomereHeroProps) {
       <div className="relative">
         {/* leading holgado: a este cuerpo los descendentes de "q/y/g" invaden
             la linea siguiente si se aprieta el interlineado. */}
-        <h1 className="font-serif font-light text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.22] tracking-tight drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)] text-balance">
+        <h1 className="font-sans font-light text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.22] tracking-tight drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)] text-balance">
           Diseño que fluye contigo.
         </h1>
 

@@ -43,10 +43,10 @@ export default function LoomereOverlay({
         }}
       >
         <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-cyan-400 font-semibold">
+          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/80 font-medium">
             <span>{currentScene.tag}</span>
           </div>
-          <h2 className="font-serif font-light text-2xl sm:text-3xl md:text-4xl tracking-tight text-white drop-shadow-md leading-tight text-balance">
+          <h2 className="font-sans font-light text-2xl sm:text-3xl md:text-4xl tracking-tight text-white drop-shadow-md leading-tight text-balance">
             {currentScene.headline}
           </h2>
         </div>
@@ -59,7 +59,7 @@ export default function LoomereOverlay({
         <div className="pt-3 flex items-center border-t border-white/10 mt-3">
           <button
             onClick={() => onOpenProduct(currentScene.product)}
-            className="px-4 sm:px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs hover:scale-105 transition-all duration-200 shadow-lg shadow-cyan-400/20 flex items-center gap-2"
+            className="px-4 sm:px-5 py-2.5 rounded-full bg-white hover:bg-white/90 text-zinc-950 font-semibold text-xs hover:scale-105 transition-all duration-200 shadow-lg flex items-center gap-2 cursor-pointer"
           >
             <span>Conoce los productos</span>
             <ArrowRight className="w-3.5 h-3.5" />

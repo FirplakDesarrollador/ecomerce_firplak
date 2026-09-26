@@ -282,36 +282,7 @@ export default function FirplakLivingSpacesExperience() {
           {/* ========================================================================= */}
           {/* 3. NAVEGADOR LATERAL DE ESCENAS (En pantallas medianas y grandes) */}
           {/* ========================================================================= */}
-          <div
-            className={`absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 z-20 hidden sm:flex flex-col items-center gap-4 transition-opacity duration-500 ${
-              sceneContentOpacity > 0.1 ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-          >
-            {LIVING_SPACES_SCENES.map((scene, idx) => {
-              const isActive = activeSceneIndex === idx;
-              return (
-                <button
-                  key={scene.id}
-                  onClick={() => scrollToScene(idx)}
-                  className="group relative flex items-center justify-end"
-                  aria-label={`Ir a escena ${scene.roomName}`}
-                >
-                  <span className={`text-[11px] font-medium tracking-wider mr-3 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 ${
-                    isActive ? 'text-amber-300 opacity-100' : 'text-white/40'
-                  }`}>
-                    {scene.roomName}
-                  </span>
-                  <div
-                    className={`rounded-full transition-all duration-500 ${
-                      isActive
-                        ? 'w-3 h-8 bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.8)]'
-                        : 'w-2 h-2 bg-white/30 group-hover:bg-white/70'
-                    }`}
-                  />
-                </button>
-              );
-            })}
-          </div>
+
 
           {/* BARRA DE PROGRESO DE SCROLL INFERIOR */}
           <div className="absolute bottom-0 left-0 w-full h-1 bg-white/10 z-30">

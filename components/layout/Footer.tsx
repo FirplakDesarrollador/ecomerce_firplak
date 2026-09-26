@@ -16,7 +16,7 @@ export default function Footer() {
               <input 
                 type="email" 
                 placeholder="Ingresa tu correo electrónico" 
-                className="w-full rounded-l-md px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-l-md px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-zinc-900"
               />
               <button className="bg-[#bf2712] px-6 py-3 font-semibold text-white rounded-r-md hover:bg-[#a0200e] transition-colors whitespace-nowrap">
                 Suscribirme

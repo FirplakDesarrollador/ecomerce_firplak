@@ -108,7 +108,7 @@ export default function LoomereCursorPriceTag({
           border: '1px solid rgba(255, 255, 255, 0.2)'
         }}
       >
-        <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-pulse flex-shrink-0" />
+        <Sparkles className="w-3.5 h-3.5 text-white/80 animate-pulse flex-shrink-0" />
         <span className="text-xs font-medium text-white/95 whitespace-nowrap">
           {product.name}
         </span>

@@ -32,25 +32,6 @@ export default function LoomereExperience() {
   // de desktop antes de saber que le toca la variante ligera.
   const [videoVariant, setVideoVariant] = useState<'desktop' | 'mobile' | null>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  // Ultimo objetivo de scrub calculado; el rAF es el unico que toca el DOM.
-  const scrubRef = useRef({ index: 0, local: 0 });
-  const rafRef = useRef<number | null>(null);
-
-  // El scroll es el transporte del video: la rueda escribe currentTime.
-  // Los clips estan codificados con GOP denso (skills/scroll-craft/scripts/
-  // encode.sh) precisamente para que este seek sea barato.
-  const applyScrub = useCallback(() => {
-    rafRef.current = null;
-    const { index, local } = scrubRef.current;
-    const video = videoRefs.current[index];
-    if (!video) return;
-    const duration = video.duration;
-    if (!Number.isFinite(duration) || duration <= 0) return;
-    const target = local * duration;
-    // Un seek por fotograma basta; pedir mas hace temblar el decoder.
-    if (Math.abs(video.currentTime - target) < 1 / 48) return;
-    video.currentTime = target;
-  }, []);
 
   // Calculate active scene smoothly based on scroll position
   const handleScroll = useCallback(() => {
@@ -77,14 +58,7 @@ export default function LoomereExperience() {
 
     // Cierre: overlay negro + CTA entran en el ultimo 12% del recorrido.
     setCtaProgress(clamp01((journey - 0.88) / 0.12));
-
-    // Progreso dentro del tramo activo: 0 al entrar, 1 al salir.
-    const local = clamp01(journey * totalScenes - clampedIndex);
-    scrubRef.current = { index: clampedIndex, local };
-    if (rafRef.current === null) {
-      rafRef.current = requestAnimationFrame(applyScrub);
-    }
-  }, [applyScrub]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -92,13 +66,24 @@ export default function LoomereExperience() {
     const syncId = requestAnimationFrame(handleScroll);
     return () => {
       cancelAnimationFrame(syncId);
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
       window.removeEventListener('scroll', handleScroll);
     };
   }, [handleScroll]);
+
+  // Reproducción automática fluida en loop para la escena activa
+  useEffect(() => {
+    videoRefs.current.forEach((video, idx) => {
+      if (video) {
+        video.muted = true;
+        if (idx === activeSceneIndex) {
+          video.play().catch(() => {});
+        } else {
+          // Pausar escenas inactivas para optimizar memoria y aceleración GPU
+          video.pause();
+        }
+      }
+    });
+  }, [activeSceneIndex, videoVariant]);
 
   // Elige la variante de video segun el ancho real del dispositivo.
   useEffect(() => {
@@ -145,7 +130,7 @@ export default function LoomereExperience() {
   const isHeroOrCtaVisible = heroOpacity > 0.5 || ctaProgress > 0.5;
 
   return (
-    <div className="relative bg-[#060a15] text-white selection:bg-cyan-500 selection:text-black">
+    <div className="relative bg-[#060a15] text-white selection:bg-white/20 selection:text-white">
       {/* 1. SCROLL-DRIVEN VIDEO CONTAINER (400vh for 4 scenes) */}
       <div className="relative h-[400vh]" style={{ height: '400vh' }}>
         {/* Sticky Viewport pinned at top while scrolling the 4 scenes */}
@@ -197,7 +182,7 @@ export default function LoomereExperience() {
                     className="object-cover filter brightness-[0.85] contrast-[1.03]"
                   />
 
-                  {/* Video scrubbeado por el scroll (sin autoplay) */}
+                  {/* Video en loop permanente automático */}
                   {scene.videoUrl && videoVariant && (
                     <video
                       key={videoVariant}
@@ -210,6 +195,8 @@ export default function LoomereExperience() {
                           : scene.videoUrl
                       }
                       poster={scene.fallbackImage}
+                      autoPlay
+                      loop
                       muted
                       playsInline
                       preload="auto"
@@ -262,34 +249,7 @@ export default function LoomereExperience() {
             }}
           />
 
-          {/* Subtle Right Side Progress Dots */}
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-3 pointer-events-auto">
-            {LOOMERE_SCENES.map((s, idx) => (
-              <button
-                key={s.id}
-                onClick={() => scrollToScene(idx)}
-                className="group flex items-center justify-end gap-2 focus:outline-none"
-                title={`${s.time} — ${s.title}`}
-              >
-                <span
-                  className={`text-[10px] font-mono tracking-widest transition-all duration-300 ${
-                    activeSceneIndex === idx
-                      ? 'text-cyan-400 font-bold opacity-100 translate-x-0'
-                      : 'text-white/40 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0'
-                  }`}
-                >
-                  {s.time}
-                </span>
-                <span
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                    activeSceneIndex === idx
-                      ? 'bg-cyan-400 ring-4 ring-cyan-400/20 scale-125'
-                      : 'bg-white/30 hover:bg-white/60'
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
+
         </div>
       </div>
 

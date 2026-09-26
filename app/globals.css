@@ -1,4 +1,8 @@
 @import "tailwindcss";
+/* La auto-deteccion no siempre registra archivos nuevos en caliente (OneDrive
+   en Windows); declarar las carpetas de UI evita clases sin generar. */
+@source "../components";
+@source "../app";
 
 :root {
   --background: #ffffff;

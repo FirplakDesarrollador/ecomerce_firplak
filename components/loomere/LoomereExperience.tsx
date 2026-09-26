@@ -139,6 +139,10 @@ export default function LoomereExperience() {
   };
 
   const currentScene = LOOMERE_SCENES[activeSceneIndex];
+  // La foto del drawer sale de la escena del producto seleccionado, no de la
+  // escena en pantalla: asi sigue siendo correcta si se abre desde otro lugar.
+  const drawerScene =
+    LOOMERE_SCENES.find((s) => s.product.id === selectedProduct?.id) ?? currentScene;
   // El texto de tramo entra cuando el hero ya se fue y sale en la primera
   // mitad de la rampa del cierre, para no dejar fantasma bajo el CTA.
   const sceneTextOpacity = (1 - heroOpacity) * (1 - clamp01(ctaProgress * 2));
@@ -305,7 +309,7 @@ export default function LoomereExperience() {
       {/* Product Detail Drawer */}
       <LoomereProductDrawer
         product={selectedProduct}
-        imageSrc={currentScene.productImage ?? currentScene.fallbackImage}
+        imageSrc={drawerScene.productImage ?? drawerScene.fallbackImage}
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
       />

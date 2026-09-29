@@ -36,6 +36,9 @@ export default function LoomereExperience() {
   const scrubRef = useRef({ index: 0, local: 0 });
   const rafRef = useRef<number | null>(null);
 
+  // Timer para reanudar la reproducción continua en reposo (idle)
+  const idlePlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   // El scroll es el transporte del video: la rueda escribe currentTime.
   // Los clips estan codificados con GOP denso (skills/scroll-craft/scripts/
   // encode.sh) precisamente para que este seek sea barato.
@@ -44,12 +47,35 @@ export default function LoomereExperience() {
     const { index, local } = scrubRef.current;
     const video = videoRefs.current[index];
     if (!video) return;
+
+    // Pausar otros videos mientras se scrubbea el tramo activo
+    videoRefs.current.forEach((v, i) => {
+      if (v && i !== index && !v.paused) {
+        v.pause();
+      }
+    });
+
     const duration = video.duration;
     if (!Number.isFinite(duration) || duration <= 0) return;
     const target = local * duration;
     // Un seek por fotograma basta; pedir mas hace temblar el decoder.
     if (Math.abs(video.currentTime - target) < 1 / 48) return;
     video.currentTime = target;
+  }, []);
+
+  // Al detener el scroll o en reposo, reanuda la reproducción continua viva en loop
+  const scheduleIdlePlayback = useCallback((index: number) => {
+    if (idlePlayTimeoutRef.current) {
+      clearTimeout(idlePlayTimeoutRef.current);
+    }
+    idlePlayTimeoutRef.current = setTimeout(() => {
+      const activeVideo = videoRefs.current[index];
+      if (activeVideo && activeVideo.paused) {
+        activeVideo.play().catch(() => {
+          // Si el navegador bloquea autoplay, continúa en modo poster/scrub
+        });
+      }
+    }, 180);
   }, []);
 
   // Calculate active scene smoothly based on scroll position
@@ -69,7 +95,8 @@ export default function LoomereExperience() {
     const clampedIndex = Math.min(Math.max(rawIndex, 0), totalScenes - 1);
 
     setActiveSceneIndex(clampedIndex);
-    setIsAtVideoSection(scrollY < (totalScenes - 0.2) * windowHeight);
+    const inVideoSection = scrollY < (totalScenes - 0.2) * windowHeight;
+    setIsAtVideoSection(inVideoSection);
 
     // Hero: se desvanece dentro del primer 35% de viewport de scroll.
     const fadeSpan = windowHeight * 0.35;
@@ -78,13 +105,24 @@ export default function LoomereExperience() {
     // Cierre: overlay negro + CTA entran en el ultimo 12% del recorrido.
     setCtaProgress(clamp01((journey - 0.88) / 0.12));
 
+    // Pausar video activo mientras la rueda esté en movimiento para control 1:1
+    const activeVideo = videoRefs.current[clampedIndex];
+    if (activeVideo && !activeVideo.paused) {
+      activeVideo.pause();
+    }
+
     // Progreso dentro del tramo activo: 0 al entrar, 1 al salir.
     const local = clamp01(journey * totalScenes - clampedIndex);
     scrubRef.current = { index: clampedIndex, local };
     if (rafRef.current === null) {
       rafRef.current = requestAnimationFrame(applyScrub);
     }
-  }, [applyScrub]);
+
+    // En cuanto el scroll se detiene, reanudar la reproducción continua en loop
+    if (inVideoSection) {
+      scheduleIdlePlayback(clampedIndex);
+    }
+  }, [applyScrub, scheduleIdlePlayback]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -95,6 +133,9 @@ export default function LoomereExperience() {
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
         rafRef.current = null;
+      }
+      if (idlePlayTimeoutRef.current) {
+        clearTimeout(idlePlayTimeoutRef.current);
       }
       window.removeEventListener('scroll', handleScroll);
     };
@@ -214,6 +255,7 @@ export default function LoomereExperience() {
                           : scene.videoUrl
                       }
                       poster={scene.fallbackImage}
+                      loop
                       muted
                       playsInline
                       preload="auto"

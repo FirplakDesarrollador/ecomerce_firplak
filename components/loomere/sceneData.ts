@@ -39,9 +39,9 @@ export interface LoomereScene {
 }
 
 /**
- * Guion: "El Viaje de los Sentidos".
- * Cuatro tramos que el usuario recorre con el scroll:
- * Exterior (jacuzzi) → Baño → Lavandería → Cocina → CTA final.
+ * Guion: "El Viaje de los Sentidos - Casa Firplak".
+ * Cuatro tramos continuos que el usuario recorre con el scroll:
+ * Baño Boutique → Cocina Jade → Zona de Lavandería → Hidroterapia en el Deck → CTA final.
  *
  * ⚠️ DATO COMERCIAL PLACEHOLDER: `price`, `dimensions`, `specs` y `badge` son
  * provisionales para el prototipo. Deben venir del catálogo real (Supabase)
@@ -51,39 +51,7 @@ export interface LoomereScene {
 export const LOOMERE_SCENES: LoomereScene[] = [
   {
     id: 0,
-    time: "01 · Exterior",
-    tag: "JACUZZI MYDAS 180",
-    title: "El Exterior",
-    headline: "El Despertar de los Sentidos.",
-    description: "Espacios diseñados para tu bienestar exterior.",
-    product: {
-      id: "jacuzzi-mydas-180",
-      name: "Jacuzzi Mydas 180",
-      category: "Hidromasajes y Spas",
-      material: "Acrílico sanitario reforzado con faldón en madera",
-      price: "Consultar con asesor",
-      dimensions: "180 cm × 180 cm",
-      specs: [
-        "Sistema de hidromasaje con jets direccionables",
-        "Requiere pre-instalación eléctrica con GFCI dedicado",
-        "Apto para instalación en terraza o exterior cubierto"
-      ],
-      features: [
-        "Garantía de 5 años con instalación certificada",
-        "Cromoterapia LED integrada",
-        "Cubierta térmica protectora disponible"
-      ],
-      badge: "Instalación certificada"
-    },
-    fallbackImage: "/images/loomere/viaje_1_exterior.webp",
-    productImage: "/images/loomere/Hidromasaje Galapagos Básica empotrar 250X200 Blanco Sin luces.jpg",
-    videoUrl: "/videos/loomere/viaje_1_exterior.mp4",
-    videoUrlMobile: "/videos/loomere/viaje_1_exterior-m.mp4",
-    hotspot: { x: 50, y: 58 }
-  },
-  {
-    id: 1,
-    time: "02 · Baño",
+    time: "01 · Baño",
     tag: "LAVAMANOS OSLO / MUEBLE MACAO",
     title: "El Baño Boutique",
     headline: "Elegancia en Cada Detalle.",
@@ -107,14 +75,43 @@ export const LOOMERE_SCENES: LoomereScene[] = [
       ],
       badge: "Línea Oslo"
     },
-    fallbackImage: "/images/loomere/viaje_2_bano.webp",
+    fallbackImage: "/images/loomere/viaje_1_bano.webp",
     productImage: "/images/loomere/Oslo-Blanco-Macao-Class-Gracia-155x48-Web.webp",
-    videoUrl: "/videos/loomere/viaje_2_bano.mp4",
-    videoUrlMobile: "/videos/loomere/viaje_2_bano-m.mp4",
-    // Su cabeza queda en el ~20% superior del master; el recorte 16:9
-    // centrado la corta a la altura del cuello.
-    focusDesktop: "center 20%",
+    videoUrl: "/videos/loomere/viaje_1_bano.mp4",
+    videoUrlMobile: "/videos/loomere/viaje_1_bano-m.mp4",
     hotspot: { x: 42, y: 56 }
+  },
+  {
+    id: 1,
+    time: "02 · Cocina",
+    tag: "COCINA JADE",
+    title: "La Cocina",
+    headline: "El Corazón del Hogar.",
+    description: "Diseño abierto que inspira tus mejores momentos.",
+    product: {
+      id: "cocina-integral-jade",
+      name: "Cocina Integral Jade",
+      category: "Cocinas Integrales",
+      material: "Tableros RH con mesón en Quartzstone",
+      price: "Consultar con asesor",
+      dimensions: "Módulos de 1.20 m a 2.00 m lineales",
+      specs: [
+        "Mesón en Quartzstone o mármol sintético",
+        "Confirmá la orientación de la poceta (izquierda o derecha)",
+        "Espacio previsto para estufa y campana extractora"
+      ],
+      features: [
+        "Muebles superiores con pistones de gas",
+        "Cajones caceroleros y cubierteros",
+        "Venta cruzada con grifería flexible y canastillas en acero"
+      ],
+      badge: "Cocina Jade"
+    },
+    fallbackImage: "/images/loomere/viaje_2_cocina.webp",
+    productImage: "/images/loomere/cocina.png",
+    videoUrl: "/videos/loomere/viaje_2_cocina.mp4",
+    videoUrlMobile: "/videos/loomere/viaje_2_cocina-m.mp4",
+    hotspot: { x: 60, y: 55 }
   },
   {
     id: 2,
@@ -146,42 +143,38 @@ export const LOOMERE_SCENES: LoomereScene[] = [
     productImage: "/images/loomere/lavadero_pro_140.webp",
     videoUrl: "/videos/loomere/viaje_3_lavanderia.mp4",
     videoUrlMobile: "/videos/loomere/viaje_3_lavanderia-m.mp4",
-    // El recorte centrado corta la cabeza en viewports 16:9 anchos (1920x1080):
-    // durante el clip ella se estira hacia el estante y su cabeza sube mas que
-    // en el poster estatico. Ancla hacia arriba para conservarla en cuadro.
-    focusDesktop: "center 22%",
     hotspot: { x: 58, y: 44 }
   },
   {
     id: 3,
-    time: "04 · Cocina",
-    tag: "COCINA JADE",
-    title: "La Cocina",
-    headline: "El Corazón del Hogar.",
-    description: "Diseño abierto que inspira tus mejores momentos.",
+    time: "04 · Exterior",
+    tag: "JACUZZI MYDAS 180",
+    title: "El Exterior",
+    headline: "El Despertar de los Sentidos.",
+    description: "Espacios diseñados para tu bienestar exterior.",
     product: {
-      id: "cocina-integral-jade",
-      name: "Cocina Integral Jade",
-      category: "Cocinas Integrales",
-      material: "Tableros RH con mesón en Quartzstone",
+      id: "jacuzzi-mydas-180",
+      name: "Jacuzzi Mydas 180",
+      category: "Hidromasajes y Spas",
+      material: "Acrílico sanitario reforzado con faldón en madera",
       price: "Consultar con asesor",
-      dimensions: "Módulos de 1.20 m a 2.00 m lineales",
+      dimensions: "180 cm × 180 cm",
       specs: [
-        "Mesón en Quartzstone o mármol sintético",
-        "Confirmá la orientación de la poceta (izquierda o derecha)",
-        "Espacio previsto para estufa y campana extractora"
+        "Sistema de hidromasaje con jets direccionables",
+        "Requiere pre-instalación eléctrica con GFCI dedicado",
+        "Apto para instalación en terraza o exterior cubierto"
       ],
       features: [
-        "Muebles superiores con pistones de gas",
-        "Cajones caceroleros y cubierteros",
-        "Venta cruzada con grifería flexible y canastillas en acero"
+        "Garantía de 5 años con instalación certificada",
+        "Cromoterapia LED integrada",
+        "Cubierta térmica protectora disponible"
       ],
-      badge: "Cocina Jade"
+      badge: "Instalación certificada"
     },
-    fallbackImage: "/images/loomere/viaje_4_cocina.webp",
-    productImage: "/images/loomere/cocina.png",
-    videoUrl: "/videos/loomere/viaje_4_cocina.mp4",
-    videoUrlMobile: "/videos/loomere/viaje_4_cocina-m.mp4",
-    hotspot: { x: 60, y: 55 }
+    fallbackImage: "/images/loomere/viaje_4_exterior.webp",
+    productImage: "/images/loomere/Hidromasaje Galapagos Básica empotrar 250X200 Blanco Sin luces.jpg",
+    videoUrl: "/videos/loomere/viaje_4_exterior.mp4",
+    videoUrlMobile: "/videos/loomere/viaje_4_exterior-m.mp4",
+    hotspot: { x: 50, y: 58 }
   }
 ];

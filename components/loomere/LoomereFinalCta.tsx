@@ -33,14 +33,14 @@ export default function LoomereFinalCta({ progress, onOpenCatalog }: LoomereFina
       />
 
       <div className="relative" style={{ opacity: progress }}>
-        <h2 className="font-serif font-light text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight drop-shadow-[0_2px_24px_rgba(0,0,0,0.6)] text-balance">
+        <h2 className="font-sans font-light text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight drop-shadow-[0_2px_24px_rgba(0,0,0,0.6)] text-balance">
           Haz realidad tu espacio ideal.
         </h2>
 
         <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             onClick={onOpenCatalog}
-            className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-semibold text-sm transition-colors duration-200 shadow-lg shadow-cyan-400/25 flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+            className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-white/90 text-zinc-950 font-semibold text-sm transition-colors duration-200 shadow-lg flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white cursor-pointer"
           >
             <span>Ver Catálogo</span>
             <ArrowRight className="w-4 h-4" />

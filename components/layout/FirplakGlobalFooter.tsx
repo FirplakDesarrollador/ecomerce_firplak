@@ -82,12 +82,12 @@ export default function FirplakGlobalFooter() {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 mb-16">
         <div 
           className="rounded-3xl p-8 sm:p-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 shadow-2xl"
-          style={{ backgroundColor: '#081124', border: '1px solid rgba(34, 211, 238, 0.25)' }}
+          style={{ backgroundColor: '#0a0d14', border: '1px solid rgba(255, 255, 255, 0.12)' }}
         >
           <div className="max-w-xl space-y-2">
             <div 
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-cyan-300 text-xs font-semibold uppercase tracking-wider"
-              style={{ backgroundColor: 'rgba(34, 211, 238, 0.1)', border: '1px solid rgba(34, 211, 238, 0.25)' }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-white/80 text-xs font-medium uppercase tracking-wider"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.15)' }}
             >
               <Sparkles className="w-3.5 h-3.5" />
               Comunidad & Tendencias
@@ -113,8 +113,7 @@ export default function FirplakGlobalFooter() {
               />
               <button
                 type="submit"
-                className="px-6 py-3 rounded-2xl text-white text-xs font-bold hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 shrink-0"
-                style={{ background: 'linear-gradient(to right, #06b6d4, #2563eb)', boxShadow: '0 8px 24px rgba(6, 182, 212, 0.25)' }}
+                className="px-6 py-3 rounded-2xl bg-white hover:bg-white/90 text-zinc-950 text-xs font-semibold hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 shrink-0 cursor-pointer shadow-lg"
               >
                 <span>Suscribirme</span>
                 <Send className="w-3.5 h-3.5" />
@@ -126,7 +125,7 @@ export default function FirplakGlobalFooter() {
                 type="checkbox"
                 checked={acceptedHabeasData}
                 onChange={(e) => setAcceptedHabeasData(e.target.checked)}
-                className="mt-0.5 rounded border-white/20 bg-white/5 text-cyan-400 focus:ring-0"
+                className="mt-0.5 rounded border-white/20 bg-white/5 text-white focus:ring-0"
               />
               <span>
                 Autorizo el tratamiento de mis datos personales según la Ley 1581 de 2012 (Habeas Data).
@@ -151,19 +150,19 @@ export default function FirplakGlobalFooter() {
 
             <div className="space-y-2 text-xs text-white/75 pt-2">
               <div className="flex items-center gap-2">
-                <PhoneCall className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <PhoneCall className="w-3.5 h-3.5 text-white/70 shrink-0" />
                 <span>PBX: +57 (604) 444 1771</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <Phone className="w-3.5 h-3.5 text-white/70 shrink-0" />
                 <span>Ventas: +57 315 817 3390</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-white/70 shrink-0" />
                 <span>info@firplak.com</span>
               </div>
               <div className="flex items-center gap-2 text-white/50">
-                <Clock className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <Clock className="w-3.5 h-3.5 text-white/70 shrink-0" />
                 <span>L-V: 7:00 am - 5:00 pm</span>
               </div>
             </div>
@@ -171,7 +170,7 @@ export default function FirplakGlobalFooter() {
 
           {/* Column 2: Catálogo & Líneas de Producto */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">
               Catálogo & Líneas
             </h4>
             <ul className="space-y-2 text-xs">
@@ -199,7 +198,7 @@ export default function FirplakGlobalFooter() {
 
           {/* Column 3: Empresa e Institucional */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">
               Empresa & Canales
             </h4>
             <ul className="space-y-2 text-xs">
@@ -227,7 +226,7 @@ export default function FirplakGlobalFooter() {
 
           {/* Column 4: B2B & Servicios Técnicos */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">
               B2B & Servicios
             </h4>
             <ul className="space-y-2 text-xs">
@@ -253,7 +252,7 @@ export default function FirplakGlobalFooter() {
 
           {/* Column 5: Red Omnicanal & Sedes Físicas */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">
               Showrooms Físicos
             </h4>
             <div className="space-y-3 text-xs text-white/60">
@@ -267,13 +266,13 @@ export default function FirplakGlobalFooter() {
                     <span className="font-semibold text-white/90">{s.city}</span>
                     <button
                       onClick={() => handleAccess(`Mapa ${s.city}`, s.mapsUrl, 'Google Maps')}
-                      className="text-[10px] text-cyan-400 hover:underline flex items-center gap-0.5"
+                      className="text-[10px] text-white/70 hover:text-white hover:underline flex items-center gap-0.5"
                     >
                       Mapa <ArrowUpRight className="w-2.5 h-2.5" />
                     </button>
                   </div>
                   <p className="text-[11px] text-white/50 leading-tight">{s.address}</p>
-                  <p className="text-[11px] font-mono text-cyan-400/80">{s.phone}</p>
+                  <p className="text-[11px] font-mono text-white/70">{s.phone}</p>
                 </div>
               ))}
             </div>
@@ -288,7 +287,7 @@ export default function FirplakGlobalFooter() {
           
           {/* SIC Official Compliance Badge */}
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-white/5 border border-white/10 text-cyan-300 shrink-0">
+            <div className="p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 shrink-0">
               <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
@@ -301,7 +300,7 @@ export default function FirplakGlobalFooter() {
             </div>
             <button
               onClick={() => handleAccess('Sede Electrónica SIC', 'https://sedeelectronica.sic.gov.co/', 'SIC Colombia')}
-              className="ml-2 px-3 py-1 rounded-full bg-white/5 hover:bg-cyan-500/20 border border-white/15 text-[10px] font-bold text-cyan-300 transition-colors"
+              className="ml-2 px-3 py-1 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-[10px] font-bold text-white transition-colors"
             >
               Ir a la SIC
             </button>

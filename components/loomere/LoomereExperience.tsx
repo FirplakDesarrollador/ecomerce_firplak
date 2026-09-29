@@ -35,7 +35,6 @@ export default function LoomereExperience() {
   // Ultimo objetivo de scrub calculado; el rAF es el unico que toca el DOM.
   const scrubRef = useRef({ index: 0, local: 0 });
   const rafRef = useRef<number | null>(null);
-
   // Timer para reanudar la reproducción continua en reposo (idle)
   const idlePlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -190,7 +189,7 @@ export default function LoomereExperience() {
   const isHeroOrCtaVisible = heroOpacity > 0.5 || ctaProgress > 0.5;
 
   return (
-    <div className="relative bg-[#060a15] text-white selection:bg-cyan-500 selection:text-black">
+    <div className="relative bg-[#060a15] text-white selection:bg-white/20 selection:text-white">
       {/* 1. SCROLL-DRIVEN VIDEO CONTAINER (400vh for 4 scenes) */}
       <div className="relative h-[400vh]" style={{ height: '400vh' }}>
         {/* Sticky Viewport pinned at top while scrolling the 4 scenes */}
@@ -242,7 +241,7 @@ export default function LoomereExperience() {
                     className="object-cover filter brightness-[0.85] contrast-[1.03]"
                   />
 
-                  {/* Video scrubbeado por el scroll (sin autoplay) */}
+                  {/* Video scrubbeado por el scroll; en reposo retoma el loop natural */}
                   {scene.videoUrl && videoVariant && (
                     <video
                       key={videoVariant}
@@ -308,34 +307,6 @@ export default function LoomereExperience() {
             }}
           />
 
-          {/* Subtle Right Side Progress Dots */}
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-3 pointer-events-auto">
-            {LOOMERE_SCENES.map((s, idx) => (
-              <button
-                key={s.id}
-                onClick={() => scrollToScene(idx)}
-                className="group flex items-center justify-end gap-2 focus:outline-none"
-                title={`${s.time} — ${s.title}`}
-              >
-                <span
-                  className={`text-[10px] font-mono tracking-widest transition-all duration-300 ${
-                    activeSceneIndex === idx
-                      ? 'text-cyan-400 font-bold opacity-100 translate-x-0'
-                      : 'text-white/40 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0'
-                  }`}
-                >
-                  {s.time}
-                </span>
-                <span
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                    activeSceneIndex === idx
-                      ? 'bg-cyan-400 ring-4 ring-cyan-400/20 scale-125'
-                      : 'bg-white/30 hover:bg-white/60'
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
         </div>
       </div>
 

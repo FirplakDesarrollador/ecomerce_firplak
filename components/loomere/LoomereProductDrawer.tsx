@@ -48,7 +48,7 @@ export default function LoomereProductDrawer({
           }}
         >
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-white/10 text-white/90 border border-white/20">
               {product.badge}
             </span>
             <span className="text-xs text-white/50">{product.category}</span>
@@ -74,7 +74,7 @@ export default function LoomereProductDrawer({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
             <div className="absolute bottom-4 left-4 right-4">
-              <span className="text-[11px] font-mono uppercase tracking-widest text-cyan-400">
+              <span className="text-[11px] font-mono uppercase tracking-widest text-white/70">
                 FIRPLAK LUXURY COLLECTION
               </span>
               <h3 className="text-xl font-bold tracking-tight text-white">{product.name}</h3>
@@ -93,8 +93,8 @@ export default function LoomereProductDrawer({
               <span className="text-[11px] uppercase tracking-wider text-white/50 block">Precio Referencial</span>
               <span className="text-2xl font-bold text-white tracking-tight">{product.price}</span>
             </div>
-            <div className="flex items-center gap-2 text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/20">
-              <ShieldCheck className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs text-white/90 bg-white/10 px-3 py-1.5 rounded-lg border border-white/20">
+              <ShieldCheck className="w-4 h-4 text-white/80" />
               <span>Garantía de Fábrica</span>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default function LoomereProductDrawer({
               }}
             >
               <div className="flex items-center gap-1.5 text-white/50 text-xs">
-                <Layers className="w-3.5 h-3.5 text-cyan-400" />
+                <Layers className="w-3.5 h-3.5 text-white/70" />
                 <span>Materialidad</span>
               </div>
               <p className="text-xs font-medium text-white/90">{product.material}</p>
@@ -122,7 +122,7 @@ export default function LoomereProductDrawer({
               }}
             >
               <div className="flex items-center gap-1.5 text-white/50 text-xs">
-                <Ruler className="w-3.5 h-3.5 text-cyan-400" />
+                <Ruler className="w-3.5 h-3.5 text-white/70" />
                 <span>Dimensiones</span>
               </div>
               <p className="text-xs font-medium text-white/90">{product.dimensions}</p>
@@ -132,13 +132,13 @@ export default function LoomereProductDrawer({
           {/* Specifications */}
           <div className="space-y-3">
             <h4 className="text-xs uppercase tracking-widest text-white/60 font-semibold flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+              <Sparkles className="w-3.5 h-3.5 text-white/70" />
               Especificaciones de Ingeniería
             </h4>
             <div className="space-y-2">
               {product.specs.map((spec, i) => (
                 <div key={i} className="flex items-start gap-2.5 text-xs text-white/80">
-                  <span className="p-0.5 rounded-full bg-cyan-500/20 text-cyan-400 mt-0.5">
+                  <span className="p-0.5 rounded-full bg-white/10 text-white mt-0.5">
                     <Check className="w-3 h-3" />
                   </span>
                   <span>{spec}</span>
@@ -155,7 +155,7 @@ export default function LoomereProductDrawer({
             <ul className="space-y-2">
               {product.features.map((feat, i) => (
                 <li key={i} className="text-xs text-white/70 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/80" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
                   <span>{feat}</span>
                 </li>
               ))}
@@ -175,7 +175,7 @@ export default function LoomereProductDrawer({
             href={`https://wa.me/573000000000?text=Hola%20FIRPLAK,%20deseo%20cotizar%20y%20conocer%20disponibilidad%20de:%20${encodeURIComponent(product.name)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.02]"
+            className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-white/90 text-zinc-950 font-semibold text-sm flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-[1.01]"
           >
             <MessageCircle className="w-4 h-4" />
             Cotizar por WhatsApp

@@ -161,8 +161,8 @@ export default function FirplakEcosystemSection() {
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <div 
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-cyan-300 text-xs font-semibold uppercase tracking-widest"
-            style={{ backgroundColor: 'rgba(34, 211, 238, 0.1)', border: '1px solid rgba(34, 211, 238, 0.3)' }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-white/80 text-xs font-medium uppercase tracking-widest"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.15)' }}
           >
             <Sparkles className="w-3.5 h-3.5" />
             Catálogo & Ecosistema Omnicanal
@@ -179,7 +179,7 @@ export default function FirplakEcosystemSection() {
         <div>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
+              <span className="text-xs font-mono uppercase tracking-widest text-white/60">
                 Taxonomía PLP
               </span>
               <h3 className="text-2xl font-bold text-white mt-1">
@@ -189,8 +189,8 @@ export default function FirplakEcosystemSection() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => handleAccess('Filtro Envíos Rápidos (<48h)', '/categoria/envio-rapido/', 'Logística')}
-                className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-cyan-300 hover:bg-cyan-500/30 transition-colors flex items-center gap-1.5"
-                style={{ backgroundColor: 'rgba(34, 211, 238, 0.15)', border: '1px solid rgba(34, 211, 238, 0.35)' }}
+                className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1.5"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.12)' }}
               >
                 <Zap className="w-3.5 h-3.5" />
                 ⚡ Envíos Rápidos (&lt;48h)
@@ -229,7 +229,7 @@ export default function FirplakEcosystemSection() {
                   
                   <div className="absolute top-4 left-4">
                     <span 
-                      className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full text-cyan-300"
+                      className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full text-white/90"
                       style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.15)' }}
                     >
                       {cat.badge}
@@ -240,10 +240,10 @@ export default function FirplakEcosystemSection() {
                 {/* Body Content */}
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div>
-                    <span className="text-xs text-cyan-400 font-medium tracking-wide">
+                    <span className="text-xs text-white/60 font-medium tracking-wide">
                       {cat.tagline}
                     </span>
-                    <h4 className="text-xl font-bold text-white mt-1 group-hover:text-cyan-200 transition-colors">
+                    <h4 className="text-xl font-bold text-white mt-1 group-hover:text-white/90 transition-colors">
                       {cat.title}
                     </h4>
 
@@ -253,7 +253,7 @@ export default function FirplakEcosystemSection() {
                         <button
                           key={i}
                           onClick={() => handleAccess(sub, `${cat.url}${encodeURIComponent(sub)}/`, cat.title)}
-                          className="text-[11px] px-2.5 py-1 rounded-lg text-white/80 hover:text-cyan-200 transition-all"
+                          className="text-[11px] px-2.5 py-1 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all"
                           style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}
                         >
                           {sub}
@@ -266,10 +266,10 @@ export default function FirplakEcosystemSection() {
                   <div className="pt-4 border-t border-white/10 flex items-center justify-between">
                     <button
                       onClick={() => handleAccess(cat.title, cat.url, 'Categoría')}
-                      className="text-xs font-semibold text-white/80 group-hover:text-cyan-300 flex items-center gap-1.5 transition-colors"
+                      className="text-xs font-semibold text-white/80 group-hover:text-white flex items-center gap-1.5 transition-colors"
                     >
                       <span>Ver toda la categoría</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400" />
+                      <ArrowUpRight className="w-3.5 h-3.5 text-white/60" />
                     </button>
                   </div>
                 </div>
@@ -284,7 +284,7 @@ export default function FirplakEcosystemSection() {
           style={{ backgroundColor: '#070d1c', border: '1px solid rgba(255, 255, 255, 0.1)' }}
         >
           <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
+            <span className="text-xs font-mono uppercase tracking-widest text-white/60">
               Canales Profesionales
             </span>
             <h3 className="text-2xl font-bold text-white mt-1">
@@ -307,8 +307,8 @@ export default function FirplakEcosystemSection() {
                   <div>
                     <div className="flex items-center justify-between">
                       <div 
-                        className="p-2.5 rounded-xl text-cyan-400"
-                        style={{ backgroundColor: 'rgba(34, 211, 238, 0.1)', border: '1px solid rgba(34, 211, 238, 0.25)' }}
+                        className="p-2.5 rounded-xl text-white"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.15)' }}
                       >
                         <IconComp className="w-5 h-5" />
                       </div>
@@ -320,10 +320,10 @@ export default function FirplakEcosystemSection() {
                       </span>
                     </div>
 
-                    <h4 className="text-base font-bold text-white mt-3 group-hover:text-cyan-300 transition-colors">
+                    <h4 className="text-base font-bold text-white mt-3 group-hover:text-white transition-colors">
                       {serv.title}
                     </h4>
-                    <p className="text-xs text-cyan-400/80 font-medium mt-0.5">
+                    <p className="text-xs text-white/70 font-medium mt-0.5">
                       {serv.subtitle}
                     </p>
                     <p className="text-xs text-white/60 mt-2 leading-relaxed">
@@ -337,7 +337,7 @@ export default function FirplakEcosystemSection() {
                     style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.12)' }}
                   >
                     <span>Abrir Portal</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400" />
+                    <ArrowUpRight className="w-3.5 h-3.5 text-white/60" />
                   </button>
                 </div>
               );
@@ -348,11 +348,11 @@ export default function FirplakEcosystemSection() {
         {/* 3. Official Catalog Downloads Hub */}
         <div 
           className="rounded-3xl p-8 sm:p-10 space-y-8"
-          style={{ backgroundColor: '#091329', border: '1px solid rgba(34, 211, 238, 0.3)' }}
+          style={{ backgroundColor: '#091329', border: '1px solid rgba(255, 255, 255, 0.15)' }}
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
+              <span className="text-xs font-mono uppercase tracking-widest text-white/60">
                 Hub de Documentación Oficial
               </span>
               <h3 className="text-2xl font-bold text-white mt-1">
@@ -364,8 +364,7 @@ export default function FirplakEcosystemSection() {
             </div>
             <button
               onClick={() => handleAccess('Hub General de Catálogos', '/descarga-de-catalogos/', 'Documentos')}
-              className="px-5 py-2.5 rounded-full text-[#030816] text-xs font-bold transition-all flex items-center gap-2 shrink-0"
-              style={{ backgroundColor: '#22d3ee', boxShadow: '0 8px 24px rgba(34, 211, 238, 0.35)' }}
+              className="px-5 py-2.5 rounded-full bg-white hover:bg-white/90 text-zinc-950 text-xs font-bold transition-all flex items-center gap-2 shrink-0 shadow-lg cursor-pointer"
             >
               <FileDown className="w-4 h-4" />
               <span>Ver Todos los Catálogos</span>
@@ -382,17 +381,17 @@ export default function FirplakEcosystemSection() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <FileDown className="w-4 h-4 text-cyan-400" />
+                    <FileDown className="w-4 h-4 text-white/70" />
                     <span className="text-[10px] font-mono text-white/40">{cat.size}</span>
                   </div>
-                  <h5 className="text-xs font-bold text-white group-hover:text-cyan-200 transition-colors leading-snug">
+                  <h5 className="text-xs font-bold text-white group-hover:text-white/90 transition-colors leading-snug">
                     {cat.title}
                   </h5>
                   <p className="text-[11px] text-white/50 mt-1.5 leading-normal line-clamp-2">
                     {cat.desc}
                   </p>
                 </div>
-                <span className="text-[10px] font-semibold text-cyan-400 mt-4 inline-flex items-center gap-1 group-hover:underline">
+                <span className="text-[10px] font-semibold text-white/70 mt-4 inline-flex items-center gap-1 group-hover:underline">
                   Descargar PDF
                   <ArrowUpRight className="w-3 h-3" />
                 </span>

@@ -1,0 +1,4 @@
+file '01_video_loop_bano.mp4'
+file '02_video_loop_cocina.mp4'
+file '03_video_loop_lavanderia.mp4'
+file '04_video_loop_hidromasaje.mp4'

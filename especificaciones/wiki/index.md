@@ -7,13 +7,11 @@
 Catálogo de páginas de especificaciones y conocimiento compilado del proyecto Firplak E-commerce.
 
 ## 📌 General
-- **[README.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/README.md)**: Manual de uso y estructura del wiki.
-- **[sistema_diseno.md](sistema_diseno.md)**: **Master Document unificado** del sistema de diseño, tokens CSS, Brand Book AIR 2026, componentes UI, scrollytelling en 8 fases, Mix & Match, pre-instalación y políticas comerciales.
-- **[sintesis_diseno.md](sintesis_diseno.md)**: Puntero canónico hacia `sistema_diseno.md`.
-- **[log.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/log.md)**: Historial cronológico de cambios.
-- **[seo.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/seo.md)**: Guía oficial y especificaciones de SEO para motores tradicionales y de IA.
-- **[mapa_del_sitio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mapa_del_sitio.md)**: Mapa del sitio y accesos globales de firplak.com (Top Bar, taxonomía de catálogo, portales B2B, flujo transaccional y marco legal).
-- **[referentes_externos.md](referentes_externos.md)**: Banco de referentes externos (Awwwards y benchmarks de UX) para baños, cocinas, configuradores de producto, PDP narrativa y dirección de arte en scroll-scrubbing, con nota al pie de qué patrón es aplicable a Firplak en cada caso.
+- **[README.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/README.md)**: Manual de uso y estructura del wiki.
+- **[manual_identidad_corporativa.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/manual_identidad_corporativa.md)**: Manual oficial de identidad corporativa FIRPLAK (Brand Book AIR 2026), construcción de logo, retícula, regla 60-30-10 y tono de comunicación.
+- **[sistema_diseno.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/sistema_diseno.md)**: Guía de estilo gráfico, paleta de colores, degradados, fuentes, glassmorphism, elevación y animaciones UI.
+- **[log.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/log.md)**: Historial cronológico de cambios.
+- **[seo.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/seo.md)**: Guía oficial y especificaciones de SEO para motores tradicionales y de IA.
 
 ## 🏗️ Arquitectura y Sistema
 - **[arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md)**: Estructura de base de datos en Supabase, escalabilidad de SKUs e integración con SAP Service Layer.
@@ -31,8 +29,15 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 - **[griferia_plomeria.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/griferia_plomeria.md)**: Estándares técnicos, ahorro hídrico (Resolución MinVivienda), cartuchos cerámicos y matriz de compatibilidad con lavamanos/lavaderos.
 
 ## 🛍️ Módulos Funcionales y Segmentos
-- **[pagina_inicio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagina_inicio.md)**: Arquitectura de la Home Page, sistema de navegación global (Header, Top Bar, Megamenú multinivel), secciones promocionales, descarga de catálogos y showrooms.
-- **[pagina_producto.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagina_producto.md)**: Arquitectura visual, layout, selectores de variante, configuradores, trust badges y marcado SEO de la Página de Detalle de Producto (PDP).
-- **[mix_and_match.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mix_and_match.md)**: Especificación funcional del visualizador interactivo lateral para combinaciones de lavamanos y muebles.
-- **[carpinteria_obra.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/carpinteria_obra.md)**: Galería de casos de éxito y proyectos para constructoras y arquitectos, features clave y formulario de contacto para licitaciones (sin precios ni integración SAP).
-- **[servicios.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/servicios.md)**: Servicios técnicos de pre-inspección, instalación certificada, postventa, repuestos y agendamiento federado con Supabase OAuth.
+- **[pagina_inicio.md](pagina_inicio.md)**: Arquitectura de la Home Page, sistema de navegación global (Header, Top Bar, Megamenú multinivel), secciones promocionales, descarga de catálogos y showrooms.
+- **[pagina_producto.md](pagina_producto.md)**: Arquitectura visual, layout, selectores de variante, configuradores, trust badges y marcado SEO de la Página de Detalle de Producto (PDP).
+- **[mix_and_match.md](mix_and_match.md)**: Especificación funcional del visualizador interactivo lateral para combinaciones de lavamanos y muebles.
+- **[carpinteria_obra.md](carpinteria_obra.md)**: Galería de casos de éxito y proyectos para constructoras y arquitectos, features clave y formulario de contacto para licitaciones (sin precios ni integración SAP).
+- **[servicios.md](servicios.md)**: Servicios técnicos de pre-inspección, instalación certificada, postventa, repuestos y agendamiento federado con Supabase OAuth.
+
+## 🎨 Referentes Externos de GUI
+- **[referentes_externo.md](referentes_externo.md)**: Compendio unificado del benchmark UI/UX con 7 referentes internacionales (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung) para la creación del nuevo sitio web de Firplak.
+- **[referentes_externos.md](referentes_externos.md)**: Banco de referentes externos (Awwwards y benchmarks UX) con notas de dirección de arte y anotaciones de Alejandro Isaza.
+
+
+

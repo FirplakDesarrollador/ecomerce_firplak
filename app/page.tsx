@@ -1,3 +1,4 @@
+
 import LandingSwitcher from '@/components/landing-cinematic/LandingSwitcher';
 
 export const metadata = {

@@ -5,6 +5,26 @@
 > Mantener un registro histórico inmutable y auditable de cada decisión técnica, ingesta de requerimientos y ajuste arquitectónico en el wiki, garantizando trazabilidad completa para el equipo de desarrollo y agentes autónomos.
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
+
+## [2026-09-27] feat | Generación Completa y Codificación Scroll-Craft: 4 Escenas Casa Firplak
+- **Generación en Higgsfield (Seedance 2.0):**
+  1. *Escena 1 (Baño Boutique):* `viaje_1_bano.mp4` / `viaje_1_bano-m.mp4` (Lavamanos Oslo, retroceso a corredor).
+  2. *Escena 2 (Cocina Jade):* `viaje_2_cocina.mp4` / `viaje_2_cocina-m.mp4` (Módulos jade, isla de cuarzo veteado, copa de vino, fondo al deck).
+  3. *Escena 3 (Zona de Lavandería):* `viaje_3_lavanderia.mp4` / `viaje_3_lavanderia-m.mp4` (Lavadero Pro 140 RH, toallas lino, conexión lateral al deck).
+  4. *Escena 4 (Hidroterapia Exterior):* `viaje_4_exterior.mp4` / `viaje_4_exterior-m.mp4` (Jacuzzi Mydas 180 en deck al atardecer, vapor y cromoterapia).
+- **Post-procesamiento Scroll-Craft:** Codificación con GOP denso (`-g 8` desktop, `-g 4` móvil), audio removido (`-an`) y `+faststart` para scrub instantáneo a 60 FPS sin tirones. Extracción de pósters WebP de primer fotograma.
+- **Integración:** Actualización de `components/loomere/sceneData.ts` con el flujo narrativo continuo.
+
+## [2026-09-26] update | Storyboard y Video Piloto Loomere: Recorrido Continuo Casa Firplak
+- **Storyboard Maestro:** Consolidación de los 12 keyframes (3 por capítulo) que articulan las 4 escenas continuas de la Casa Firplak:
+  1. *Baño Boutique:* Lavamanos Oslo flotante Firplak y transición por pasillo.
+  2. *Cocina Jade:* Módulos terracota, mármol veteado, copa de vino en la isla y deck techado visible al fondo.
+  3. *Zona de Ropas:* Combo Lavadero Pro 140 blanco con ventanal corredizo abierto al deck.
+  4. *Hidroterapia:* Bañera de hidromasaje ovalada Firplak en deck techado al atardecer (sin desnudez, bienestar y relax).
+- **Video Piloto (Escena 1 - Baño):** Generación y descarga del video de 8 segundos generado en Higgsfield (`seedance1_5`) guardado en `public/videos/loomere/viaje_bano_nuevo.mp4` demostrando la interacción en el lavamanos y el pull-back hacia el corredor.
+- **Regla de Interfaz Intacta:** Componentes gráficos, navbar, drawers, megamenú y cursor de precio preservados al 100% sin modificaciones.
+- Artefactos maestros creados: [storyboard_general_casa_firplak.md](file:///C:/Users/Rik/.gemini/antigravity-ide/brain/bfe8914f-2a36-4fe2-97a7-dc772eb46e74/storyboard_general_casa_firplak.md) y [storyboard_hilo_deck_techado.md](file:///C:/Users/Rik/.gemini/antigravity-ide/brain/bfe8914f-2a36-4fe2-97a7-dc772eb46e74/storyboard_hilo_deck_techado.md).
+
 ## [2026-09-08] ingest | Mapa del Sitio y Catálogo de Accesos Globales
 - Creación de [mapa_del_sitio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mapa_del_sitio.md): mapa integral de accesos y taxonomía de `www.firplak.com` (Top Bar, 6 macrocategorías de catálogo, portales B2B/institucionales, flujo transaccional, sedes físicas, marco legal colombiano y matriz de redirecciones 301 para Next.js).
 - Actualización de [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).

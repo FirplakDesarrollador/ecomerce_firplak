@@ -2,14 +2,14 @@
 
 > [!IMPORTANT]
 > **Documento Consolidado y Unificado**:
-> Este documento ha sido unificado e integrado en su totalidad dentro de **[sistema_diseno.md](sistema_diseno.md)** como **Única Fuente de Verdad** del sistema de diseño, tokens CSS, componentes de interfaz, scrollytelling narrativo en 8 fases, configurador Mix & Match, requisitos de pre-instalación y políticas comerciales de Firplak E-commerce.
+> Este documento ha sido unificado e integrado en su totalidad dentro de **[sistema_diseno.html](sistema_diseno.html)** como **Única Fuente de Verdad** del sistema de diseño, tokens CSS, componentes de interfaz, configurador Mix & Match, requisitos de pre-instalación y políticas comerciales de Firplak E-commerce.
 >
 > 🔗 **Acceso Directo**:
-> 👉 **[Consultar el Master Document en sistema_diseno.md](sistema_diseno.md)**
+> 👉 **[Consultar el Master Document en sistema_diseno.html](sistema_diseno.html)**
 
 ---
 
-## Estructura Consolidada y Temas Disponibles en [sistema_diseno.md](sistema_diseno.md):
+## Estructura Consolidada y Temas Disponibles en [sistema_diseno.html](sistema_diseno.html):
 
 1. **Fundamentos Psicológicos y las 26 Leyes de UX**: 4 dimensiones cognitivas, Fitts, Doherty, Hick, Von Restorff, Gestalt y Postel.
 2. **Identidad de Marca, Isotipo "Λ" y Brand Book AIR 2026**: Filosofía institucional, claim *"inspiring homes"*, isotipo formal y reglas de contraste.

@@ -9,7 +9,7 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 ## 📌 General
 - **[README.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/README.md)**: Manual de uso y estructura del wiki.
 - **[manual_identidad_corporativa.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/manual_identidad_corporativa.md)**: Manual oficial de identidad corporativa FIRPLAK (Brand Book AIR 2026), construcción de logo, retícula, regla 60-30-10 y tono de comunicación.
-- **[sistema_diseno.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/sistema_diseno.md)**: Guía de estilo gráfico, paleta de colores, degradados, fuentes, glassmorphism, elevación y animaciones UI.
+- **[sistema_diseno.html](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.html)**: Master Design System interactivo (Claude Design Edition): tokens CSS, paleta con swatches, leyes de UX, simulador de glassmorphism y checklist heurístico.
 - **[log.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/log.md)**: Historial cronológico de cambios.
 - **[seo.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/seo.md)**: Guía oficial y especificaciones de SEO para motores tradicionales y de IA.
 

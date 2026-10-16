@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Phone, 
   Mail, 
   Clock, 
   ShieldCheck, 
   ArrowUpRight,
-  Sparkles,
-  Send,
   PhoneCall
 } from 'lucide-react';
 import FirplakLogo from './FirplakLogo';
@@ -48,9 +46,6 @@ const SHOWROOMS = [
 ];
 
 export default function FirplakGlobalFooter() {
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [acceptedHabeasData, setAcceptedHabeasData] = useState(true);
-
   const handleAccess = (title: string, url: string, category: string) => {
     triggerAccessFeedback({
       title,
@@ -60,80 +55,12 @@ export default function FirplakGlobalFooter() {
     });
   };
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newsletterEmail) return;
-    triggerAccessFeedback({
-      title: 'Suscripción a Newsletter',
-      url: '/newsletter-subscribe',
-      category: 'Captación de Leads',
-      note: `Correo registrado: ${newsletterEmail}. Simulación completada con Habeas Data.`
-    });
-    setNewsletterEmail('');
-  };
-
   return (
     <footer 
       className="relative text-white border-t border-white/10 pt-16 pb-12 font-sans"
       style={{ backgroundColor: '#030712' }}
       aria-label="Pie de página institucional Firplak"
     >
-      {/* 1. Newsletter & Value Hook */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 mb-16">
-        <div 
-          className="rounded-3xl p-8 sm:p-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 shadow-2xl"
-          style={{ backgroundColor: '#0a0d14', border: '1px solid rgba(255, 255, 255, 0.12)' }}
-        >
-          <div className="max-w-xl space-y-2">
-            <div 
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-white/80 text-xs font-medium uppercase tracking-wider"
-              style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)', border: '1px solid rgba(255, 255, 255, 0.15)' }}
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              Comunidad & Tendencias
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              Diseño, Innovación y Bienestar en tu Bandeja
-            </h3>
-            <p className="text-xs sm:text-sm text-white/60 leading-relaxed">
-              Recibe primicias de lanzamientos, guías arquitectónicas y promociones de temporada antes que nadie.
-            </p>
-          </div>
-
-          <form onSubmit={handleNewsletterSubmit} className="w-full lg:max-w-md space-y-3">
-            <div className="flex gap-2">
-              <input
-                type="email"
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                placeholder="Ingresa tu correo corporativo o personal"
-                required
-                className="flex-1 px-4 py-3 rounded-2xl text-sm text-white placeholder-white/40 focus:outline-none transition-all"
-                style={{ backgroundColor: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.15)' }}
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 rounded-2xl bg-white hover:bg-white/90 text-zinc-950 text-xs font-semibold hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 shrink-0 cursor-pointer shadow-lg"
-              >
-                <span>Suscribirme</span>
-                <Send className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            <label className="flex items-start gap-2 text-[11px] text-white/50 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={acceptedHabeasData}
-                onChange={(e) => setAcceptedHabeasData(e.target.checked)}
-                className="mt-0.5 rounded border-white/20 bg-white/5 text-white focus:ring-0"
-              />
-              <span>
-                Autorizo el tratamiento de mis datos personales según la Ley 1581 de 2012 (Habeas Data).
-              </span>
-            </label>
-          </form>
-        </div>
-      </div>
 
       {/* 2. Main 5-Column Navigation Directory */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">

@@ -50,7 +50,7 @@ function normalizeVersion(val: string | null): LandingVersion | null {
 }
 
 export default function LandingSwitcher() {
-  const [activeVersion, setActiveVersion] = useState<LandingVersion | null>(null);
+  const [activeVersion, setActiveVersion] = useState<LandingVersion>('alejandro');
 
   useEffect(() => {
     // Bug 002 fix: diferir la lectura y seteo de estado fuera del cuerpo síncrono del effect
@@ -66,20 +66,9 @@ export default function LandingSwitcher() {
         return;
       }
 
-      // 2. Alternancia automática secuencial en cada refresh (recarga de página)
-      const rawStored = localStorage.getItem('firplak_active_landing');
-      const lastVersion = normalizeVersion(rawStored);
-      let nextVersion: LandingVersion = 'alejandro';
-
-      if (lastVersion) {
-        const currentIndex = ROTATION_ORDER.indexOf(lastVersion);
-        if (currentIndex !== -1) {
-          nextVersion = ROTATION_ORDER[(currentIndex + 1) % ROTATION_ORDER.length];
-        }
-      }
-
-      localStorage.setItem('firplak_active_landing', nextVersion);
-      setActiveVersion(nextVersion);
+      // 2. Mantener la visualización activa en Alejandro para desarrollo focalizado
+      setActiveVersion('alejandro');
+      localStorage.setItem('firplak_active_landing', 'alejandro');
     });
 
     return () => cancelAnimationFrame(rafId);

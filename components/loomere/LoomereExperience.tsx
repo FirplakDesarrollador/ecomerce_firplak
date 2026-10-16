@@ -9,10 +9,7 @@ import LoomereProductDrawer from './LoomereProductDrawer';
 import LoomereCatalogModal from './LoomereCatalogModal';
 import LoomereMegamenu from './LoomereMegamenu';
 import LoomereCursorPriceTag from './LoomereCursorPriceTag';
-import LoomereHero from './LoomereHero';
-import LoomereFinalCta from './LoomereFinalCta';
-import FirplakKeyFeatures from '@/components/home/FirplakKeyFeatures';
-import FirplakEcosystemSection from '@/components/home/FirplakEcosystemSection';
+import FirplakFeaturedOffers from '@/components/home/FirplakFeaturedOffers';
 import FirplakGlobalFooter from '@/components/layout/FirplakGlobalFooter';
 import AccessFeedbackToast from '@/components/ui/AccessFeedbackToast';
 
@@ -25,117 +22,80 @@ export default function LoomereExperience() {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [isMegamenuOpen, setIsMegamenuOpen] = useState(false);
   const [isAtVideoSection, setIsAtVideoSection] = useState(true);
-  // Pantalla inicial visible al cargar; cierre apagado hasta el ultimo tramo.
-  const [heroOpacity, setHeroOpacity] = useState(1);
-  const [ctaProgress, setCtaProgress] = useState(0);
   // null hasta resolver la media query: asi un movil no descarga el master
   // de desktop antes de saber que le toca la variante ligera.
   const [videoVariant, setVideoVariant] = useState<'desktop' | 'mobile' | null>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  // Ultimo objetivo de scrub calculado; el rAF es el unico que toca el DOM.
-  const scrubRef = useRef({ index: 0, local: 0 });
-  const rafRef = useRef<number | null>(null);
-  // Timer para reanudar la reproducción continua en reposo (idle)
-  const idlePlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastActiveIndexRef = useRef(0);
 
-  // El scroll es el transporte del video: la rueda escribe currentTime.
-  // Los clips estan codificados con GOP denso (skills/scroll-craft/scripts/
-  // encode.sh) precisamente para que este seek sea barato.
-  const applyScrub = useCallback(() => {
-    rafRef.current = null;
-    const { index, local } = scrubRef.current;
-    const video = videoRefs.current[index];
-    if (!video) return;
-
-    // Pausar otros videos mientras se scrubbea el tramo activo
-    videoRefs.current.forEach((v, i) => {
-      if (v && i !== index && !v.paused) {
-        v.pause();
-      }
-    });
-
-    const duration = video.duration;
-    if (!Number.isFinite(duration) || duration <= 0) return;
-    const target = local * duration;
-    // Un seek por fotograma basta; pedir mas hace temblar el decoder.
-    if (Math.abs(video.currentTime - target) < 1 / 48) return;
-    video.currentTime = target;
-  }, []);
-
-  // Al detener el scroll o en reposo, reanuda la reproducción continua viva en loop
-  const scheduleIdlePlayback = useCallback((index: number) => {
-    if (idlePlayTimeoutRef.current) {
-      clearTimeout(idlePlayTimeoutRef.current);
-    }
-    idlePlayTimeoutRef.current = setTimeout(() => {
-      const activeVideo = videoRefs.current[index];
-      if (activeVideo && activeVideo.paused) {
-        activeVideo.play().catch(() => {
-          // Si el navegador bloquea autoplay, continúa en modo poster/scrub
-        });
-      }
-    }, 180);
-  }, []);
-
-  // Calculate active scene smoothly based on scroll position
+  // Calcula el viaje y las transiciones entre las 4 escenas.
+  // Calibrado para que cada cambio de escena tome entre 3 y 5 clics de rueda (~520-580px).
+  // La transición se resuelve por tiempo (CSS), garantizando que NUNCA queden dos videos
+  // congelados en superposición al detener el scroll.
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
-    const windowHeight = window.innerHeight;
+    const windowHeight = window.innerHeight || 800;
     const totalScenes = LOOMERE_SCENES.length;
 
-    // El viewport queda fijado durante (n - 1) alturas de pantalla del
-    // contenedor de 400vh; ese es el recorrido completo del viaje.
-    const pinTravel = (totalScenes - 1) * windowHeight;
-    const journey = pinTravel > 0 ? clamp01(scrollY / pinTravel) : 0;
+    // Distancia de scroll por cada transición (0->1, 1->2, 2->3).
+    // Con 120-150px por muesca de rueda, ~540px equivale exactamente a entre 3.6 y 4.5 clics (rango 3 a 5).
+    const sceneStep = Math.max(Math.round(windowHeight * 0.62), 520);
+    const videoTravel = (totalScenes - 1) * sceneStep;
+    const dwellTravel = Math.round(windowHeight * 0.45);
+    const pinTravel = videoTravel + dwellTravel;
 
-    // Reparto uniforme: cada tramo ocupa exactamente 1/n del recorrido, para
-    // que ningun texto quede sin tiempo en pantalla.
-    const rawIndex = Math.floor(journey * totalScenes);
-    const clampedIndex = Math.min(Math.max(rawIndex, 0), totalScenes - 1);
-
-    setActiveSceneIndex(clampedIndex);
-    const inVideoSection = scrollY < (totalScenes - 0.2) * windowHeight;
+    const inVideoSection = scrollY < pinTravel + windowHeight * 0.15;
     setIsAtVideoSection(inVideoSection);
 
-    // Hero: se desvanece dentro del primer 35% de viewport de scroll.
-    const fadeSpan = windowHeight * 0.35;
-    setHeroOpacity(fadeSpan > 0 ? clamp01(1 - scrollY / fadeSpan) : 0);
+    // Progreso continuo entre escenas: de 0.0 a 3.0
+    const rawProgress =
+      videoTravel > 0 ? (scrollY / videoTravel) * (totalScenes - 1) : 0;
 
-    // Cierre: overlay negro + CTA entran en el ultimo 12% del recorrido.
-    setCtaProgress(clamp01((journey - 0.88) / 0.12));
+    // Umbral de avance/retroceso con histéresis (±0.55) para evitar oscilaciones en la frontera.
+    // Al cruzar el umbral entre 3 y 5 clics, se dispara el cambio de escena activa.
+    const currentActive = lastActiveIndexRef.current;
+    let nextActive = currentActive;
 
-    // Pausar video activo mientras la rueda esté en movimiento para control 1:1
-    const activeVideo = videoRefs.current[clampedIndex];
-    if (activeVideo && !activeVideo.paused) {
-      activeVideo.pause();
+    if (rawProgress > currentActive + 0.55) {
+      nextActive = Math.min(Math.floor(rawProgress + 0.45), totalScenes - 1);
+    } else if (rawProgress < currentActive - 0.55) {
+      nextActive = Math.max(Math.ceil(rawProgress - 0.45), 0);
     }
 
-    // Progreso dentro del tramo activo: 0 al entrar, 1 al salir.
-    const local = clamp01(journey * totalScenes - clampedIndex);
-    scrubRef.current = { index: clampedIndex, local };
-    if (rafRef.current === null) {
-      rafRef.current = requestAnimationFrame(applyScrub);
+    if (nextActive !== currentActive) {
+      lastActiveIndexRef.current = nextActive;
+      setActiveSceneIndex(nextActive);
     }
+  }, []);
 
-    // En cuanto el scroll se detiene, reanudar la reproducción continua en loop
-    if (inVideoSection) {
-      scheduleIdlePlayback(clampedIndex);
-    }
-  }, [applyScrub, scheduleIdlePlayback]);
+  // Mantener los videos reproduciéndose de manera continua y limpia (loops de descanso de 3-4s)
+  // Precalienta la escena activa y la inmediata adyacente para que la transición sea instantánea
+  useEffect(() => {
+    videoRefs.current.forEach((video, idx) => {
+      if (!video) return;
+      video.muted = true;
+      video.playsInline = true;
+      video.loop = true;
+
+      const isNearby = Math.abs(idx - activeSceneIndex) <= 1;
+      if (isNearby) {
+        if (video.paused) {
+          video.play().catch(() => {});
+        }
+      } else {
+        if (!video.paused) {
+          video.pause();
+        }
+      }
+    });
+  }, [activeSceneIndex, videoVariant]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Sincroniza la escena con el scroll restaurado por el navegador, fuera del render.
+    // Sincroniza la escena con el scroll restaurado por el navegador, fuera del render (Bug 002 fix).
     const syncId = requestAnimationFrame(handleScroll);
     return () => {
       cancelAnimationFrame(syncId);
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
-      if (idlePlayTimeoutRef.current) {
-        clearTimeout(idlePlayTimeoutRef.current);
-      }
       window.removeEventListener('scroll', handleScroll);
     };
   }, [handleScroll]);
@@ -155,18 +115,23 @@ export default function LoomereExperience() {
 
   // Smooth scroll to a specific scene index
   const scrollToScene = (index: number) => {
-    const windowHeight = window.innerHeight;
+    const windowHeight = window.innerHeight || 800;
+    const sceneStep = Math.max(Math.round(windowHeight * 0.62), 520);
     window.scrollTo({
-      top: index * windowHeight,
+      top: index * sceneStep,
       behavior: 'smooth'
     });
   };
 
   // Smooth scroll to the brand attributes section
   const scrollToBrandSection = () => {
-    const windowHeight = window.innerHeight;
+    const windowHeight = window.innerHeight || 800;
+    const totalScenes = LOOMERE_SCENES.length;
+    const sceneStep = Math.max(Math.round(windowHeight * 0.62), 520);
+    const videoTravel = (totalScenes - 1) * sceneStep;
+    const dwellTravel = Math.round(windowHeight * 0.45);
     window.scrollTo({
-      top: LOOMERE_SCENES.length * windowHeight,
+      top: videoTravel + dwellTravel + windowHeight * 0.1,
       behavior: 'smooth'
     });
   };
@@ -183,24 +148,19 @@ export default function LoomereExperience() {
   // escena en pantalla: asi sigue siendo correcta si se abre desde otro lugar.
   const drawerScene =
     LOOMERE_SCENES.find((s) => s.product.id === selectedProduct?.id) ?? currentScene;
-  // El texto de tramo entra cuando el hero ya se fue y sale en la primera
-  // mitad de la rampa del cierre, para no dejar fantasma bajo el CTA.
-  const sceneTextOpacity = (1 - heroOpacity) * (1 - clamp01(ctaProgress * 2));
-  const isHeroOrCtaVisible = heroOpacity > 0.5 || ctaProgress > 0.5;
+  const sceneTextOpacity = isAtVideoSection ? 1 : 0;
 
   return (
     <div className="relative bg-[#060a15] text-white selection:bg-white/20 selection:text-white">
-      {/* 1. SCROLL-DRIVEN VIDEO CONTAINER (400vh for 4 scenes) */}
-      <div className="relative h-[400vh]" style={{ height: '400vh' }}>
+      {/* 1. SCROLL-DRIVEN VIDEO CONTAINER (300vh para viaje fluido y continuo) */}
+      <div className="relative h-[300vh]" style={{ height: '300vh' }}>
         {/* Sticky Viewport pinned at top while scrolling the 4 scenes */}
         <div
-          className="sticky top-0 w-full h-screen overflow-hidden cursor-crosshair"
+          className="sticky top-0 w-full h-screen overflow-hidden cursor-default"
           style={{ height: '100vh', minHeight: '100vh' }}
           onClick={(e) => {
             const target = e.target as HTMLElement | null;
             if (target?.closest('button, a, input, [data-interactive]')) return;
-            // Durante la pantalla inicial y el cierre, el clic no abre producto.
-            if (isHeroOrCtaVisible) return;
             handleOpenProduct(currentScene.product);
           }}
         >
@@ -241,7 +201,7 @@ export default function LoomereExperience() {
                     className="object-cover filter brightness-[0.85] contrast-[1.03]"
                   />
 
-                  {/* Video scrubbeado por el scroll; en reposo retoma el loop natural */}
+                  {/* Video continuo en loop de descanso (reproducción fluida sin saltos ni seeking forzado) */}
                   {scene.videoUrl && videoVariant && (
                     <video
                       key={videoVariant}
@@ -256,6 +216,7 @@ export default function LoomereExperience() {
                       poster={scene.fallbackImage}
                       loop
                       muted
+                      autoPlay
                       playsInline
                       preload="auto"
                       // El master es cuadrado: en 9:16 el centro funciona, en
@@ -279,16 +240,7 @@ export default function LoomereExperience() {
           {/* Dynamic Cursor Price Tag following mouse pointer across the 4 videos */}
           <LoomereCursorPriceTag
             product={currentScene.product}
-            isActive={isAtVideoSection && !isHeroOrCtaVisible}
-          />
-
-          {/* Pantalla inicial: "Diseno que fluye contigo." */}
-          <LoomereHero opacity={heroOpacity} />
-
-          {/* Cierre: overlay negro al 50% + "Haz realidad tu espacio ideal." */}
-          <LoomereFinalCta
-            progress={ctaProgress}
-            onOpenCatalog={() => setIsCatalogOpen(true)}
+            isActive={isAtVideoSection}
           />
 
           {/* Clean Scene Overlay (Bottom-left opacity box + scene locator beacon) */}
@@ -310,13 +262,10 @@ export default function LoomereExperience() {
         </div>
       </div>
 
-      {/* 2. KEY FEATURES & ATRIBUTOS DE MARCA FIRPLAK (Fondo degradado oscuro, Apple design y Humanizer) */}
-      <FirplakKeyFeatures onOpenCatalog={() => setIsCatalogOpen(true)} />
+      {/* 2. PRODUCTOS DESTACADOS & OFERTAS FIRPLAK (Fondo blanco, renders limpios y paleta oficial) */}
+      <FirplakFeaturedOffers />
 
-      {/* 3. ECOSISTEMA Y TODAS LAS CATEGORÍAS & SOLUCIONES FIRPLAK */}
-      <FirplakEcosystemSection />
-
-      {/* 4. FOOTER CORPORATIVO & REGULATORIO (SIC / COLOMBIA) */}
+      {/* 3. FOOTER CORPORATIVO & REGULATORIO (SIC / COLOMBIA) */}
       <FirplakGlobalFooter />
 
       {/* Product Detail Drawer */}

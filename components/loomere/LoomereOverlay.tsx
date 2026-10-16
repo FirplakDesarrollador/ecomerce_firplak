@@ -31,15 +31,16 @@ export default function LoomereOverlay({
       style={{ opacity, visibility: isGone ? 'hidden' : 'visible' }}
     >
 
-      {/* 2. Cuadro con efecto de blur y opacidad (bg-black/60 y backdrop-blur-md) */}
+      {/* 2. Cuadro con efecto Glassmorphism Canónico (Dark Slate Glass: rgba(50, 67, 84, 0.20) + blur(8px)) */}
       <div
         data-interactive="true"
-        className="max-w-md md:max-w-lg pointer-events-auto p-6 sm:p-7 rounded-2xl shadow-2xl space-y-3.5 mb-2 bg-black/60 backdrop-blur-md border border-white/20"
+        className="max-w-md md:max-w-lg pointer-events-auto p-6 sm:p-7 rounded-2xl shadow-2xl space-y-3.5 mb-2"
         style={{
-          backgroundColor: 'rgba(70, 70, 70, 0.6)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
+          backgroundColor: 'rgba(50, 67, 84, 0.20)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255, 255, 255, 0.20)',
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.35)'
         }}
       >
         <div className="space-y-1">

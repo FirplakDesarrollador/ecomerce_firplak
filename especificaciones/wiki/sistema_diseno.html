@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Design System & Arquitectura UI/UX — FIRPLAK 2026</title>
+  <meta name="description" content="Especificaciones maestras de diseño, tokens CSS, leyes de UX y componentes para el e-commerce de Firplak.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       CLAUDE DESIGN SYSTEM + FIRPLAK TOKENS
+       ========================================================================== */
+    :root {
+      /* Claude Design Language Foundation (Warm Paper & Literary Elegance) */
+      --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
+      --font-sans: 'Plus Jakarta Sans', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-brand: 'Montserrat', sans-serif;
+
+      /* Claude Signature Palette (Light Mode: Warm Parchment & Earth) */
+      --bg-page: #FAF8F5;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #FDFCFA;
+      --bg-subtle: #F2ECE3;
+      --bg-sidebar: #F4EEE5;
+      --border-subtle: #E8E1D5;
+      --border-strong: #D4CABE;
+      --border-focus: #C35334;
+
+      --text-main: #1D1C19;
+      --text-body: #3F3C37;
+      --text-muted: #736E65;
+      --text-faint: #9E978C;
+
+      --claude-accent: #C35334;        /* Terracotta / Cinnabar Claude */
+      --claude-accent-soft: #F9EBE6;
+      --claude-accent-hover: #A94226;
+
+      /* Firplak Official Identity Tokens */
+      --fp-navy: #324354;
+      --fp-navy-dark: #1D2732;
+      --fp-navy-light: #5C7B9C;
+      --fp-sage: #7B8E90;
+      --fp-sage-soft: #9DB0B2;
+      --fp-sage-bg: #EEF3F3;
+      --fp-linen: #F6F3EE;
+      --fp-linen-dark: #ECE8E0;
+      --fp-neutral-black: #000000;
+      --fp-addi: #00C389;
+
+      /* Functional States */
+      --state-success: #10B981;
+      --state-success-bg: #ECFDF5;
+      --state-warning: #D97706;
+      --state-warning-bg: #FFFBEB;
+      --state-danger: #EF4444;
+      --state-danger-bg: #FEF2F2;
+
+      /* UI Dimensions & Shadows */
+      --sidebar-width: 310px;
+      --header-height: 64px;
+      --content-max-width: 980px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-pill: 9999px;
+
+      --shadow-sm: 0 1px 2px rgba(29, 28, 25, 0.04);
+      --shadow-md: 0 6px 16px -4px rgba(29, 28, 25, 0.06), 0 2px 6px -2px rgba(29, 28, 25, 0.04);
+      --shadow-lg: 0 16px 36px -8px rgba(29, 28, 25, 0.08), 0 4px 12px -2px rgba(29, 28, 25, 0.04);
+      --shadow-claude: 0 20px 40px -12px rgba(195, 83, 52, 0.12);
+
+      --transition-fast: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-smooth: 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #151413;
+      --bg-card: #1F1E1B;
+      --bg-card-hover: #262421;
+      --bg-subtle: #292723;
+      --bg-sidebar: #1B1A18;
+      --border-subtle: #2E2C27;
+      --border-strong: #3D3B35;
+      --border-focus: #E07A5F;
+
+      --text-main: #F4EFEB;
+      --text-body: #C9C4BB;
+      --text-muted: #8F897F;
+      --text-faint: #676259;
+
+      --claude-accent: #E07A5F;
+      --claude-accent-soft: #30201B;
+      --claude-accent-hover: #F29379;
+
+      --fp-navy: #5C7B9C;
+      --fp-navy-dark: #324354;
+      --fp-navy-light: #8DA4BC;
+      --fp-sage: #9DB0B2;
+      --fp-sage-soft: #58696B;
+      --fp-sage-bg: #22292A;
+      --fp-linen: #292723;
+      --fp-linen-dark: #35322D;
+
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.50);
+      --shadow-claude: 0 20px 40px -12px rgba(224, 122, 95, 0.18);
+    }
+
+    /* ==========================================================================
+       GLOBAL BASE RESETS & SCROLLBAR
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-body);
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color var(--transition-smooth), color var(--transition-smooth);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-strong);
+      border-radius: var(--radius-pill);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       TOP PROGRESS BAR
+       ========================================================================== */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--fp-navy) 0%, var(--claude-accent) 50%, var(--fp-sage) 100%);
+      z-index: 1000;
+      transition: width 0.1s ease-out;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION BAR
+       ========================================================================== */
+    .top-header {
+      position: sticky;
+      top: 0;
+      height: var(--header-height);
+      background: rgba(250, 248, 245, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      transition: background var(--transition-smooth), border-color var(--transition-smooth);
+    }
+    [data-theme="dark"] .top-header {
+      background: rgba(21, 20, 19, 0.88);
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .brand-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--fp-navy);
+      color: #FFFFFF;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.15rem;
+      font-family: var(--font-brand);
+      box-shadow: 0 2px 6px rgba(50, 67, 84, 0.25);
+    }
+    .brand-title-group h1 {
+      font-family: var(--font-brand);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      color: var(--text-main);
+    }
+    .brand-title-group span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+    }
+    .badge-pill.accent {
+      background: var(--claude-accent-soft);
+      color: var(--claude-accent);
+      border-color: rgba(195, 83, 52, 0.2);
+    }
+    .badge-pill.navy {
+      background: rgba(50, 67, 84, 0.08);
+      color: var(--fp-navy);
+      border-color: rgba(50, 67, 84, 0.2);
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .icon-btn:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+    }
+
+    /* ==========================================================================
+       APP CONTAINER LAYOUT
+       ========================================================================== */
+    .app-container {
+      display: flex;
+      min-height: calc(100vh - var(--header-height));
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       SIDEBAR & TABLE OF CONTENTS
+       ========================================================================== */
+    .sidebar {
+      width: var(--sidebar-width);
+      flex-shrink: 0;
+      position: sticky;
+      top: var(--header-height);
+      height: calc(100vh - var(--header-height));
+      overflow-y: auto;
+      padding: 1.5rem 1.25rem 2.5rem;
+      border-right: 1px solid var(--border-subtle);
+      background: var(--bg-sidebar);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: transform var(--transition-smooth);
+    }
+
+    .search-box {
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 0.6rem 0.75rem 0.6rem 2.25rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 0.825rem;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+    .search-box input:focus {
+      border-color: var(--claude-accent);
+      box-shadow: 0 0 0 3px rgba(195, 83, 52, 0.12);
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .toc-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      padding-left: 0.5rem;
+    }
+
+    .toc-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 0.65rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.825rem;
+      color: var(--text-body);
+      font-weight: 500;
+      transition: all var(--transition-fast);
+      border-left: 2px solid transparent;
+    }
+    .toc-link:hover {
+      background: var(--bg-card);
+      color: var(--claude-accent);
+      border-left-color: var(--claude-accent);
+      padding-left: 0.8rem;
+    }
+    .toc-link.active {
+      background: var(--bg-card);
+      color: var(--claude-accent);
+      border-left-color: var(--claude-accent);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+    .toc-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      min-width: 1.25rem;
+    }
+
+    /* ==========================================================================
+       MAIN EDITORIAL CONTENT AREA
+       ========================================================================== */
+    .main-content {
+      flex: 1;
+      padding: 3rem 4rem 6rem;
+      max-width: var(--content-max-width);
+      margin: 0 auto;
+    }
+
+    /* Claude Literary Typography Styles */
+    .editorial-hero {
+      margin-bottom: 3.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 2.5rem;
+    }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--claude-accent);
+      margin-bottom: 0.85rem;
+    }
+    .editorial-hero h1 {
+      font-family: var(--font-serif);
+      font-size: 2.75rem;
+      line-height: 1.18;
+      font-weight: 500;
+      color: var(--text-main);
+      letter-spacing: -0.015em;
+      margin-bottom: 1.25rem;
+    }
+    .editorial-hero .hero-lead {
+      font-size: 1.125rem;
+      line-height: 1.65;
+      color: var(--text-body);
+      max-width: 820px;
+      font-family: var(--font-sans);
+    }
+
+    /* Section Headings */
+    .doc-section {
+      margin-bottom: 4.5rem;
+      scroll-margin-top: calc(var(--header-height) + 1.5rem);
+    }
+    .doc-section h2 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      line-height: 1.25;
+      color: var(--text-main);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.6rem;
+    }
+    .doc-section h2 .sec-index {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      color: var(--claude-accent);
+      font-weight: 500;
+    }
+
+    .doc-section h3 {
+      font-family: var(--font-sans);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 2rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .doc-section h4 {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-body);
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1.15rem;
+      color: var(--text-body);
+    }
+    strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* Callout Boxes (Alerts) */
+    .callout {
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.35rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid transparent;
+      background: var(--bg-card);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-subtle);
+      border-left-width: 4px;
+    }
+    .callout-title {
+      font-weight: 700;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .callout.important {
+      border-left-color: var(--fp-navy);
+      background: rgba(50, 67, 84, 0.03);
+    }
+    .callout.important .callout-title {
+      color: var(--fp-navy);
+    }
+    .callout.warning {
+      border-left-color: var(--state-warning);
+      background: rgba(217, 119, 6, 0.04);
+    }
+    .callout.warning .callout-title {
+      color: var(--state-warning);
+    }
+    .callout.caution {
+      border-left-color: var(--state-danger);
+      background: rgba(239, 68, 68, 0.04);
+    }
+    .callout.caution .callout-title {
+      color: var(--state-danger);
+    }
+    .callout.claude {
+      border-left-color: var(--claude-accent);
+      background: rgba(195, 83, 52, 0.04);
+    }
+    .callout.claude .callout-title {
+      color: var(--claude-accent);
+    }
+
+    /* Blockquotes */
+    blockquote.quote-lead {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--text-main);
+      line-height: 1.6;
+      border-left: 3px solid var(--claude-accent);
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      margin: 1.75rem 0;
+    }
+    blockquote.quote-lead cite {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* Tables (Claude Style: Crisp, minimal, readable) */
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      margin: 1.5rem 0 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+    }
+    thead {
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    th {
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 0.775rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-body);
+      vertical-align: middle;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tbody tr:hover {
+      background: var(--bg-card-hover);
+    }
+
+    /* ==========================================================================
+       INTERACTIVE COLOR SWATCH CARDS & GRID
+       ========================================================================== */
+    .color-swatches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .swatch-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+    .swatch-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--claude-accent);
+    }
+    .swatch-preview {
+      height: 72px;
+      width: 100%;
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+    }
+    .swatch-copy-hint {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.45);
+      color: #FFFFFF;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+    }
+    .swatch-card:hover .swatch-copy-hint {
+      opacity: 1;
+    }
+    .swatch-info {
+      padding: 0.75rem;
+    }
+    .swatch-token {
+      font-family: var(--font-mono);
+      font-size: 0.725rem;
+      color: var(--claude-accent);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+    }
+    .swatch-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      line-height: 1.35;
+    }
+
+    /* Small Swatch inside Tables */
+    .mini-swatch {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      vertical-align: -3px;
+      margin-right: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    /* ==========================================================================
+       UX LAWS 4-DIMENSION CARDS
+       ========================================================================== */
+    .ux-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .ux-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+    .ux-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-strong);
+    }
+    .ux-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.775rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--claude-accent);
+      margin-bottom: 0.5rem;
+    }
+    .ux-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+    .ux-card-laws {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--fp-navy);
+      background: var(--bg-subtle);
+      padding: 0.4rem 0.6rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+    [data-theme="dark"] .ux-card-laws {
+      color: var(--fp-navy-light);
+    }
+    .ux-card-body {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       CODE BLOCKS WITH CLAUDE STYLING & COPY BUTTON
+       ========================================================================== */
+    .code-container {
+      position: relative;
+      margin: 1.5rem 0 2rem;
+      border-radius: var(--radius-md);
+      background: #181816;
+      border: 1px solid #2B2A27;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      background: #22211E;
+      border-bottom: 1px solid #2E2D29;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #9E978C;
+    }
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid #3E3C36;
+      background: #2C2A26;
+      color: #EDE8E1;
+      font-size: 0.725rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .copy-btn:hover {
+      background: #3B3833;
+      color: #FFFFFF;
+      border-color: #55524B;
+    }
+    pre code {
+      display: block;
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.825rem;
+      line-height: 1.6;
+      color: #EDE8E1;
+    }
+    /* Syntax Highlight Hints */
+    .token-comment { color: #78736A; font-style: italic; }
+    .token-property { color: #E07A5F; font-weight: 500; }
+    .token-val { color: #A8C3A0; }
+    .token-num { color: #E8B878; }
+
+    /* Inline Code */
+    code:not(pre code) {
+      font-family: var(--font-mono);
+      font-size: 0.85em;
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      background: var(--bg-subtle);
+      color: var(--claude-accent);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* ==========================================================================
+       INTERACTIVE GLASSMORPHISM SIMULATOR
+       ========================================================================== */
+    .simulator-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: var(--shadow-md);
+    }
+    .simulator-stage {
+      min-height: 400px;
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.75rem;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: linear-gradient(180deg, rgba(14, 19, 25, 0.15) 0%, rgba(14, 19, 25, 0.55) 100%), url('/images/loomere/viaje_1_bano.webp');
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.4);
+      transition: background-image 0.4s ease-in-out;
+    }
+    .sim-glass-box {
+      width: 100%;
+      max-width: 440px;
+      padding: 1.25rem 1.5rem;
+      border-radius: 18px;
+      background: rgba(50, 67, 84, 0.20);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s ease;
+      color: #FFFFFF;
+    }
+    .sim-scene-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .sim-scene-btn {
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-body);
+      font-size: 0.775rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all var(--transition-fast);
+    }
+    .sim-scene-btn:hover {
+      border-color: var(--claude-accent);
+      color: var(--claude-accent);
+    }
+    .sim-scene-btn.active {
+      background: var(--claude-accent);
+      color: #FFFFFF;
+      border-color: var(--claude-accent);
+      box-shadow: 0 2px 6px rgba(195, 83, 52, 0.25);
+    }
+    .sim-style-pill {
+      display: inline-flex;
+      padding: 0.25rem;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-pill);
+      gap: 0.25rem;
+      border: 1px solid var(--border-subtle);
+    }
+    .sim-style-btn {
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.725rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .sim-style-btn.active {
+      background: var(--bg-card);
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+    }
+    .sim-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .sim-control-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+    .sim-control-group input[type="range"] {
+      width: 100%;
+      accent-color: var(--claude-accent);
+    }
+
+    /* ==========================================================================
+       CHECKLIST HEURÍSTICO INTERACTIVO (SECCIÓN 12)
+       ========================================================================== */
+    .checklist-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin: 1.5rem 0 2.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .checklist-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .checklist-score {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--claude-accent);
+      background: var(--claude-accent-soft);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-pill);
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      cursor: pointer;
+      user-select: none;
+    }
+    .check-item:last-child {
+      border-bottom: none;
+    }
+    .check-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--claude-accent);
+      cursor: pointer;
+    }
+    .check-label {
+      font-size: 0.875rem;
+      color: var(--text-body);
+      line-height: 1.45;
+      transition: color var(--transition-fast);
+    }
+    .check-item input:checked + .check-label {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       WIKI CROSS-LINK CARDS (SECCIÓN 13)
+       ========================================================================== */
+    .wiki-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.85rem;
+      margin: 1.5rem 0;
+    }
+    .wiki-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+    }
+    .wiki-card:hover {
+      border-color: var(--claude-accent);
+      color: var(--claude-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .wiki-card svg {
+      flex-shrink: 0;
+      color: var(--claude-accent);
+    }
+
+    /* ==========================================================================
+       TOAST NOTIFICATION
+       ========================================================================== */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #181816;
+      color: #FFFFFF;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.825rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all var(--transition-smooth);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border: 1px solid #333;
+    }
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .sidebar {
+        position: fixed;
+        left: -320px;
+        top: var(--header-height);
+        height: calc(100vh - var(--header-height));
+        z-index: 90;
+        background: var(--bg-card);
+        box-shadow: var(--shadow-lg);
+      }
+      .sidebar.open {
+        transform: translateX(320px);
+      }
+      .mobile-menu-btn {
+        display: flex;
+      }
+      .main-content {
+        padding: 2rem 1.5rem 5rem;
+      }
+      .editorial-hero h1 {
+        font-size: 2.25rem;
+      }
+      .ux-grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .editorial-hero h1 {
+        font-size: 1.85rem;
+      }
+      .color-swatches-grid {
+        grid-template-columns: 1fr;
+      }
+      .sim-controls {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Print Stylesheet */
+    @media print {
+      .top-header, .sidebar, #progress-bar, .sim-controls, .copy-btn, .search-box {
+        display: none !important;
+      }
+      .app-container {
+        display: block;
+      }
+      .main-content {
+        padding: 0;
+        max-width: 100%;
+      }
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Reading Progress Indicator -->
+  <div id="progress-bar"></div>
+
+  <!-- Main Top Header -->
+  <header class="top-header">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <button class="icon-btn mobile-menu-btn" id="menu-toggle" aria-label="Abrir menú">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="#hero" class="brand-mark">
+        <div class="brand-logo-icon">Λ</div>
+        <div class="brand-title-group">
+          <h1>FIRPLAK</h1>
+          <span>Design System · AIR 2026</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="header-actions">
+      <span class="badge-pill navy">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#324354;"></span>
+        Navy #324354
+      </span>
+      <span class="badge-pill accent">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#C35334;"></span>
+        Claude Design Edition
+      </span>
+      <button class="icon-btn" id="theme-toggle" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema">
+        <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button class="icon-btn" onclick="window.print()" title="Imprimir o exportar PDF" aria-label="Imprimir">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="app-container">
+
+    <!-- Sticky Table of Contents Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="toc-filter" placeholder="Filtrar secciones..." />
+      </div>
+
+      <div>
+        <div class="toc-title">Índice del Sistema</div>
+        <nav>
+          <ul class="toc-nav" id="toc-list">
+            <li><a href="#sec-1" class="toc-link"><span class="toc-num">01</span> Fundamentos & Leyes de UX</a></li>
+            <li><a href="#sec-2" class="toc-link"><span class="toc-num">02</span> Identidad & Isotipo "Λ"</a></li>
+            <li><a href="#sec-3" class="toc-link"><span class="toc-num">03</span> Paleta & Tokens CSS</a></li>
+            <li><a href="#sec-4" class="toc-link"><span class="toc-num">04</span> Tipografía & Miller's Law</a></li>
+            <li><a href="#sec-5" class="toc-link"><span class="toc-num">05</span> Glassmorphism & Video Overlays</a></li>
+            <li><a href="#sec-6" class="toc-link"><span class="toc-num">06</span> Componentes Canónicos</a></li>
+            <li><a href="#sec-7" class="toc-link"><span class="toc-num">07</span> Arquitectura UI & Módulos</a></li>
+            <li><a href="#sec-8" class="toc-link"><span class="toc-num">08</span> Pre-Instalación Técnica</a></li>
+            <li><a href="#sec-9" class="toc-link"><span class="toc-num">09</span> Políticas Comerciales</a></li>
+            <li><a href="#sec-10" class="toc-link"><span class="toc-num">10</span> Stack & Separación SEO/Canvas</a></li>
+            <li><a href="#sec-11" class="toc-link"><span class="toc-num">11</span> Layout & Ergonomía Móvil</a></li>
+            <li><a href="#sec-12" class="toc-link"><span class="toc-num">12</span> Checklist Heurístico</a></li>
+            <li><a href="#sec-13" class="toc-link"><span class="toc-num">13</span> Enlaces Cruzados del Wiki</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-subtle); font-size: 0.75rem; color: var(--text-muted);">
+        <strong>FIRPLAK S.A.</strong><br>
+        Brand Book AIR 2026 · Dutch Boy 2025
+      </div>
+    </aside>
+
+    <!-- Main Editorial Content -->
+    <main class="main-content">
+
+      <!-- Hero Header -->
+      <header class="editorial-hero" id="hero">
+        <div class="hero-kicker">
+          <span>Fuente Única de Verdad</span>
+          <span>·</span>
+          <span>Master Design System</span>
+        </div>
+        <h1>Sistema de Diseño, Arquitectura UI/UX y Estilo Gráfico</h1>
+        <p class="hero-lead">
+          Compilación canónica y exhaustiva que unifica la identidad visual corporativa, los tokens CSS, la psicología cognitiva de las <strong>26 Leyes de UX</strong>, el diseño de interfaces táctiles y las políticas comerciales de la plataforma e-commerce de <strong>FIRPLAK</strong>.
+        </p>
+
+        <div class="callout important" style="margin-top: 1.75rem;">
+          <div class="callout-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            Resumen de Pilares Estratégicos
+          </div>
+          <p style="margin-bottom: 0.4rem; font-size: 0.9rem;">
+            • <strong>Brand Book AIR 2026</strong>: Slogan oficial <em>"inspiring homes"</em> (o <em>inspirando hogares</em>), Isotipo modular <strong>Λ</strong>.<br>
+            • <strong>Paleta Oficial</strong>: Colección <em>Dutch Boy 2025 ("Captivate Palette")</em> con Azul Base <code>#324354</code> como color principal corporativo, Slate Green <code>#7B8E90</code>, Lino Cálido <code>#F6F3EE</code> y Negro <code>#000000</code> como tono menor/puntual.<br>
+            • <strong>Tipografía Oficial</strong>: <strong>Montserrat</strong> (Primaria UI/Cuerpo) y <strong>Orborn Medium</strong> (Secundaria Titulares/Acentos).<br>
+            • <strong>Ergonomía & Psicología</strong>: Ley de Fitts (&ge;44px), Umbral de Doherty (&lt;400ms), Miller (chunking 3-5) y separación estricta SEO vs. Canvas.
+          </p>
+        </div>
+      </header>
+
+      <!-- SECCIÓN 1: FUNDAMENTOS PSICOLÓGICOS Y LEYES DE UX -->
+      <section class="doc-section" id="sec-1">
+        <h2><span class="sec-index">01</span> Fundamentos Psicológicos y Leyes de UX</h2>
+        <p>El sistema de diseño de Firplak opera bajo las <strong>4 Dimensiones Psicológicas de UX</strong> (Jon Yablonski / lawsofux.com) para convertir la navegación técnica en una experiencia serena y de alta conversión:</p>
+
+        <div class="ux-grid-4">
+          <div class="ux-card">
+            <div class="ux-card-header">
+              <span>Dimensión 1</span>
+            </div>
+            <div class="ux-card-title">Cognición & Decisión</div>
+            <div class="ux-card-laws">Hick · Miller · Tesler · Ockham</div>
+            <div class="ux-card-body">
+              Máximo 5 opciones concurrentes en selectores. Agrupación semántica de atributos y absorción de complejidad técnica en base de datos para que el usuario no sufra parálisis por análisis.
+            </div>
+          </div>
+
+          <div class="ux-card">
+            <div class="ux-card-header">
+              <span>Dimensión 2</span>
+            </div>
+            <div class="ux-card-title">Percepción & Gestalt</div>
+            <div class="ux-card-laws">Proximidad · Región Común · Von Restorff</div>
+            <div class="ux-card-body">
+              Espaciado matemático jerárquico. Las tarjetas sobre fondo Lino delimitan claramente cada SKU, mientras que el CTA de compra resalta con contraste cromático y resplandor aislado.
+            </div>
+          </div>
+
+          <div class="ux-card">
+            <div class="ux-card-header">
+              <span>Dimensión 3</span>
+            </div>
+            <div class="ux-card-title">Ergonomía & Rendimiento</div>
+            <div class="ux-card-laws">Fitts · Doherty · Jakob</div>
+            <div class="ux-card-body">
+              Blancos táctiles &ge; 44px al alcance del pulgar mediante Sticky Bottom Bar. Tiempos de respuesta menores a 150ms con skeletons visuales y patrones estándar de e-commerce.
+            </div>
+          </div>
+
+          <div class="ux-card">
+            <div class="ux-card-header">
+              <span>Dimensión 4</span>
+            </div>
+            <div class="ux-card-title">Emoción & Memoria</div>
+            <div class="ux-card-laws">Aesthetic-Usability · Peak-End · Goal-Gradient</div>
+            <div class="ux-card-body">
+              La estética noble arquitectónica predispone positivamente al comprador en compras de alto ticket ($1M a $25M COP). Flujo de checkout con confirmación memorable y gratificante.
+            </div>
+          </div>
+        </div>
+
+        <h3>Aplicación Directa de Principios Heurísticos</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 25%;">Ley / Principio</th>
+                <th style="width: 35%;">Parámetro Técnico</th>
+                <th>Manifestación en la Interfaz de Firplak</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Aesthetic-Usability Effect</strong></td>
+                <td>Armonía Dutch Boy 2025 + Cristal Translúcido</td>
+                <td>Percepción instantánea de durabilidad e ingeniería pesada, incrementando la tolerancia ante decisiones complejas.</td>
+              </tr>
+              <tr>
+                <td><strong>Fitts’s Law</strong></td>
+                <td>Área de contacto &ge; 44 &times; 44 px</td>
+                <td>Botón transaccional primario anclado en la zona ergonómica del pulgar en mobile (Sticky Bottom Bar).</td>
+              </tr>
+              <tr>
+                <td><strong>Doherty Threshold</strong></td>
+                <td>Feedback &lt; 150ms · Cierre &lt; 400ms</td>
+                <td>Cambio de material en modelo 3D o cálculo de cuotas ADDI sin tirones perceptuales; skeletons reactivos.</td>
+              </tr>
+              <tr>
+                <td><strong>Hick’s Law</strong></td>
+                <td>&le; 5 opciones concurrentes</td>
+                <td>Selectores de medidas y colores segmentados paso a paso para evitar la sobrecarga de elección.</td>
+              </tr>
+              <tr>
+                <td><strong>Von Restorff Effect</strong></td>
+                <td>Contraste focal + Sombra CTA</td>
+                <td>El botón de compra principal es el elemento más dominante e inconfundible de la pantalla.</td>
+              </tr>
+              <tr>
+                <td><strong>Postel’s Law</strong></td>
+                <td>Tolerancia en inputs</td>
+                <td>Autocompletado y formato inteligente de cédulas, teléfonos y búsqueda con tolerancia a faltas ("tina", "jacuzzi").</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: IDENTIDAD DE MARCA Y ARQUITECTURA GRÁFICA -->
+      <section class="doc-section" id="sec-2">
+        <h2><span class="sec-index">02</span> Identidad de Marca, Isotipo "Λ" y Arquitectura Gráfica</h2>
+
+        <blockquote class="quote-lead">
+          "Diseñamos confianza, innovación y hogar. Con modernidad, versatilidad, y un enfoque centrado en ti, transformamos espacios inspiradores. FIRPLAK es solidez con alma, donde la funcionalidad y el ingenio se encuentran."
+          <cite>— Brand Book FIRPLAK AIR 2026</cite>
+        </blockquote>
+
+        <p>• <strong>Claim / Slogan Oficial</strong>: <code>inspiring homes</code> (variante institucional: <em>inspirando hogares</em>). Se utiliza con o sin slogan dependiendo de la escala del soporte.<br>
+           • <strong>Carácter de Marca</strong>: Versátil, sólida, arquitectónica y enfocada en renovar los hogares con bienestar.</p>
+
+        <h3>El Isotipo "Λ" (Iconografía de Marca)</h3>
+        <p>Construido a partir de la transformación formal de la letra <strong>A</strong> en la silueta de un tejado modular que condensa hogar, calidad, ingeniería y ambiental:</p>
+
+        <div style="display: flex; gap: 2rem; align-items: center; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0;">
+          <div style="width: 80px; height: 80px; background: var(--fp-navy); border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md);">
+            <span style="font-family: var(--font-brand); color: #FFFFFF; font-size: 2.8rem; font-weight: 700; line-height: 1;">Λ</span>
+          </div>
+          <div style="flex: 1;">
+            <h4 style="margin: 0 0 0.4rem;">Aplicación Canónica en Digital:</h4>
+            <ul style="padding-left: 1.25rem; font-size: 0.875rem; color: var(--text-body); line-height: 1.6;">
+              <li><strong>Favicon & Web App Icon</strong>: Isotipo <strong>Λ</strong> en color <code>#324354</code> sobre Lino Cálido <code>#F6F3EE</code> o blanco.</li>
+              <li><strong>Loaders Asíncronos</strong>: Pulso o trazado animado sobre la letra <strong>Λ</strong> (&lt;400ms).</li>
+              <li><strong>Sellos de Garantía</strong>: Emblema de calidad oficial junto a especificaciones técnicas y 5 años de respaldo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Reglas de Contraste y Logotipo</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Superficie de Fondo</th>
+                <th>Aplicación de Logo / Isotipo</th>
+                <th>Ratio WCAG Resultante</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Fondo Claro</strong> (<code>#FFFFFF</code> o Lino <code>#F6F3EE</code>)</td>
+                <td>Logotipo o Isotipo en <strong>Azul Base <code>#324354</code></strong> (Uso principal) o Negro <code>#000000</code></td>
+                <td>&gt; 7.5:1 (Cumple AAA)</td>
+              </tr>
+              <tr>
+                <td><strong>Fondo Oscuro</strong> (<code>#324354</code> o <code>#000000</code>)</td>
+                <td>Logotipo o Isotipo en <strong>Lino Cálido <code>#F6F3EE</code></strong> o Blanco <code>#FFFFFF</code></td>
+                <td>&gt; 11:1 (Cumple AAA)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: PALETA DE COLORES Y TOKENS CSS -->
+      <section class="doc-section" id="sec-3">
+        <h2><span class="sec-index">03</span> Paleta de Colores y Tokens CSS Globales</h2>
+        <p>
+          Derivada de la colección <strong>Dutch Boy 2025 ("Captivate Palette")</strong>, concebida para balance perfecto con metales (cromo, negro mate, oro cepillado), mármol sintético, cuarzo y madera RH:
+        </p>
+
+        <div class="callout warning">
+          <div class="callout-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            Reglas Estrictas de Aplicación de Color
+          </div>
+          <p style="font-size: 0.875rem; margin-bottom: 0;">
+            1. <strong>El Negro Puro (<code>#000000</code>) NO es color corporativo ni principal</strong> de Firplak. El color base de la marca es <code>#324354</code>. El negro queda reservado como <em>color menor y puntual</em> para contraste extremo (&gt;13:1).<br>
+            2. <strong>Queda estrictamente prohibido sobresaturar la interfaz con Lino Cálido (<code>#F6F3EE</code>)</strong> como fondo masivo monolítico; debe utilizarse moderadamente en tarjetas y superficies nobles secundarias para no degradar la nitidez.
+          </p>
+        </div>
+
+        <h3>Inspector Interactivo de Colores (Click para Copiar)</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Haz clic sobre cualquier muestra para copiar su valor HEX al portapapeles:</p>
+
+        <!-- Dynamic Color Swatches Grid -->
+        <div class="color-swatches-grid" id="swatches-grid">
+          <!-- Swatches injected dynamically via JS for full interactive fidelity -->
+        </div>
+
+        <h3>Tokens CSS Oficiales (`:root`)</h3>
+        <div class="code-container">
+          <div class="code-header">
+            <span>tokens.css · :root</span>
+            <button class="copy-btn" id="copy-tokens-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copiar Tokens
+            </button>
+          </div>
+          <pre><code id="tokens-code-block">:root {
+  <span class="token-comment">/* Marca Principal - Azul Oscuro Base (Dutch Boy 2025 / Brand Book AIR 2026) */</span>
+  <span class="token-property">--color-brand-primary</span>: <span class="token-val">#324354</span>; <span class="token-comment">/* Azul Firplak Oficial */</span>
+  <span class="token-property">--color-primary-50</span>:    <span class="token-val">#f0f3f6</span>;
+  <span class="token-property">--color-primary-100</span>:   <span class="token-val">#dce3eb</span>;
+  <span class="token-property">--color-primary-200</span>:   <span class="token-val">#b9c7d6</span>;
+  <span class="token-property">--color-primary-300</span>:   <span class="token-val">#8da4bc</span>;
+  <span class="token-property">--color-primary-400</span>:   <span class="token-val">#5c7b9c</span>;
+  <span class="token-property">--color-primary-500</span>:   <span class="token-val">#324354</span>; <span class="token-comment">/* Base Institucional */</span>
+  <span class="token-property">--color-primary-600</span>:   <span class="token-val">#273543</span>; <span class="token-comment">/* Hover primario */</span>
+  <span class="token-property">--color-primary-700</span>:   <span class="token-val">#1d2732</span>; <span class="token-comment">/* Active primario */</span>
+  <span class="token-property">--color-primary-800</span>:   <span class="token-val">#141b23</span>;
+  <span class="token-property">--color-primary-900</span>:   <span class="token-val">#0c1117</span>;
+
+  <span class="token-comment">/* Acento Neutro & Bienestar - Slate Green (Dutch Boy 2025) */</span>
+  <span class="token-property">--color-brand-accent</span>:  <span class="token-val">#7b8e90</span>; <span class="token-comment">/* Verde Salvia Oficial */</span>
+  <span class="token-property">--color-accent-light</span>:  <span class="token-val">#9db0b2</span>;
+  <span class="token-property">--color-accent-base</span>:   <span class="token-val">#7b8e90</span>;
+  <span class="token-property">--color-accent-dark</span>:   <span class="token-val">#58696b</span>;
+  <span class="token-property">--color-hydro-flow</span>:    <span class="token-val">#688285</span>; <span class="token-comment">/* Spas e Hidroterapia */</span>
+
+  <span class="token-comment">/* Color de Uso Menor / Puntual (No corporativo / Contraste) */</span>
+  <span class="token-property">--color-brand-neutral-black</span>: <span class="token-val">#000000</span>;
+  <span class="token-property">--color-text-main</span>:     <span class="token-val">#324354</span>;
+  <span class="token-property">--color-text-body</span>:     <span class="token-val">#324354</span>;
+  <span class="token-property">--color-text-muted</span>:    <span class="token-val">#58696b</span>;
+
+  <span class="token-comment">/* Superficies Orgánicas & Fondos Nobles */</span>
+  <span class="token-property">--color-brand-linen</span>:   <span class="token-val">#f6f3ee</span>;
+  <span class="token-property">--color-surface-bg</span>:    <span class="token-val">#ffffff</span>;
+  <span class="token-property">--color-surface-card</span>:  <span class="token-val">#f6f3ee</span>;
+  <span class="token-property">--color-surface-muted</span>: <span class="token-val">#ece8e0</span>;
+  <span class="token-property">--color-border-subtle</span>: <span class="token-val">#e5e0d8</span>;
+  <span class="token-property">--color-border-strong</span>: <span class="token-val">#7b8e90</span>;
+
+  <span class="token-comment">/* Materiales & Texturas Reales */</span>
+  <span class="token-property">--color-stone-marble</span>:  <span class="token-val">#fbfbfa</span>;
+  <span class="token-property">--color-stone-quartz</span>:  <span class="token-val">#f0ede6</span>;
+  <span class="token-property">--color-wood-rh</span>:       <span class="token-val">#4a3728</span>; <span class="token-comment">/* Nogal RH */</span>
+  <span class="token-property">--color-wood-light</span>:    <span class="token-val">#d4a373</span>; <span class="token-comment">/* Roble Nórdico */</span>
+
+  <span class="token-comment">/* Funcionales & Pasarela */</span>
+  <span class="token-property">--color-success</span>:       <span class="token-val">#10b981</span>;
+  <span class="token-property">--color-warning</span>:       <span class="token-val">#f59e0b</span>;
+  <span class="token-property">--color-danger</span>:        <span class="token-val">#ef4444</span>;
+  <span class="token-property">--color-addi</span>:          <span class="token-val">#00c389</span>;
+
+  <span class="token-comment">/* Ergonomía & Targets Táctiles (Ley de Fitts) */</span>
+  <span class="token-property">--touch-target-min</span>:    <span class="token-num">44px</span>;
+  <span class="token-property">--touch-target-lg</span>:     <span class="token-num">52px</span>;
+
+  <span class="token-comment">/* Tiempos de Respuesta y Fluidez (Doherty & Física Apple) */</span>
+  <span class="token-property">--timing-instant</span>:      <span class="token-num">120ms</span>;
+  <span class="token-property">--timing-fast</span>:         <span class="token-num">240ms</span>;
+  <span class="token-property">--timing-smooth</span>:       <span class="token-num">400ms</span>;
+  <span class="token-property">--ease-spring</span>:         <span class="token-val">cubic-bezier(0.16, 1, 0.3, 1)</span>;
+  <span class="token-property">--ease-bounce</span>:         <span class="token-val">cubic-bezier(0.34, 1.56, 0.64, 1)</span>;
+
+  <span class="token-comment">/* Glassmorphism Canónico Oficial (Dark Slate Glass) */</span>
+  <span class="token-property">--glass-dark-slate-bg</span>:     <span class="token-val">rgba(50, 67, 84, 0.20)</span>;
+  <span class="token-property">--glass-dark-slate-blur</span>:   <span class="token-num">8px</span>;
+  <span class="token-property">--glass-dark-slate-border</span>: <span class="token-val">1px solid rgba(255, 255, 255, 0.20)</span>;
+  <span class="token-property">--glass-dark-slate-shadow</span>: <span class="token-val">0 20px 40px rgba(0, 0, 0, 0.35)</span>;
+
+  <span class="token-comment">/* Sombras y Elevación (Prägnanz & Von Restorff) */</span>
+  <span class="token-property">--shadow-sm</span>:           <span class="token-val">0 2px 4px rgba(50, 67, 84, 0.05)</span>;
+  <span class="token-property">--shadow-md</span>:           <span class="token-val">0 8px 16px rgba(50, 67, 84, 0.08)</span>;
+  <span class="token-property">--shadow-lg</span>:           <span class="token-val">0 16px 32px rgba(50, 67, 84, 0.12)</span>;
+  <span class="token-property">--shadow-floating-cta</span>: <span class="token-val">0 12px 28px rgba(50, 67, 84, 0.32)</span>;
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: TIPOGRAFÍA OFICIAL Y MILLER'S LAW -->
+      <section class="doc-section" id="sec-4">
+        <h2><span class="sec-index">04</span> Tipografía Oficial, Jerarquía y Miller's Law</h2>
+        <p>Dos familias tipográficas canónicas con asignación formal diferenciada:</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0 2rem;">
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--claude-accent); font-weight: 700;">Tipografía Primaria Oficial</div>
+            <h3 style="font-family: var(--font-brand); font-size: 1.75rem; margin: 0.4rem 0;">Montserrat</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.45;">
+              <strong>Uso</strong>: Cuerpos descriptivos, interfaz de usuario (UI), botones transaccionales, labels y datos de fichas técnicas.
+            </p>
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--fp-navy); font-weight: 700;">Tipografía Secundaria Oficial</div>
+            <h3 style="font-family: var(--font-brand); font-size: 1.75rem; margin: 0.4rem 0; letter-spacing: 0.04em;">Orborn Medium</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.45;">
+              <strong>Uso</strong>: Encabezados específicos de marca, titulares H1 de impacto, acentos arquitectónicos y métricas monumentales.
+            </p>
+          </div>
+        </div>
+
+        <h3>Jerarquía Tipográfica y Chunking Cognitivo (Miller's Law)</h3>
+        <p>Los datos técnicos nunca se presentan en bloques planos; se agrupan en módulos semánticos de 3 a 5 especificaciones:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Nivel</th>
+                <th>Familia</th>
+                <th>Peso</th>
+                <th>Tamaño / Leading</th>
+                <th>Regla Heurística / Aplicación</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>H1 (Hero / PDP)</strong></td>
+                <td><code>Orborn</code> / <code>Montserrat</code></td>
+                <td>Medium 500 / Bold 700</td>
+                <td>32–44px / 1.15</td>
+                <td><strong>Foco Primario</strong>: Nombre del producto y propuesta única de valor.</td>
+              </tr>
+              <tr>
+                <td><strong>H2 (Secciones)</strong></td>
+                <td><code>Orborn</code> / <code>Montserrat</code></td>
+                <td>Medium 500 / Semi-Bold 600</td>
+                <td>24–32px / 1.25</td>
+                <td><strong>Estructura Escaneable</strong>: Títulos de colecciones y entornos.</td>
+              </tr>
+              <tr>
+                <td><strong>H3 (Subtítulos)</strong></td>
+                <td><code>Montserrat</code></td>
+                <td>Semi-Bold 600</td>
+                <td>18–22px / 1.30</td>
+                <td><strong>Chunking</strong>: Grupos de atributos (Dimensiones, Material, Eléctrico).</td>
+              </tr>
+              <tr>
+                <td><strong>Metrics / Num</strong></td>
+                <td><code>Orborn</code> / <code>Montserrat</code></td>
+                <td>Medium 500 / Bold 700</td>
+                <td>28–36px / 1.00</td>
+                <td><strong>Von Restorff</strong>: 5 Años Garantía, 350L, Potencia 2 HP.</td>
+              </tr>
+              <tr>
+                <td><strong>Price Active</strong></td>
+                <td><code>Montserrat</code></td>
+                <td>Bold 700</td>
+                <td>24–30px / 1.10</td>
+                <td><strong>Claridad Comercial</strong>: Valor en COP con separador de miles.</td>
+              </tr>
+              <tr>
+                <td><strong>Body (Cuerpo)</strong></td>
+                <td><code>Montserrat</code></td>
+                <td>Regular 400</td>
+                <td>15–16px / 1.60</td>
+                <td><strong>Legibilidad Óptima</strong>: Máximo 65–75 caracteres por línea.</td>
+              </tr>
+              <tr>
+                <td><strong>Badges / Tags</strong></td>
+                <td><code>Montserrat</code></td>
+                <td>Semi-Bold 600</td>
+                <td>11–12px / 1.00</td>
+                <td><strong>Escaneo Rápido</strong>: <em>Envío Rápido &lt;48h</em>, <em>Ahorras 25%</em>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: OVERLAYS TRASLÚCIDOS Y GLASSMORPHISM -->
+      <section class="doc-section" id="sec-5">
+        <h2><span class="sec-index">05</span> Overlays con Opacidad, Glassmorphism y Elementos Gráficos</h2>
+        <p>
+          <strong>Principio Rector</strong>: El asset visual (video cinemático o foto de alta resolución) es el protagonista supremo. La arquitectura, el agua y la nobleza del mármol deben respirar. Los cuadros de UI son capas etéreas y respetuosas, nunca muros opacos.
+        </p>
+
+        <div class="callout important" style="margin: 1.25rem 0;">
+          <div class="callout-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            Valores Canónicos Oficiales de Glassmorphism
+          </div>
+          <p style="font-size: 0.875rem; margin-bottom: 0.35rem;">
+            • <strong>Dark Slate Glass (Estándar Canónico Oficial)</strong>: <code>background: rgba(50, 67, 84, 0.20)</code> (20% opacidad del Azul Base Firplak), <code>backdrop-filter: blur(8px)</code>, borde <code>1px solid rgba(255, 255, 255, 0.20)</code> y sombra espacial <code>0 20px 40px rgba(0, 0, 0, 0.35)</code>.<br>
+            • <strong>Light Linen Glass (Superficie Secundaria Nocturna)</strong>: <code>background: rgba(246, 243, 238, 0.80)</code>, <code>backdrop-filter: blur(16px)</code> y borde <code>1px solid rgba(50, 67, 84, 0.25)</code>.
+          </p>
+        </div>
+
+        <!-- Interactive Glassmorphism Simulator -->
+        <div class="simulator-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+            <div>
+              <h4 style="margin: 0 0 0.2rem;">Simulador Interactivo de Glassmorphism Canónico</h4>
+              <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">
+                Fotografía arquitectónica real de fondo con valores canónicos de <strong>0.20 de opacidad</strong> y <strong>8px de desenfoque</strong>.
+              </p>
+            </div>
+            <div class="sim-style-pill">
+              <button class="sim-style-btn active" id="btn-style-dark">Dark Slate Glass</button>
+              <button class="sim-style-btn" id="btn-style-light">Light Linen Glass</button>
+            </div>
+          </div>
+
+          <!-- Selector de Escenas Fotográficas Reales -->
+          <div class="sim-scene-btns">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); align-self: center; margin-right: 0.25rem;">Escena de fondo:</span>
+            <button class="sim-scene-btn active" data-scene="bano">
+              🛁 Baño Boutique (Lavamanos Oslo)
+            </button>
+            <button class="sim-scene-btn" data-scene="exterior">
+              🌅 Hidroterapia Exterior (Jacuzzi Deck)
+            </button>
+            <button class="sim-scene-btn" data-scene="cocina">
+              🍳 Cocina Jade (Isla Cuarzo)
+            </button>
+          </div>
+
+          <div class="simulator-stage" id="simulator-stage">
+            <div class="sim-glass-box" id="sim-glass-target" style="background: rgba(50, 67, 84, 0.20); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.20); box-shadow: 0 20px 40px rgba(0,0,0,0.35);">
+              <div id="sim-tag" style="display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; background: rgba(255, 255, 255, 0.15); padding: 2px 8px; border-radius: 9999px; margin-bottom: 0.5rem;">ESCENA 1 · BAÑO BOUTIQUE</div>
+              <h3 id="sim-title" style="color: #FFFFFF; margin: 0 0 0.35rem; font-size: 1.15rem;">Lavamanos Oslo Suspendido</h3>
+              <p id="sim-desc" style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.85); margin: 0 0 0.75rem; line-height: 1.4;">
+                Superficie mineral en Mármol Sintético blanco con desagüe oculto y textura higiénica no porosa.
+              </p>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <button id="sim-cta" style="background: #324354; color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.25); padding: 0.4rem 1rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                  Explorar Detalles CAD →
+                </button>
+                <span id="sim-badge" style="font-size: 0.7rem; color: rgba(255, 255, 255, 0.75); font-weight: 500;">
+                  🛡️ 5 Años Garantía
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-controls">
+            <div class="sim-control-group">
+              <label>
+                <span>Opacidad de Fondo (<code id="token-preview-bg" style="font-size: 0.75rem;">rgba(50, 67, 84, 0.20)</code>)</span>
+                <span id="opacity-val" style="font-family: var(--font-mono); color: var(--claude-accent);">0.20</span>
+              </label>
+              <input type="range" id="opacity-slider" min="0.05" max="0.95" step="0.05" value="0.20">
+            </div>
+            <div class="sim-control-group">
+              <label>
+                <span>Desenfoque Óptico (Backdrop Blur)</span>
+                <span id="blur-val" style="font-family: var(--font-mono); color: var(--claude-accent);">8px</span>
+              </label>
+              <input type="range" id="blur-slider" min="0" max="32" step="1" value="8">
+            </div>
+          </div>
+        </div>
+
+        <div class="code-container" style="margin: 1.5rem 0 2rem;">
+          <div class="code-header">
+            <span>styles.css · .glass-overlay-card (Canónico Oficial)</span>
+            <button class="copy-btn" id="copy-glass-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copiar Regla CSS
+            </button>
+          </div>
+          <pre><code id="glass-code-block">.glass-overlay-card {
+  background: rgba(50, 67, 84, 0.20);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  border-radius: 1.25rem; /* rounded-2xl */
+}</code></pre>
+        </div>
+
+        <h3>Reglas de Posicionamiento Espacial</h3>
+        <ul style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+          <li><strong>Ubicación Canónica Desktop</strong>: Cuadrante inferior izquierdo (<code>p-6</code> a <code>p-12</code> de respiro). La mirada recorre el producto en el centro antes del llamado a la acción.</li>
+          <li><strong>Ubicación en Mobile</strong>: Anclado al borde inferior como hoja (<code>bottom: 0</code>), liberando el 65% superior para la visual.</li>
+          <li><strong>ZONA PROHIBIDA</strong>: Terminantemente vetado centrar paneles sobre el tercio medio de la pantalla tapando el producto en exhibición.</li>
+        </ul>
+
+        <h3>Los 6 Elementos Gráficos Autorizados</h3>
+        <p>Para preservar pulcritud arquitectónica, se restringen los elementos a este catálogo estricto:</p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Elemento</th>
+                <th>Especificación Visual</th>
+                <th>Función en Experiencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Isotipo "Λ"</strong></td>
+                <td>Sello 16&times;16px o filigrana al 20–30%</td>
+                <td>Emblema de garantía o calidad sin distracción visual.</td>
+              </tr>
+              <tr>
+                <td><strong>2. Tag Pills</strong></td>
+                <td>Píldoras <code>rounded-full</code> con fondo 10% translúcido</td>
+                <td>Categorización con tracking amplio (<code>0.2em</code>).</td>
+              </tr>
+              <tr>
+                <td><strong>3. Líneas de Tensión</strong></td>
+                <td>Trazo 1px con opacidad <code>border-white/10</code></td>
+                <td>Separador suave de botón sin corte duro.</td>
+              </tr>
+              <tr>
+                <td><strong>4. Micro-Iconos</strong></td>
+                <td>Lucide de trazo fino (1.5px) de 14&times;14px</td>
+                <td>Dirección discreta (flecha, lupa, play).</td>
+              </tr>
+              <tr>
+                <td><strong>5. Price Tag Cursor</strong></td>
+                <td>Cápsula flotante Dark Slate Glass (<code>rgba(50, 67, 84, 0.20)</code> con <code>blur(8px)</code>)</td>
+                <td>Etiqueta viva de precio sobre hotspot del producto.</td>
+              </tr>
+              <tr>
+                <td><strong>6. Barra de Progreso</strong></td>
+                <td>Línea ultrafina de 2px o micro-dots de 6px</td>
+                <td>Indicación sutil de avance en escenas o video.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 6: COMPONENTES CANÓNICOS -->
+      <section class="doc-section" id="sec-6">
+        <h2><span class="sec-index">06</span> Componentes Canónicos Validados por Leyes de UX</h2>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <h3 style="margin-top: 0;">A. Barra CTA Flotante (Floating Buy Bar)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Fundamentada en <strong>Fitts's Law</strong>, <strong>Von Restorff Effect</strong> y <strong>Jakob's Law</strong>.
+          </p>
+          <p style="font-size: 0.875rem;">
+            Emerge suavemente con animación física (<code>translateY(0)</code> en 240ms) al superar el scroll del Hero. Presenta miniatura (48&times;48px), nombre de SKU, precio en tiempo real de SAP B1, botón de compra primario de 48px de alto con resplandor <code>--shadow-floating-cta</code> y acceso directo a cuotas ADDI.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <h3 style="margin-top: 0;">B. Swatches de Materiales y Variantes (Mix & Match)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Fundamentada en <strong>Hick's Law</strong>, <strong>Doherty Threshold</strong> y <strong>Law of Similarity</strong>.
+          </p>
+          <p style="font-size: 0.875rem;">
+            Núcleo visual de 32px con área táctil transparente de 44&times;44px (Fitts). Respuesta reactiva en &lt;150ms con anillo de selección doble (<code>ring-2 ring-primary-500 ring-offset-2</code>).
+          </p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
+          <h3 style="margin-top: 0;">C. Trust Badges y Alertas Técnicas</h3>
+          <p style="font-size: 0.875rem;">
+            🚚 <strong>Despacho Primer Piso</strong> (Tono Slate Green para evitar disputas post-venta).<br>
+            🛡️ <strong>Garantía de Fábrica (5 Años)</strong> (Emblema sellado con Isotipo <strong>Λ</strong>).<br>
+            ⚡ <strong>Envío Rápido (&lt;48h)</strong> (Solo si hay inventario físico verificado).<br>
+            🔧 <strong>Servicio Técnico Certificado</strong> (Conexión a visita técnica previa).
+          </p>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 7: ARQUITECTURA UI Y MÓDULOS -->
+      <section class="doc-section" id="sec-7">
+        <h2><span class="sec-index">07</span> Arquitectura UI y Flujos de Experiencia por Módulo</h2>
+
+        <h3>A. Página de Inicio (Home Page)</h3>
+        <ol style="padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+          <li><strong>Announcement Bar & Goal-Gradient Effect</strong>: Ticker rotativo con envíos gratis y cuotas ADDI al instante.</li>
+          <li><strong>Top Bar Corporativo (Mental Model)</strong>: Teléfono, WhatsApp y cuenta para constructores/B2B.</li>
+          <li><strong>Megamenú & Serial Position Effect</strong>: Hidromasajes y Baños al inicio; Zona Outdoor al final.</li>
+          <li><strong>Hero Cinemático (Aesthetic-Usability)</strong>: Video loop continuo de alta hegemonía con WebP de primer fotograma para LCP &lt; 1.2s.</li>
+          <li><strong>Grid Circular de Categorías (Hick's Law)</strong>: Acceso visual directo a los 6 entornos sin submenús confusos.</li>
+          <li><strong>Módulo Flash Sales (Von Restorff)</strong>: Descuentos con ahorro numérico explícito en COP.</li>
+          <li><strong>Showrooms Omnicanal (Jakob's Law)</strong>: Enlace directo a Google Maps para sedes Bogotá, Medellín, Itagüí y Cali.</li>
+        </ol>
+
+        <h3>B. Ficha de Detalle de Producto (PDP)</h3>
+        <p style="font-size: 0.9rem;">
+          Documentada en detalle en <a href="pagina_producto.md" style="color: var(--claude-accent); font-weight: 600;">pagina_producto.md</a>. Integra arquitectura transaccional, 3 Tiers de producto y 5 plantillas maestras parametrizadas en base de datos.
+        </p>
+
+        <h3>C. Módulo Visualizador Mix & Match (Mobile First)</h3>
+        <p style="font-size: 0.9rem;">
+          Secuencia de configuración en 4 pasos táctiles al alcance del pulgar:
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1rem 0;">
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.8rem;">
+            <strong>Paso 1</strong><br>Modelo Lavamanos
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.8rem;">
+            <strong>Paso 2</strong><br>Color Lavamanos
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.8rem;">
+            <strong>Paso 3</strong><br>Diseño Mueble RH
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem; font-size: 0.8rem;">
+            <strong>Paso 4</strong><br>Acabado Madera
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 8: CONDICIONES TÉCNICAS Y PRE-INSTALACIÓN -->
+      <section class="doc-section" id="sec-8">
+        <h2><span class="sec-index">08</span> Condiciones Técnicas y Requisitos de Pre-Instalación</h2>
+        <p>
+          Las condiciones de pre-instalación aplican <strong>exclusivamente a Spas e Hidromasajes</strong>, la única línea que demanda acometidas técnicas previas. Se organizan bajo <strong>Miller's Law (Chunking 3-5 especificaciones)</strong>:
+        </p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Categoría</th>
+                <th>Requisitos Críticos de Pre-Instalación</th>
+                <th>Enfoque UX/UI en Interfaz</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Spas e Hidromasajes</strong></td>
+                <td>
+                  • Voltaje 110V o 220V Bifásico (Motobomba 2 HP).<br>
+                  • Circuito independiente con protección <strong>GFCI</strong>.<br>
+                  • Desagüe de 1.5" a 2" con trampa de olores.<br>
+                  • <strong>Escotilla de inspección obligatoria de 40&times;40 cm</strong>.
+                </td>
+                <td>
+                  Despiece animado in-scroll, conmutador de versiones (Plus/Spa) y opción de agendar visita técnica previa.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 9: POLÍTICAS COMERCIALES -->
+      <section class="doc-section" id="sec-9">
+        <h2><span class="sec-index">09</span> Políticas Comerciales Inquebrantables</h2>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Política Comercial</th>
+                <th>Parámetro Formal</th>
+                <th>Comunicación Asertiva UX</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Despacho Estándar</strong></td>
+                <td>15 Días Hábiles</td>
+                <td>Fabricación bajo pedido. Flag ⚡ <em>Envío Rápido</em> reservado únicamente para stock físico (&lt;48h).</td>
+              </tr>
+              <tr>
+                <td><strong>2. Entrega en Primer Piso</strong></td>
+                <td>Estricto Primer Piso</td>
+                <td>Banner preventivo visible en PDP y Checkout para evitar disputas con transportadoras en escaleras/fachadas.</td>
+              </tr>
+              <tr>
+                <td><strong>3. Reporte de Averías</strong></td>
+                <td>3 Días Hábiles</td>
+                <td>Notificación en correo post-venta para reclamaciones por golpes o rayones estéticos.</td>
+              </tr>
+              <tr>
+                <td><strong>4. Garantías de Fábrica</strong></td>
+                <td>5 Años (Minerales) · 1 a 5 (RH) · 1 Año (Bombas)</td>
+                <td>Detallado transparente en ficha técnica sellado con Isotipo <strong>Λ</strong>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 10: STACK TECNOLÓGICO Y SEPARACIÓN SEO/CANVAS -->
+      <section class="doc-section" id="sec-10">
+        <h2><span class="sec-index">10</span> Stack Tecnológico y Separación SEO vs. Canvas</h2>
+        <p>• <strong>Lenis Smooth Scroll</strong>: Desplazamiento inercial a 60–120 FPS.<br>
+           • <strong>GSAP 3 + ScrollTrigger</strong>: Anclaje de secciones (<code>pin: true</code>, <code>scrub: 0.5</code>).<br>
+           • <strong>React Three Fiber + Drei</strong>: Renderizado WebGL de modelos CAD reales (Tier 1).<br>
+           • <strong>Canvas 2D Frame Engine</strong>: Secuencias WebP pre-renderizadas (&lt;40KB) para móviles (Tier 2).<br>
+           • <strong>Higgsfield REAL</strong>: Video ambiental lifestyle exterior.</p>
+
+        <div class="callout caution">
+          <div class="callout-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            La Regla de Oro de Higgsfield
+          </div>
+          <p style="font-size: 0.875rem; margin-bottom: 0;">
+            ✅ <strong>Higgsfield define el mundo exterior</strong>: Vapor, vegetación, luz zen, arquitectura circundante.<br>
+            ❌ <strong>Higgsfield NUNCA define el producto</strong>: Las cotas milimétricas, posición de motobomba y desagüe se rigen al 100% por los planos CAD oficiales de Firplak.
+          </p>
+        </div>
+
+        <h3>Separación Estricta entre SEO y Rendimiento</h3>
+        <p>
+          <strong>El SEO NUNCA vive dentro del Canvas o WebGL</strong>. Todos los encabezados <code>&lt;h1&gt;</code>, tablas técnicas y microdatos de Schema.org (Product, Offer) se renderizan en el servidor (SSR/ISR). El canvas es exclusivamente una capa cosmética cliente. Presupuesto de LCP &lt; 1.5s.
+        </p>
+      </section>
+
+      <!-- SECCIÓN 11: BREAKPOINTS Y ERGONOMÍA MÓVIL -->
+      <section class="doc-section" id="sec-11">
+        <h2><span class="sec-index">11</span> Responsive Layout, Breakpoints y Ergonomía Móvil</h2>
+        <div class="code-container">
+          <div class="code-header"><span>breakpoints.css</span></div>
+          <pre><code><span class="token-property">--breakpoint-sm</span>:  <span class="token-num">640px</span>;  <span class="token-comment">/* Mobile Vertical */</span>
+<span class="token-property">--breakpoint-md</span>:  <span class="token-num">768px</span>;  <span class="token-comment">/* Tablets / Mobile Horizontal */</span>
+<span class="token-property">--breakpoint-lg</span>:  <span class="token-num">1024px</span>; <span class="token-comment">/* Laptops / Desktop */</span>
+<span class="token-property">--breakpoint-xl</span>:  <span class="token-num">1280px</span>; <span class="token-comment">/* Monitores Grandes */</span>
+<span class="token-property">--breakpoint-2xl</span>: <span class="token-num">1536px</span>; <span class="token-comment">/* Pantallas Ultra-Wide */</span></code></pre>
+        </div>
+
+        <p>
+          1. <strong>Thumb Zone (Regla del Pulgar)</strong>: Elementos transaccionales primarios fijados en el tercio inferior.<br>
+          2. <strong>Bottom Sheets</strong>: Selectores complejos se abren como bandejas inferiores sobre Lino Cálido <code>#F6F3EE</code>.<br>
+          3. <strong>Prevención de Zoom Accidental</strong>: Inputs fijados en mínimo <strong>16px</strong> en móvil para evitar zoom involuntario en iOS WebKit.
+        </p>
+      </section>
+
+      <!-- SECCIÓN 12: CHECKLIST HEURÍSTICO INTERACTIVO -->
+      <section class="doc-section" id="sec-12">
+        <h2><span class="sec-index">12</span> Checklist Heurístico y de Identidad Integral</h2>
+        <p>
+          Todo componente, pantalla o flujo debe validar este checklist antes de pasar a producción. Marca los ítems para guardar el progreso en tu navegador:
+        </p>
+
+        <div class="checklist-wrap">
+          <div class="checklist-header">
+            <div>
+              <strong style="font-size: 1rem;">Auditoría de Cumplimiento</strong>
+              <div style="font-size: 0.775rem; color: var(--text-muted);">Master Design System & UX Standards</div>
+            </div>
+            <div class="checklist-score" id="checklist-counter">0 / 17 Completados</div>
+          </div>
+
+          <div id="checklist-container">
+            <!-- Injected via JavaScript with LocalStorage sync -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 13: MAPEO DE ENLACES CRUZADOS -->
+      <section class="doc-section" id="sec-13">
+        <h2><span class="sec-index">13</span> Mapeo de Enlaces Cruzados del Wiki</h2>
+        <p>Acceso directo a los documentos complementarios del wiki de especificaciones técnicas:</p>
+
+        <div class="wiki-links-grid">
+          <a href="index.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            <span>Índice General del Wiki</span>
+          </a>
+          <a href="pagina_inicio.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+            <span>Página de Inicio & Navegación</span>
+          </a>
+          <a href="pagina_producto.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path></svg>
+            <span>PDP & Scrollytelling</span>
+          </a>
+          <a href="mix_and_match.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+            <span>Configurador Mix & Match</span>
+          </a>
+          <a href="hidromasajes.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+            <span>Spas e Hidromasajes</span>
+          </a>
+          <a href="cocinas.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"></path></svg>
+            <span>Cocinas Integrales & Mesones</span>
+          </a>
+          <a href="zona_labores.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+            <span>Zona de Labores & Lavaderos</span>
+          </a>
+          <a href="zona_outdoor.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <span>Zona Outdoor & Asadores BBQ</span>
+          </a>
+          <a href="conceptos_catalogo.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+            <span>Políticas Comerciales & Catálogo</span>
+          </a>
+          <a href="arquitectura_datos.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+            <span>Arquitectura de Datos & Supabase</span>
+          </a>
+          <a href="pagos_e_integraciones.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+            <span>Pagos, ePayco & Crédito ADDI</span>
+          </a>
+          <a href="referentes_externo.md" class="wiki-card">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>7 Referentes Externos de GUI</span>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--state-success)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="toast-msg">Valor copiado al portapapeles</span>
+  </div>
+
+  <!-- Interactive Scripts -->
+  <script>
+    // Color Swatches Database
+    const SWATCHES = [
+      { name: "Azul Firplak Oficial", token: "--color-brand-primary", hex: "#324354", desc: "Color corporativo base institucional, CTA y encabezados." },
+      { name: "Hover Primario", token: "--color-primary-600", hex: "#273543", desc: "Estado interactivo de botones y acentos profundos." },
+      { name: "Active Primario", token: "--color-primary-700", hex: "#1D2732", desc: "Pulsación física de botones primarios." },
+      { name: "Dark Surface 800", token: "--color-primary-800", hex: "#141B23", desc: "Fondo de footer técnico y modales oscuros." },
+      { name: "Primary 400", token: "--color-primary-400", hex: "#5C7B9C", desc: "Texto secundario sobre fondos oscuros o bordes activos." },
+      { name: "Primary 100", token: "--color-primary-100", hex: "#DCE3EB", desc: "Divisores secundarios y chips desactivados." },
+      { name: "Primary 50", token: "--color-primary-50", hex: "#F0F3F6", desc: "Tinte suave para hover de filas y tablas." },
+      { name: "Slate Green Oficial", token: "--color-brand-accent", hex: "#7B8E90", desc: "Acento de bienestar, tags técnicos y micro-animaciones." },
+      { name: "Slate Green Light", token: "--color-accent-light", hex: "#9DB0B2", desc: "Bordes sutiles y chips inactivos de hidroterapia." },
+      { name: "Slate Green Dark", token: "--color-accent-dark", hex: "#58696B", desc: "Subtítulos y notas técnicas con contraste WCAG AA." },
+      { name: "Hydro Flow", token: "--color-hydro-flow", hex: "#688285", desc: "Acento temático para tinas, spas e hidromasajes." },
+      { name: "Fondo E-commerce", token: "--color-surface-bg", hex: "#FFFFFF", desc: "Fondo limpio principal que garantiza amplitud y nitidez." },
+      { name: "Lino Cálido", token: "--color-brand-linen", hex: "#F6F3EE", desc: "Superficie noble para tarjetas y modales (no saturar)." },
+      { name: "Superficie Muted", token: "--color-surface-muted", hex: "#ECE8E0", desc: "Fondos de inputs y barras de soporte." },
+      { name: "Borde Sutil", token: "--color-border-subtle", hex: "#E5E0D8", desc: "Líneas de separación y tarjetas de producto." },
+      { name: "Mármol Sintético", token: "--color-stone-marble", hex: "#FBFBFA", desc: "Muestra y acabado mineral blanco pulido Firplak." },
+      { name: "Quartzstone", token: "--color-stone-quartz", hex: "#F0EDE6", desc: "Acabado cuarzo y cubiertas compuestas." },
+      { name: "Nogal RH", token: "--color-wood-rh", hex: "#4A3728", desc: "Madera resistente a humedad para muebles de baño y cocina." },
+      { name: "Roble Nórdico", token: "--color-wood-light", hex: "#D4A373", desc: "Carpintería clara para combinaciones Mix & Match." },
+      { name: "Éxito / Stock", token: "--color-success", hex: "#10B981", desc: "Confirmación, inventario disponible y pasos validados." },
+      { name: "Alerta / Pre-Inst.", token: "--color-warning", hex: "#F59E0B", desc: "Avisos preventivos y requerimientos técnicos." },
+      { name: "Peligro / Error", token: "--color-danger", hex: "#EF4444", desc: "Errores en inputs, fallos en pago y agotado." },
+      { name: "Pasarela ADDI", token: "--color-addi", hex: "#00C389", desc: "Color oficial aliado para cuotas y crédito 0% interés." },
+      { name: "Negro Puntual", token: "--color-brand-neutral-black", hex: "#000000", desc: "Uso menor restringido: solo contraste extremo >13:1." }
+    ];
+
+    // Checklist Items
+    const CHECKLIST_ITEMS = [
+      "Implementación de #324354 como color principal y el negro #000000 como uso menor/puntual.",
+      "Uso moderado del Lino Cálido #F6F3EE (no sobresaturar como fondo monolítico masivo).",
+      "Tipografía Montserrat para UI/cuerpos y Orborn Medium para titulares y números.",
+      "Isotipo 'Λ' y contraste evaluado según fondo claro (#324354) u oscuro (#F6F3EE / blanco).",
+      "Opacidad calibrada en paneles sobre video: Dark Slate Glass al 20% (rgba(50, 67, 84, 0.20)) con blur de 8px (o Light Linen al 80% blur 16px).",
+      "Efecto Glassmorphism calibrado: backdrop-filter blur(8px) y borde translúcido de 1px rgba(255, 255, 255, 0.20).",
+      "Protagonismo absoluto del asset visual: cuadro de texto anclado en cuadrante inferior.",
+      "Redondeo de paneles en rounded-2xl (16-20px) y botones/chips en rounded-full.",
+      "Catálogo gráfico restringido exclusivamente a los 6 elementos oficiales.",
+      "Decisión limpia: menos de 5 a 6 opciones concurrentes visibles (Ley de Hick).",
+      "Ergonomía táctil: botones transaccionales con target >= 44x44px (Ley de Fitts).",
+      "Umbral de Doherty: feedback táctil en <150ms y respuesta en <400ms con skeletons.",
+      "Aislamiento de conversión: CTA principal dominante con sombra focal (Von Restorff).",
+      "Chunking cognitivo: especificaciones técnicas agrupadas en bloques de 3 a 5 datos.",
+      "Región común: tarjetas de producto sobre fondo Lino delimitando cada SKU claramente.",
+      "Tolerancia en entradas: autocompletado y formato inteligente de cédulas y teléfonos.",
+      "Cierre memorable: confirmación de orden visualmente clara y gratificante (Peak-End Rule)."
+    ];
+
+    // Populate Swatches
+    const swatchesGrid = document.getElementById('swatches-grid');
+    SWATCHES.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'swatch-card';
+      card.innerHTML = `
+        <div class="swatch-preview" style="background-color: ${item.hex};">
+          <span class="swatch-copy-hint">Copiar HEX</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-token">${item.token}</div>
+          <div class="swatch-hex">
+            <span>${item.name}</span>
+            <span>${item.hex}</span>
+          </div>
+          <div class="swatch-desc">${item.desc}</div>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        copyToClipboard(item.hex, `Color ${item.name} (${item.hex}) copiado`);
+      });
+      swatchesGrid.appendChild(card);
+    });
+
+    // Populate Checklist with LocalStorage Sync
+    const checklistContainer = document.getElementById('checklist-container');
+    const counterEl = document.getElementById('checklist-counter');
+    const savedState = JSON.parse(localStorage.getItem('firplak_design_checklist') || '{}');
+
+    function updateChecklistCounter() {
+      const total = CHECKLIST_ITEMS.length;
+      const checked = Object.values(savedState).filter(Boolean).length;
+      counterEl.textContent = `${checked} / ${total} Completados`;
+    }
+
+    CHECKLIST_ITEMS.forEach((text, idx) => {
+      const itemEl = document.createElement('label');
+      itemEl.className = 'check-item';
+      const isChecked = !!savedState[idx];
+      itemEl.innerHTML = `
+        <input type="checkbox" data-index="${idx}" ${isChecked ? 'checked' : ''}>
+        <span class="check-label">${text}</span>
+      `;
+      const checkbox = itemEl.querySelector('input');
+      checkbox.addEventListener('change', (e) => {
+        savedState[idx] = e.target.checked;
+        localStorage.setItem('firplak_design_checklist', JSON.stringify(savedState));
+        updateChecklistCounter();
+      });
+      checklistContainer.appendChild(itemEl);
+    });
+    updateChecklistCounter();
+
+    // Copy to Clipboard Utility
+    function copyToClipboard(text, message) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(message || 'Copiado al portapapeles');
+      }).catch(() => {
+        showToast('Error al copiar');
+      });
+    }
+
+    // Toast Notification
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toast-msg');
+    let toastTimeout;
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2600);
+    }
+
+    // Copy Tokens Button
+    document.getElementById('copy-tokens-btn').addEventListener('click', () => {
+      const code = document.getElementById('tokens-code-block').innerText;
+      copyToClipboard(code, 'Tokens CSS copiados al portapapeles');
+    });
+
+    const copyGlassBtn = document.getElementById('copy-glass-btn');
+    if (copyGlassBtn) {
+      copyGlassBtn.addEventListener('click', () => {
+        const code = document.getElementById('glass-code-block').innerText;
+        copyToClipboard(code, 'Regla CSS Glassmorphism copiada');
+      });
+    }
+
+    // Glassmorphism Simulator Controls with Real Photography
+    const opacitySlider = document.getElementById('opacity-slider');
+    const blurSlider = document.getElementById('blur-slider');
+    const opacityVal = document.getElementById('opacity-val');
+    const blurVal = document.getElementById('blur-val');
+    const tokenPreviewBg = document.getElementById('token-preview-bg');
+    const simGlassTarget = document.getElementById('sim-glass-target');
+    const simStage = document.getElementById('simulator-stage');
+    const simTag = document.getElementById('sim-tag');
+    const simTitle = document.getElementById('sim-title');
+    const simDesc = document.getElementById('sim-desc');
+    const simCta = document.getElementById('sim-cta');
+    const simBadge = document.getElementById('sim-badge');
+    const btnStyleDark = document.getElementById('btn-style-dark');
+    const btnStyleLight = document.getElementById('btn-style-light');
+
+    let currentGlassMode = 'dark'; // 'dark' | 'light'
+
+    // Scene Database with Relative & Absolute paths
+    const isFileProto = window.location.protocol === 'file:';
+    const basePath = isFileProto ? '../../public/images/loomere/' : '/images/loomere/';
+
+    const SCENES = {
+      bano: {
+        img: basePath + 'viaje_1_bano.webp',
+        tag: 'ESCENA 1 · BAÑO BOUTIQUE',
+        title: 'Lavamanos Oslo Suspendido',
+        desc: 'Superficie mineral en Mármol Sintético blanco con desagüe oculto y textura higiénica no porosa.',
+        badge: '🛡️ 5 Años Garantía'
+      },
+      exterior: {
+        img: basePath + 'viaje_4_exterior.webp',
+        tag: 'ESCENA 4 · HIDROTERAPIA EXTERIOR',
+        title: 'Jacuzzi Mydas 180 en Deck al Atardecer',
+        desc: 'Acrílico grado sanitario termoformado, 18 microjets de hidroterapia y cromoterapia crepuscular.',
+        badge: '⚡ Acometida GFCI 220V'
+      },
+      cocina: {
+        img: basePath + 'viaje_2_cocina.webp',
+        tag: 'ESCENA 2 · COCINA JADE',
+        title: 'Isla Central de Cuarzo Veteado',
+        desc: 'Mesón Quartzstone antibacterial con poceta submontada y frentes en madera RH Rovere.',
+        badge: '🔪 Resistencia Térmica'
+      }
+    };
+
+    function setScene(sceneKey) {
+      const data = SCENES[sceneKey];
+      if (!data) return;
+
+      // Apply background image with contrast gradient
+      simStage.style.backgroundImage = `linear-gradient(180deg, rgba(14, 19, 25, 0.15) 0%, rgba(14, 19, 25, 0.55) 100%), url('${data.img}')`;
+      simTag.textContent = data.tag;
+      simTitle.textContent = data.title;
+      simDesc.textContent = data.desc;
+      simBadge.textContent = data.badge;
+
+      document.querySelectorAll('.sim-scene-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.scene === sceneKey);
+      });
+    }
+
+    function updateGlassSimulator() {
+      const op = opacitySlider.value;
+      const bl = blurSlider.value;
+      opacityVal.textContent = op;
+      blurVal.textContent = `${bl}px`;
+
+      if (currentGlassMode === 'dark') {
+        const bgVal = `rgba(50, 67, 84, ${op})`;
+        simGlassTarget.style.backgroundColor = bgVal;
+        simGlassTarget.style.backdropFilter = `blur(${bl}px)`;
+        simGlassTarget.style.webkitBackdropFilter = `blur(${bl}px)`;
+        simGlassTarget.style.borderColor = 'rgba(255, 255, 255, 0.20)';
+        simGlassTarget.style.color = '#FFFFFF';
+        simTitle.style.color = '#FFFFFF';
+        simDesc.style.color = 'rgba(255, 255, 255, 0.85)';
+        simTag.style.background = 'rgba(255, 255, 255, 0.15)';
+        simTag.style.color = '#FFFFFF';
+        simCta.style.background = '#324354';
+        simCta.style.color = '#FFFFFF';
+        simCta.style.borderColor = 'rgba(255, 255, 255, 0.25)';
+        simBadge.style.color = 'rgba(255, 255, 255, 0.75)';
+        tokenPreviewBg.textContent = bgVal;
+      } else {
+        const bgVal = `rgba(246, 243, 238, ${op})`;
+        simGlassTarget.style.backgroundColor = bgVal;
+        simGlassTarget.style.backdropFilter = `blur(${bl}px)`;
+        simGlassTarget.style.webkitBackdropFilter = `blur(${bl}px)`;
+        simGlassTarget.style.borderColor = 'rgba(50, 67, 84, 0.25)';
+        simGlassTarget.style.color = '#324354';
+        simTitle.style.color = '#1D2732';
+        simDesc.style.color = '#3F3C37';
+        simTag.style.background = 'rgba(50, 67, 84, 0.12)';
+        simTag.style.color = '#324354';
+        simCta.style.background = '#324354';
+        simCta.style.color = '#FFFFFF';
+        simCta.style.borderColor = '#324354';
+        simBadge.style.color = '#58696B';
+        tokenPreviewBg.textContent = bgVal;
+      }
+    }
+
+    opacitySlider.addEventListener('input', updateGlassSimulator);
+    blurSlider.addEventListener('input', updateGlassSimulator);
+
+    // Glass Mode Buttons
+    btnStyleDark.addEventListener('click', () => {
+      currentGlassMode = 'dark';
+      btnStyleDark.classList.add('active');
+      btnStyleLight.classList.remove('active');
+      opacitySlider.value = 0.20;
+      blurSlider.value = 8;
+      updateGlassSimulator();
+    });
+
+    btnStyleLight.addEventListener('click', () => {
+      currentGlassMode = 'light';
+      btnStyleLight.classList.add('active');
+      btnStyleDark.classList.remove('active');
+      opacitySlider.value = 0.80;
+      blurSlider.value = 16;
+      updateGlassSimulator();
+    });
+
+    // Scene Buttons Click Handlers
+    document.querySelectorAll('.sim-scene-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        setScene(btn.dataset.scene);
+      });
+    });
+
+    // Initialize with default scene
+    setScene('bano');
+    updateGlassSimulator();
+
+    // Dark / Light Theme Toggle
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const currentTheme = localStorage.getItem('firplak_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const nowTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nowTheme);
+      localStorage.setItem('firplak_theme', nowTheme);
+      updateThemeIcon(nowTheme);
+    });
+
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+      } else {
+        themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+      }
+    }
+
+    // Mobile Sidebar Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    // Close mobile menu on item click
+    document.querySelectorAll('.toc-link').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+      });
+    });
+
+    // Reading Progress & ScrollSpy
+    const progressBar = document.getElementById('progress-bar');
+    const sections = document.querySelectorAll('.doc-section');
+    const tocLinks = document.querySelectorAll('.toc-link');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      progressBar.style.width = `${progress}%`;
+
+      // ScrollSpy
+      let currentSection = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 120;
+        if (scrollTop >= top) {
+          currentSection = sec.getAttribute('id');
+        }
+      });
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Table of Contents Filter
+    const tocFilter = document.getElementById('toc-filter');
+    const tocList = document.getElementById('toc-list');
+    tocFilter.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      tocList.querySelectorAll('li').forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

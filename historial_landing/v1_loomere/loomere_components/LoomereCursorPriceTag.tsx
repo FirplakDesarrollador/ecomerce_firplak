@@ -98,14 +98,15 @@ export default function LoomereCursorPriceTag({
         transform: OFFSCREEN_TRANSFORM
       }}
     >
-      {/* Tag slim minimalista idéntico */}
+      {/* Tag slim minimalista con Glassmorphism Canónico */}
       <div
-        className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 text-white shadow-2xl"
+        className="flex items-center gap-2.5 px-4 py-2 rounded-full text-white shadow-2xl"
         style={{
-          backgroundColor: 'rgba(70, 70, 70, 0.6)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
+          backgroundColor: 'rgba(50, 67, 84, 0.20)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255, 255, 255, 0.20)',
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.35)'
         }}
       >
         <Sparkles className="w-3.5 h-3.5 text-cyan-300 animate-pulse flex-shrink-0" />

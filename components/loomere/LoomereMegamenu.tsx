@@ -200,10 +200,10 @@ export default function LoomereMegamenu({ isOpen, onClose }: LoomereMegamenuProp
       <div
         className="relative w-full max-w-[1400px] max-h-[82vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300"
         style={{
-          backgroundColor: 'rgba(70, 70, 70, 0.65)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
+          backgroundColor: 'rgba(50, 67, 84, 0.85)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255, 255, 255, 0.20)',
           boxShadow: '0 30px 70px rgba(0, 0, 0, 0.65)'
         }}
       >

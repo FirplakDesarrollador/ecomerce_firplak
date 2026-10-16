@@ -44,7 +44,7 @@ describe('Sesión lavamanos & muebles · Opción A (Vitelli 63)', () => {
     expect(VITELLI_RIG.puerta.residuoM).toBeLessThan(0.004);
   });
 
-  it('el GLB conserva grupos animables, materiales por nombre y UV del acabado (bugs 010-011)', async () => {
+  it('el GLB conserva grupos animables, materiales por nombre y UV del acabado (bugs 011-012)', async () => {
     const { NodeIO } = await import('@gltf-transform/core');
     const { ALL_EXTENSIONS } = await import('@gltf-transform/extensions');
     const { MeshoptDecoder } = await import('meshoptimizer');

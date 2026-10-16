@@ -32,6 +32,7 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 - **[pagina_inicio.md](pagina_inicio.md)**: Arquitectura de la Home Page, sistema de navegación global (Header, Top Bar, Megamenú multinivel), secciones promocionales, descarga de catálogos y showrooms.
 - **[pagina_producto.md](pagina_producto.md)**: Arquitectura visual, layout, selectores de variante, configuradores, trust badges y marcado SEO de la Página de Detalle de Producto (PDP).
 - **[mix_and_match.md](mix_and_match.md)**: Especificación funcional del visualizador interactivo lateral para combinaciones de lavamanos y muebles.
+- **[banos_muebles_opcion_a.md](banos_muebles_opcion_a.md)**: Sesión lavamanos & muebles, Opción A: configurador 3D del Vitelli 63 (5 acabados, 4 lavamanos, comparador, cotización por WhatsApp) y pipeline FBX → GLB reutilizable.
 - **[carpinteria_obra.md](carpinteria_obra.md)**: Galería de casos de éxito y proyectos para constructoras y arquitectos, features clave y formulario de contacto para licitaciones (sin precios ni integración SAP).
 - **[servicios.md](servicios.md)**: Servicios técnicos de pre-inspección, instalación certificada, postventa, repuestos y agendamiento federado con Supabase OAuth.
 

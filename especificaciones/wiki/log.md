@@ -6,6 +6,13 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-10-09] feat | Sesión Lavamanos & Muebles · Opción A: Configurador 3D Vitelli 63
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble`, destino de "lavamanos & muebles" en el menú de la landing (antes daba página vacía).
+- **Modelo:** FBX "Vitelli mix & match" (4 MB, 120k triángulos) → GLB meshopt de 691 KB con puerta y cajones animables, 4 lavamanos alineados y grifo/sifón ubicados por perforación.
+- **Acabados:** Blanco Madera, Soder, Austral, Gracia y Mitte desde la biblioteca de tableros; lavamanos Oslo, Siena, Genova y Parma.
+- **Experiencia:** barrido de acabado, cambio animado de lavamanos, comparador de acabados lado a lado, apertura con cierre lento, cotas 3D, 4 vistas, puntos de interés, cotización por WhatsApp y enlace compartible.
+- **Documentación:** [banos_muebles_opcion_a.md](banos_muebles_opcion_a.md).
+
 ## [2026-09-27] feat | Generación Completa y Codificación Scroll-Craft: 4 Escenas Casa Firplak
 - **Generación en Higgsfield (Seedance 2.0):**
   1. *Escena 1 (Baño Boutique):* `viaje_1_bano.mp4` / `viaje_1_bano-m.mp4` (Lavamanos Oslo, retroceso a corredor).

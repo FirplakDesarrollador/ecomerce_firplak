@@ -2,20 +2,52 @@
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { Layers, Sparkles, RefreshCw } from 'lucide-react';
+import { Layers, Sparkles, Users, RefreshCw } from 'lucide-react';
 
-// Carga dinámica de ambas experiencias
-const LoomereExperience = dynamic(
+// Carga dinámica de las 3 experiencias de diseño
+// 1. Alejandro (Loomere)
+const AlejandroExperience = dynamic(
   () => import('@/components/loomere/LoomereExperience'),
   { ssr: false }
 );
 
-const FirplakLivingSpacesExperience = dynamic(
+// 2. Ricardo (V2 Living Spaces)
+const RicardoExperience = dynamic(
   () => import('@/components/landing-cinematic/FirplakLivingSpacesExperience'),
   { ssr: false }
 );
 
-type LandingVersion = 'loomere' | 'living-spaces';
+// 3. Isabel / Gabriel (Réplica inicial de Alejandro / Loomere)
+const IsabelGabrielExperience = dynamic(
+  () => import('@/components/isabel-gabriel/IsabelGabrielExperience'),
+  { ssr: false }
+);
+
+export type LandingVersion = 'alejandro' | 'ricardo' | 'isabel-gabriel';
+
+const ROTATION_ORDER: LandingVersion[] = ['alejandro', 'ricardo', 'isabel-gabriel'];
+
+/**
+ * Normaliza cualquier valor ingresado por URL (?v=...) o localStorage
+ * manteniendo compatibilidad retrospectiva con las versiones anteriores.
+ */
+function normalizeVersion(val: string | null): LandingVersion | null {
+  if (!val) return null;
+  const clean = val.toLowerCase().trim();
+  if (clean === 'alejandro' || clean === 'loomere' || clean === 'v1') return 'alejandro';
+  if (clean === 'ricardo' || clean === 'living-spaces' || clean === 'v2') return 'ricardo';
+  if (
+    clean === 'isabel-gabriel' ||
+    clean === 'isabel_gabriel' ||
+    clean === 'isabel/gabriel' ||
+    clean === 'isabel' ||
+    clean === 'gabriel' ||
+    clean === 'v3'
+  ) {
+    return 'isabel-gabriel';
+  }
+  return null;
+}
 
 export default function LandingSwitcher() {
   const [activeVersion, setActiveVersion] = useState<LandingVersion | null>(null);
@@ -23,19 +55,28 @@ export default function LandingSwitcher() {
   useEffect(() => {
     // Bug 002 fix: diferir la lectura y seteo de estado fuera del cuerpo síncrono del effect
     const rafId = requestAnimationFrame(() => {
-      // 1. Revisar si hay un parámetro forzado en la URL (?v=loomere o ?v=living-spaces)
+      // 1. Revisar si hay un parámetro forzado en la URL (?v=alejandro, ?v=ricardo o ?v=isabel-gabriel)
       const urlParams = new URLSearchParams(window.location.search);
-      const forcedVersion = urlParams.get('v') as LandingVersion | null;
+      const queryParam = urlParams.get('v') || urlParams.get('diseno') || urlParams.get('version');
+      const forcedVersion = normalizeVersion(queryParam);
 
-      if (forcedVersion === 'loomere' || forcedVersion === 'living-spaces') {
+      if (forcedVersion) {
         setActiveVersion(forcedVersion);
         localStorage.setItem('firplak_active_landing', forcedVersion);
         return;
       }
 
-      // 2. Alternancia automática en cada refresh (recarga de página)
-      const lastVersion = localStorage.getItem('firplak_active_landing') as LandingVersion | null;
-      const nextVersion: LandingVersion = lastVersion === 'living-spaces' ? 'loomere' : 'living-spaces';
+      // 2. Alternancia automática secuencial en cada refresh (recarga de página)
+      const rawStored = localStorage.getItem('firplak_active_landing');
+      const lastVersion = normalizeVersion(rawStored);
+      let nextVersion: LandingVersion = 'alejandro';
+
+      if (lastVersion) {
+        const currentIndex = ROTATION_ORDER.indexOf(lastVersion);
+        if (currentIndex !== -1) {
+          nextVersion = ROTATION_ORDER[(currentIndex + 1) % ROTATION_ORDER.length];
+        }
+      }
 
       localStorage.setItem('firplak_active_landing', nextVersion);
       setActiveVersion(nextVersion);
@@ -60,45 +101,64 @@ export default function LandingSwitcher() {
 
   return (
     <main className="relative">
-      {/* RENDERIZADO DE LA LANDING CORRESPONDIENTE */}
-      {activeVersion === 'living-spaces' ? (
-        <FirplakLivingSpacesExperience />
-      ) : (
-        <LoomereExperience />
-      )}
+      {/* RENDERIZADO DE LA PROPUESTA DE DISEÑO ACTIVA */}
+      {activeVersion === 'ricardo' && <RicardoExperience />}
+      {activeVersion === 'alejandro' && <AlejandroExperience />}
+      {activeVersion === 'isabel-gabriel' && <IsabelGabrielExperience />}
 
       {/* CONTROL FLOTANTE INFORMATIVO & CONMUTADOR RÁPIDO */}
-      <aside 
-        aria-label="Selector de versión de Landing"
-        className="fixed bottom-4 right-4 z-50 flex items-center gap-2 bg-black/85 backdrop-blur-xl border border-white/20 p-1.5 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.8)] text-xs text-white"
+      <aside
+        aria-label="Selector de versión de propuesta de diseño"
+        className="fixed bottom-4 right-4 z-50 flex items-center gap-1.5 sm:gap-2 bg-black/90 backdrop-blur-xl border border-white/20 p-1.5 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.85)] text-xs text-white max-w-[calc(100vw-2rem)] overflow-x-auto"
       >
-        <div className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium text-amber-300">
+        <div className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium text-amber-300 shrink-0">
           <RefreshCw className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '8s' }} />
-          <span className="hidden sm:inline">Alterna en cada Refresh:</span>
+          <span className="hidden md:inline">Alterna en cada Refresh:</span>
         </div>
 
+        {/* Opción 1: Alejandro */}
         <button
-          onClick={() => toggleVersion('living-spaces')}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all duration-300 font-medium ${
-            activeVersion === 'living-spaces'
-              ? 'bg-amber-400 text-black shadow-md font-semibold'
-              : 'text-white/70 hover:text-white hover:bg-white/10'
-          }`}
-        >
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>v2 Living Spaces</span>
-        </button>
-
-        <button
-          onClick={() => toggleVersion('loomere')}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all duration-300 font-medium ${
-            activeVersion === 'loomere'
+          onClick={() => toggleVersion('alejandro')}
+          aria-pressed={activeVersion === 'alejandro'}
+          title="Propuesta Alejandro (Base Loomere)"
+          className={`flex items-center gap-1.5 px-3 sm:px-3.5 min-h-[44px] rounded-full transition-all duration-300 font-medium shrink-0 ${
+            activeVersion === 'alejandro'
               ? 'bg-white text-black shadow-md font-semibold'
-              : 'text-white/70 hover:text-white hover:bg-white/10'
+              : 'text-white/80 hover:text-white hover:bg-white/10'
           }`}
         >
           <Layers className="w-3.5 h-3.5" />
-          <span>v1 Loomere</span>
+          <span>Alejandro</span>
+        </button>
+
+        {/* Opción 2: Ricardo */}
+        <button
+          onClick={() => toggleVersion('ricardo')}
+          aria-pressed={activeVersion === 'ricardo'}
+          title="Propuesta Ricardo (V2 Living Spaces)"
+          className={`flex items-center gap-1.5 px-3 sm:px-3.5 min-h-[44px] rounded-full transition-all duration-300 font-medium shrink-0 ${
+            activeVersion === 'ricardo'
+              ? 'bg-amber-400 text-black shadow-md font-semibold'
+              : 'text-white/80 hover:text-white hover:bg-white/10'
+          }`}
+        >
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Ricardo</span>
+        </button>
+
+        {/* Opción 3: Isabel / Gabriel */}
+        <button
+          onClick={() => toggleVersion('isabel-gabriel')}
+          aria-pressed={activeVersion === 'isabel-gabriel'}
+          title="Propuesta Isabel / Gabriel"
+          className={`flex items-center gap-1.5 px-3 sm:px-3.5 min-h-[44px] rounded-full transition-all duration-300 font-medium shrink-0 ${
+            activeVersion === 'isabel-gabriel'
+              ? 'bg-emerald-400 text-black shadow-md font-semibold'
+              : 'text-white/80 hover:text-white hover:bg-white/10'
+          }`}
+        >
+          <Users className="w-3.5 h-3.5" />
+          <span>Isabel / Gabriel</span>
         </button>
       </aside>
     </main>

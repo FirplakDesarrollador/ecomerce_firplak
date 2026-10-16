@@ -1,45 +1,41 @@
-# HISTORIAL DE VERSIONES DE LANDING PAGE - FIRPLAK
+# HISTORIAL DE PROPUESTAS DE DISEÑO DE LANDING PAGE - FIRPLAK
 
-Este directorio almacena el historial de versiones de las landing pages desarrolladas para Firplak, permitiendo recuperar o comparar cualquier versión previa de manera inmediata.
+Este directorio documenta las propuestas de diseño activas y el historial de versiones desarrolladas para Firplak, permitiendo alternar, comparar o fijar cualquier propuesta.
 
 ---
 
-## Versiones Disponibles
+## Propuestas de Diseño Disponibles
 
-### 1. `v1_loomere/`
-- **Fecha:** Septiembre 2026
+### 1. Alejandro (`alejandro` / Loomere)
 - **Concepto:** Experiencia interactiva Loomere inspirada en diseño de alta gama, catálogo modal, selector de escenas, hotspots de producto con cursor magnético interactivo y cajón lateral de producto.
-- **Componente Principal:** [`components/loomere/LoomereExperience.tsx`](file:///c:/Users/Rik/OneDrive/Escritorio/ecomerce_firplak/components/loomere/LoomereExperience.tsx)
-- **Copia de Respaldo:** [`historial_landing/v1_loomere/page.original.tsx`](file:///c:/Users/Rik/OneDrive/Escritorio/ecomerce_firplak/historial_landing/v1_loomere/page.original.tsx)
+- **Componente Principal:** [`components/loomere/LoomereExperience.tsx`](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK%20e-commerce/components/loomere/LoomereExperience.tsx)
+- **URL directa:** `/?v=alejandro`
 
-### 2. `v2_cinematic_living_spaces/` (Actual Nueva Versión)
-- **Fecha:** Septiembre 2026
+### 2. Ricardo (`ricardo` / V2 Living Spaces)
 - **Concepto:** Experiencia cinematográfica narrativa editorial basada en 4 ambientes fotorrealistas de catálogo con personaje consistente ("Elena") y loops continuos en Seedance 2.5:
   1. **El Baño:** Mueble Vanitorio Flotante blanco con grifería negra (Mañana).
   2. **La Cocina:** Cocina modular terracota y Calacatta Viola (Mediodía).
   3. **La Zona de Lavado:** Centro de lavado y secado compacto (Tarde).
   4. **El Hidromasaje al Atardecer:** Bañera exenta con hidroterapia y velas (Atardecer).
-- **Componente Principal:** `components/landing-cinematic/FirplakLivingSpacesExperience.tsx`
-- **Guión Editorial:** [`scrip_landing/guion_landing.md`](file:///c:/Users/Rik/OneDrive/Escritorio/ecomerce_firplak/scrip_landing/guion_landing.md)
+- **Componente Principal:** [`components/landing-cinematic/FirplakLivingSpacesExperience.tsx`](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK%20e-commerce/components/landing-cinematic/FirplakLivingSpacesExperience.tsx)
+- **Guión Editorial:** [`scrip_landing/guion_landing.md`](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK%20e-commerce/scrip_landing/guion_landing.md)
+- **URL directa:** `/?v=ricardo`
+
+### 3. Isabel / Gabriel (`isabel-gabriel`)
+- **Concepto:** Réplica base de la experiencia de Alejandro (Loomere), desacoplada en su propio componente para iterar y desarrollar variaciones de diseño independientes.
+- **Componente Principal:** [`components/isabel-gabriel/IsabelGabrielExperience.tsx`](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK%20e-commerce/components/isabel-gabriel/IsabelGabrielExperience.tsx)
+- **URL directa:** `/?v=isabel-gabriel`
 
 ---
 
-## Cómo Restaurar una Versión Previa
+## Conmutador y Modos de Visualización
 
-Para dejar fija una versión específica en `app/page.tsx`:
-- **Para fijar v1 (Loomere):**
-  ```tsx
-  import LoomereExperience from '@/components/loomere/LoomereExperience';
-  export default function Home() {
-    return <LoomereExperience />;
-  }
-  ```
-- **Para fijar v2 (Living Spaces):**
-  ```tsx
-  import FirplakLivingSpacesExperience from '@/components/landing-cinematic/FirplakLivingSpacesExperience';
-  export default function Home() {
-    return <FirplakLivingSpacesExperience />;
-  }
-  ```
-- **Modo Alternante (Actual):**
-  `app/page.tsx` incluye el conmutador dinámico que alterna entre ambas versiones en cada recarga (*refresh*), además de un control flotante sutil para alternar manualmente en tiempo real.
+- **Modo Alternante Secuencial (Por Defecto):**
+  En cada recarga de página (*refresh*), el sitio rota secuencialmente: **Alejandro → Ricardo → Isabel / Gabriel → Alejandro**.
+- **Control Flotante:**
+  En la esquina inferior derecha se encuentra la barra flotante con botones directos para alternar entre las 3 propuestas al instante.
+- **Forzado por Parámetro URL:**
+  - `/?v=alejandro`
+  - `/?v=ricardo`
+  - `/?v=isabel-gabriel`
+

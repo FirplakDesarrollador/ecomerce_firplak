@@ -53,6 +53,19 @@ const acabado = (id: string, nombre: string): AcabadoMueble => ({
   muestra: `${ACABADOS}/${id}-muestra.webp`,
 });
 
+/**
+ * Los 5 tableros de la linea, compartidos por todos los muebles y por las dos
+ * opciones de experiencia. Mismas texturas que usa el configurador Unreal
+ * "Vitelli_M_M".
+ */
+export const ACABADOS_TABLERO: AcabadoMueble[] = [
+  acabado('blanco-madera', 'Blanco Madera'),
+  acabado('soder', 'Soder'),
+  acabado('austral', 'Austral'),
+  acabado('gracia', 'Gracia'),
+  acabado('mitte', 'Mitte'),
+];
+
 export const VITELLI_63: MuebleBano = {
   id: 'vitelli-63',
   opcion: 'A',
@@ -62,14 +75,7 @@ export const VITELLI_63: MuebleBano = {
   descripcion:
     'Elige el acabado del mueble y el lavamanos que más te guste. Lo ves armado en 3D al instante, por dentro y por fuera.',
   modelo: '/models/muebles/vitelli-63.glb',
-  // Mismas 5 texturas de tablero que usa el configurador Unreal "Vitelli_M_M".
-  acabados: [
-    acabado('blanco-madera', 'Blanco Madera'),
-    acabado('soder', 'Soder'),
-    acabado('austral', 'Austral'),
-    acabado('gracia', 'Gracia'),
-    acabado('mitte', 'Mitte'),
-  ],
+  acabados: ACABADOS_TABLERO,
   lavamanos: [
     { id: 'oslo', nombre: 'Oslo', medida: '63 × 48 cm', forma: 'Poceta rectangular', miniatura: `${LAVAMANOS}/oslo.webp` },
     { id: 'siena', nombre: 'Siena', medida: '63 × 48 cm', forma: 'Poceta de frente curvo', miniatura: `${LAVAMANOS}/siena.webp` },

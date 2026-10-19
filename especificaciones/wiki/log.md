@@ -6,6 +6,13 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-10-19] feat | Sesión Lavamanos & Muebles · Opción B: Mix & Match fotorrealista
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=b`; barra "Prototipos en revisión" para alternar con la Opción A.
+- **Fuente:** 9 renders con fondo transparente (2 muebles × 5 lavamanos, falta Vitelli + Ovalado, armado por capas).
+- **Acabados en el navegador:** capa de luz por render (máscara + luz sin veta); los 5 tableros se aplican sin renders adicionales.
+- **Experiencia:** piezas que se ensamblan al entrar, flechas y gesto por pieza, transiciones distintas para lavamanos, mueble y acabado, fondo claro u oscuro, cotización y enlace compartible.
+- **Documentación:** [banos_muebles_opcion_b.md](banos_muebles_opcion_b.md).
+
 ## [2026-10-09] feat | Sesión Lavamanos & Muebles · Opción A: Configurador 3D Vitelli 63
 - **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble`, destino de "lavamanos & muebles" en el menú de la landing (antes daba página vacía).
 - **Modelo:** FBX "Vitelli mix & match" (4 MB, 120k triángulos) → GLB meshopt de 691 KB con puerta y cajones animables, 4 lavamanos alineados y grifo/sifón ubicados por perforación.

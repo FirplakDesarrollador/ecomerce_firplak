@@ -6,6 +6,11 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-10-22] docs | Informe de escalabilidad del configurador de muebles
+- **Nuevo:** [informe_escalabilidad_configurador.md](informe_escalabilidad_configurador.md), versión Markdown completa del informe (antes solo como presentación).
+- **Incluye:** pesos medidos de la Opción A, escenarios de 80 y +50 referencias, tiempos de producción por mueble y totales, niveles de calidad tipo Unreal, comparativa de 4 caminos, convención de entrega del FBX, riesgos no vistos y recomendación híbrida.
+- **Nota posterior:** la Opción B confirma el camino de capas (9 renders en vez de 50).
+
 ## [2026-10-19] feat | Sesión Lavamanos & Muebles · Opción B: Mix & Match fotorrealista
 - **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=b`; barra "Prototipos en revisión" para alternar con la Opción A.
 - **Fuente:** 9 renders con fondo transparente (2 muebles × 5 lavamanos, falta Vitelli + Ovalado, armado por capas).

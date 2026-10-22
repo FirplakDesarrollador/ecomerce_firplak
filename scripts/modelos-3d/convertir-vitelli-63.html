@@ -1,0 +1,424 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Conversor Vitelli 63</title>
+<script type="importmap">
+{ "imports": {
+  "three": "/node_modules/three/build/three.module.js",
+  "three/addons/": "/node_modules/three/examples/jsm/"
+} }
+</script>
+</head>
+<body style="margin:0;background:transparent">
+<script type="module">
+// Corre dentro de Chromium (Playwright): FBXLoader y GLTFExporter son de
+// navegador. Reorganiza el FBX "Vitelli mix & match" en un GLB limpio:
+// marco en metros con origen en la pared, puerta y cajones como grupos
+// animables (sin los duplicados abiertos del FBX) y los 4 lavamanos alineados
+// sobre el mueble. Devuelve el GLB y los metadatos que necesita la escena.
+import * as THREE from 'three';
+import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const v = new THREE.Vector3();
+const r3 = (x) => +x.toFixed(4);
+const vec = (p) => [r3(p.x), r3(p.y), r3(p.z)];
+
+// Material del FBX (Corona) -> material de la web, por nombre. La escena los
+// reemplaza por nombre; el color es solo una vista previa aproximada.
+const MATERIAL_WEB = {
+  'Material #140': 'Acabado',
+  'Material #142': 'Marmol',
+  'Aluminium Black Anodized1': 'GrifoNegro',
+  'Chrome Clean0': 'Cromo',
+  'Aluminium Clean2': 'Aluminio',
+  Base: 'TapaBlanca',
+  Frame: 'SifonNegro',
+  Black: 'SifonNegro',
+};
+const PREVIA = {
+  Acabado: ['#c8a27a', 0], Marmol: ['#fafaf8', 0], GrifoNegro: ['#1a1a1a', 0.6], Cromo: ['#dcdcdc', 1],
+  Aluminio: ['#b5b5b5', 0.9], TapaBlanca: ['#eeeeee', 0.2], SifonNegro: ['#141414', 0.5],
+};
+const shared = {};
+function webMaterial(src) {
+  const key = MATERIAL_WEB[src.name];
+  if (!key) throw new Error(`Material sin mapear: ${src.name}`);
+  if (!shared[key]) {
+    const [color, metalness] = PREVIA[key];
+    shared[key] = new THREE.MeshStandardMaterial({ name: key, color, metalness, roughness: 0.4 });
+  }
+  return shared[key];
+}
+
+// Mapa de alturas cenital (1 px = 1 mm) de un lavamanos: localiza la
+// perforacion del grifo y el desague como huecos encerrados por la pieza.
+function huecos(objeto) {
+  const bb = new THREE.Box3().setFromObject(objeto);
+  const W = Math.round((bb.max.x - bb.min.x) * 1000), H = Math.round((bb.max.z - bb.min.z) * 1000);
+  const lo = bb.min.y, hi = bb.max.y;
+  const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, preserveDrawingBuffer: true });
+  renderer.setSize(W, H, false);
+  renderer.setPixelRatio(1);
+  renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+  renderer.setClearColor(0x000000, 0);
+  const altura = new THREE.ShaderMaterial({
+    uniforms: { lo: { value: lo }, hi: { value: hi } },
+    vertexShader: 'varying float vY; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vY = w.y; gl_Position = projectionMatrix * viewMatrix * w; }',
+    fragmentShader: 'uniform float lo; uniform float hi; varying float vY; void main(){ gl_FragColor = vec4(clamp((vY - lo) / (hi - lo), 0.0, 1.0), 0.0, 0.0, 1.0); }',
+    side: THREE.DoubleSide,
+  });
+  const escena = new THREE.Scene();
+  const copia = objeto.clone(true);
+  copia.traverse((m) => { if (m.isMesh) m.material = altura; });
+  escena.add(copia);
+  // Pantalla: x = x del mundo, arriba = -z (fondo del lavamanos).
+  const cam = new THREE.OrthographicCamera(bb.min.x, bb.max.x, -bb.min.z, -bb.max.z, 0.01, 10);
+  cam.up.set(0, 0, -1);
+  cam.position.set(0, hi + 1, 0);
+  cam.lookAt(0, 0, 0);
+  renderer.render(escena, cam);
+  const gl = renderer.getContext();
+  const px = new Uint8Array(W * H * 4);
+  gl.readPixels(0, 0, W, H, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  renderer.dispose();
+
+  const lleno = (i) => px[i * 4 + 3] > 0;
+  const alt = (i) => lo + (px[i * 4] / 255) * (hi - lo);
+  // Inunda desde el borde los pixeles vacios: lo que quede vacio es hueco.
+  const visto = new Uint8Array(W * H);
+  const cola = [];
+  for (let x = 0; x < W; x++) cola.push(x, (H - 1) * W + x);
+  for (let y = 0; y < H; y++) cola.push(y * W, y * W + W - 1);
+  while (cola.length) {
+    const i = cola.pop();
+    if (visto[i] || lleno(i)) continue;
+    visto[i] = 1;
+    const x = i % W, y = (i / W) | 0;
+    if (x > 0) cola.push(i - 1);
+    if (x < W - 1) cola.push(i + 1);
+    if (y > 0) cola.push(i - W);
+    if (y < H - 1) cola.push(i + W);
+  }
+  const res = [];
+  for (let s = 0; s < W * H; s++) {
+    if (visto[s] || lleno(s)) continue;
+    let n = 0, sx = 0, sy = 0, anillo = 0, na = 0;
+    const pila = [s];
+    visto[s] = 1;
+    while (pila.length) {
+      const i = pila.pop();
+      const x = i % W, y = (i / W) | 0;
+      n++; sx += x; sy += y;
+      for (const j of [i - 1, i + 1, i - W, i + W]) {
+        if (j < 0 || j >= W * H) continue;
+        if (lleno(j)) { anillo += alt(j); na++; continue; }
+        if (!visto[j]) { visto[j] = 1; pila.push(j); }
+      }
+    }
+    if (n < 40) continue; // ruido de malla, no una perforacion
+    const cx = sx / n + 0.5, cy = sy / n + 0.5;
+    res.push({
+      x: bb.min.x + (cx / W) * (bb.max.x - bb.min.x),
+      // fila 0 de readPixels es el borde inferior de la pantalla (= max z)
+      z: bb.max.z - (cy / H) * (bb.max.z - bb.min.z),
+      y: anillo / na,
+      areaMm2: n,
+    });
+  }
+  res.sort((a, b) => a.y - b.y);
+  return { desague: res[0], grifo: res.length > 1 ? res[res.length - 1] : null, total: res.length };
+}
+
+function flipWinding(geo) {
+  if (geo.index) {
+    const idx = geo.index.array;
+    for (let i = 0; i < idx.length; i += 3) [idx[i + 1], idx[i + 2]] = [idx[i + 2], idx[i + 1]];
+    geo.index.needsUpdate = true;
+    return;
+  }
+  for (const attr of Object.values(geo.attributes)) {
+    const a = attr.array, s = attr.itemSize;
+    for (let t = 0; t < attr.count; t += 3) {
+      for (let k = 0; k < s; k++) {
+        const i1 = (t + 1) * s + k, i2 = (t + 2) * s + k;
+        [a[i1], a[i2]] = [a[i2], a[i1]];
+      }
+    }
+    attr.needsUpdate = true;
+  }
+}
+
+// Proyeccion de caja en metros: la veta sigue el ancho en frentes y tapas y
+// la profundidad en laterales. Comparte origen entre piezas, asi la veta
+// continua de la puerta a los cajones como en un frente real cortado de un
+// mismo tablero.
+function boxUV(geo, min) {
+  const p = geo.attributes.position, n = geo.attributes.normal;
+  const uv = new Float32Array(p.count * 2);
+  for (let i = 0; i < p.count; i++) {
+    const ax = Math.abs(n.getX(i)), ay = Math.abs(n.getY(i)), az = Math.abs(n.getZ(i));
+    const x = p.getX(i) - min.x, y = p.getY(i) - min.y, z = p.getZ(i) - min.z;
+    let u, w;
+    if (az >= ax && az >= ay) { u = x; w = y; }
+    else if (ax >= ay) { u = z; w = y; }
+    else { u = x; w = z; }
+    uv[i * 2] = u + 0.02;
+    uv[i * 2 + 1] = w + 0.02;
+  }
+  geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+}
+
+window.convertir = async (fbxUrl) => {
+  const fbx = await new FBXLoader().loadAsync(fbxUrl);
+  fbx.updateMatrixWorld(true);
+  const tops = fbx.children;
+  const used = new Set();
+  const take = (list) => { list.forEach((o) => used.add(o)); return list; };
+  const one = (re) => {
+    const hit = tops.filter((o) => re.test(o.name));
+    if (hit.length !== 1) throw new Error(`Se esperaba 1 pieza para ${re}, hay ${hit.length}`);
+    return take(hit)[0];
+  };
+  const box = (o) => new THREE.Box3().setFromObject(o);
+
+  const sifon = one(/enjoy/i);
+  const grifo = one(/vogue/i);
+  const fuentesLav = { oslo: one(/oslo/i), siena: one(/siena/i), genova: one(/genova/i), parma: one(/parma/i) };
+  const rielSup = one(/abierto002$/i), rielInf = one(/abierto003$/i);
+  const cajSupC = one(/^Group026$/), cajInfC = one(/^Group027$/);
+  const cajSupA = one(/^Group028$/), cajInfA = one(/^Group029$/);
+  const puertaA = one(/stitch_result_stitch_all004$/i);
+  const bisagras = take(tops.filter((o) => /bisagra/i.test(o.name)));
+  const sueltos = tops.filter((o) => /^stitch_result_stitch_all$/i.test(o.name));
+  const esPuerta = (o) => { const s = box(o).getSize(v); return s.x > 30 && s.y > 30 && s.y < 40 && s.z < 3; };
+  const puertasC = take(sueltos.filter(esPuerta));
+  if (puertasC.length !== 1) throw new Error('No se identifico la puerta cerrada');
+  const puertaC = puertasC[0];
+  const carcasa = take(sueltos.filter((o) => !esPuerta(o)));
+  const sobrantes = tops.filter((o) => !used.has(o)).map((o) => o.name);
+  if (sobrantes.length) throw new Error('Piezas sin clasificar: ' + sobrantes.join(', '));
+
+  // Marco: metros, x centrado en la carcasa, y=0 base del mueble, z=0 pared.
+  const cb = new THREE.Box3();
+  carcasa.forEach((o) => cb.expandByObject(o));
+  const F = new THREE.Matrix4().makeScale(0.01, 0.01, 0.01)
+    .multiply(new THREE.Matrix4().makeTranslation(-(cb.min.x + cb.max.x) / 2, -cb.min.y, -cb.min.z));
+  const fbox = (o) => box(o).applyMatrix4(F);
+  const carcasaBox = new THREE.Box3();
+  carcasa.forEach((o) => carcasaBox.union(fbox(o)));
+  const uvMin = carcasaBox.min.clone();
+
+  // Hornea la geometria de un subarbol al marco y la cuelga de `parent`.
+  // `extra` lleva del marco al espacio local del grupo (pivote, desfase).
+  function hornear(src, parent, { extra = null, acabado = false, etiqueta = 'pieza' } = {}) {
+    src.traverse((o) => {
+      if (!o.isMesh) return;
+      const m = new THREE.Matrix4().multiplyMatrices(F, o.matrixWorld);
+      const geo = o.geometry.clone();
+      for (const k of Object.keys(geo.attributes)) if (!['position', 'normal', 'uv'].includes(k)) geo.deleteAttribute(k);
+      for (const k of Object.keys(geo.morphAttributes)) delete geo.morphAttributes[k];
+      geo.applyMatrix4(m);
+      if (m.determinant() < 0) flipWinding(geo);
+      if (acabado) boxUV(geo, uvMin);
+      else geo.deleteAttribute('uv');
+      if (extra) geo.applyMatrix4(extra);
+      const mats = Array.isArray(o.material) ? o.material.map(webMaterial) : webMaterial(o.material);
+      const mesh = new THREE.Mesh(geo, mats);
+      mesh.name = `${parent.name}_${etiqueta}_${parent.children.length}`;
+      parent.add(mesh);
+    });
+  }
+  const grupo = (name, parent) => { const g = new THREE.Group(); g.name = name; parent.add(g); return g; };
+
+  const raiz = new THREE.Group();
+  raiz.name = 'Vitelli63';
+  const mueble = grupo('Mueble', raiz);
+  const carcasaG = grupo('Carcasa', mueble);
+  carcasa.forEach((o) => hornear(o, carcasaG, { acabado: true }));
+
+  // Puerta: pivote vertical deducido de la puerta cerrada y la abierta del FBX.
+  const C = fbox(puertaC), O = fbox(puertaA);
+  const resta = O.min.z - C.min.x; // Pz - Px
+  const suma = O.min.x + C.max.z;  // Px + Pz
+  const pivote = new THREE.Vector3((suma - resta) / 2, 0, (suma + resta) / 2);
+  const residuo = Math.max(
+    Math.abs(O.max.x - (pivote.x + pivote.z - C.min.z)),
+    Math.abs(O.max.z - (pivote.z - pivote.x + C.max.x))
+  );
+  if (residuo > 0.004) throw new Error('El pivote de la puerta no cuadra: residuo ' + residuo);
+  const anguloPuerta = -Math.PI / 2;
+  const puerta = grupo('Puerta', mueble);
+  puerta.position.copy(pivote);
+  const aLocal = new THREE.Matrix4().makeTranslation(-pivote.x, -pivote.y, -pivote.z);
+  hornear(puertaC, puerta, { extra: aLocal, acabado: true });
+  // Las bisagras vienen modeladas abiertas y su brazo sobresale del frente:
+  // quedan fijas en el lateral y la escena solo las muestra con la puerta abierta.
+  const bisagrasG = grupo('Bisagras', mueble);
+  bisagras.forEach((o) => hornear(o, bisagrasG, { etiqueta: 'bisagra' }));
+
+  // Cajones: cerrados en reposo; el riel (modelado abierto) se recoge con ellos.
+  const recorridoSup = fbox(cajSupA).getCenter(new THREE.Vector3()).z - fbox(cajSupC).getCenter(new THREE.Vector3()).z;
+  const recorridoInf = fbox(cajInfA).getCenter(new THREE.Vector3()).z - fbox(cajInfC).getCenter(new THREE.Vector3()).z;
+  const cajonSup = grupo('CajonSuperior', mueble);
+  hornear(cajSupC, cajonSup, { acabado: true });
+  hornear(rielSup, cajonSup, { extra: new THREE.Matrix4().makeTranslation(0, 0, -recorridoSup), etiqueta: 'riel' });
+  const cajonInf = grupo('CajonInferior', mueble);
+  hornear(cajInfC, cajonInf, { acabado: true });
+  hornear(rielInf, cajonInf, { extra: new THREE.Matrix4().makeTranslation(0, 0, -recorridoInf), etiqueta: 'riel' });
+
+  // Lavamanos: borde inferior sobre la tapa del mueble, centrados y al ras de la pared.
+  function verts(o, fn) {
+    o.traverse((m) => {
+      if (!m.isMesh) return;
+      const p = m.geometry.attributes.position;
+      const mw = new THREE.Matrix4().multiplyMatrices(F, m.matrixWorld);
+      for (let i = 0; i < p.count; i++) fn(v.fromBufferAttribute(p, i).applyMatrix4(mw));
+    });
+  }
+  const tapa = carcasaBox.max.y;
+  const lavamanos = grupo('Lavamanos', raiz);
+  const ajuste = {};
+  const info = {};
+  for (const [id, src] of Object.entries(fuentesLav)) {
+    const b = fbox(src);
+    let borde = Infinity;
+    verts(src, (p) => {
+      const enBorde = p.x < b.min.x + 0.02 || p.x > b.max.x - 0.02 || p.z < b.min.z + 0.02 || p.z > b.max.z - 0.02;
+      if (enBorde) borde = Math.min(borde, p.y);
+    });
+    const d = new THREE.Vector3(-(b.min.x + b.max.x) / 2, tapa - borde, carcasaBox.min.z - b.min.z);
+    ajuste[id] = d;
+    const g = grupo(`Lavamanos_${id}`, lavamanos);
+    hornear(src, g, { extra: new THREE.Matrix4().makeTranslation(d.x, d.y, d.z) });
+    const bb = b.clone().translate(d);
+    info[id] = { box: bb };
+  }
+
+  // Grifo y sifon vienen ubicados para el Oslo: se mueven con su ajuste.
+  const dOslo = ajuste.oslo;
+  const grifoG = grupo('Grifo', raiz);
+  hornear(grifo, grifoG, { extra: new THREE.Matrix4().makeTranslation(dOslo.x, dOslo.y, dOslo.z) });
+  const sifonG = grupo('Sifon', raiz);
+  hornear(sifon, sifonG, { extra: new THREE.Matrix4().makeTranslation(dOslo.x, dOslo.y, dOslo.z), etiqueta: 'sifon' });
+
+  raiz.updateMatrixWorld(true);
+  const gBox = new THREE.Box3().setFromObject(grifoG);
+  const sBoxOslo = new THREE.Box3().setFromObject(sifonG);
+  // Huella del grifo en el Oslo: vertices de la base.
+  const base = { x: 0, z: 0, n: 0 };
+  grifoG.traverse((m) => {
+    if (!m.isMesh) return;
+    const p = m.geometry.attributes.position;
+    for (let i = 0; i < p.count; i++) {
+      v.fromBufferAttribute(p, i).applyMatrix4(m.matrixWorld);
+      if (v.y < gBox.min.y + 0.004) { base.x += v.x; base.z += v.z; base.n++; }
+    }
+  });
+  base.x /= base.n; base.z /= base.n;
+
+  // Grifo y sifon se desplazan desde su posicion en el Oslo hasta la
+  // perforacion y el desague de cada lavamanos. Oslo y Genova vienen sin
+  // perforacion en el modelo: ahi el grifo queda donde lo puso el disenador,
+  // apoyado sobre la cubierta.
+  const hu = {};
+  for (const id of Object.keys(fuentesLav)) hu[id] = huecos(lavamanos.getObjectByName(`Lavamanos_${id}`));
+  const ho = hu.oslo;
+  const ray = new THREE.Raycaster();
+  const porLavamanos = {};
+  for (const id of Object.keys(fuentesLav)) {
+    const g = lavamanos.getObjectByName(`Lavamanos_${id}`);
+    const h = hu[id];
+    let grifo = h.grifo;
+    if (!grifo) {
+      let y = -Infinity;
+      for (let k = 0; k < 12; k++) {
+        const a = (k / 12) * Math.PI * 2;
+        ray.set(new THREE.Vector3(base.x + Math.cos(a) * 0.028, 2, base.z + Math.sin(a) * 0.028), new THREE.Vector3(0, -1, 0));
+        const hit = ray.intersectObject(g, true)[0];
+        if (hit) y = Math.max(y, hit.point.y);
+      }
+      if (!Number.isFinite(y)) throw new Error('El grifo no apoya sobre ' + id);
+      grifo = { x: base.x, z: base.z, y };
+    }
+    const bb = new THREE.Box3().setFromObject(g);
+    porLavamanos[id] = {
+      grifo: [r3(grifo.x - base.x), r3(grifo.y - gBox.min.y), r3(grifo.z - base.z)],
+      sifon: [r3(h.desague.x - ho.desague.x), r3(h.desague.y - ho.desague.y), r3(h.desague.z - ho.desague.z)],
+      alto: r3(bb.max.y),
+      ancho: r3(bb.max.x - bb.min.x),
+      fondo: r3(bb.max.z - bb.min.z),
+      huecos: h.total,
+      perforacionGrifo: Boolean(h.grifo),
+      ajusteCm: vec(ajuste[id].clone().multiplyScalar(100)),
+    };
+  }
+
+  const supBox = new THREE.Box3().setFromObject(cajonSup);
+  const meta = {
+    puerta: { pivote: vec(pivote), anguloAbierta: r3(anguloPuerta), residuoM: r3(residuo) },
+    cajones: { superior: r3(recorridoSup), inferior: r3(recorridoInf) },
+    mueble: { ancho: r3(carcasaBox.max.x - carcasaBox.min.x), alto: r3(carcasaBox.max.y), fondo: r3(carcasaBox.max.z - carcasaBox.min.z) },
+    lavamanos: porLavamanos,
+    anclas: {
+      cajon: [r3((supBox.min.x + supBox.max.x) / 2), r3((supBox.min.y + supBox.max.y) / 2), r3(supBox.max.z + 0.004)],
+      lavamanos: [r3(info.oslo.box.max.x - 0.13), r3(info.oslo.box.max.y + 0.004), r3(info.oslo.box.max.z - 0.05)],
+      grifo: [r3(base.x), r3(gBox.max.y + 0.01), r3(base.z)],
+      sifon: vec(sBoxOslo.getCenter(new THREE.Vector3())),
+    },
+  };
+
+  const glb = await new GLTFExporter().parseAsync(raiz, { binary: true });
+  const bytes = new Uint8Array(glb);
+  let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  window.__raiz = raiz;
+  return { glb: btoa(bin), meta };
+};
+
+// Miniaturas de los lavamanos para el selector (fondo transparente).
+window.miniaturas = async () => {
+  const raiz = window.__raiz;
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setSize(640, 480);
+  renderer.setPixelRatio(1);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  document.body.appendChild(renderer.domElement);
+  const scene = new THREE.Scene();
+  scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+  // Ambiente bajo y luz rasante: blanco sobre blanco necesita sombra para
+  // que se lea la forma de la poceta en el selector.
+  scene.environmentIntensity = 0.45;
+  const luz = new THREE.DirectionalLight('#ffffff', 2.6);
+  luz.position.set(-1.6, 2.2, 1.2);
+  scene.add(luz);
+  const relleno = new THREE.DirectionalLight('#dfe6ee', 0.5);
+  relleno.position.set(2, 1, 1.5);
+  scene.add(relleno);
+  const marmol = new THREE.MeshPhysicalMaterial({ color: '#f1f0ec', roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.08 });
+  const cam = new THREE.PerspectiveCamera(24, 640 / 480, 0.01, 20);
+  const out = {};
+  for (const g of raiz.getObjectByName('Lavamanos').children) {
+    const c = g.clone(true);
+    c.traverse((m) => { if (m.isMesh) m.material = marmol; });
+    scene.add(c);
+    const bb = new THREE.Box3().setFromObject(c);
+    const ctr = bb.getCenter(new THREE.Vector3());
+    const r = bb.getSize(new THREE.Vector3()).length() / 2;
+    const dist = r / Math.sin((cam.fov * Math.PI) / 360) * 0.92;
+    const el = 0.95, az = 0.18;
+    cam.position.set(ctr.x + dist * Math.cos(el) * Math.sin(az), ctr.y + dist * Math.sin(el), ctr.z + dist * Math.cos(el) * Math.cos(az));
+    cam.lookAt(ctr);
+    renderer.render(scene, cam);
+    out[g.name.replace('Lavamanos_', '')] = renderer.domElement.toDataURL('image/png');
+    scene.remove(c);
+  }
+  return out;
+};
+window.listo = true;
+</script>
+</body>
+</html>

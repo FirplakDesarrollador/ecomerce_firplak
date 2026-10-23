@@ -9,7 +9,6 @@ import LoomereProductDrawer from '@/components/loomere/LoomereProductDrawer';
 import LoomereCatalogModal from '@/components/loomere/LoomereCatalogModal';
 import LoomereMegamenu from '@/components/loomere/LoomereMegamenu';
 import LoomereCursorPriceTag from '@/components/loomere/LoomereCursorPriceTag';
-import LoomereHero from '@/components/loomere/LoomereHero';
 import LoomereFinalCta from '@/components/loomere/LoomereFinalCta';
 import FirplakKeyFeatures from '@/components/home/FirplakKeyFeatures';
 import FirplakEcosystemSection from '@/components/home/FirplakEcosystemSection';
@@ -30,8 +29,6 @@ export default function IsabelGabrielExperience() {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [isMegamenuOpen, setIsMegamenuOpen] = useState(false);
   const [isAtVideoSection, setIsAtVideoSection] = useState(true);
-  // Pantalla inicial visible al cargar; cierre apagado hasta el ultimo tramo.
-  const [heroOpacity, setHeroOpacity] = useState(1);
   const [ctaProgress, setCtaProgress] = useState(0);
   // null hasta resolver la media query: asi un movil no descarga el master
   // de desktop antes de saber que le toca la variante ligera.
@@ -97,10 +94,6 @@ export default function IsabelGabrielExperience() {
     setActiveSceneIndex(clampedIndex);
     const inVideoSection = scrollY < (totalScenes - 0.2) * windowHeight;
     setIsAtVideoSection(inVideoSection);
-
-    // Hero: se desvanece dentro del primer 35% de viewport de scroll.
-    const fadeSpan = windowHeight * 0.35;
-    setHeroOpacity(fadeSpan > 0 ? clamp01(1 - scrollY / fadeSpan) : 0);
 
     // Cierre: overlay negro + CTA entran en el ultimo 12% del recorrido.
     setCtaProgress(clamp01((journey - 0.88) / 0.12));
@@ -187,8 +180,8 @@ export default function IsabelGabrielExperience() {
 
   // El texto de tramo entra cuando el hero ya se fue y sale en la primera
   // mitad de la rampa del cierre, para no dejar fantasma bajo el CTA.
-  const sceneTextOpacity = (1 - heroOpacity) * (1 - clamp01(ctaProgress * 2));
-  const isHeroOrCtaVisible = heroOpacity > 0.5 || ctaProgress > 0.5;
+  const sceneTextOpacity = isAtVideoSection ? (1 - clamp01(ctaProgress * 2)) : 0;
+  const isCtaVisible = ctaProgress > 0.5;
 
   return (
     <div className="relative bg-[#060a15] text-white selection:bg-white/20 selection:text-white">
@@ -201,8 +194,8 @@ export default function IsabelGabrielExperience() {
           onClick={(e) => {
             const target = e.target as HTMLElement | null;
             if (target?.closest('button, a, input, [data-interactive]')) return;
-            // Durante la pantalla inicial y el cierre, el clic no abre producto.
-            if (isHeroOrCtaVisible) return;
+            // Durante el cierre, el clic no abre producto.
+            if (isCtaVisible) return;
             handleOpenProduct(currentScene.product);
           }}
         >
@@ -281,11 +274,8 @@ export default function IsabelGabrielExperience() {
           {/* Dynamic Cursor Price Tag following mouse pointer across the 4 videos */}
           <LoomereCursorPriceTag
             product={currentScene.product}
-            isActive={isAtVideoSection && !isHeroOrCtaVisible}
+            isActive={isAtVideoSection && !isCtaVisible}
           />
-
-          {/* Pantalla inicial: "Diseño que fluye contigo." */}
-          <LoomereHero opacity={heroOpacity} />
 
           {/* Cierre: overlay negro al 50% + "Haz realidad tu espacio ideal." */}
           <LoomereFinalCta

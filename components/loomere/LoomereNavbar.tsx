@@ -140,10 +140,10 @@ export default function LoomereNavbar({
       <header
         className="fixed top-0 left-0 w-full z-50 transition-all duration-300"
         style={{
-          backgroundColor: 'rgba(70, 70, 70, 0.6)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
+          backgroundColor: 'rgba(50, 67, 84, 0.20)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.20)'
         }}
       >
         {/* Header Único: Navegación Principal con Marca FIRPLAK */}
@@ -250,10 +250,10 @@ export default function LoomereNavbar({
                   <div
                     className="absolute right-0 mt-2 w-80 sm:w-96 py-4 px-4 rounded-2xl shadow-2xl z-50 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200"
                     style={{
-                      backgroundColor: 'rgba(70, 70, 70, 0.65)',
-                      backdropFilter: 'blur(16px)',
-                      WebkitBackdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      backgroundColor: 'rgba(50, 67, 84, 0.85)',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
+                      border: '1px solid rgba(255, 255, 255, 0.20)',
                       boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)'
                     }}
                   >

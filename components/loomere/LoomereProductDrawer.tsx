@@ -32,10 +32,10 @@ export default function LoomereProductDrawer({
       <div 
         className="relative w-full max-w-xl h-full text-white shadow-2xl flex flex-col z-10 overflow-hidden animate-in slide-in-from-right duration-300"
         style={{
-          backgroundColor: 'rgba(70, 70, 70, 0.7)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderLeft: '1px solid rgba(255, 255, 255, 0.2)',
+          backgroundColor: 'rgba(50, 67, 84, 0.85)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          borderLeft: '1px solid rgba(255, 255, 255, 0.20)',
           boxShadow: '-20px 0 60px rgba(0, 0, 0, 0.65)'
         }}
       >

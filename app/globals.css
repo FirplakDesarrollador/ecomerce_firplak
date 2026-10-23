@@ -7,6 +7,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --glass-dark-slate-bg: rgba(50, 67, 84, 0.20);
+  --glass-dark-slate-blur: 8px;
+  --glass-dark-slate-border: 1px solid rgba(255, 255, 255, 0.20);
+  --glass-dark-slate-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.glass-dark-slate {
+  background-color: rgba(50, 67, 84, 0.20);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
 @theme inline {

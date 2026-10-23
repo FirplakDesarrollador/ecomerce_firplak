@@ -225,7 +225,8 @@ export default function FirplakKeyFeatures({ onOpenCatalog }: FirplakKeyFeatures
                 borderRadius: '9999px',
                 backgroundColor: 'rgba(255, 255, 255, 0.04)',
                 border: '1px solid rgba(255, 255, 255, 0.12)',
-                backdropFilter: 'blur(12px)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
                 marginBottom: '14px',
               }}
             >

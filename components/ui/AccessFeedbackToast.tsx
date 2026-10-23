@@ -66,9 +66,9 @@ export default function AccessFeedbackToast() {
       <div 
         className="relative overflow-hidden rounded-2xl p-4 text-white"
         style={{
-          backgroundColor: 'rgba(70, 70, 70, 0.75)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
+          backgroundColor: 'rgba(50, 67, 84, 0.85)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
           border: '1px solid rgba(255, 255, 255, 0.25)',
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.65)'
         }}

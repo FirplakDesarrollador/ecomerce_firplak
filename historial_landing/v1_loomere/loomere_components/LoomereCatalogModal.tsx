@@ -50,10 +50,10 @@ export default function LoomereCatalogModal({ isOpen, onClose }: LoomereCatalogM
       <div 
         className="relative w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-10 z-10 space-y-8 animate-in zoom-in-95 duration-200"
         style={{
-          backgroundColor: 'rgba(70, 70, 70, 0.65)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
+          backgroundColor: 'rgba(50, 67, 84, 0.85)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255, 255, 255, 0.20)',
           boxShadow: '0 30px 70px rgba(0, 0, 0, 0.65)'
         }}
       >

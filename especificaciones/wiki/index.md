@@ -41,5 +41,9 @@ Catálogo de páginas de especificaciones y conocimiento compilado del proyecto 
 - **[referentes_externo.md](referentes_externo.md)**: Compendio unificado del benchmark UI/UX con 7 referentes internacionales (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung) para la creación del nuevo sitio web de Firplak.
 - **[referentes_externos.md](referentes_externos.md)**: Banco de referentes externos (Awwwards y benchmarks UX) con notas de dirección de arte y anotaciones de Alejandro Isaza.
 
+## 📊 Informes y Recomendaciones
+- **[informe_montaje_catalogo_muebles_lavamanos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/informes/informe_montaje_catalogo_muebles_lavamanos.md)**: Plan maestro de actividades, tiempos de desarrollo, matriz de compatibilidad dimensional (Mix & Match), materiales, acabados y restricciones para el montaje del catálogo completo de muebles y lavamanos.
+
+
 
 

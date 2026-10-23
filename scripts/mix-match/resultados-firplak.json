@@ -1,0 +1,499 @@
+{
+  "totalLavamanos": 36,
+  "totalMuebles": 71,
+  "resumenLavamanos": {
+    "40 × 28 cm": 1,
+    "40 × 30 cm": 1,
+    "48 × 38 cm": 2,
+    "48 × 43 cm": 4,
+    "63 × 48 cm": 8,
+    "79 × 48 cm": 6,
+    "94 × 48 cm": 5,
+    "124 × 48 cm": 3,
+    "100 × 50 cm": 1,
+    "79 × 56 cm": 1,
+    "155 × 48 cm": 1,
+    "48 × 41 cm": 1,
+    "45 × 33 cm": 1,
+    "35 × 35 cm": 1
+  },
+  "resumenMuebles": {
+    "48 × 43 cm": 13,
+    "40 × 30 cm": 5,
+    "48 × 38 cm": 5,
+    "63 × 48 cm": 20,
+    "79 × 48 cm": 13,
+    "94 × 48 cm": 7,
+    "124 × 48 cm": 6,
+    "63 × 38 cm": 1,
+    "155 × 48 cm": 1
+  },
+  "detalleLavamanos": [
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS IGUAZÚ 40cm",
+      "dim": "40 × 28 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS ECO 40X30 cm",
+      "dim": "40 × 30 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS ECO 48X38 cm",
+      "dim": "48 × 38 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS SIENA 48X43 cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS GÉNOVA 63X48 cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS PARMA 79X48 cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS BARI 94X48 cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS OSLO 124X48 cm",
+      "dim": "124 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS RIO 48X43 cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS TRENTINO 63X48 cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS OSLO 79X48 cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS QUADRATTO 94X48 cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS GÉNOVA 124X48 cm",
+      "dim": "124 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS OSLO 48X38 cm",
+      "dim": "48 × 38 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS OSLO 48X43 cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS QUADRATTO 63X48 cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS BARI 79X48 cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS GÉNOVA 94X48 cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS SIENA 124X48 cm",
+      "dim": "124 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS QUADRATTO 48X43 cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS BARI 63X48 cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS GÉNOVA 79X48 cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS OSLO 94X48 cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS OSLO COLOR MARFIL / 100x50cm",
+      "dim": "100 × 50 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS OSLO 63X48 cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS OCEAN 79X56 cm",
+      "dim": "79 × 56 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS QUADRATTO 79X48 cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS SIENA 94X48 cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS PARMA 63X48CM DERECHO",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS SIENA 79X48 cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS PARMA 63X48CM IZQUIERDO",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS SIENA 63X48 cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "tipo": "Vanity",
+      "title": "LAVAMANOS OSLO 155X48CM",
+      "dim": "155 × 48 cm"
+    },
+    {
+      "tipo": "Vessel",
+      "title": "LAVAMANOS SAHARA VESSEL 48X41CM",
+      "dim": "48 × 41 cm"
+    },
+    {
+      "tipo": "Vessel",
+      "title": "LAVAMANOS VESSEL DOHA 45X33cm",
+      "dim": "45 × 33 cm"
+    },
+    {
+      "tipo": "Vessel",
+      "title": "LAVAMANOS VESSEL MECA 35X35cm",
+      "dim": "35 × 35 cm"
+    }
+  ],
+  "detalleMuebles": [
+    {
+      "title": "MUEBLE GODAI SOPORTE ELEVADO 48X43cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE RAYO ELEVADO 40X30cm",
+      "dim": "40 × 30 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO PISO 40&#215;30 cm",
+      "dim": "40 × 30 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO CON MANIJAS 40X30cm",
+      "dim": "40 × 30 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO PISO SIN MANIJAS 40X30cm",
+      "dim": "40 × 30 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO SIN MANIJAS 40X30cm",
+      "dim": "40 × 30 cm"
+    },
+    {
+      "title": "MUEBLE RAYO ELEVADO 48X38 cm",
+      "dim": "48 × 38 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO PISO 48&#215;38 cm",
+      "dim": "48 × 38 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO 48X38cm",
+      "dim": "48 × 38 cm"
+    },
+    {
+      "title": "MUEBLE RAYO ELEVADO 48&#215;43 cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO PISO 63X48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MACAO CLASS 79x48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO PISO 94X48cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO PISO COLOR MITTE / 94X48cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "title": "MUEBLE VITELLI CLASS ELEVADO 124X48cm",
+      "dim": "124 × 48 cm"
+    },
+    {
+      "title": "MUEBLE VALDEZ PISO 48X43 cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE MISUS CLASS ELEVADO 63x48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE TUCANO CLASS ELEVADO 63x48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE TUCANO CLASS ELEVADO 79x48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE ZACURA CLASS ELEVADO 63x48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE TIZIANO 94X48cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO PISO 124X48cm",
+      "dim": "124 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO SIN MANIJA 48X38CM",
+      "dim": "48 × 38 cm"
+    },
+    {
+      "title": "MUEBLE VALDEZ ELEVADO 48X43 cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE OTUS PISO 63X48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE VALDEZ PISO 63X48 cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE VAN GOGH ELEVADO 63X38cm",
+      "dim": "63 × 38 cm"
+    },
+    {
+      "title": "MUEBLE VEGA PISO 63X48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE GRECO 79x48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MISUS CLASS ELEVADO 94x48cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "title": "MUEBLE TIZIANO 124X48cm",
+      "dim": "124 × 48 cm"
+    },
+    {
+      "title": "TAPA MESÓN PARA LAVAMANOS VESSEL + MUEBLE RAYO ELEVADO 48X43cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE MACAO LIFE 63x48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO SIN MANIJAS 79X48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE GODAI SOPORTE ELEVADO 63x48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE VITELLI ELEVADO 94X48cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MACAO CLASS 124x48cm",
+      "dim": "124 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO SIN MANIJAS 48X43cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE CALDER ELEVADO SIN MANIJAS 48X43cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE GRECO 63x48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MACAO CLASS 94x48cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "title": "MUEBLE GRECO 124x48cm",
+      "dim": "124 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO PISO 48x43cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE DA VINCI A PISO 48x43CM",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE TIZIANO ELEVADO 63X48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MISUS CLASS ELEVADO 79x48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE GRECO 94x48cm",
+      "dim": "94 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MACAO CLASS 48x43cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE MACAO LIFE 48x43CM",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE MONET 63x48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE PICASSO ELEVADO 63x48CM",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE POLOCK ELEVADO 48x38CM",
+      "dim": "48 × 38 cm"
+    },
+    {
+      "title": "MUEBLE POLOCK ELEVADO 48x43CM",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE POLOCK ELEVADO 63x48CM",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE THALOS CLASS 79x48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "TAPA MESÓN PARA LAVAMANOS VESSEL + MUEBLE MACAO CLASS 79X48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO 48x43cm",
+      "dim": "48 × 43 cm"
+    },
+    {
+      "title": "MUEBLE VITELLI ELEVADO 79X48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MACAO CLASS 63x48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MISUS LIFE ELEVADO 79x48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO SIN MANIJAS 63X48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE TIZIANO 79X48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE VITELLI ELEVADO 63X48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO 63X48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MACAO LIFE 79&#215;48",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "MUEBLE RAYO ELEVADO 63X48 cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE MACAO CLASS 155x48cm",
+      "dim": "155 × 48 cm"
+    },
+    {
+      "title": "MUEBLE BÁSICO ELEVADO COLOR TABACO CHIC / 124X48cm",
+      "dim": "124 × 48 cm"
+    },
+    {
+      "title": "TAPA MESÓN PARA LAVAMANOS VESSEL + MUEBLE BÁSICO ELEVADO SIN MANIJAS 63X48cm",
+      "dim": "63 × 48 cm"
+    },
+    {
+      "title": "MUEBLE PLUS PISO COLOR BRIXTON / 79X48cm",
+      "dim": "79 × 48 cm"
+    },
+    {
+      "title": "TAPA MESÓN PARA LAVAMANOS VESSEL + MUEBLE TIZIANO ELEVADO 79X48cm",
+      "dim": "79 × 48 cm"
+    }
+  ]
+}

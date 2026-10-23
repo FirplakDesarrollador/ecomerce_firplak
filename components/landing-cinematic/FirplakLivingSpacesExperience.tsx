@@ -222,7 +222,14 @@ export default function FirplakLivingSpacesExperience() {
                 Un recorrido visual y sensorial por cuatro atmósferas donde el diseño arquitectónico transforma cada momento del día.
               </p>
 
-              <div className="mt-8 sm:mt-12 flex items-center gap-2 text-[11px] sm:text-xs uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/15 animate-bounce shadow-2xl">
+              <div
+                className="mt-8 sm:mt-12 flex items-center gap-2 text-[11px] sm:text-xs uppercase tracking-widest text-white/90 px-4 py-2 rounded-full border border-white/20 animate-bounce shadow-2xl"
+                style={{
+                  backgroundColor: 'rgba(50, 67, 84, 0.20)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)'
+                }}
+              >
                 <ArrowDown className="w-3.5 h-3.5 text-amber-400" />
                 <span>Desliza para descubrir las atmósferas</span>
               </div>
@@ -238,7 +245,16 @@ export default function FirplakLivingSpacesExperience() {
             }`}
             style={{ opacity: sceneContentOpacity }}
           >
-            <div className="bg-black/80 backdrop-blur-xl border border-white/20 p-4 sm:p-7 rounded-2xl sm:rounded-3xl shadow-2xl shadow-black/80">
+            <div
+              className="border border-white/20 p-4 sm:p-7 rounded-2xl sm:rounded-3xl shadow-2xl"
+              style={{
+                backgroundColor: 'rgba(50, 67, 84, 0.20)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+                border: '1px solid rgba(255, 255, 255, 0.20)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.35)'
+              }}
+            >
               {/* Encabezado de la tarjeta */}
               <div className="flex items-center justify-between mb-2 sm:mb-3">
                 <span className="px-2.5 sm:px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-[10px] sm:text-xs font-semibold text-amber-300 uppercase tracking-wider">

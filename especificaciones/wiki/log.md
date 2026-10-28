@@ -6,6 +6,11 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-10-28] docs | Fusión Unificada de Referentes Externos (referentes_externos.md)
+- **Fusión completa:** Unificación integral de `referentes_externo.md` (7 pilares internacionales de arquitectura, interacción y GUI) y `referentes_externos.md` (Awwwards, benchmarks de nicho, investigación académica de Nielsen Norman Group y anotaciones de dirección de Alejandro Isaza) en [referentes_externos.md](referentes_externos.md).
+- **Preservación total de información:** Se conservaron todos los 13 referentes, matrices Mermaid integradas, tablas comparativas, enlaces de especificación técnica y las 6 notas al pie con comentarios directivos.
+- **Eliminación de redundancia:** Se eliminó `referentes_externo.md` para evitar duplicidad y se unificaron todos los enlaces hacia [referentes_externos.md](referentes_externos.md).
+
 ## [2026-10-22] docs | Informe de escalabilidad del configurador de muebles
 - **Nuevo:** [informe_escalabilidad_configurador.md](informe_escalabilidad_configurador.md), versión Markdown completa del informe (antes solo como presentación).
 - **Incluye:** pesos medidos de la Opción A, escenarios de 80 y +50 referencias, tiempos de producción por mueble y totales, niveles de calidad tipo Unreal, comparativa de 4 caminos, convención de entrega del FBX, riesgos no vistos y recomendación híbrida.

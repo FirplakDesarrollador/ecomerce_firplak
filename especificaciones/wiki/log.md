@@ -6,6 +6,12 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-11-04] feat | Sesión Lavamanos & Muebles · Opción C: Estudio Mix & Match (propuesta Ricardo)
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=c`; tercer botón "Opción C · Ricardo" en la barra de prototipos. El menú del landing Ricardo abre esta opción; los de Alejandro e Isabel/Gabriel siguen igual.
+- **Fuente:** 12 renders del usuario (Vitelli × Oslo, Génova, Parma y Siena, cerrado y abierto; mueble solo; vista 3/4; foto del Gola Curva).
+- **Experiencia:** vistas Conjunto / Lavamanos / Mueble, abrir y cerrar, 5 acabados, grifería negra y 3 de vista previa, "Sorpréndeme", sección "Por dentro", escenario pegado en móvil.
+- **Documentación:** [banos_muebles_opcion_c.md](banos_muebles_opcion_c.md).
+
 ## [2026-10-22] docs | Informe de escalabilidad del configurador de muebles
 - **Nuevo:** [informe_escalabilidad_configurador.md](informe_escalabilidad_configurador.md), versión Markdown completa del informe (antes solo como presentación).
 - **Incluye:** pesos medidos de la Opción A, escenarios de 80 y +50 referencias, tiempos de producción por mueble y totales, niveles de calidad tipo Unreal, comparativa de 4 caminos, convención de entrega del FBX, riesgos no vistos y recomendación híbrida.

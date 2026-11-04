@@ -18,6 +18,11 @@ import { triggerAccessFeedback } from '@/components/ui/AccessFeedbackToast';
 interface LoomereNavbarProps {
   currentSceneIndex: number;
   onOpenMegamenu?: () => void;
+  /**
+   * Destino de "lavamanos & muebles" para este landing. Sin valor se usa el de
+   * PRODUCT_LINES; el landing Ricardo abre la Opcion C del estudio Mix & Match.
+   */
+  urlLavamanosMuebles?: string;
 }
 
 interface SubcategoryItem {
@@ -98,7 +103,8 @@ const PRODUCT_LINES: ProductLine[] = [
 
 export default function LoomereNavbar({
   currentSceneIndex,
-  onOpenMegamenu
+  onOpenMegamenu,
+  urlLavamanosMuebles
 }: LoomereNavbarProps) {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -396,20 +402,23 @@ export default function LoomereNavbar({
                       className="w-full grid grid-cols-2 sm:flex sm:flex-row items-center gap-3 sm:gap-4 text-[14px] sm:text-[14.5px] tracking-wide text-white/90 lowercase"
                       style={{ justifyContent: 'space-evenly' }}
                     >
-                      {activeLine?.subcategories.map((sub) => (
+                      {activeLine?.subcategories.map((sub) => {
+                        const url = urlLavamanosMuebles && sub.title === 'lavamanos & muebles' ? urlLavamanosMuebles : sub.url;
+                        return (
                         <Link
                           key={sub.title}
-                          href={sub.url}
+                          href={url}
                           onClick={() => {
                             setIsCategoriesOpen(false);
                             setSelectedCategory(null);
-                            handleTopAccess(sub.title, sub.url, activeLine.title);
+                            handleTopAccess(sub.title, url, activeLine.title);
                           }}
                           className="py-1 px-3 rounded-lg hover:bg-white/10 text-white/75 hover:text-white transition-all text-center whitespace-nowrap font-normal lowercase"
                         >
                           <span>{sub.title}</span>
                         </Link>
-                      ))}
+                        );
+                      })}
                     </nav>
                   </div>
                 </div>

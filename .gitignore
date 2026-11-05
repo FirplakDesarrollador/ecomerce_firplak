@@ -43,3 +43,7 @@ next-env.d.ts
 
 # video processing backups
 public/videos/**/originals/
+public/videos/**/*_nuevo.mp4
+
+# scripts temporales con credenciales presignadas
+/scratch/

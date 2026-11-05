@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { Layers, Sparkles, Users, RefreshCw } from 'lucide-react';
+import { Layers, Sparkles, Users, RefreshCw, Infinity as InfinityIcon } from 'lucide-react';
 
 // Carga dinámica de las 3 experiencias de diseño
 // 1. Alejandro (Loomere)
@@ -23,7 +23,13 @@ const IsabelGabrielExperience = dynamic(
   { ssr: false }
 );
 
-export type LandingVersion = 'alejandro' | 'ricardo' | 'isabel-gabriel';
+// 4. Ricardo · Loop (recorrido Inception del baño: del mando azul a la casa y de vuelta)
+const RicardoLoopExperience = dynamic(
+  () => import('@/components/landing-inception/InceptionBanoExperience'),
+  { ssr: false }
+);
+
+export type LandingVersion = 'alejandro' | 'ricardo' | 'isabel-gabriel' | 'ricardo-loop';
 
 const ROTATION_ORDER: LandingVersion[] = ['alejandro', 'ricardo', 'isabel-gabriel'];
 
@@ -36,6 +42,7 @@ function normalizeVersion(val: string | null): LandingVersion | null {
   const clean = val.toLowerCase().trim();
   if (clean === 'alejandro' || clean === 'loomere' || clean === 'v1') return 'alejandro';
   if (clean === 'ricardo' || clean === 'living-spaces' || clean === 'v2') return 'ricardo';
+  if (clean === 'ricardo-loop' || clean === 'loop' || clean === 'inception' || clean === 'v4') return 'ricardo-loop';
   if (
     clean === 'isabel-gabriel' ||
     clean === 'isabel_gabriel' ||
@@ -94,6 +101,7 @@ export default function LandingSwitcher() {
       {activeVersion === 'ricardo' && <RicardoExperience />}
       {activeVersion === 'alejandro' && <AlejandroExperience />}
       {activeVersion === 'isabel-gabriel' && <IsabelGabrielExperience />}
+      {activeVersion === 'ricardo-loop' && <RicardoLoopExperience />}
 
       {/* CONTROL FLOTANTE INFORMATIVO & CONMUTADOR RÁPIDO */}
       <aside
@@ -148,6 +156,21 @@ export default function LandingSwitcher() {
         >
           <Users className="w-3.5 h-3.5" />
           <span>Isabel / Gabriel</span>
+        </button>
+
+        {/* Opción 4: Ricardo · Loop */}
+        <button
+          onClick={() => toggleVersion('ricardo-loop')}
+          aria-pressed={activeVersion === 'ricardo-loop'}
+          title="Propuesta Ricardo · Loop Inception del baño"
+          className={`flex items-center gap-1.5 px-3 sm:px-3.5 min-h-[44px] rounded-full transition-all duration-300 font-medium shrink-0 ${
+            activeVersion === 'ricardo-loop'
+              ? 'bg-sky-400 text-black shadow-md font-semibold'
+              : 'text-white/80 hover:text-white hover:bg-white/10'
+          }`}
+        >
+          <InfinityIcon className="w-3.5 h-3.5" />
+          <span>Ricardo · Loop</span>
         </button>
       </aside>
     </main>

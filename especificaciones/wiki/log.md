@@ -6,6 +6,12 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-11-05] feat | Landing Ricardo · Loop: recorrido Inception del baño (prototipo)
+- **Ruta:** `/?v=ricardo-loop`; cuarto botón "Ricardo · Loop" en el selector de landings. Solo en la rama `Ric`.
+- **Recorrido:** sale del punto azul del mando de agua fría, pasa por los mandos y el baño, se pliega hasta la casa vista desde arriba y vuelve a entrar al azul; el scroll es infinito.
+- **Fidelidad:** el producto (tina, ducha, mandos) sale siempre de los renders; la mujer generada se compone detrás de la tina. Un clip de video de prueba se descartó porque convirtió la ducha de mano en un grifo.
+- **Documentación:** [landing_loop_inception_bano.md](landing_loop_inception_bano.md).
+
 ## [2026-11-04] feat | Sesión Lavamanos & Muebles · Opción C: Estudio Mix & Match (propuesta Ricardo)
 - **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=c`; tercer botón "Opción C · Ricardo" en la barra de prototipos. El menú del landing Ricardo abre esta opción; los de Alejandro e Isabel/Gabriel siguen igual.
 - **Fuente:** 12 renders del usuario (Vitelli × Oslo, Génova, Parma y Siena, cerrado y abierto; mueble solo; vista 3/4; foto del Gola Curva).

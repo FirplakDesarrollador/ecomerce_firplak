@@ -7,6 +7,8 @@ import {
   TRAMOS,
   camara,
   encuadre,
+  giroCasa,
+  paralaje,
   escena,
   progresoBucle,
   recorrido,
@@ -49,15 +51,21 @@ describe('Loop Inception del baño', () => {
     expect(PUNTO_MUNDO.x).toBeCloseTo(CAPAS.azul.x + PUNTO_AZUL.x * CAPAS.azul.lado, 6);
   });
 
-  it('cada parada encuadra su imagen completa', () => {
-    const llave = camara(TRAMOS.llave[0]);
-    expect(llave.vista).toBeCloseTo(CAPAS.azul.lado, 6);
-    const e = encuadre(CAPAS.azul, llave, 1000, { x: 0, y: 0 });
-    expect(e.k).toBeCloseTo(1, 6);
-    expect(e.tx).toBeCloseTo(0, 3);
-    expect(e.ty).toBeCloseTo(0, 3);
-
-    expect(camara(TRAMOS.bano[0]).vista).toBeCloseTo(CAPAS.bano.lado, 6);
+  it('en cada parada la imagen del frente cubre toda la pantalla, aunque la cámara siga moviéndose', () => {
+    const cubre = (capa: typeof CAPAS.azul, s: number, aspecto: number) => {
+      const cam = camara(s, aspecto);
+      const lado = 1000, vw = aspecto >= 1 ? lado : lado * aspecto, vh = aspecto >= 1 ? lado / aspecto : lado;
+      const e = encuadre(capa, cam, lado, { x: (vw - lado) / 2, y: (vh - lado) / 2 });
+      const tam = capa.lado / cam.vista * lado;
+      return e.tx <= 0.5 && e.ty <= 0.5 && e.tx + tam >= vw - 0.5 && e.ty + tam >= vh - 0.5;
+    };
+    for (const aspecto of [1440 / 900, 1, 390 / 844]) {
+      for (const s of [TRAMOS.llave[0], 0.14, TRAMOS.llave[1]]) expect(cubre(CAPAS.azul, s, aspecto)).toBe(true);
+      for (const s of [TRAMOS.bano[0], 0.49, TRAMOS.bano[1]]) expect(cubre(CAPAS.bano, s, aspecto)).toBe(true);
+    }
+    // la cámara nunca está quieta dentro de una parada
+    expect(camara(TRAMOS.llave[0]).vista).not.toBeCloseTo(camara(TRAMOS.llave[1]).vista, 4);
+    expect(camara(TRAMOS.bano[0]).vista).not.toBeCloseTo(camara(TRAMOS.bano[1]).vista, 4);
     const casa = camara(TRAMOS.casa[0]);
     expect(casa.vista).toBeGreaterThanOrEqual(1);
     expect(casa.x).toBeCloseTo(0.5, 6);
@@ -93,10 +101,24 @@ describe('Loop Inception del baño', () => {
     expect(en(1).opacidadBano).toBeCloseTo(0);
   });
 
-  it('sin movimiento reducido no hay giros', () => {
+  it('con movimiento reducido no hay pliegue', () => {
     const e = escena(0.7, camara(0.7), true);
     expect(e.anguloBano).toBe(0);
     expect(e.anguloCasa).toBe(0);
-    expect(e.giro).toBe(0);
+  });
+
+  it('la casa sigue girando en la cima del bucle y vuelve a cero antes del baño', () => {
+    expect(giroCasa(0.5)).toBeCloseTo(0);
+    expect(giroCasa(0.51)).toBeGreaterThan(giroCasa(0.49));
+    expect(Math.abs(giroCasa(0.25))).toBeCloseTo(0);
+    expect(Math.abs(giroCasa(0.75))).toBeCloseTo(0);
+  });
+
+  it('el paralaje es nulo cuando la cámara está en su referencia y sin vaivén', () => {
+    const cam = { x: 0.5, y: 0.5, vista: 1 };
+    const par = paralaje({ x: 0, y: 0, lado: 1 }, { x: 0.5, y: 0.5 }, cam, 0, [0, 0]);
+    expect(par.shift[0]).toBeCloseTo(0);
+    expect(par.shift[1]).toBeCloseTo(0);
+    expect(par.dolly).toBeCloseTo(0);
   });
 });

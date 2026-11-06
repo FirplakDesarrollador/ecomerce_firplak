@@ -11,25 +11,51 @@ import {
   TINA_EN_CASA,
   aPantalla,
   camara,
+  centroBano,
   encuadre,
   escena,
+  giroCasa,
+  paralaje,
   progresoBucle,
   recorrido,
   suave,
   type Capa,
 } from './camaraInception';
 import { PUNTO_AZUL } from './geometriaBano';
+import { FOCO_PROFUNDIDAD } from './profundidadBano';
+import { PlacaViva } from './placaViva';
 
 // El documento contiene el bucle repetido: al acercarse a un borde se salta una vuelta
 // entera y, como el cuadro es idéntico, el scroll nunca termina.
 const VUELTAS = 3;
 const VH_POR_VUELTA = 900;
+/** Segundos que tarda la cámara en alcanzar al scroll: desliza en vez de saltar. */
+const INERCIA = 0.14;
 
 type IdCapa = 'casa' | 'bano' | 'azul';
-const IMAGENES: { id: IdCapa; src: string; alt: string }[] = [
-  { id: 'casa', src: '/images/inception/bano-casa.webp', alt: 'La casa completa vista desde arriba, con el baño, el patio interior, el cuarto, la cocina y la zona de lavado' },
-  { id: 'bano', src: '/images/inception/bano-bano.webp', alt: 'Baño con bañera exenta de hidromasaje; una mujer con bata de seda toca los mandos' },
-  { id: 'azul', src: '/images/inception/bano-azul.webp', alt: 'Mandos de cubo cromado sobre el borde de la tina: rojo, azul y uno liso' },
+type IdPlaca = 'azul' | 'bano';
+
+const CAPAS_DEF: { id: IdCapa; imagen: string; video: string; alt: string; profundidad?: string }[] = [
+  {
+    id: 'casa',
+    imagen: '/images/inception/bano-casa.webp',
+    video: '/videos/inception/bano-casa',
+    alt: 'La casa completa vista desde arriba, con el baño, el patio interior, el cuarto, la cocina y la zona de lavado',
+  },
+  {
+    id: 'bano',
+    imagen: '/images/inception/bano-bano.webp',
+    video: '/videos/inception/bano-bano',
+    profundidad: '/images/inception/bano-bano-prof.webp',
+    alt: 'Baño con bañera exenta de hidromasaje; una mujer con bata de seda toca los mandos',
+  },
+  {
+    id: 'azul',
+    imagen: '/images/inception/bano-azul.webp',
+    video: '/videos/inception/bano-azul',
+    profundidad: '/images/inception/bano-azul-prof.webp',
+    alt: 'Mandos de cubo cromado sobre el borde de la tina: rojo, azul y uno liso',
+  },
 ];
 
 // Espacios de la casa (coordenadas sobre la vista desde arriba). El baño es el capítulo activo.
@@ -61,6 +87,8 @@ export default function InceptionBanoExperience() {
   const escenarioRef = useRef<HTMLDivElement | null>(null);
   const mundoRef = useRef<HTMLDivElement | null>(null);
   const capaRefs = useRef<Record<IdCapa, HTMLDivElement | null>>({ casa: null, bano: null, azul: null });
+  const lienzoRefs = useRef<Record<IdPlaca, HTMLCanvasElement | null>>({ azul: null, bano: null });
+  const videoRefs = useRef<Record<IdCapa, HTMLVideoElement | null>>({ casa: null, bano: null, azul: null });
   const floracionRef = useRef<HTMLDivElement | null>(null);
   const textoRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const pinRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -69,8 +97,68 @@ export default function InceptionBanoExperience() {
 
   useEffect(() => {
     const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const movil = window.matchMedia('(max-width: 899px)').matches;
+    const resolucion = movil ? 1080 : 2048;
     let raf = 0;
     let ladoAnterior = 0;
+    let yRender = 0;
+    let tPrevio = 0;
+    let lnVistaPrevia = 0;
+    let velocidadZoom = 0;
+
+    // Placas WebGL: muestran el render mientras carga el video y luego el video vivo.
+    const placas: Partial<Record<IdPlaca, PlacaViva>> = {};
+    const cuadroNuevo: Record<IdCapa, boolean> = { casa: false, bano: true, azul: true };
+    const limpiezas: (() => void)[] = [];
+    for (const def of CAPAS_DEF) {
+      const video = videoRefs.current[def.id];
+      if (def.id !== 'casa') {
+        const id = def.id;
+        const lienzo = lienzoRefs.current[id];
+        const placa = lienzo ? PlacaViva.crear(lienzo) : null;
+        if (lienzo && placa) {
+          lienzo.width = resolucion;
+          lienzo.height = resolucion;
+          placas[id] = placa;
+          const img = new window.Image();
+          img.decoding = 'async';
+          img.onload = () => {
+            if (!(video && video.readyState >= 2)) placa.ponerFuente(img);
+            cuadroNuevo[id] = true;
+          };
+          img.src = def.imagen;
+          if (def.profundidad) {
+            const prof = new window.Image();
+            prof.onload = () => placa.ponerProfundidad(prof, FOCO_PROFUNDIDAD[id]);
+            prof.src = def.profundidad;
+          }
+        } else if (lienzo) {
+          lienzo.style.display = 'none';
+        }
+      }
+      if (!video) continue;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      const alCargar = () => {
+        const placa = def.id !== 'casa' ? placas[def.id] : undefined;
+        if (placa) placa.ponerFuente(video);
+        cuadroNuevo[def.id] = true;
+      };
+      video.addEventListener('loadeddata', alCargar);
+      limpiezas.push(() => video.removeEventListener('loadeddata', alCargar));
+      // Solo se sube a la GPU cuando el video tiene un cuadro nuevo.
+      const conCuadros = video as HTMLVideoElement & { requestVideoFrameCallback?: (cb: () => void) => number };
+      if (conCuadros.requestVideoFrameCallback) {
+        const marcar = () => {
+          cuadroNuevo[def.id] = true;
+          conCuadros.requestVideoFrameCallback?.(marcar);
+        };
+        conCuadros.requestVideoFrameCallback(marcar);
+      }
+      video.src = `${def.video}${movil ? '-m' : ''}.mp4`;
+    }
+    const sinCallbackDeCuadro = !('requestVideoFrameCallback' in HTMLVideoElement.prototype);
 
     const medir = () => {
       const c = contenedorRef.current, e = escenarioRef.current;
@@ -78,8 +166,14 @@ export default function InceptionBanoExperience() {
       largoRef.current = (c.offsetHeight - e.offsetHeight) / VUELTAS;
     };
 
-    const pintar = () => {
-      raf = 0;
+    const reproducir = (id: IdCapa, visible: boolean) => {
+      const v = videoRefs.current[id];
+      if (!v) return;
+      if (visible && v.paused) v.play().catch(() => {});
+      else if (!visible && !v.paused) v.pause();
+    };
+
+    const pintar = (y: number, tiempo: number, dt: number) => {
       const e = escenarioRef.current;
       if (!e) return;
       const vw = e.clientWidth, vh = e.clientHeight, lado = Math.max(vw, vh);
@@ -88,9 +182,19 @@ export default function InceptionBanoExperience() {
         e.style.setProperty('--lado', `${lado}px`);
         ladoAnterior = lado;
       }
-      const s = recorrido(progresoBucle(window.scrollY, largoRef.current));
-      const cam = camara(s, vw / vh);
+      const p = progresoBucle(y, largoRef.current);
+      const s = recorrido(p);
+      const aspecto = vw / vh;
+      const cam = camara(s, aspecto);
       const est = escena(s, cam, reducir);
+
+      // Desenfoque de zoom según la velocidad real de la cámara (suavizada).
+      const lnVista = Math.log(cam.vista);
+      const vel = lnVistaPrevia && dt > 0 ? Math.abs(lnVista - lnVistaPrevia) / dt : 0;
+      lnVistaPrevia = lnVista;
+      velocidadZoom += (vel - velocidadZoom) * (1 - Math.exp(-dt / 0.08));
+      const desenfoque = reducir ? 0 : Math.min(0.045, Math.max(0, velocidadZoom - 0.3) * 0.016);
+      const vaiven: [number, number] = reducir ? [0, 0] : [Math.sin(tiempo * 0.37), Math.cos(tiempo * 0.29)];
 
       const ponerCapa = (id: IdCapa, capa: Capa, opacidad: number, angulo: number) => {
         const el = capaRefs.current[id];
@@ -105,12 +209,30 @@ export default function InceptionBanoExperience() {
           ? `translate3d(${tx}px,${ty}px,0) scale3d(${k},${k},1) translate3d(${ax}px,${ay}px,0) perspective(${lado * 1.1}px) rotateX(${angulo}deg) translate3d(${-ax}px,${-ay}px,0)`
           : `translate3d(${tx}px,${ty}px,0) scale3d(${k},${k},1)`;
         el.style.opacity = String(opacidad);
-        el.style.visibility = opacidad < 0.005 ? 'hidden' : 'visible';
-        // Mientras se pliega, los bordes de la imagen se funden para que no se vea el corte.
-        const borde = angulo ? BORDE_SUAVE : '';
+        const visible = opacidad >= 0.005;
+        el.style.visibility = visible ? 'visible' : 'hidden';
+        // Mientras se pliega o se funde dentro de otra, los bordes de la imagen se difuminan
+        // para que no se vea el corte del recorte.
+        const borde = angulo || (id === 'azul' && opacidad < 0.999) ? BORDE_SUAVE : '';
         if (el.style.maskImage !== borde) {
           el.style.maskImage = borde;
           el.style.maskComposite = borde ? 'intersect' : '';
+        }
+        reproducir(id, visible);
+
+        const placa = id !== 'casa' ? placas[id] : undefined;
+        if (placa && visible) {
+          if (cuadroNuevo[id] || sinCallbackDeCuadro) {
+            placa.subirCuadro();
+            cuadroNuevo[id] = false;
+          }
+          const ref = id === 'bano' ? centroBano(aspecto) : PUNTO_MUNDO;
+          const par = reducir ? { shift: [0, 0] as [number, number], dolly: 0 } : paralaje(capa, ref, cam, id === 'bano' ? est.subida : 0, vaiven);
+          placa.dibujar({
+            ...par,
+            centro: [(cam.x - capa.x) / capa.lado, (cam.y - capa.y) / capa.lado],
+            blur: desenfoque,
+          });
         }
       };
       ponerCapa('casa', CAPAS.casa, est.opacidadCasa, est.anguloCasa);
@@ -118,9 +240,12 @@ export default function InceptionBanoExperience() {
       ponerCapa('azul', CAPAS.azul, est.opacidadAzul, 0);
 
       const mundo = mundoRef.current;
-      if (mundo) mundo.style.transform = est.giro ? `rotate(${est.giro}deg)` : '';
+      if (mundo) {
+        const giro = reducir ? 0 : giroCasa(p);
+        mundo.style.transform = Math.abs(giro) > 0.001 ? `rotate(${giro}deg)` : '';
+      }
 
-      // Entrar al azul: el punto real del mando crece hasta llenar la pantalla.
+      // Entrar al azul: el punto real del mando crece hasta llenar la pantalla; su brillo se mueve solo.
       const flor = floracionRef.current;
       if (flor) {
         const centro = aPantalla(PUNTO_MUNDO, cam, lado, off);
@@ -133,6 +258,10 @@ export default function InceptionBanoExperience() {
         flor.style.transform = `translate3d(${centro.x}px,${centro.y}px,0) translate(-50%,-50%) scale(${radio / 40})`;
         flor.style.opacity = String(opacidad);
         flor.style.visibility = opacidad < 0.005 ? 'hidden' : 'visible';
+        if (opacidad >= 0.005 && !reducir) {
+          flor.style.setProperty('--hx', `${38 + 10 * Math.sin(tiempo * 0.5 + p * 6.283)}%`);
+          flor.style.setProperty('--hy', `${34 + 8 * Math.cos(tiempo * 0.43)}%`);
+        }
       }
 
       for (const [id, v] of Object.entries(est.textos)) {
@@ -148,8 +277,8 @@ export default function InceptionBanoExperience() {
       ESPACIOS.forEach((esp, i) => {
         const el = pinRefs.current[i];
         if (!el) return;
-        const p = aPantalla(esp, cam, lado, off);
-        el.style.transform = `translate3d(${p.x}px,${p.y}px,0) translate(-50%,-50%)`;
+        const q = aPantalla(esp, cam, lado, off);
+        el.style.transform = `translate3d(${q.x}px,${q.y}px,0) translate(-50%,-50%)`;
         el.style.opacity = String(opacidadPines);
         el.style.visibility = opacidadPines < 0.005 ? 'hidden' : 'visible';
       });
@@ -157,23 +286,38 @@ export default function InceptionBanoExperience() {
       const activa = paradaActiva(s);
       paradaRefs.current.forEach((el, i) => {
         if (!el) return;
-        el.dataset.activo = String(i === activa);
-        if (i === activa) el.setAttribute('aria-current', 'step');
-        else el.removeAttribute('aria-current');
+        const es = i === activa;
+        if (el.dataset.activo !== String(es)) {
+          el.dataset.activo = String(es);
+          if (es) el.setAttribute('aria-current', 'step');
+          else el.removeAttribute('aria-current');
+        }
       });
     };
 
-    const programar = () => {
-      if (!raf) raf = requestAnimationFrame(pintar);
+    // Un solo bucle de cuadros: la cámara persigue al scroll con inercia y las placas vivas
+    // siguen moviéndose aunque el scroll esté quieto.
+    const cuadro = (ts: number) => {
+      raf = requestAnimationFrame(cuadro);
+      const dt = tPrevio ? Math.min(0.05, (ts - tPrevio) / 1000) : 1 / 60;
+      tPrevio = ts;
+      const objetivo = window.scrollY;
+      yRender += (objetivo - yRender) * (reducir ? 1 : 1 - Math.exp(-dt / INERCIA));
+      if (Math.abs(objetivo - yRender) < 0.25) yRender = objetivo;
+      pintar(yRender, ts / 1000, dt);
     };
 
     const alScroll = () => {
       const largo = largoRef.current, y = window.scrollY;
-      if (largo > 0) {
-        if (y < largo * 0.5) window.scrollTo({ top: y + largo, behavior: 'instant' });
-        else if (y > largo * 2.5) window.scrollTo({ top: y - largo, behavior: 'instant' });
+      if (largo <= 0) return;
+      // El salto de una vuelta se aplica también a la cámara para que no lo note.
+      if (y < largo * 0.5) {
+        window.scrollTo({ top: y + largo, behavior: 'instant' });
+        yRender += largo;
+      } else if (y > largo * 2.5) {
+        window.scrollTo({ top: y - largo, behavior: 'instant' });
+        yRender -= largo;
       }
-      programar();
     };
 
     const restauracion = history.scrollRestoration;
@@ -181,20 +325,21 @@ export default function InceptionBanoExperience() {
     const inicio = requestAnimationFrame(() => {
       medir();
       window.scrollTo({ top: largoRef.current, behavior: 'instant' });
-      pintar();
+      yRender = largoRef.current;
+      raf = requestAnimationFrame(cuadro);
     });
     window.addEventListener('scroll', alScroll, { passive: true });
-    const observador = new ResizeObserver(() => {
-      medir();
-      programar();
-    });
+    const observador = new ResizeObserver(medir);
     if (escenarioRef.current) observador.observe(escenarioRef.current);
+    const videos = videoRefs.current;
 
     return () => {
       cancelAnimationFrame(inicio);
-      if (raf) cancelAnimationFrame(raf);
+      cancelAnimationFrame(raf);
       window.removeEventListener('scroll', alScroll);
       observador.disconnect();
+      limpiezas.forEach((f) => f());
+      Object.values(videos).forEach((v) => v?.pause());
       history.scrollRestoration = restauracion;
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
@@ -230,24 +375,58 @@ export default function InceptionBanoExperience() {
           className="sticky top-0 h-[100svh] w-full overflow-hidden bg-[#0b0d11]"
         >
           <div ref={mundoRef} className="absolute inset-0 origin-center">
-            {IMAGENES.map((img) => (
+            {CAPAS_DEF.map((def) => (
               <div
-                key={img.id}
+                key={def.id}
                 ref={(el) => {
-                  capaRefs.current[img.id] = el;
+                  capaRefs.current[def.id] = el;
                 }}
                 className="absolute left-0 top-0 will-change-transform"
                 style={{ width: 'var(--lado, 100vmax)', height: 'var(--lado, 100vmax)', transformOrigin: '0 0', visibility: 'hidden' }}
               >
                 <Image
-                  src={img.src}
-                  alt={img.alt}
+                  src={def.imagen}
+                  alt={def.alt}
                   fill
                   sizes="100vmax"
-                  priority={img.id !== 'casa'}
+                  priority={def.id !== 'casa'}
                   draggable={false}
                   className="select-none object-cover"
                 />
+                {def.id === 'casa' ? (
+                  <video
+                    ref={(el) => {
+                      videoRefs.current.casa = el;
+                    }}
+                    aria-hidden="true"
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <canvas
+                      ref={(el) => {
+                        lienzoRefs.current[def.id as IdPlaca] = el;
+                      }}
+                      aria-hidden="true"
+                      className="absolute inset-0 h-full w-full"
+                    />
+                    <video
+                      ref={(el) => {
+                        videoRefs.current[def.id] = el;
+                      }}
+                      aria-hidden="true"
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      className="pointer-events-none absolute left-0 top-0 h-px w-px opacity-0"
+                    />
+                  </>
+                )}
               </div>
             ))}
 
@@ -256,7 +435,7 @@ export default function InceptionBanoExperience() {
               aria-hidden="true"
               className="absolute left-0 top-0 h-[100px] w-[100px] rounded-full will-change-transform"
               style={{
-                background: `radial-gradient(circle closest-side, color-mix(in srgb, ${PUNTO_AZUL.color} 60%, #6f8dff) 0%, color-mix(in srgb, ${PUNTO_AZUL.color} 82%, #3550d8) 40%, ${PUNTO_AZUL.color} 80%, color-mix(in srgb, ${PUNTO_AZUL.color} 40%, transparent) 92%, transparent 100%)`,
+                background: `radial-gradient(circle at var(--hx, 40%) var(--hy, 36%), color-mix(in srgb, #9db4ff 55%, transparent) 0%, transparent 42%), radial-gradient(circle closest-side, color-mix(in srgb, ${PUNTO_AZUL.color} 60%, #6f8dff) 0%, color-mix(in srgb, ${PUNTO_AZUL.color} 82%, #3550d8) 40%, ${PUNTO_AZUL.color} 80%, color-mix(in srgb, ${PUNTO_AZUL.color} 40%, transparent) 92%, transparent 100%)`,
               }}
             />
 

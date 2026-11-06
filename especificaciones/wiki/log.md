@@ -6,6 +6,12 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-11-06] feat | Ricardo · Loop v2: cámara continua, placas vivas y profundidad
+- **Cámara:** sin pausas quietas (curva continua en velocidad), inercia de 0,14 s y giro de la casa a través de la cima del bucle.
+- **Placas vivas:** clips de cámara fija (agua y remolino en el primer plano; humo de la vela, agua y patio en el baño; luz, árbol y agua en la casa) con el producto del render encima por máscara.
+- **Profundidad y transiciones:** paralaje WebGL por mapa de profundidad en el primer plano y el baño, desenfoque de zoom por velocidad y bordes difuminados en los fundidos.
+- **Documentación:** [landing_loop_inception_bano.md](landing_loop_inception_bano.md).
+
 ## [2026-11-05] feat | Landing Ricardo · Loop: recorrido Inception del baño (prototipo)
 - **Ruta:** `/?v=ricardo-loop`; cuarto botón "Ricardo · Loop" en el selector de landings. Solo en la rama `Ric`.
 - **Recorrido:** sale del punto azul del mando de agua fría, pasa por los mandos y el baño, se pliega hasta la casa vista desde arriba y vuelve a entrar al azul; el scroll es infinito.

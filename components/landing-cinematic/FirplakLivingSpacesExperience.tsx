@@ -107,6 +107,7 @@ export default function FirplakLivingSpacesExperience() {
       <LoomereNavbar
         currentSceneIndex={activeSceneIndex}
         onOpenMegamenu={() => setIsMegamenuOpen(true)}
+        urlLavamanosMuebles="/categoria-producto/banos/combos-lavamanos-con-mueble/?opcion=c"
       />
 
       {/* Megamenu */}

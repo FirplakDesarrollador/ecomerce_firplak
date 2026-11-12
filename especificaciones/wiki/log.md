@@ -6,6 +6,14 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-11-11] feat | Header Alejandro: menú hamburguesa exclusivo para móvil y categorías directas en desktop
+- **Visualización:** Alejandro (`LoomereExperience`).
+- **Comportamiento adaptativo:**
+  - *Desktop (`>= md`):* El botón hamburguesa "Menú" queda completamente oculto y la franja de las 6 categorías principales se mantiene permanentemente visible en el segundo nivel.
+  - *Móvil (`< md`):* El botón hamburguesa "Menú" se muestra exclusivamente en pantallas móviles para abrir y cerrar el menú de categorías bajo demanda.
+- **Compresión 25%:** Altura de cabecera reducida (60px desktop / 48px mobile en nivel 1, y paddings verticales optimizados a 12px / 18px en nivel 2) preservando touch targets $\ge 44 \times 44$ px.
+- **Aislamiento:** La propiedad `directCategories` en `LoomereNavbar` preserva la cabecera original en las visualizaciones de Ricardo e Isabel/Gabriel.
+
 ## [2026-11-06] feat | Ricardo · Loop v2: cámara continua, placas vivas y profundidad
 - **Cámara:** sin pausas quietas (curva continua en velocidad), inercia de 0,14 s y giro de la casa a través de la cima del bucle.
 - **Placas vivas:** clips de cámara fija (agua y remolino en el primer plano; humo de la vela, agua y patio en el baño; luz, árbol y agua en la casa) con el producto del render encima por máscara.

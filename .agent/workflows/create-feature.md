@@ -26,9 +26,9 @@ Use this workflow whenever a new functionality or enhancement is requested.
 1. **Document**: Update `/docs/<module>.txt` using the standard template.
 
 ## Skills to Invoke
-- `.agent/skills/nextjs-review/SKILL.md`
-- `.agent/skills/supabase-review/SKILL.md`
-- `.agent/skills/bugs-knowhow-enforcer/SKILL.md`
+- `skills/nextjs-review/SKILL.md`
+- `skills/supabase-review/SKILL.md`
+- `skills/bugs-knowhow-enforcer/SKILL.md`
 
 ## Final Validations
 - Pass all 4 phases.

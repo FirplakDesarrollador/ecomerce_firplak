@@ -1,5 +1,9 @@
 # Especificación: Pasarela de Pagos e Integración Financiera
 
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Eliminar el abandono de carrito y democratizar el acceso a productos de alto valor mediante un checkout confiable adaptado al mercado colombiano. Combina procesamiento directo con ePayco (tarjetas de crédito y débito bancario PSE) y financiamiento dinámico a cuotas con ADDI visible desde la PDP. Implementa webhooks seguros y confirmación transaccional con firma HMAC para registrar pagos confirmados en Supabase y SAP.
+
 Este documento detalla la especificación para el motor de pagos, pasarelas y financiamiento dentro del e-commerce.
 
 ---

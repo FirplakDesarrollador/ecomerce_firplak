@@ -7,7 +7,7 @@ Prevents the re-introduction of previously fixed bugs.
 - Before starting any code modification or bug fix.
 
 ## Mandatory Behavior
-- The agent must check the `.agent/skills/bugs-knowhow/SKILL.md` logs.
+- The agent must check the `skills/bugs-knowhow/SKILL.md` logs.
 - Identify if the current area has had similar issues in the past.
 
 ## Restrictions

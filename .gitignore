@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+*.pur
 
 # debug
 npm-debug.log*
@@ -39,3 +40,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# video processing backups
+public/videos/**/originals/
+public/videos/**/*_nuevo.mp4
+
+# scripts temporales con credenciales presignadas
+/scratch/

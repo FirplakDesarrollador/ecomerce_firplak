@@ -1,5 +1,9 @@
 # Especificación: Integración de Servicios, Seguimiento de Pedidos y OAuth
 
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Implementar un modelo de arquitectura federada basado en identidad única mediante Supabase OAuth. Permite al cliente autenticado en la tienda consultar el avance de fabricación de sus productos directamente en la base de datos de planta y agendar visitas técnicas en la base de datos de servicios postventa, sin duplicar esquemas de usuarios ni comprometer la seguridad entre sistemas.
+
 Este documento detalla la integración del e-commerce con los otros sistemas y bases de datos de la empresa en Supabase para el agendamiento de servicios y el rastreo de pedidos en la planta de producción.
 
 ---

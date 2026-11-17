@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Bloques de conocimiento de terceros: no son codigo de la aplicacion.
+    "skills/**",
   ]),
 ]);
 

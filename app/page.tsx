@@ -1,30 +1,11 @@
-import Hero from '@/components/home/Hero';
-import CategoryGrid from '@/components/home/CategoryGrid';
-import PromoBanners from '@/components/home/PromoBanners';
-import FeaturedProducts from '@/components/home/FeaturedProducts';
-import FeaturesGrid from '@/components/home/FeaturesGrid';
-import { getCategories, getFeaturedProducts } from '@/services/home-service';
 
-export default async function Home() {
-  const categories = await getCategories();
-  const featuredProducts = await getFeaturedProducts();
+import LandingSwitcher from '@/components/landing-cinematic/LandingSwitcher';
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      {/* 1. Hero Banner Slider */}
-      <Hero />
-      
-      {/* 2. Categorías (Círculos) */}
-      <CategoryGrid categories={categories} />
-      
-      {/* 3. Novedades (Banners) */}
-      <PromoBanners />
-      
-      {/* 4. Productos Destacados */}
-      <FeaturedProducts products={featuredProducts} />
+export const metadata = {
+  title: 'Firplak · Arquitectura & Bienestar en el Hogar',
+  description: 'Descubre los espacios de vida Firplak: Baños, Cocinas, Zonas de Ropa y Spas de alta gama con diseño y tecnología.'
+};
 
-      {/* 5. Propuestas de Valor */}
-      <FeaturesGrid />
-    </div>
-  );
+export default function Home() {
+  return <LandingSwitcher />;
 }

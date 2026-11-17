@@ -1,5 +1,9 @@
 # Especificaciones de SEO - Ecommerce Firplak
 
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Posicionar a Firplak como la autoridad orgánica definitiva en Colombia para baños, cocinas y jacuzzis, optimizando tanto para motores de búsqueda tradicionales (Google) como para motores de IA generativa (GEO/AIO como ChatGPT y SearchGPT). Utiliza marcado semántico profundo Schema.org JSON-LD (Product, AggregateOffer, FAQPage), renderizado SSR en Next.js para rastreo instantáneo y arquitectura de silos de contenido.
+
 Este documento contiene la documentación principal y las instrucciones oficiales de SEO para el desarrollo y mantenimiento del ecommerce de Firplak. 
 
 Para facilitar la consulta técnica y mantener los archivos organizados por áreas de especialización, la documentación detallada se encuentra dividida en módulos independientes dentro de la carpeta `/especificaciones/seo/`.

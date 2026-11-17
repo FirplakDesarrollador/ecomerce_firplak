@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Product } from '@/services/home-service';
 import { ShoppingCart } from 'lucide-react';
 
@@ -20,10 +21,12 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
                     {product.badge}
                   </span>
                 )}
-                <img
+                <Image
                   src={product.imageUrl}
                   alt={product.name}
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <div className="flex flex-1 flex-col justify-between p-6">

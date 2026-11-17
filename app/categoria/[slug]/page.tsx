@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShoppingCart, ChevronRight, Home, SlidersHorizontal, ChevronDown, Eye, Filter } from 'lucide-react';
 import { Product } from '@/services/home-service';
-import { notFound } from 'next/navigation';
 
 export default async function CategoriaPage({
   params,
@@ -229,10 +229,12 @@ export default async function CategoriaPage({
                       </button>
                     </div>
 
-                    <img
+                    <Image
                       src={product.imageUrl}
                       alt={product.name}
-                      className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                      fill
+                      sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover object-center transition-transform duration-700 group-hover:scale-110"
                     />
                   </div>
                   

@@ -1,6 +1,106 @@
 # Registro de Cambios (Log)
 
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Mantener un registro histórico inmutable y auditable de cada decisión técnica, ingesta de requerimientos y ajuste arquitectónico en el wiki, garantizando trazabilidad completa para el equipo de desarrollo y agentes autónomos.
+
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
+
+## [2026-11-11] feat | Header Alejandro: menú hamburguesa exclusivo para móvil y categorías directas en desktop
+- **Visualización:** Alejandro (`LoomereExperience`).
+- **Comportamiento adaptativo:**
+  - *Desktop (`>= md`):* El botón hamburguesa "Menú" queda completamente oculto y la franja de las 6 categorías principales se mantiene permanentemente visible en el segundo nivel.
+  - *Móvil (`< md`):* El botón hamburguesa "Menú" se muestra exclusivamente en pantallas móviles para abrir y cerrar el menú de categorías bajo demanda.
+- **Compresión 25%:** Altura de cabecera reducida (60px desktop / 48px mobile en nivel 1, y paddings verticales optimizados a 12px / 18px en nivel 2) preservando touch targets $\ge 44 \times 44$ px.
+- **Aislamiento:** La propiedad `directCategories` en `LoomereNavbar` preserva la cabecera original en las visualizaciones de Ricardo e Isabel/Gabriel.
+
+## [2026-11-06] feat | Ricardo · Loop v2: cámara continua, placas vivas y profundidad
+- **Cámara:** sin pausas quietas (curva continua en velocidad), inercia de 0,14 s y giro de la casa a través de la cima del bucle.
+- **Placas vivas:** clips de cámara fija (agua y remolino en el primer plano; humo de la vela, agua y patio en el baño; luz, árbol y agua en la casa) con el producto del render encima por máscara.
+- **Profundidad y transiciones:** paralaje WebGL por mapa de profundidad en el primer plano y el baño, desenfoque de zoom por velocidad y bordes difuminados en los fundidos.
+- **Documentación:** [landing_loop_inception_bano.md](landing_loop_inception_bano.md).
+
+## [2026-11-05] feat | Landing Ricardo · Loop: recorrido Inception del baño (prototipo)
+- **Ruta:** `/?v=ricardo-loop`; cuarto botón "Ricardo · Loop" en el selector de landings. Solo en la rama `Ric`.
+- **Recorrido:** sale del punto azul del mando de agua fría, pasa por los mandos y el baño, se pliega hasta la casa vista desde arriba y vuelve a entrar al azul; el scroll es infinito.
+- **Fidelidad:** el producto (tina, ducha, mandos) sale siempre de los renders; la mujer generada se compone detrás de la tina. Un clip de video de prueba se descartó porque convirtió la ducha de mano en un grifo.
+- **Documentación:** [landing_loop_inception_bano.md](landing_loop_inception_bano.md).
+
+## [2026-11-04] feat | Sesión Lavamanos & Muebles · Opción C: Estudio Mix & Match (propuesta Ricardo)
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=c`; tercer botón "Opción C · Ricardo" en la barra de prototipos. El menú del landing Ricardo abre esta opción; los de Alejandro e Isabel/Gabriel siguen igual.
+- **Fuente:** 12 renders del usuario (Vitelli × Oslo, Génova, Parma y Siena, cerrado y abierto; mueble solo; vista 3/4; foto del Gola Curva).
+- **Experiencia:** vistas Conjunto / Lavamanos / Mueble, abrir y cerrar, 5 acabados, grifería negra y 3 de vista previa, "Sorpréndeme", sección "Por dentro", escenario pegado en móvil.
+- **Documentación:** [banos_muebles_opcion_c.md](banos_muebles_opcion_c.md).
+
+## [2026-10-28] docs | Fusión Unificada de Referentes Externos (referentes_externos.md)
+- **Fusión completa:** Unificación integral de `referentes_externo.md` (7 pilares internacionales de arquitectura, interacción y GUI) y `referentes_externos.md` (Awwwards, benchmarks de nicho, investigación académica de Nielsen Norman Group y anotaciones de dirección de Alejandro Isaza) en [referentes_externos.md](referentes_externos.md).
+- **Preservación total de información:** Se conservaron todos los 13 referentes, matrices Mermaid integradas, tablas comparativas, enlaces de especificación técnica y las 6 notas al pie con comentarios directivos.
+- **Eliminación de redundancia:** Se eliminó `referentes_externo.md` para evitar duplicidad y se unificaron todos los enlaces hacia [referentes_externos.md](referentes_externos.md).
+
+## [2026-10-22] docs | Informe de escalabilidad del configurador de muebles
+- **Nuevo:** [informe_escalabilidad_configurador.md](informe_escalabilidad_configurador.md), versión Markdown completa del informe (antes solo como presentación).
+- **Incluye:** pesos medidos de la Opción A, escenarios de 80 y +50 referencias, tiempos de producción por mueble y totales, niveles de calidad tipo Unreal, comparativa de 4 caminos, convención de entrega del FBX, riesgos no vistos y recomendación híbrida.
+- **Nota posterior:** la Opción B confirma el camino de capas (9 renders en vez de 50).
+
+## [2026-10-19] feat | Sesión Lavamanos & Muebles · Opción B: Mix & Match fotorrealista
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=b`; barra "Prototipos en revisión" para alternar con la Opción A.
+- **Fuente:** 9 renders con fondo transparente (2 muebles × 5 lavamanos, falta Vitelli + Ovalado, armado por capas).
+- **Acabados en el navegador:** capa de luz por render (máscara + luz sin veta); los 5 tableros se aplican sin renders adicionales.
+- **Experiencia:** piezas que se ensamblan al entrar, flechas y gesto por pieza, transiciones distintas para lavamanos, mueble y acabado, fondo claro u oscuro, cotización y enlace compartible.
+- **Documentación:** [banos_muebles_opcion_b.md](banos_muebles_opcion_b.md).
+
+## [2026-10-09] feat | Sesión Lavamanos & Muebles · Opción A: Configurador 3D Vitelli 63
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble`, destino de "lavamanos & muebles" en el menú de la landing (antes daba página vacía).
+- **Modelo:** FBX "Vitelli mix & match" (4 MB, 120k triángulos) → GLB meshopt de 691 KB con puerta y cajones animables, 4 lavamanos alineados y grifo/sifón ubicados por perforación.
+- **Acabados:** Blanco Madera, Soder, Austral, Gracia y Mitte desde la biblioteca de tableros; lavamanos Oslo, Siena, Genova y Parma.
+- **Experiencia:** barrido de acabado, cambio animado de lavamanos, comparador de acabados lado a lado, apertura con cierre lento, cotas 3D, 4 vistas, puntos de interés, cotización por WhatsApp y enlace compartible.
+- **Documentación:** [banos_muebles_opcion_a.md](banos_muebles_opcion_a.md).
+
+## [2026-09-27] feat | Generación Completa y Codificación Scroll-Craft: 4 Escenas Casa Firplak
+- **Generación en Higgsfield (Seedance 2.0):**
+  1. *Escena 1 (Baño Boutique):* `viaje_1_bano.mp4` / `viaje_1_bano-m.mp4` (Lavamanos Oslo, retroceso a corredor).
+  2. *Escena 2 (Cocina Jade):* `viaje_2_cocina.mp4` / `viaje_2_cocina-m.mp4` (Módulos jade, isla de cuarzo veteado, copa de vino, fondo al deck).
+  3. *Escena 3 (Zona de Lavandería):* `viaje_3_lavanderia.mp4` / `viaje_3_lavanderia-m.mp4` (Lavadero Pro 140 RH, toallas lino, conexión lateral al deck).
+  4. *Escena 4 (Hidroterapia Exterior):* `viaje_4_exterior.mp4` / `viaje_4_exterior-m.mp4` (Jacuzzi Mydas 180 en deck al atardecer, vapor y cromoterapia).
+- **Post-procesamiento Scroll-Craft:** Codificación con GOP denso (`-g 8` desktop, `-g 4` móvil), audio removido (`-an`) y `+faststart` para scrub instantáneo a 60 FPS sin tirones. Extracción de pósters WebP de primer fotograma.
+- **Integración:** Actualización de `components/loomere/sceneData.ts` con el flujo narrativo continuo.
+
+## [2026-09-26] update | Storyboard y Video Piloto Loomere: Recorrido Continuo Casa Firplak
+- **Storyboard Maestro:** Consolidación de los 12 keyframes (3 por capítulo) que articulan las 4 escenas continuas de la Casa Firplak:
+  1. *Baño Boutique:* Lavamanos Oslo flotante Firplak y transición por pasillo.
+  2. *Cocina Jade:* Módulos terracota, mármol veteado, copa de vino en la isla y deck techado visible al fondo.
+  3. *Zona de Ropas:* Combo Lavadero Pro 140 blanco con ventanal corredizo abierto al deck.
+  4. *Hidroterapia:* Bañera de hidromasaje ovalada Firplak en deck techado al atardecer (sin desnudez, bienestar y relax).
+- **Video Piloto (Escena 1 - Baño):** Generación y descarga del video de 8 segundos generado en Higgsfield (`seedance1_5`) guardado en `public/videos/loomere/viaje_bano_nuevo.mp4` demostrando la interacción en el lavamanos y el pull-back hacia el corredor.
+- **Regla de Interfaz Intacta:** Componentes gráficos, navbar, drawers, megamenú y cursor de precio preservados al 100% sin modificaciones.
+- Artefactos maestros creados: [storyboard_general_casa_firplak.md](file:///C:/Users/Rik/.gemini/antigravity-ide/brain/bfe8914f-2a36-4fe2-97a7-dc772eb46e74/storyboard_general_casa_firplak.md) y [storyboard_hilo_deck_techado.md](file:///C:/Users/Rik/.gemini/antigravity-ide/brain/bfe8914f-2a36-4fe2-97a7-dc772eb46e74/storyboard_hilo_deck_techado.md).
+
+## [2026-09-08] ingest | Mapa del Sitio y Catálogo de Accesos Globales
+- Creación de [mapa_del_sitio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mapa_del_sitio.md): mapa integral de accesos y taxonomía de `www.firplak.com` (Top Bar, 6 macrocategorías de catálogo, portales B2B/institucionales, flujo transaccional, sedes físicas, marco legal colombiano y matriz de redirecciones 301 para Next.js).
+- Actualización de [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
+
+## [2026-09-07] ingest | Síntesis Maestra de Diseño y Lineamientos UI/UX
+- Creación de [sintesis_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sintesis_diseno.md): compilación exhaustiva de filosofía visual, tokens globales, scrollytelling en 8 fases, Product Tiers, templates maestros, configurador Mix & Match, requisitos de pre-instalación por categoría y políticas comerciales de impacto en UX/UI.
+- Actualización de [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md) para integrar la nueva página en el catálogo general.
+
+## [2026-09-07] ingest | Referentes Externos de Diseño y UX (Awwwards + NN/g)
+- Creación de [referentes_externos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/referentes_externos.md): banco curado de 9 referentes externos (Palet, Material Kitchen, European Cabinets, Provider Store, Arteriors Home, Insta360 Luna Ultra, Bombon, Nielsen Norman Group, Pear) investigados en Awwwards y visitados en vivo.
+- Cada entrada incluye nota al pie con el patrón concreto de UX/UI aplicable, referenciando cruzado a [mix_and_match.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mix_and_match.md), [pagina_producto.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagina_producto.md), [carpinteria_obra.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/carpinteria_obra.md), [cocinas.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/cocinas.md), [griferia_plomeria.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/griferia_plomeria.md), [zona_outdoor.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/zona_outdoor.md), [recomendaciones_pagos_y_productos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/recomendaciones_pagos_y_productos.md) y [sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md).
+- Incorporación posterior de Pear (pear.no, Honorable Mention Awwwards) como validación externa del motor de scroll-scrubbing (GSAP + Canvas + Lenis) ya definido en [sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md).
+- Actualización del índice general en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
+
+## [2026-09-16] ingest | Ingesta Oficial del Manual de Identidad Corporativa (Brand Book FIRPLAK 2026)
+- Creación de [manual_identidad_corporativa.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/manual_identidad_corporativa.md) con las 17 secciones completas del Brand Book oficial.
+- Especificación de filosofía de marca ("Fuerza con alma"), isotipo Λ (el símbolo del pico), retícula modular 1X x 5.4X, área de seguridad, tamaños mínimos (120px web / 25mm impreso), paleta Dulux (Navy #324354, Sage #7B8E90, Crema #F6F3EE), regla 60-30-10, jerarquía tipográfica (Montserrat + Orborn), estilo fotográfico y reglas de uso del logotipo.
+- Vinculación del manual como documento base de apoyo para el Design System en [sistema_diseno.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/sistema_diseno.md) y actualización de [index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/index.md).
+
+## [2026-09-16] update | Actualización Master del Sistema de Diseño (sistema_diseno.md)
+- Redefinición del Negro Puro (#000000) como color neutro de soporte con restricciones de contraste y no como color corporativo principal.
+- Inclusión de advertencia explícita sobre el uso moderado del Lino Cálido (#F6F3EE) para no sobresaturar la interfaz.
+- Actualización de tipografía oficial: Montserrat como Primaria (lectura, UI, botones, datos) y Orborn Medium como Secundaria (encabezados específicos y acentos de marca).
+- Redefinición del módulo Mix & Match bajo el enfoque Mobile First con flujo en 4 pasos (lavamanos, color lavamanos, mueble, color mueble).
+- Enfoque UX/UI para Cocinas Integrales (Opciones de diseño y Medidas) y Zona Outdoor (Selección basada en medidas, Espacio disponible y Diseño).
+- Actualización del Checklist Heurístico con validación de las nuevas reglas tipográficas y cromáticas.
 
 ## [2026-09-15] ingest | Referentes Externos y Benchmark UX/UI Global para Firplak E-Commerce
 - Creación de la especificación y análisis de mejores prácticas de comercio electrónico global en [referentes_externos.md](file:///c:/Users/isabel.isaza/OneDrive%20-%20FIRPLAK%20SA/Escritorio/Proyecto%20AI%20Pagina%20web/especificaciones/wiki/referentes_externos.md).
@@ -8,6 +108,61 @@ Registro de auditorías, ingestas y consultas realizadas en el wiki de especific
 - Definición de navegación dual (Bienestar/Wellness vs Mejoramiento del Hogar), Chat IA interactivo con autoescritura y diseño del Spa Match Test con Spa Readiness Check.
 - Inclusión de activos visuales y documento de benchmark en `especificaciones/wiki/assets/` y `public/images/referentes/`.
 - Actualización de índice en [index.md](file:///c:/Users/isabel.isaza/OneDrive%20-%20FIRPLAK%20SA/Escritorio/Proyecto%20AI%20Pagina%20web/especificaciones/wiki/index.md).
+
+## [2026-09-15] ingest | Unificación de Referentes Externos de GUI/UI/UX en referentes_externo.md
+- Consolidadación de los 7 referentes internacionales (Apple, Andbro, Antonio Lupi, Kohler, Cowboy, DJI, Samsung) en un archivo único e inmutable: [referentes_externo.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/referentes_externo.md).
+- Eliminación de la carpeta `referentes_externos/` a favor del esquema plano de la wiki (`especificaciones/wiki/`).
+- Mapeo estratégico de patrones GUI a componentes de Firplak: Scroll 3D Scrubbing (Apple), Retícula Editorial B2B (Andbro), Lujo Sanitario (Antonio Lupi), Megamenú E-commerce (Kohler), Personalizador 360° en vivo (Cowboy), Visualización de Ingeniería Pesada (DJI) y Wizard transaccional con Financiamiento (Samsung).
+- Actualización de la referencia en [index.md](file:///c:/Users/gabriel.molina/Desktop/ecomerce_firplak/especificaciones/wiki/index.md).
+
+
+## [2026-09-04] update | Redefinición Estratégica de Carpintería de Obra (Showcase B2B sin Precios ni SAP)
+- Redefinición de [carpinteria_obra.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/carpinteria_obra.md): se elimina la integración transaccional con SAP y listas de precios públicas.
+- Se redefine como una galería de casos de éxito y proyectos emblemáticos que expone los features clave de ingeniería y manufactura a escala para constructores y arquitectos.
+- Establecimiento del embudo hacia un formulario consultivo de intención de contacto y carga de planos para concursar y licitar proyectos.
+
+## [2026-09-03] update | Integración del FIRPLAK Experience Stack (R3F, GSAP, Blender y Higgsfield REAL)
+- Definición de la arquitectura visual sobre Next.js: GSAP 3 + ScrollTrigger + React Three Fiber + Drei + KTX2/Draco + Higgsfield REAL para cinematografía lifestyle.
+- Adopción del modelo de 3 Tiers de producto (Tier 1 Hero 3D, Tier 2 Core GSAP+Fotos, Tier 3 Long Tail ágil) y 5 templates maestros (`StoryLavamanos`, `StoryMuebleBaño`, `StoryCocina`, `StoryHidromasaje`, `StoryOutdoor`).
+- Modelado de datos en Supabase para storytelling parametrizable: entidades `PRODUCT_STORY` y `PRODUCT_STORY_SCENE` con control de progreso (`start_progress`, `end_progress`) en [arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md).
+- Estandarización de la PDP en 8 fases narrativas (Contexto Higgsfield, Aislamiento, Giro CAD 3D, Callouts Físicos, Color Swap, Instalación, Mix & Match y Comercio) en [pagina_producto.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagina_producto.md).
+- Inclusión del Hero Cinematográfico Nivel A con transiciones de atmósfera en [pagina_inicio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagina_inicio.md).
+- Formulación de la "Regla de Oro de Higgsfield" (atmósfera lifestyle sí, geometría física no) y reglas de separación SEO/SSR vs. WebGL en [sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md).
+
+## [2026-09-03] update | Estandarización de Motor de Animación por Scroll (GSAP + Canvas Frame Scrubbing + Lenis)
+- Definición de la técnica oficial de scrollytelling de alta fidelidad estilo Apple: **HTML5 `<canvas>` 2D + GSAP 3 + ScrollTrigger + Lenis Smooth Scroll**.
+- Inclusión del presupuesto de carga de fotogramas WebP (60-120 frames, <40 KB c/u), buffering progresivo y fallback accesible con `prefers-reduced-motion` en [sistema_diseno.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/sistema_diseno.md).
+- Especificación del componente `<ProductScrollCanvas />` en [pagina_producto.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagina_producto.md) y conmutación de secuencias de frames según versiones (Básica/Plus/Spa/Empotrada) en [hidromasajes.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/hidromasajes.md).
+- Actualización de la entidad `PRODUCT` con el campo `frame_sequence_manifest_url` y la tabla comparativa de stack en [arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md).
+
+## [2026-09-03] lint | Auditoría General de Consistencia y Coherencia Cruzada en el Wiki
+- Auditoría integral de los 20 documentos del wiki (`especificaciones/wiki/`).
+- Sincronización estricta de políticas transversales: promesa estándar de fabricación de **15 días hábiles** (con excepción técnica de 15-20 días para pruebas hidrostáticas de spas de exterior), entregas en **Primer Piso (Nivel 0)** y plazo perentorio de **3 días hábiles** para reporte de averías/daños estéticos tras la entrega (conforme a los 5 días de retracto de la Ley 1480).
+- Unificación de matriz de garantías por materialidad: Mármol sintético, Quartzstone y tinas (5 años), muebles RH (1 a 3 años estándar, hasta 5 años premium), griferías (5 años cuerpo/cartucho, 1 año acabado/plomería), equipos electromecánicos (1 año) y asadores acero 304 (3 años).
+- Vinculación bidireccional de referencias cruzadas entre categorías, complementos, PDP, sistema de diseño, pasarelas y el configurador Mix & Match.
+
+## [2026-09-03] update | Inclusión de Micro Resúmenes de Estrategia Condensada en todos los MD
+- Incorporación de bloques de alerta obligatorios (`> [!IMPORTANT]`) en la cabecera de cada uno de los archivos `.md` de `especificaciones/wiki/`.
+- Cada bloque sintetiza la estrategia comercial, técnica y de UX/UI correspondiente a cada segmento.
+
+## [2026-09-03] ingest | Especificaciones de Categorías Faltantes: Labores, Cocinas, Carpintería, Servicios, Accesorios y Outdoor
+- Creación de especificación técnica y comercial para Zona de Labores en [zona_labores.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/zona_labores.md).
+- Creación de especificación técnica y de ergonomía para Cocinas Integrales en [cocinas.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/cocinas.md).
+- Creación de especificación B2B e Institucional para [carpinteria_obra.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/carpinteria_obra.md) integrada con SAP Service Layer y Supabase.
+- Creación de especificación para Servicios Técnicos, Pre-inspección y Postventa en [servicios.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/servicios.md).
+- Creación de especificación de Accesorios con separación obligatoria entre Grifería/Plomería y Confort en [accesorios.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/accesorios.md) y su anexo técnico [griferia_plomeria.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/griferia_plomeria.md).
+- Creación de especificación de exteriores y spas multipersonales en [zona_outdoor.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/zona_outdoor.md).
+- Actualización y reorganización del índice en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
+
+## [2026-09-03] ingest | Análisis Comparativo firplak.com vs Wiki y Especificación de Home Page
+- Análisis exhaustivo de `firplak.com` en producción (navegación, megamenú multinivel, ofertas flash con cálculo de ahorro COP, lead magnets de catálogos PDF, showrooms físicos y marco regulatorio colombiano).
+- Creación de la especificación técnica y de UI/UX de la Página de Inicio en [pagina_inicio.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/pagina_inicio.md).
+- Enriquecimiento del árbol de categorías, subcategorías y flags comerciales (`is_fast_shipping`, `is_clearance`, `is_on_sale`) en [conceptos_catalogo.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/conceptos_catalogo.md).
+- Actualización del catálogo general en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
+
+## [2026-08-14] revert | Reversión de Estructura de Carpetas
+- Reversión de carpetas temáticas al nivel raíz plano en `wiki/` según solicitud del usuario.
+- Actualización de enlaces en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md) y [README.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/README.md).
 
 ## [2026-08-12] ingest | Especificaciones de Hidromasajes, PDP (Scroll Animado) y Sistema de Diseño UI
 - Creación de especificación comercial y técnica de Spas e Hidromasajes en [hidromasajes.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/hidromasajes.md).
@@ -29,7 +184,6 @@ Registro de auditorías, ingestas y consultas realizadas en el wiki de especific
 - Compilación de la especificación técnica de federación y OAuth en [integracion_servicios_pedidos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/integracion_servicios_pedidos.md).
 - Actualización del índice general en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
 
-
 ## [2026-07-08] ingest | Auditoría y Profundización del Sitio Oficial Firplak.com
 - Registro detallado del stack tecnológico, motor de pagos y políticas en [analisis_sitio_firplak.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/raw/analisis_sitio_firplak.md).
 - Compilación exhaustiva del árbol de categorías, materiales y políticas logísticas en [conceptos_catalogo.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/conceptos_catalogo.md).
@@ -37,17 +191,13 @@ Registro de auditorías, ingestas y consultas realizadas en el wiki de especific
 - Ampliación comparativa de la transición tecnológica en [arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md).
 - Actualización del índice general en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
 
-
-
 ## [2026-07-08] ingest | Requerimiento de Cliente 01: Arquitectura de SKUs, Supabase, SAP y Mix & Match
 - Registro del requerimiento original en [requerimiento_cliente_01.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/raw/requerimiento_cliente_01.md).
 - Compilación de la especificación técnica en [arquitectura_datos.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/arquitectura_datos.md).
 - Compilación de la especificación funcional de la interfaz en [mix_and_match.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/mix_and_match.md).
 - Actualización del catálogo general en [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
 
-
 ## [2026-07-08] setup | Inicialización del Wiki
 - Creación de la estructura base del wiki siguiendo el patrón LLM Wiki de Andrej Karpathy.
 - Creación del [README.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/README.md).
 - Creación del [index.md](file:///c:/Users/isaza/OneDrive/Documentos/FIRPLAK e-commerce/especificaciones/wiki/index.md).
-

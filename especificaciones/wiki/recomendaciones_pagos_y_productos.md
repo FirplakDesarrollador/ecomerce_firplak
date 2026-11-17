@@ -1,5 +1,9 @@
 # Recomendaciones de Arquitectura: Productos, Stocks y Pasarela de Pagos
 
+> [!IMPORTANT]
+> **Estrategia Condensada del Segmento**:
+> Establecer salvaguardas operativas y de ingeniería para blindar la experiencia de compra contra roturas de stock y fricción financiera. Define patrones para el manejo híbrido de inventario físico disponible vs. fabricación bajo pedido (15 días), conciliación de órdenes con colas idempotentes y prevención de ventas fallidas en productos de alto volumen y personalización.
+
 Este documento compila las buenas prácticas y recomendaciones para el diseño y desarrollo del motor de productos, control de inventario y la integración con la pasarela de pagos en el e-commerce de Firplak.
 
 ---

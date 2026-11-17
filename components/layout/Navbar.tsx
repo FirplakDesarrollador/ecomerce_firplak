@@ -12,7 +12,7 @@ export default function Navbar() {
 
       {/* Deck 1: Upper Navbar */}
       <div className="border-b border-zinc-100 hidden lg:block">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-[1408px] items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           
           {/* Left: Contact Info */}
           <div className="flex items-center gap-6 text-xs text-zinc-600 font-medium">
@@ -51,7 +51,7 @@ export default function Navbar() {
 
       {/* Deck 2: Main Navigation */}
       <div className="bg-white">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-[1408px] items-center justify-between px-4 sm:px-6 lg:px-8">
           
           {/* Left: Categories (Desktop) */}
           <nav className="hidden lg:flex gap-8 items-center h-full">

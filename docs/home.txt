@@ -41,4 +41,141 @@ HISTORIAL DE ACTUALIZACIONES
 --------------------------------------------------------------------------------
 10/06/2026 - Creación de la página principal completa con Hero, Categorías, 
              Productos Destacados, Navbar y Footer.
+19/11/2026 - Recuperación del borrador sin commit de Claude desde el worktree
+             claude/mix-match-visualization-adapt-d1d6dc al checkout Alejandro
+             que sirve http://localhost:3000. Se copiaron y verificaron 157
+             archivos, incluidos los PNG fuente, los WebP publicados, el script
+             de preparación y las pruebas de la opción D (98,42 MB).
+
+             Menú de Alejandro (directCategories):
+               hidromasajes & spas
+                 hidromasajes indor / multipersonales / turcos & saunas
+               lavamanos & muebles (enlace directo al estudio de Alejandro)
+               lavarropas & muebles (enlace directo existente del catálogo)
+               cocinas
+                 cocinas integrales / cocinas modulares / lavaplatos
+
+             Se recuperaron también el header compacto y el selector flotante
+             que se expande con mouse o toque. El cambio de menú se confirmó
+             expresamente para Alejandro; Ricardo e Isabel/Gabriel conservan
+             su navegación de seis categorías.
+
+             Nueva ruta: /categoria-producto/banos/
+             combos-lavamanos-con-mueble/mix-match
+             La ruta anterior con ?opcion=d redirige al estudio y conserva
+             lavamanos, mueble y acabado. Las opciones A, B y C se conservan.
+             El estudio usa la cabecera de Alejandro sin duplicar el layout.
+
+             Validación: 9 suites / 64 pruebas aprobadas; tsc --noEmit sin
+             errores; npm run lint sin errores (13 advertencias anteriores).
+             ESLint excluye los checkouts anidados .claude/worktrees/**.
+             Playwright comprobó menú y submenús, acceso al estudio, imágenes,
+             apertura del mueble, carruseles sin scrollLeft accidental,
+             selección en URL y compatibilidad del enlace antiguo.
+             Revisado a 1440 x 900 y 375 x 812, sin desborde horizontal ni
+             errores JavaScript. No se realizaron envíos de WhatsApp.
+
+             Fuente original conservada: no se cambió de rama ni se modificó
+             el worktree de Claude. Su launch.json (puerto 3017) y los trabajos
+             independientes de renders 3D/video no forman parte de esta
+             integración. Los cambios quedan locales, sin commit ni push.
+20/11/2026 - El usuario aprueba el piloto generativo de Vitelli Soder con Oslo y
+             Génova y confirma añadirlo al selector de Alejandro. Vitelli queda
+             seleccionado por defecto; solo ofrece Soder y esos dos lavamanos,
+             con grifería negra y estado cerrado. Se preservan los siete muebles
+             anteriores con sus opciones y apertura. Total: 218 combinaciones.
+
+             El escenario usa las dos vistas completas aprobadas para Vitelli;
+             no las ensambla con piezas sueltas de otra cámara. Las imágenes
+             llevan huella de contenido y se publican en WebP sin pérdida bajo
+             /images/muebles/piloto-63x48/. Los controles de flechas, galerías,
+             enlace compartible y cotización mantienen su ubicación.
+
+             La compatibilidad se aplica también a enlaces y a Sorpréndeme;
+             datos no disponibles para Vitelli vuelven a Oslo/Soder. La
+             grifería negra se describe solo en el piloto. Las imágenes
+             ocultas de precarga se excluyen de la lectura accesible.
+
+             Validación: 66 pruebas aprobadas; TypeScript sin errores; ESLint
+             sin errores y 13 advertencias previas. Navegador: cambio entre
+             lavamanos, vuelta al catálogo original y su apertura, selección
+             inválida por URL y móvil de 375 px sin desborde horizontal.
+             No se gastaron créditos adicionales durante la integración.
 ================================================================================
+
+20/11/2026 - Corrección del piloto de Alejandro a capas independientes.
+             Sustituye la implementación anterior de dos fotografías completas.
+             Un único ambiente vacío (Ventana cálida A / microcemento), persistente
+             en el DOM; lavamanos con grifería negra, mueble y sombra separados.
+             La cámara 3/4 y el marco son compartidos, sin reajustes por producto.
+             Solo se muestra la combinación activa, según la elección del usuario.
+
+             Piloto disponible: Vitelli y Tiziano, Soder, cerrados; Oslo y Génova.
+             Cuatro parejas verificadas en Matriz de compatibilidad BAÑOS 2025,
+             páginas 1 y 3. Los otros renders se conservan en el archivo de assets,
+             pero no se ofrecen cruces sin capas y compatibilidad verificadas.
+             URLs anteriores fuera del piloto se normalizan a una selección válida.
+             Los menús, tarjetas, cotización y otras visualizaciones se conservan.
+
+             Tiziano: OBJ y MTL proporcionados por el usuario desde Downloads.
+             Fuente conservada en assets-fuente/generativo-63x48/piloto-capas/modelos/.
+             18 cuerpos, Z arriba, cm a m (0.01), centro X y trasera Y alineados
+             al Vitelli, tapa a Z=0.48 m. Se preserva la topología original; acabado
+             Soder del catálogo. No se deforma un PNG ni se inventa geometría con IA.
+             Vitelli y lavamanos: GLB existente y pulido previamente aprobado,
+             segmentado con máscaras del modelo. El grifo pertenece al lavamanos.
+
+             Producción reproducible (Blender 5.3, Cycles HIP):
+             1. scripts/modelos-3d/render-vitelli-capas.py
+             2. python scripts/mix-match/separar-vitelli-capas.py
+             3. scripts/modelos-3d/render-tiziano-capas.py
+             4. scripts/modelos-3d/render-sombras-capas.py
+             5. python scripts/mix-match/publicar-capas-piloto.py
+             Los scripts Blender se ejecutan con blender -b --python <script>.
+             Dependencia: escena aprobada referencia-ambiente-34-v3-completo.blend
+             y fondos/pulidos en piloto-ventana-calida-34, conservados en el repo.
+             Las sombras se renderizan a 1800x1200 sobre todo el ambiente y se
+             resta su contribución sin producto; no se recortan al marco de pieza.
+             Imágenes WebP con SHA-256 en URL, manifiesto capas-63x48/manifest.json.
+             Las composiciones completas quedan para revisión en assets-fuente;
+             el visor web solo carga sus siete capas. Créditos adicionales: 0.
+
+             Validación: 62 pruebas unitarias / 9 suites; 2 pruebas E2E en Chrome;
+             TypeScript sin errores; ESLint sin errores y 13 advertencias previas.
+             E2E: npx playwright test pruebas-e2e/opcionD.spec.ts --workers=1.
+             La rotación por las cuatro parejas conserva el mismo nodo de fondo y
+             la pieza no seleccionada, sin nuevas peticiones de imágenes de escena.
+             Galerías limitadas, URL incompatible normalizada, scrollLeft=0.
+             Revisado a 375x812, 768x1024, 1440x900 y 1920x1080; sin recortes del
+             producto ni desborde horizontal. Los cuatro controles miden 44x44px.
+             QA de assets: 0 píxeles alterados fuera de las capas de lavamanos al
+             intercambiarlos. Auditoría de seguridad y Bug Enforcer aplicados.
+             Los cambios quedan en localhost:3000, sin commit, push ni despliegue.
+             Geometría Tiziano: IoU de silueta 0.9751 contra el render de catálogo
+             (meta 0.94), con escala uniforme y traslación solo para comparar.
+
+20/11/2026 - Transición lateral solicitada para los productos del piloto.
+             Al avanzar, la pieza activa sale por la izquierda y la siguiente
+             entra desde la derecha; retroceder invierte ese recorrido. Se aplica
+             a cada fila de forma independiente, también al dar la vuelta con
+             dos opciones, seleccionar en galería o usar el gesto horizontal.
+             El ambiente y la pieza no seleccionada conservan su nodo y posición.
+
+             Dirección y selección se actualizan juntas para no perder el sentido
+             en clics rápidos. Resorte críticamente amortiguado, sin rebote, con
+             posición y velocidad heredadas al invertir una transición en curso.
+             Web Animations sobre transform/opacity; sin dependencias nuevas ni
+             actualizaciones React por fotograma. Las animaciones se cancelan y
+             limpian al finalizar, desmontar o activar movimiento reducido.
+             Las sombras conservan su proyección y solo varían de intensidad al
+             salir/llegar el mueble: no se traslada una placa de pared/piso.
+             Movimiento reducido: sustitución estática, sin deslizamiento.
+
+             Validación: 66 unitarias en 10 suites y 3 E2E; TypeScript sin errores;
+             lint sin errores (13 advertencias previas del repositorio). Se pausa
+             la animación a mitad del recorrido para comprobar entrada, salida,
+             opacidad del producto, inversión sin salto, recorrido circular,
+             fondo persistente, sombra fija y gesto horizontal a 375px.
+             Se conservan las pruebas de encuadre móvil/tableta/escritorio y los
+             controles de 44px. Bug Enforcer y revisión UX aplicados.
+             Cambios locales en localhost:3000, sin commit, push ni despliegue.

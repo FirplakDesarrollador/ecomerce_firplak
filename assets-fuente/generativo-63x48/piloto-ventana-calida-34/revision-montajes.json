@@ -1,0 +1,24 @@
+{
+  "oslo": {
+    "product_bbox": [
+      310,
+      239,
+      1356,
+      1416
+    ],
+    "furniture_pixels": 525032,
+    "shadow_max": 1.0,
+    "shadow_pixels": 2316611
+  },
+  "genova": {
+    "product_bbox": [
+      315,
+      239,
+      1376,
+      1416
+    ],
+    "furniture_pixels": 520292,
+    "shadow_max": 1.0,
+    "shadow_pixels": 2243615
+  }
+}

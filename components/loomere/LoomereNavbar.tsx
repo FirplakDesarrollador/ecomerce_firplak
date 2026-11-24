@@ -106,6 +106,45 @@ const PRODUCT_LINES: ProductLine[] = [
   },
 ];
 
+/**
+ * Menu simplificado de la visualizacion de Alejandro (directCategories): cuatro
+ * lineas. Las que no tienen subcategorias llevan directo a su pagina.
+ */
+const LINEAS_ALEJANDRO: ProductLine[] = [
+  {
+    id: 'hidromasajes',
+    title: 'hidromasajes & spas',
+    url: '/categoria-producto/jacuzzis-e-hidromasajes/',
+    subcategories: [
+      { title: 'hidromasajes indor', url: '/categoria-producto/jacuzzis-e-hidromasajes/1-persona/' },
+      { title: 'multipersonales', url: '/categoria-producto/jacuzzis-e-hidromasajes/multipersonales/' },
+      { title: 'turcos & saunas', url: '/categoria-producto/zona-outdoor/saunas/' },
+    ]
+  },
+  {
+    id: 'lavamanos',
+    title: 'lavamanos & muebles',
+    url: '/categoria-producto/banos/combos-lavamanos-con-mueble/',
+    subcategories: []
+  },
+  {
+    id: 'lavarropas',
+    title: 'lavarropas & muebles',
+    url: '/categoria-producto/zona-de-ropas/combos-lavaderos/',
+    subcategories: []
+  },
+  {
+    id: 'cocinas',
+    title: 'cocinas',
+    url: '/categoria-producto/cocinas-integrales/',
+    subcategories: [
+      { title: 'cocinas integrales', url: '/categoria-producto/cocinas-integrales/cocinas-integrales-cocinas-integrales/' },
+      { title: 'cocinas modulares', url: '/categoria-producto/cocinas-integrales/muebles-solos-cocinas/' },
+      { title: 'lavaplatos', url: '/categoria-producto/cocinas-integrales/lavaplatos/' },
+    ]
+  },
+];
+
 export default function LoomereNavbar({
   currentSceneIndex,
   onOpenMegamenu,
@@ -117,7 +156,8 @@ export default function LoomereNavbar({
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const activeLine = PRODUCT_LINES.find(l => l.id === selectedCategory);
+  const lineas = directCategories ? LINEAS_ALEJANDRO : PRODUCT_LINES;
+  const activeLine = lineas.find(l => l.id === selectedCategory);
 
   const handleTopAccess = (title: string, url: string, category: string) => {
     triggerAccessFeedback({
@@ -165,7 +205,8 @@ export default function LoomereNavbar({
         {/* Header Único: Navegación Principal con Marca FIRPLAK */}
         <div
           className={`max-w-[1620px] mx-auto px-4 sm:px-8 flex items-center justify-between relative transition-all duration-300 ${
-            directCategories ? 'h-12 sm:h-[60px]' : 'h-16 sm:h-20'
+            // Alejandro: header 20 % mas bajo (movil 48 -> 38 px, escritorio 60 -> 48 px).
+            directCategories ? 'h-[38px] sm:h-12' : 'h-16 sm:h-20'
           }`}
         >
 
@@ -365,10 +406,12 @@ export default function LoomereNavbar({
             <div
               className="max-w-[1620px] mx-auto px-4 sm:px-8 relative transition-all duration-300"
               style={{
-                paddingTop: directCategories ? '12px' : '16px',
+                // Alejandro: franja de lineas con menos aire (header total 135 -> 108 px);
+                // los botones conservan 44 px de alto para tocarlos bien.
+                paddingTop: directCategories ? '6px' : '16px',
                 paddingBottom: activeLine
-                  ? (directCategories ? '16px' : '22px')
-                  : (directCategories ? '18px' : '24px')
+                  ? (directCategories ? '8px' : '22px')
+                  : (directCategories ? '9px' : '24px')
               }}
             >
               <nav
@@ -378,9 +421,33 @@ export default function LoomereNavbar({
                 }`}
                 style={{ justifyContent: 'space-evenly' }}
               >
-                {PRODUCT_LINES.map((line) => {
+                {lineas.map((line) => {
                   const isSelected = selectedCategory === line.id;
                   const isDimmed = selectedCategory !== null && !isSelected;
+                  const claseLinea = `min-h-[44px] py-1 px-3 rounded-lg transition-all duration-200 text-center sm:text-left whitespace-nowrap lowercase cursor-pointer flex items-center justify-center ${isSelected
+                    ? 'text-white font-semibold opacity-100'
+                    : isDimmed
+                      ? 'text-white/50 opacity-50 hover:opacity-75 hover:text-white/80'
+                      : 'text-white/85 hover:text-white opacity-100 font-medium'
+                    }`;
+
+                  // Linea sin subcategorias: enlace directo a su pagina.
+                  if (line.subcategories.length === 0) {
+                    const url = urlLavamanosMuebles && line.id === 'lavamanos' ? urlLavamanosMuebles : line.url;
+                    return (
+                      <Link
+                        key={line.id}
+                        href={url}
+                        onClick={() => {
+                          setSelectedCategory(null);
+                          handleTopAccess(line.title, url, 'Líneas de producto');
+                        }}
+                        className={claseLinea}
+                      >
+                        <span>{line.title}</span>
+                      </Link>
+                    );
+                  }
 
                   return (
                     <button
@@ -415,8 +482,8 @@ export default function LoomereNavbar({
                   <div
                     className="border-t border-white/15"
                     style={{
-                      marginTop: directCategories ? '12px' : '16px',
-                      paddingTop: directCategories ? '15px' : '20px'
+                      marginTop: directCategories ? '8px' : '16px',
+                      paddingTop: directCategories ? '10px' : '20px'
                     }}
                   >
                     <nav

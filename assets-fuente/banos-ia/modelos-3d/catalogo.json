@@ -1,0 +1,164 @@
+{
+  "actualizado": "2026-11-23",
+  "notas": {
+    "muebles/pollock-63x48": "piezas por separado; ensamblar con ensamble.json"
+  },
+  "modelos": [
+    {
+      "tipo": "kits",
+      "archivo": "kits/doha-meca-ensamble-doha.stl",
+      "bytes": 3249584,
+      "sha256": "f097f19796fef00d"
+    },
+    {
+      "tipo": "kits",
+      "archivo": "kits/doha-meca-ensamble-meca.stl",
+      "bytes": 3976884,
+      "sha256": "5dc7b024c8afc9d2"
+    },
+    {
+      "tipo": "kits",
+      "archivo": "kits/doha-meca-meson-qz-63x48.stl",
+      "bytes": 38484,
+      "sha256": "0c26da7ccb76302c"
+    },
+    {
+      "tipo": "kits",
+      "archivo": "kits/doha-meca-salpicadero-qz-63x48.stl",
+      "bytes": 684,
+      "sha256": "0712b2aa9256a586"
+    },
+    {
+      "tipo": "kits",
+      "archivo": "kits/vitelli-63-oslo.glb",
+      "bytes": 707752,
+      "sha256": "b2cb26249bf8ab8d"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/bari-63x48.stl",
+      "bytes": 1110484,
+      "sha256": "445d929a366a748c"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/doha-meca-vessel-doha-45x33.stl",
+      "bytes": 3210584,
+      "sha256": "162658317f331631"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/doha-meca-vessel-meca-35x35.stl",
+      "bytes": 3937884,
+      "sha256": "bb450f9dd19a4b30"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/genova-63x48.stl",
+      "bytes": 1076484,
+      "sha256": "955129f6b77b900d"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/oasis-meson-63x48.stl",
+      "bytes": 684884,
+      "sha256": "5957de3d829c09a0"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/oslo-63x48.stl",
+      "bytes": 1757284,
+      "sha256": "224bcad283b641ef"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/parma-63x48.stl",
+      "bytes": 3665184,
+      "sha256": "f72f1e42c3152c0c"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/quadratto-63x48.stl",
+      "bytes": 6225384,
+      "sha256": "ccc0734d3bb08a4e"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/siena-63x48.stl",
+      "bytes": 1374184,
+      "sha256": "4c97de0704ed6e59"
+    },
+    {
+      "tipo": "lavamanos",
+      "archivo": "lavamanos/trentino-63x48.stl",
+      "bytes": 1900084,
+      "sha256": "c17a9f9a69d0bd51"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/cuerpo-base.stl",
+      "bytes": 73484,
+      "sha256": "ff481f0a76c923c2"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/cuerpo-entrepano.stl",
+      "bytes": 106284,
+      "sha256": "e00e722388a818ec"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/cuerpo-lat-der.stl",
+      "bytes": 116284,
+      "sha256": "9e9a01e973bcb201"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/cuerpo-lat-izq.stl",
+      "bytes": 116284,
+      "sha256": "1647fd1f20c73679"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/cuerpo-ref-del.stl",
+      "bytes": 64284,
+      "sha256": "156e432f4c9ae3c5"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/cuerpo-ref-tras.stl",
+      "bytes": 97284,
+      "sha256": "2d3bf6c3679602b2"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/manija-1.stl",
+      "bytes": 34684,
+      "sha256": "24de68fde000d132"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/manija-2.stl",
+      "bytes": 34684,
+      "sha256": "24de68fde000d132"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/puerta-der.stl",
+      "bytes": 48684,
+      "sha256": "c03076645c9ce4a0"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/pollock-63x48/puerta-izq.stl",
+      "bytes": 48684,
+      "sha256": "abf58adefb520d2e"
+    },
+    {
+      "tipo": "muebles",
+      "archivo": "muebles/tiziano-63x48.obj",
+      "bytes": 1830743,
+      "sha256": "f87fb138c7d91076"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "source": "Capas STL de Autodesk Fusion renderizadas en la escena aprobada (fuente-lavamanos-stl.json)",
+  "new_basins": [
+    "bari",
+    "siena",
+    "trentino"
+  ],
+  "verified_pairs": 9,
+  "new_generation_credits": 0,
+  "approved_assets_unchanged": true,
+  "pairs": {
+    "vitelli-bari": "firplak.com, LAVAMANOS BARI + MUEBLE VITELLI 63X48, consultado 2026-11-23",
+    "vitelli-genova": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3",
+    "vitelli-oslo": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3",
+    "vitelli-siena": "firplak.com, LAVAMANOS SIENA + MUEBLE VITELLI 63X48, consultado 2026-11-23",
+    "vitelli-trentino": "firplak.com, LAVAMANOS TRENTINO + MUEBLE VITELLI 63X48, consultado 2026-11-23",
+    "tiziano-genova": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3",
+    "tiziano-oslo": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3",
+    "tiziano-siena": "firplak.com, LAVAMANOS SIENA + MUEBLE TIZIANO 63X48, consultado 2026-11-23",
+    "tiziano-trentino": "firplak.com, LAVAMANOS TRENTINO + MUEBLE TIZIANO 63X48, consultado 2026-11-23"
+  },
+  "sink_swap_change_outside_sink": {
+    "vitelli:bari->genova": 0,
+    "vitelli:bari->oslo": 0,
+    "vitelli:bari->siena": 0,
+    "vitelli:bari->trentino": 0,
+    "vitelli:genova->oslo": 0,
+    "vitelli:genova->siena": 0,
+    "vitelli:genova->trentino": 0,
+    "vitelli:oslo->siena": 0,
+    "vitelli:oslo->trentino": 0,
+    "vitelli:siena->trentino": 0,
+    "tiziano:genova->oslo": 0,
+    "tiziano:genova->siena": 0,
+    "tiziano:genova->trentino": 0,
+    "tiziano:oslo->siena": 0,
+    "tiziano:oslo->trentino": 0,
+    "tiziano:siena->trentino": 0
+  },
+  "background_change_outside_product_and_shadow": {
+    "vitelli-bari": 0,
+    "vitelli-genova": 0,
+    "vitelli-oslo": 0,
+    "vitelli-siena": 0,
+    "vitelli-trentino": 0,
+    "tiziano-genova": 0,
+    "tiziano-oslo": 0,
+    "tiziano-siena": 0,
+    "tiziano-trentino": 0
+  }
+}

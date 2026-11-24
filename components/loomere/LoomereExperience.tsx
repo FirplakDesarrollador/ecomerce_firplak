@@ -8,6 +8,7 @@ import LoomereOverlay from './LoomereOverlay';
 import LoomereProductDrawer from './LoomereProductDrawer';
 import LoomereCatalogModal from './LoomereCatalogModal';
 import LoomereMegamenu from './LoomereMegamenu';
+import { RUTA_ESTUDIO_D } from '@/components/banos-muebles/rutas';
 import LoomereCursorPriceTag from './LoomereCursorPriceTag';
 import FirplakFeaturedOffers from '@/components/home/FirplakFeaturedOffers';
 import FirplakGlobalFooter from '@/components/layout/FirplakGlobalFooter';
@@ -173,6 +174,7 @@ export default function LoomereExperience() {
               setIsCatalogOpen(false);
               setIsDrawerOpen(false);
             }}
+            urlLavamanosMuebles={RUTA_ESTUDIO_D}
           />
 
           {/* Video & Image Background Layers */}

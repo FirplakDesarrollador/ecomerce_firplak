@@ -1,0 +1,12 @@
+{
+  "source": "CAMBIO DE RADIOS MBL LVM TIZIANO 63X48.obj",
+  "source_units": "cm",
+  "up_axis": "Z",
+  "source_parts": 18,
+  "metres_scale": 0.01,
+  "top_z_metres": 0.48,
+  "finish": "Soder",
+  "geometry_modified": false,
+  "ai_generation": false,
+  "camera_changed": false
+}

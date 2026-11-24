@@ -1,0 +1,9 @@
+{
+  "asset_checks_only": true,
+  "browser_integration_tested": false,
+  "max_rgb_change_outside_sink_union": 0,
+  "cabinet_has_faucet_pixels": false,
+  "transparent_product_layers": 3,
+  "unchanged_environment_and_cabinet_during_sink_swap": true,
+  "tiziano_render_pending": true
+}

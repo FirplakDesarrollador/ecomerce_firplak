@@ -1,0 +1,15 @@
+{
+  "source": "OBJ Tiziano proporcionado por el usuario; GLB Vitelli existente",
+  "verified_pairs": 4,
+  "new_generation_credits": 0,
+  "background_change_outside_product_and_shadow": {
+    "vitelli-oslo": 0,
+    "vitelli-genova": 0,
+    "tiziano-oslo": 0,
+    "tiziano-genova": 0
+  },
+  "sink_swap_change_outside_sink": {
+    "vitelli": 0,
+    "tiziano": 0
+  }
+}

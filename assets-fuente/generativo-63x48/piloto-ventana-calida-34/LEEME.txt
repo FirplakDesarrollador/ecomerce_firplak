@@ -1,0 +1,87 @@
+Piloto 63 x 48 — preparacion local, 19/11/2026
+Flujo: 87890707-bd52-40a7-bda6-99f11af439a5 (main).
+Seleccion acordada: Vitelli flotante, Soder, Oslo y Genova blancos,
+grifo negro, cerrado; camara 3/4; ventana calida.
+
+Los PNG de producto provienen de Blender, del GLB existente vitelli-63.glb.
+Se reutilizaron las correcciones de bisagras, normales y copia duplicada de Genova.
+La camara usa el preset de referencia (-29 grados, elevacion 30, lente 100 mm).
+Es una propuesta de camara pendiente de revision visual; no se afirma calibracion
+al pixel contra los PNG comerciales. Los lavamanos usan la misma camara.
+El ambiente conserva esa posicion, con lente 45 mm y shift vertical para el espejo.
+
+revision-productos.png: hoja de revision sobre fondo neutro.
+greybox-ventana-calida-34-encuadre.blend/png: cuarto vacio para referencia de IA.
+piloto.json: parametros de camara, referencias y estimacion de costos.
+
+Cotizacion consultada en Higgsfield: gpt_image_2_6, high, 2k, 2.75 creditos/imagen.
+Plan maximo: 2 fondos + 2 intentos Oslo + 2 intentos Genova = 16.5 creditos.
+Pendientes: aprobar camara/geometria y gasto; generar y elegir fondo; congelarlo;
+montar productos; pulir; controlar geometria/color; aprobar antes de integrar en web.
+No se enviaron trabajos generativos ni se modifico la UI del prototipo.
+
+Actualizacion de fondos:
+Se completaron los trabajos 272cf346-e7d2-4e13-a985-c92cb2d546bc (A)
+y 76685791-7310-4392-91b4-1560f85b2bcb (B), en Higgsfield.
+Prompts y referencias: generaciones-fondos.json. Comparacion: comparacion-fondos.png.
+Costo estimado de la tanda: 5.5 creditos; limite total autorizado: 16.5.
+A/B sirven para elegir material. El primer encuadre de ambiente (45 mm) no cubria
+el mueble completo; se preparo referencia v3 (35 mm) sin mover la camara aprobada
+del producto. encuadre-v3.json verifica que el recorte entero cabe en el fondo.
+Siguiente paso tras la eleccion: generar el fondo del estilo elegido con v3,
+validar y congelar; reservar el resto del presupuesto para Oslo/Genova.
+No generar nuevamente los dos trabajos completados ni integrarlos aun en la web.
+
+PILOTO TERMINADO — 20/11/2026
+El usuario eligio A (microcemento) y aprobo producto, camara y hasta 16.5 creditos.
+Se genero un fondo con encuadre completo (trabajo 9586dce3-e41c-4947-9419-480e08a2f1fe).
+La placa normalizada fondo-A-placa.png se conserva fija. No regenerarla.
+Pulidos: Oslo f58ce011-eef5-4c98-ae6c-56be5a4b84f8;
+Genova db057ec0-f42f-4355-8de3-7407dbf8abc8. Prompts: generaciones-productos.json.
+Se hicieron 5 generaciones en todo el piloto, estimadas en 13.75 creditos.
+Margen sin consumir: 2.75 creditos. No hay trabajos pendientes ni reintentos enviados.
+
+ENTREGA (carpeta entrega/)
+- vitelli-soder-oslo-final.png/.webp y vitelli-soder-genova-final.png/.webp:
+  imagenes compuestas de 1600x1600 para revision visual.
+- fondo-fijo.png: placa con sombra comun; se conserva igual en ambas combinaciones.
+- conjunto-oslo.png / conjunto-genova.png: capas transparentes de los productos.
+- mueble-fijo.png / mascara-mueble-comun.png: madera compartida y zona visible comun.
+- comparacion-final.png y cambio-oslo-genova.gif: revision de las dos variantes.
+- control-calidad.json: mediciones y SHA-256 de los archivos finales.
+
+CONTROL
+Bordes del pulido original conservados a <=3px: Oslo 98.3%, Genova 97.3%;
+umbral del flujo 95%. Desplazamiento global: (0,0) en ambos.
+El color de la madera se normalizo por material contra el render de Blender;
+DeltaE de la media del material: aproximadamente 0.10 / 0.52 (meta <=2).
+No es una medicion por pixel ni una certificacion colorimetrica del acabado fisico.
+508522 pixeles interiores de madera visibles en ambos productos son identicos
+(diferencia RGB maxima 0). El fondo fuera de las siluetas tambien es identico.
+Se conserva alfa de Blender, se consolidan como opacos interiores de madera y se
+reponen los bordes originales para evitar contaminacion de pared/sombra.
+La mascara sigue la junta inclinada de 3/4, en vez de usar una costura horizontal.
+La sombra comun evita que la sombra del Oslo aparezca como una franja negra
+junto al Genova. El GIF usa la misma paleta, sin dithering, para evitar parpadeos.
+
+REPRODUCCION Y AUDITORIA
+Scripts locales del piloto: reproduccion/. Reutilizan las funciones de la rama
+claude/bulk-3d-renders-coherence-6da73f sin modificar ese worktree.
+Verificacion: renders y mascaras completos, control de limites, color y continuidad,
+relectura de entregables y comprobacion de hashes. Reglas Bug Enforcer revisadas:
+producto real, duplicado Genova oculto, color corregido y referencias de camara fijas.
+Seguridad: solo archivos locales y referencias enviadas a Higgsfield con autorizacion;
+sin claves en scripts ni cambios de base de datos, rutas web, menus o UI.
+
+PENDIENTE
+Aprobacion final del usuario por ambiente, como exige el flujo main:
+"Aprobacion final del usuario por ambiente". Hasta recibirla, no sustituir los
+assets del sitio ni presentar las imagenes como publicadas.
+
+Integracion local aprobada y completada el 20/11/2026:
+Vitelli aparece en el selector de Alejandro y queda seleccionado al abrir.
+Disponibilidad: Soder, Oslo/Genova, cerrado. Griferia negra.
+66 pruebas y TypeScript correctos; navegador verificado en escritorio/movil.
+Los WebP publicados son sin perdida y sus nombres incluyen hash de contenido.
+La aprobacion visual y la confirmacion de cambio de catalogo quedan registradas
+en piloto.json. La integracion se sirve en localhost:3000; no hay deploy remoto.

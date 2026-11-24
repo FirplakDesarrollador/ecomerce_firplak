@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Layers, Sparkles, Users, RefreshCw, Infinity as InfinityIcon } from 'lucide-react';
+import SelectorFlotante from '@/components/ui/SelectorFlotante';
 
 // Carga dinámica de las 3 experiencias de diseño
 // 1. Alejandro (Loomere)
@@ -104,9 +105,11 @@ export default function LandingSwitcher() {
       {activeVersion === 'ricardo-loop' && <RicardoLoopExperience />}
 
       {/* CONTROL FLOTANTE INFORMATIVO & CONMUTADOR RÁPIDO */}
-      <aside
-        aria-label="Selector de versión de propuesta de diseño"
-        className="fixed bottom-4 right-4 z-50 flex items-center gap-1.5 sm:gap-2 bg-black/90 backdrop-blur-xl border border-white/20 p-1.5 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.85)] text-xs text-white max-w-[calc(100vw-2rem)] overflow-x-auto"
+      {/* Colapsado en un icono redondo: se expande al pasar el mouse (o al tocarlo en movil) */}
+      <SelectorFlotante
+        etiqueta="Selector de versión de propuesta de diseño"
+        className="bottom-4"
+        icono={<Layers className="h-5 w-5" aria-hidden />}
       >
         <div className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium text-amber-300 shrink-0">
           <RefreshCw className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '8s' }} />
@@ -172,7 +175,7 @@ export default function LandingSwitcher() {
           <InfinityIcon className="w-3.5 h-3.5" />
           <span>Ricardo · Loop</span>
         </button>
-      </aside>
+      </SelectorFlotante>
     </main>
   );
 }

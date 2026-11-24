@@ -1,0 +1,26 @@
+{
+  "camara": {
+    "pos_m": [
+      0.0,
+      -2.819000005722046,
+      1.2999999523162842
+    ],
+    "rot_rad": [
+      1.4727510213851929,
+      -0.0,
+      0.0
+    ],
+    "lente_mm": 35,
+    "sensor": "vertical 36 mm",
+    "resolucion": [
+      1024,
+      1536
+    ]
+  },
+  "producto": {
+    "cubierta_lavamanos_m": 0.86,
+    "base_mueble_m": 0.31999999999999995,
+    "pared_y_m": 0.231,
+    "griferia": "monocomando gen\u00e9rico procedural, negro mate, en perforaci\u00f3n del Oslo"
+  }
+}

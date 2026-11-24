@@ -1,0 +1,70 @@
+{
+  "tope_parte1": 20,
+  "saldo_inicial": 2143.85,
+  "trabajos": [
+    {
+      "job": "4d71f85a-f379-4ccf-ba37-7a6aecb2f49e",
+      "modelo": "flux_3_image 1k",
+      "creditos_cotizados": 2,
+      "parte": 1,
+      "uso": "placa de ambiente vacía"
+    },
+    {
+      "job": "eba559a7-0dc6-4c1f-8574-02db3def8367",
+      "modelo": "flux_3_image 1k (descartada)",
+      "creditos_cotizados": 2,
+      "parte": 1,
+      "uso": "placa de ambiente vacía"
+    },
+    {
+      "job": "cba6a9ed-ed67-4aca-bda0-9038a1d46be0",
+      "modelo": "gpt_image_2_6 medium 1k",
+      "creditos_cotizados": 1,
+      "parte": 1,
+      "uso": "placa de ambiente vacía"
+    },
+    {
+      "job": "9d8f1ead-6d87-4d0e-bbdf-4aff921ed609",
+      "modelo": "gpt_image_2_6 medium 1k",
+      "creditos_cotizados": 1,
+      "parte": 1,
+      "uso": "placa de ambiente vacía"
+    },
+    {
+      "job": "ab635800-635f-47d9-b4a0-837959553e04",
+      "modelo": "gpt_image_2_6 medium 2k",
+      "creditos_aprox": 1.75,
+      "parte": 1,
+      "uso": "ronda 1 · APROBADA en control"
+    },
+    {
+      "job": "e2c99b0b-699f-4718-b8e9-d39b66414a58",
+      "modelo": "gpt_image_2_6 medium 2k",
+      "creditos_aprox": 1.75,
+      "parte": 1,
+      "uso": "ronda 1 · rechazada: amplió la ducha"
+    },
+    {
+      "job": "cf753ca2-bdae-4a2b-834b-1851a873bc27",
+      "modelo": "flux_3_image 1.5k",
+      "creditos_aprox": 2,
+      "parte": 1,
+      "uso": "ronda 1 · rechazada: quitó el tapete"
+    },
+    {
+      "job": "f81666b9-8982-4c73-8075-7d73e5c7fb8c",
+      "modelo": "flux_3_image 1.5k",
+      "creditos_aprox": 2,
+      "parte": 1,
+      "uso": "ronda 1 · rechazada: quitó el espejo y amplió la ducha"
+    }
+  ],
+  "gastado_parte1": 6,
+  "gastado_parte1_real": 13.5,
+  "saldo_actual": 2130.35,
+  "parte2": {
+    "tope": 0,
+    "gastado": 0,
+    "nota": "retoque final 100% local (Blender + composición); sin generaciones IA"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "status": "integrated_local_review",
+  "url": "http://localhost:3000/categoria-producto/banos/combos-lavamanos-con-mueble/mix-match",
+  "environment": "Ventana cálida A / microcemento",
+  "cabinets": [
+    "vitelli",
+    "tiziano"
+  ],
+  "basins": [
+    "oslo",
+    "genova",
+    "bari",
+    "siena",
+    "trentino"
+  ],
+  "finish": "soder",
+  "state": "cerrado",
+  "verified_pairs": 9,
+  "unit_tests_passed": 67,
+  "browser_tests_passed": 4,
+  "typescript": "passed",
+  "eslint_errors": 0,
+  "eslint_preexisting_warnings": 13,
+  "new_credits": 0,
+  "pending_source_files": [],
+  "tiziano_source_sha256": "f87fb138c7d910764241979724e1d3a5c3454736920c9f001641f52d951008cb",
+  "production_deployed": false,
+  "transition": "directional-slide",
+  "reduced_motion": "static",
+  "interruptible": true,
+  "pairs": {
+    "vitelli": [
+      "oslo",
+      "genova",
+      "bari",
+      "siena",
+      "trentino"
+    ],
+    "tiziano": [
+      "oslo",
+      "genova",
+      "siena",
+      "trentino"
+    ]
+  },
+  "not_offered": {
+    "tiziano+quadratto": "pendiente de decisión del usuario (VIBEWORKFLOW: no ofrecible)",
+    "tiziano+bari": "no publicado en firplak.com",
+    "parma/quadratto/oasis/doha": "sin cruce verificado en este piloto"
+  },
+  "new_basins_source": "STL Autodesk Fusion 63x48, render PBR en referencia-ambiente-34-v3-completo.blend, sin pulido IA (IoU Oslo STL vs aprobado 0,9983)",
+  "new_basins_publish_script": "scripts/mix-match/publicar-capas-lavamanos-nuevos.py (aditivo; no re-ejecuta publicar-capas-piloto.py)",
+  "independence_check": "validacion-cruces-stl.json: cambio fuera del lavamanos 0 y fondo fuera de producto/sombra 0 en los 9 cruces",
+  "browser_evidence": [
+    "navegador-escritorio-{vitelli-bari,vitelli-siena,vitelli-trentino,tiziano-siena,tiziano-trentino}.png",
+    "navegador-movil-*.png",
+    "navegador-stl-escritorio.png",
+    "navegador-stl-movil.png",
+    "transicion-mueble-trentino.png",
+    "transicion-lavamanos-trentino-oslo.png"
+  ],
+  "pending": [
+    "Trentino sin perforación de grifería en su CAD; se muestra con grifo (por confirmar)",
+    "Capas nuevas sin pulido IA: pueden verse algo más mates que Oslo/Génova",
+    "Tiziano+Quadratto pendiente de decisión"
+  ],
+  "updated": "2026-11-23"
+}

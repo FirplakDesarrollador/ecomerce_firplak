@@ -1,0 +1,63 @@
+{
+  "raw_geometry": {
+    "oslo": {
+      "lines_3px": 0.983,
+      "lines_8px": 0.996,
+      "global_offset_px": [
+        0,
+        0
+      ]
+    },
+    "genova": {
+      "lines_3px": 0.973,
+      "lines_8px": 0.99,
+      "global_offset_px": [
+        0,
+        0
+      ]
+    }
+  },
+  "pipeline": "Per-material Lab correction with actual projected furniture masks (no horizontal seam); shared furniture and background; original Blender alpha preserved.",
+  "oslo": {
+    "mean_material_deltaE": 0.1036181922917043,
+    "product_bbox": [
+      310,
+      239,
+      1356,
+      1416
+    ],
+    "resolution": [
+      1600,
+      1600
+    ]
+  },
+  "genova": {
+    "mean_material_deltaE": 0.5231734508646735,
+    "product_bbox": [
+      315,
+      239,
+      1376,
+      1416
+    ],
+    "resolution": [
+      1600,
+      1600
+    ]
+  },
+  "shared_furniture_pixels": 508522,
+  "max_furniture_rgb_difference": 0,
+  "background_max_rgb_difference": 0,
+  "files_sha256": {
+    "cambio-oslo-genova.gif": "47792820643e9646a2b006cc788b03da574d90f8718625529da0257d4fda3069",
+    "comparacion-final.png": "c1a73a8135f56a1fc497df085ec430b192621984c6ce334d02632720f7949b56",
+    "conjunto-genova.png": "6d78d2fd06fc03bacc4f4ee53be130ac50e3093ce336b88977cb6513bc74d3e5",
+    "conjunto-oslo.png": "4365aab01d802edd3eae35b92819c4e251b6f3f1661a7a86c03bfcfd2bd52013",
+    "fondo-fijo.png": "208683f0f83b3a90421159e1572c212c177a6d10282655755abe32a27621be0d",
+    "mascara-mueble-comun.png": "2af59ea9b3aa49aecd24774f8627c1382c2395dd3a1f841c1c4e4a2089eeb88e",
+    "mueble-fijo.png": "7ba037fca197ca8042e799d44c637da2904fa61b601d18f462275734f2e6ca30",
+    "vitelli-soder-genova-final.png": "eaf4a4018a7de915b6b758d94afca6c3467564010789a59850b1c31824a0d9a0",
+    "vitelli-soder-genova-final.webp": "89ddba2a42eff05c5c9e689b69c8447648775e544833f5ff472f41ed2922cbc8",
+    "vitelli-soder-oslo-final.png": "a9e2a89c5ed53b0e0ab615b189de0e594f7e3749a51d9330d407e9e5221efa0c",
+    "vitelli-soder-oslo-final.webp": "aee51d85ba7b9315871a9e54a6a5118ea96941e74c81de481ebac2f2d00cc6a3"
+  }
+}

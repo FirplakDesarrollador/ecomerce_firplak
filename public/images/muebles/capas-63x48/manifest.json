@@ -1,0 +1,170 @@
+{
+  "version": 2,
+  "environment": {
+    "id": "ventana-calida-microcemento",
+    "src": "/images/muebles/capas-63x48/ambiente.c4aeca5a04d2.webp",
+    "width": 1800,
+    "height": 1200
+  },
+  "product_frame": {
+    "x": 585,
+    "y": 537.2218734025955,
+    "width": 630,
+    "height": 630,
+    "resolution": 1600
+  },
+  "shadow_frame": {
+    "x": 0,
+    "y": 0,
+    "width": 1800,
+    "height": 1200
+  },
+  "basins": {
+    "oslo": {
+      "src": "/images/muebles/capas-63x48/lavamanos-oslo.afb9e87c7272.webp",
+      "faucet": "Negro",
+      "bounds": [
+        311,
+        239,
+        1355,
+        1414
+      ]
+    },
+    "genova": {
+      "src": "/images/muebles/capas-63x48/lavamanos-genova.c3e46582ab4f.webp",
+      "faucet": "Negro",
+      "bounds": [
+        316,
+        239,
+        1376,
+        1414
+      ]
+    },
+    "bari": {
+      "src": "/images/muebles/capas-63x48/lavamanos-bari.a3dc4ae86a88.webp",
+      "faucet": "Negro",
+      "bounds": [
+        310,
+        251,
+        1357,
+        863
+      ]
+    },
+    "siena": {
+      "src": "/images/muebles/capas-63x48/lavamanos-siena.827dde917c8c.webp",
+      "faucet": "Negro",
+      "bounds": [
+        312,
+        246,
+        1354,
+        863
+      ]
+    },
+    "trentino": {
+      "src": "/images/muebles/capas-63x48/lavamanos-trentino.f8a4046e3a14.webp",
+      "faucet": "Negro",
+      "bounds": [
+        316,
+        275,
+        1347,
+        859
+      ]
+    }
+  },
+  "cabinets": {
+    "vitelli": {
+      "soder": {
+        "cerrado": {
+          "src": "/images/muebles/capas-63x48/vitelli-soder-cerrado.8b4530990ddc.webp",
+          "shadow": "/images/muebles/capas-63x48/sombra-vitelli.8e2f93d207eb.webp",
+          "bounds": [
+            315,
+            411,
+            1347,
+            1416
+          ]
+        }
+      }
+    },
+    "tiziano": {
+      "soder": {
+        "cerrado": {
+          "src": "/images/muebles/capas-63x48/tiziano-soder-cerrado.a489dfd84cec.webp",
+          "shadow": "/images/muebles/capas-63x48/sombra-tiziano.2b89794854d0.webp",
+          "bounds": [
+            315,
+            411,
+            1346,
+            1417
+          ]
+        }
+      }
+    }
+  },
+  "verified_combinations": [
+    {
+      "mueble": "vitelli",
+      "lavamanos": "oslo",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3"
+    },
+    {
+      "mueble": "vitelli",
+      "lavamanos": "genova",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3"
+    },
+    {
+      "mueble": "tiziano",
+      "lavamanos": "oslo",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3"
+    },
+    {
+      "mueble": "tiziano",
+      "lavamanos": "genova",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3"
+    },
+    {
+      "mueble": "vitelli",
+      "lavamanos": "bari",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "firplak.com, LAVAMANOS BARI + MUEBLE VITELLI 63X48, consultado 2026-11-23"
+    },
+    {
+      "mueble": "vitelli",
+      "lavamanos": "siena",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "firplak.com, LAVAMANOS SIENA + MUEBLE VITELLI 63X48, consultado 2026-11-23"
+    },
+    {
+      "mueble": "vitelli",
+      "lavamanos": "trentino",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "firplak.com, LAVAMANOS TRENTINO + MUEBLE VITELLI 63X48, consultado 2026-11-23"
+    },
+    {
+      "mueble": "tiziano",
+      "lavamanos": "siena",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "firplak.com, LAVAMANOS SIENA + MUEBLE TIZIANO 63X48, consultado 2026-11-23"
+    },
+    {
+      "mueble": "tiziano",
+      "lavamanos": "trentino",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "firplak.com, LAVAMANOS TRENTINO + MUEBLE TIZIANO 63X48, consultado 2026-11-23"
+    }
+  ],
+  "compatibility_source": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3; Bari, Siena y Trentino: firplak.com (ver fuente por cruce)"
+}

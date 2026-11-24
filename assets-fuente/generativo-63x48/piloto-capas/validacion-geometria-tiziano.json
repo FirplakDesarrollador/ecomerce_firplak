@@ -1,0 +1,8 @@
+{
+  "reference": "assets-fuente/mix-match-alejandro/muebles/tiziano/tiziano__soder__cerrado.png",
+  "render": "tiziano-soder-cerrado.png",
+  "silhouette_iou": 0.9751477073031486,
+  "threshold": 0.94,
+  "method": "Alpha >160; uniform scale by width and centred translation for comparison only; published geometry and camera unchanged",
+  "passed": true
+}

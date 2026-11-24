@@ -1,0 +1,138 @@
+{
+  "flow_id": "87890707-bd52-40a7-bda6-99f11af439a5",
+  "size_cm": [
+    63,
+    48
+  ],
+  "furniture": "Vitelli",
+  "finish": "Soder",
+  "basins": [
+    "Oslo",
+    "Genova"
+  ],
+  "faucet": "black",
+  "state": "closed",
+  "environment": "ventana-calida",
+  "camera": {
+    "position": [
+      -1.4544289112091064,
+      -2.823859214782715,
+      2.032050848007202
+    ],
+    "target": [
+      0.0,
+      -0.20000000298023224,
+      0.30000001192092896
+    ],
+    "rotation": [
+      1.0471975803375244,
+      3.399453873953462E-08,
+      -0.5061455368995667
+    ],
+    "azimuth_degrees": -29,
+    "elevation_degrees": 30,
+    "product_lens_mm": 100,
+    "environment_lens_mm": 35,
+    "environment_shift_y": 0.14012326300144196
+  },
+  "status": "approved_and_integrated_in_alejandro_localhost",
+  "references": {
+    "model": "C:\\Users\\isaza\\OneDrive\\Documentos\\FIRPLAK e-commerce\\public\\models\\muebles\\vitelli-63.glb",
+    "texture": "C:\\Users\\isaza\\OneDrive\\Documentos\\FIRPLAK e-commerce\\public\\images\\muebles\\vitelli-63\\acabados\\soder.webp",
+    "environment_scene": "C:\\Users\\isaza\\OneDrive\\Documentos\\FIRPLAK e-commerce\\assets-fuente\\generativo-63x48\\piloto-ventana-calida-34\\referencia-ambiente-34-v3-completo.blend",
+    "environment_image": "C:\\Users\\isaza\\OneDrive\\Documentos\\FIRPLAK e-commerce\\assets-fuente\\generativo-63x48\\piloto-ventana-calida-34\\referencia-ambiente-34-v3-completo.png"
+  },
+  "higgsfield_estimate": {
+    "model": "gpt_image_2_6",
+    "quality": "high",
+    "resolution": "2k",
+    "credits_each": 2.75,
+    "background_variants": 2,
+    "product_attempts_max": 4,
+    "total_credits_max": 16.5,
+    "approval": "approved_up_to_16.5_credits",
+    "jobs_submitted": 5
+  },
+  "backgrounds": [
+    {
+      "variant": "A",
+      "file": "fondo-A-microcemento.png",
+      "job_id": "272cf346-e7d2-4e13-a985-c92cb2d546bc",
+      "status": "completed"
+    },
+    {
+      "variant": "B",
+      "file": "fondo-B-travertino.png",
+      "job_id": "76685791-7310-4392-91b4-1560f85b2bcb",
+      "status": "completed"
+    }
+  ],
+  "qa": {
+    "visual": "Both backgrounds preserve mirror and room corner approximately, leave central wall clear, and introduce no fixtures.",
+    "framing_issue": "Environment 45mm/shift_y 0.26016 does not include the full 100mm square product crop. Required source crop [495,663.3,1305,1473.3] exceeds the 1200px source height. Must widen environment lens without moving approved product camera; suggested 35mm with mirror-framing shift recalculated. Do not freeze these as final backgrounds yet.",
+    "next_step": "User chooses material/style, then regenerate selected background against corrected wider greybox before freezing it. Budget cap remains 16.5; 2 jobs completed, estimated 5.5 credits used, remaining estimated 11.0 credits.",
+    "corrected_reference": "referencia-ambiente-34-v3-completo.png + .blend; encuadre-v3.json confirms product crop [585,537.22,1215,1167.22] is fully inside 1800x1200 background. Product camera position and rotation remain unchanged."
+  },
+  "selected_background": "A: microcemento; fondo-A-placa.png (normalized 1800x1200)",
+  "polish_jobs": [
+    {
+      "job_id": "f58ce011-eef5-4c98-ae6c-56be5a4b84f8",
+      "index": 4,
+      "basin": "oslo"
+    },
+    {
+      "job_id": "db057ec0-f42f-4355-8de3-7407dbf8abc8",
+      "index": 5,
+      "basin": "genova"
+    }
+  ],
+  "final_delivery": {
+    "estimated_credits_remaining": 2.75,
+    "approved_credits_cap": 16.5,
+    "app_code_changed": true,
+    "images_require_user_approval": false,
+    "folder": "entrega",
+    "estimated_credits_used": 13.75,
+    "resolution": [
+      1600,
+      1600
+    ],
+    "published": "localhost:3000 only"
+  },
+  "approval": {
+    "status": "approved",
+    "scope": "The two finished pilot images",
+    "date_local": "2026-11-20",
+    "source": "Explicit user reply: Aprobar las dos imágenes del piloto"
+  },
+  "public_assets": {
+    "status": "approved_assets_pending_catalog_integration",
+    "furniture": "Vitelli",
+    "finish": "Soder",
+    "basin_size_cm": [
+      63,
+      48
+    ],
+    "state": "closed",
+    "environment": "Ventana cálida · Microcemento",
+    "available_combinations": [
+      {
+        "id": "oslo",
+        "name": "Oslo",
+        "src": "/images/muebles/piloto-63x48/vitelli-soder-oslo.633ed989f360.webp",
+        "width": 1600,
+        "height": 1600,
+        "sha256": "633ed989f3600e2f25b021d4ee9824ce71f69851f6460741766a5dda81fc3c56"
+      },
+      {
+        "id": "genova",
+        "name": "Génova",
+        "src": "/images/muebles/piloto-63x48/vitelli-soder-genova.50830a2c4f3c.webp",
+        "width": 1600,
+        "height": 1600,
+        "sha256": "50830a2c4f3c3f2fbfcd31a4abf1372cddec5fcda015b51282f66e0e8713cfda"
+      }
+    ]
+  },
+  "catalog_integration_approval": "User confirmed: Sí, añadir Vitelli como piloto en Alejandro. Only Soder, Oslo/Génova, closed."
+}

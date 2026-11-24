@@ -1,0 +1,80 @@
+{
+  "referencia_glb_oslo": {
+    "cx": 0.0,
+    "atras": 1.600858698935781e-05,
+    "apoyo": 0.47998720369767156,
+    "cubierta": 0.5400128375619371,
+    "dims_mm": [
+      630.0,
+      480.0,
+      141.0
+    ]
+  },
+  "lavamanos": {
+    "oslo": {
+      "archivo": "oslo-63x48.stl",
+      "dims_mm": [
+        630.0,
+        480.0,
+        141.4
+      ],
+      "traslacion_m": [
+        0.0,
+        -0.23998,
+        0.42999
+      ],
+      "grifo_dz_mm": -0.03,
+      "capa": "calibracion-oslo-stl.png"
+    },
+    "bari": {
+      "archivo": "bari-63x48.stl",
+      "dims_mm": [
+        630.0,
+        480.0,
+        154.9
+      ],
+      "traslacion_m": [
+        0.0,
+        -0.23998,
+        0.44999
+      ],
+      "grifo_dz_mm": -10.03,
+      "capa": "lavamanos-bari-negro.png"
+    },
+    "siena": {
+      "archivo": "siena-63x48.stl",
+      "dims_mm": [
+        630.0,
+        480.0,
+        145.0
+      ],
+      "traslacion_m": [
+        0.0,
+        -0.23998,
+        0.43399
+      ],
+      "grifo_dz_mm": -6.03,
+      "capa": "lavamanos-siena-negro.png"
+    },
+    "trentino": {
+      "archivo": "trentino-63x48.stl",
+      "dims_mm": [
+        625.1,
+        475.1,
+        119.0
+      ],
+      "traslacion_m": [
+        0.0,
+        -0.23754,
+        0.40999
+      ],
+      "grifo_dz_mm": -30.03,
+      "capa": "lavamanos-trentino-negro.png"
+    }
+  },
+  "fuente": "STL binario mm exportado de Autodesk Fusion (validacion.json)",
+  "geometry_modified": false,
+  "ai_generation": false,
+  "camera_changed": false,
+  "griferia": "Grifo negro del GLB Vitelli, trasladado solo en altura"
+}

@@ -1,16 +1,19 @@
 import Link from 'next/link';
+import { RUTA_ESTUDIO_D, RUTA_LAVAMANOS_MUEBLES } from './rutas';
 
-export type OpcionExperiencia = 'a' | 'b' | 'c';
+export type OpcionExperiencia = 'a' | 'b' | 'c' | 'd';
 
-const OPCIONES: { id: OpcionExperiencia; nombre: string; detalle: string }[] = [
-  { id: 'a', nombre: 'Opción A', detalle: 'Configurador 3D' },
-  { id: 'b', nombre: 'Opción B', detalle: 'Mix & Match' },
-  { id: 'c', nombre: 'Opción C', detalle: 'Ricardo' },
+export const OPCIONES: { id: OpcionExperiencia; nombre: string; detalle: string; href: string }[] = [
+  { id: 'a', nombre: 'Opción A', detalle: 'Configurador 3D', href: `${RUTA_LAVAMANOS_MUEBLES}?opcion=a` },
+  { id: 'b', nombre: 'Opción B', detalle: 'Mix & Match', href: `${RUTA_LAVAMANOS_MUEBLES}?opcion=b` },
+  { id: 'c', nombre: 'Opción C', detalle: 'Ricardo', href: `${RUTA_LAVAMANOS_MUEBLES}?opcion=c` },
+  // Ruta propia: usa la UI del home de Alejandro (sin header ni footer del sitio).
+  { id: 'd', nombre: 'Opción D', detalle: 'Alejandro', href: RUTA_ESTUDIO_D },
 ];
 
 /**
  * Prototipos en revision: alterna entre formatos de la sesion
- * "lavamanos & muebles" sin perder ninguno (?opcion=a | b | c).
+ * "lavamanos & muebles" sin perder ninguno (?opcion=a | b | c, y ./mix-match).
  */
 export default function SelectorOpcion({ activa }: { activa: OpcionExperiencia }) {
   return (
@@ -23,7 +26,7 @@ export default function SelectorOpcion({ activa }: { activa: OpcionExperiencia }
             return (
               <Link
                 key={o.id}
-                href={`?opcion=${o.id}`}
+                href={o.href}
                 scroll={false}
                 aria-current={activo ? 'page' : undefined}
                 className={`flex min-h-11 items-center gap-1.5 rounded-full px-4 text-xs font-semibold transition-colors duration-150 ${

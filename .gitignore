@@ -47,3 +47,6 @@ public/videos/**/*_nuevo.mp4
 
 # scripts temporales con credenciales presignadas
 /scratch/
+
+# render en bulk de modelos 3D (entrada y salida locales)
+/renders-3d/

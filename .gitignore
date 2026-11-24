@@ -52,3 +52,9 @@ public/videos/**/*_nuevo.mp4
 
 # render en bulk de modelos 3D (entrada y salida locales)
 /renders-3d/
+
+# assets de exploraciones pesadas y video/personajes IA
+especificaciones/wiki/assets/
+
+# carpetas temporales y worktrees de agentes
+.claude/

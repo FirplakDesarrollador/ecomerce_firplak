@@ -1,0 +1,56 @@
+{
+  "importacion": {
+    "stl": {
+      "escala": 0.001,
+      "arriba": "Y",
+      "adelante": "NEGATIVE_Z"
+    }
+  },
+  "por_archivo": {},
+  "margen": 1.0,
+  "lente_mm": 100,
+  "vistas": [
+    {
+      "nombre": "34",
+      "azimut": -29,
+      "elevacion": 30
+    },
+    {
+      "nombre": "frente",
+      "azimut": 0,
+      "elevacion": 12
+    },
+    {
+      "nombre": "lado",
+      "azimut": -90,
+      "elevacion": 12
+    }
+  ],
+  "material": {
+    "color": "#f6f6f6",
+    "rugosidad": 0.04,
+    "metalico": 0.0,
+    "capa": 1.0,
+    "capa_rugosidad": 0.0
+  },
+  "look": "AgX - Punchy",
+  "luces": {
+    "principal": 1.4,
+    "relleno": 0.05,
+    "contra": 1.2,
+    "ambiente": 0.15,
+    "reflejo": 3.0
+  },
+  "sombra_piso": false,
+  "fondo": "#ffffff",
+  "resolucion": [
+    2000,
+    2000
+  ],
+  "motor": {
+    "muestras": 128,
+    "gpu": true
+  },
+  "ambiente_degradado": true,
+  "exposicion": -0.9
+}

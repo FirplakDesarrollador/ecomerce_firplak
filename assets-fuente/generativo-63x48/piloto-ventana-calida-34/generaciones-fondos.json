@@ -1,0 +1,20 @@
+{
+  "flow_id": "87890707-bd52-40a7-bda6-99f11af439a5",
+  "branch": "main",
+  "budget_authorized_credits": 16.5,
+  "estimated_background_batch_credits": 5.5,
+  "reference_media_id": "16d1b082-ec9e-4f17-a6d0-6300558ae11d",
+  "jobs": [
+    {
+      "index": 1,
+      "job_id": "272cf346-e7d2-4e13-a985-c92cb2d546bc",
+      "prompt": "Create a photorealistic architectural bathroom BACKGROUND from this exact greybox reference. The reference is a strict camera and geometry constraint, NOT a mood board. Preserve the exact 3/4 camera position, perspective, wall/floor junction, right-hand room corner, and the rectangular mirror's four corners and dimensions pixel-for-pixel. Preserve the existing composition and framing. Convert the dark rectangular slab into a real frameless rectangular mirror, with plausible subdued reflections of an empty opposite wall only. Warm soft afternoon window light enters from the LEFT outside the frame, with a subtle diagonal wash of sunlight and believable soft shadows. The bathroom wall underneath the mirror ALL THE WAY TO THE FLOOR must remain completely EMPTY and unobstructed, with continuous clean wall surface: a real product will be composited there later. Do not add any vanity, sink, basin, cabinet, faucet, countertop, pipes, toilet, shower, towel, plant, furniture or accessories. No people, no typography, no logos. Keep the floor and the central product mounting area clear. No geometry changes, no reframing, no lens changes. Calm warm sand palette, sophisticated realistic material detail, premium residential bathroom photography, physically plausible daylight. Variant A: warm ivory and sand limewash/microcement walls with very fine tactile plaster detail; matte large-format pale beige limestone floor with almost invisible joins. Gentle restrained surface variation, warm natural atmosphere."
+    },
+    {
+      "index": 2,
+      "job_id": "76685791-7310-4392-91b4-1560f85b2bcb",
+      "prompt": "Create a photorealistic architectural bathroom BACKGROUND from this exact greybox reference. The reference is a strict camera and geometry constraint, NOT a mood board. Preserve the exact 3/4 camera position, perspective, wall/floor junction, right-hand room corner, and the rectangular mirror's four corners and dimensions pixel-for-pixel. Preserve the existing composition and framing. Convert the dark rectangular slab into a real frameless rectangular mirror, with plausible subdued reflections of an empty opposite wall only. Warm soft afternoon window light enters from the LEFT outside the frame, with a subtle diagonal wash of sunlight and believable soft shadows. The bathroom wall underneath the mirror ALL THE WAY TO THE FLOOR must remain completely EMPTY and unobstructed, with continuous clean wall surface: a real product will be composited there later. Do not add any vanity, sink, basin, cabinet, faucet, countertop, pipes, toilet, shower, towel, plant, furniture or accessories. No people, no typography, no logos. Keep the floor and the central product mounting area clear. No geometry changes, no reframing, no lens changes. Calm warm sand palette, sophisticated realistic material detail, premium residential bathroom photography, physically plausible daylight. Variant B: warm light-beige honed travertine wall with restrained fine natural veining and closed filled pores, preserving the flat wall geometry; warm pale stone floor with subtle variation. No niches, panels, trim, or protrusions. Elegant material-rich warm atmosphere."
+    }
+  ],
+  "status": "backgrounds_submitted_awaiting_results_and_user_selection"
+}

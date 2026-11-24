@@ -1,0 +1,98 @@
+{
+  "sesion": "2026-11-23_pollock-63x48-tauari-oslo_directo",
+  "origen": "directo",
+  "producto": {
+    "tipo": "kit",
+    "mueble": "pollock-63x48",
+    "acabado_mueble": "tauari",
+    "lavamanos": "oslo-63x48"
+  },
+  "entradas": [
+    {
+      "fecha": "2026-11-23",
+      "parte": 1,
+      "tipo": "texto",
+      "destino": "brief.md",
+      "contenido": "quero hacer la imagen del mueble polock 63x48 en color tauari con el Oslo de 63x48"
+    },
+    {
+      "fecha": "2026-11-23",
+      "parte": 1,
+      "tipo": "texto",
+      "destino": "brief.md",
+      "contenido": "importante: el mueble polock con lavamanos que muestras esta con un lavamanos diferente. debes descargar ambos archivos: el del mueble polock y el del lavamanos oslo de 63x48"
+    },
+    {
+      "fecha": "2026-11-23",
+      "parte": 1,
+      "tipo": "imagen",
+      "archivo": "01-ambiente/ref-bano-beige-iluminacion-calida.jpg",
+      "uso": "referencia de ambiente e iluminación",
+      "px": [
+        1179,
+        1752
+      ],
+      "bytes": 177889,
+      "sha256": "6ce527b04e5bf9d7",
+      "origen": "adjunto en chat"
+    },
+    {
+      "fecha": "2026-11-23",
+      "parte": 1,
+      "tipo": "imagen",
+      "archivo": "02-montaje/ref-acabado-tauari.jpg",
+      "uso": "muestra del acabado Tauari",
+      "px": [
+        800,
+        800
+      ],
+      "bytes": 145583,
+      "sha256": "16750d0a83694d2a",
+      "origen": "adjunto en chat"
+    },
+    {
+      "fecha": "2026-11-23",
+      "parte": 1,
+      "tipo": "texto",
+      "destino": "brief.md",
+      "contenido": "Te anexo la referencia del baño y el color tauari. Debes conservar la iluminación del ambiente, y Debes instalarle una grifería que esté instalada sobre lavamanos, o sea, una grifería de base, no una grifería de pared."
+    },
+    {
+      "fecha": "2026-11-23",
+      "parte": 1,
+      "tipo": "decision",
+      "contenido": {
+        "fondo": "Baño nuevo con su estilo",
+        "creditos": "Sí, hasta 20",
+        "montaje": "Sí, todo correcto"
+      }
+    },
+    {
+      "fecha": "2026-11-23",
+      "parte": 1,
+      "tipo": "texto",
+      "ronda": 1,
+      "contenido": "Ajustes"
+    },
+    {
+      "fecha": "2026-11-23",
+      "parte": 1,
+      "tipo": "texto",
+      "ronda": 1,
+      "contenido": "Creo que te di demasiadas libertades con el ambiente de fondo. Quiero que vuelvas e intentes replicarlo lo más fiel que puedas al ambiente anterior y ajustes dimensionalmente el mueble para que tenga coherencia. Eliminaste el sanitario y no debiste haber hecho eso. Modificaste el tamaño de la cabina de ducha y ahora no es lógica ni usable. Debemos retroalimentar en el flujo que se mantengan proporciones usables y lógicas de los elementos del ambiente."
+    },
+    {
+      "fecha": "2026-11-23",
+      "parte": 1,
+      "tipo": "texto",
+      "ronda": 1,
+      "contenido": "De nuevo, debes ser mucho más apegado a la imagen de referencia. Puedes cambiar detalles, colores y aspectos mínimos de la iluminación, pero no hacer cambios que afecten la lógica y estética base de la imagen de referencia."
+    }
+  ],
+  "fuentes_3d": {
+    "mueble": "modelos-3d/muebles/pollock-63x48/ (Fusion: RENDER MBL LVM POLOCK 63X48, sin Trentino ni puertas abiertas)",
+    "lavamanos": "modelos-3d/lavamanos/oslo-63x48.stl (Fusion: Lavamanos Oslo 63x48 v4, sha256 224bcad283b641ef)"
+  },
+  "render_base": "trabajo/2026-11-23_pollock-63x48-tauari-oslo_directo/base/",
+  "tope_creditos_parte1": 20
+}

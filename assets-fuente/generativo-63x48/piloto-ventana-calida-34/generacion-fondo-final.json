@@ -1,0 +1,7 @@
+{
+  "index": 3,
+  "job_id": "9586dce3-e41c-4947-9419-480e08a2f1fe",
+  "status": "submitted",
+  "estimated_credits": 2.75,
+  "prompt": "Create the final expanded warm microcement bathroom BACKGROUND for a modular product configurator. Image 1 (greybox) is the ONLY authority for CAMERA, COMPOSITION, WALL/FLOOR JUNCTION, RIGHT ROOM CORNER, and all FOUR CORNERS of the rectangular mirror. Match image 1's geometry and framing precisely. Image 2 is ONLY the approved MATERIAL AND LIGHT reference: retain its fine warm sand/ivory microcement wall, pale beige honed limestone floor, restrained natural texture, warm afternoon daylight from the LEFT, and realistic soft shadows. Do NOT match image 2's tighter crop. The wider view of image 1 MUST include its entire visible floor and the complete empty mounting space underneath the mirror, so a wall-mounted vanity and sink can be inserted later. Convert image 1's grey slab to a thin real frameless rectangular mirror, reflecting just a calm empty opposite wall. Physically plausible premium architectural photography. Keep all walls flat with continuous microcement. No vanity, cabinet, sink, basin, countertop, faucet, plumbing, towel, decoration, plants, toilet, shower, text, people or logos. No extra objects. The central wall under the mirror down to the floor must remain empty. Preserve image 1's exact perspective, geometry and mirror edges; no reframing. Output the wider image 1 view with image 2 materials and light."
+}

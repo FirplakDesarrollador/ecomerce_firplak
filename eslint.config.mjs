@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Bloques de conocimiento de terceros: no son codigo de la aplicacion.
     "skills/**",
+    // Checkouts independientes de Claude, incluidos sus builds y dependencias.
+    ".claude/worktrees/**",
   ]),
 ]);
 

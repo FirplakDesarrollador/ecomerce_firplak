@@ -6,6 +6,12 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-11-23] feat | Sesión Lavamanos & Muebles · Opción D: Estudio Mix & Match (propuesta Alejandro)
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble/mix-match` (y redirección desde `?opcion=d`).
+- **Diseño & UI:** Estética integrada con el home de Alejandro (Loomere) en vidrio pizarra, degradado de malla oficial (Navy #324354 / Sage #7B8E90 / Crema #F6F3EE), carruseles de selección lateral con resorte físico y selector flotante de prototipos.
+- **Arquitectura de Capas 63x48:** Desacoplamiento de lavamanos, mueble y sombras sobre ambiente fijo 1800x1200; huellas de contenido sha1 en URL para evitar problemas de caché.
+- **Pruebas y Calidad:** 67 tests unitarios en Vitest pasando, ESLint sin errores y compatibilidad móvil verificada en rejilla con `overflow-clip`.
+
 ## [2026-11-11] feat | Header Alejandro: menú hamburguesa exclusivo para móvil y categorías directas en desktop
 - **Visualización:** Alejandro (`LoomereExperience`).
 - **Comportamiento adaptativo:**

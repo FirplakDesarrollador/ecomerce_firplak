@@ -1,0 +1,35 @@
+{
+  "source_resolution": [
+    1800,
+    1200
+  ],
+  "camera_position": [
+    -1.4544289112091064,
+    -2.823859214782715,
+    2.032050848007202
+  ],
+  "camera_rotation": [
+    1.0471975803375244,
+    3.399453873953462e-08,
+    -0.5061455368995667
+  ],
+  "environment_lens_mm": 35,
+  "environment_shift_y": 0.14012326300144196,
+  "product_lens_mm": 100,
+  "product_shift": [
+    0,
+    0
+  ],
+  "product_resolution": [
+    1600,
+    1600
+  ],
+  "product_crop_in_background": [
+    585.0,
+    537.2218734025955,
+    1215.0,
+    1167.2218734025955
+  ],
+  "verified_full_product_crop_inside_background": true,
+  "note": "Same approved 3/4 product camera position and rotation. Wider environment only. v3 is the reference for regenerating the selected style; v2 generated A/B are style candidates, not final compositing plates."
+}

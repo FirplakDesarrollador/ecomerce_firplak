@@ -1,0 +1,14 @@
+{
+  "producto": "MBL LVM POLOCK 63X48",
+  "fuente_fusion": "RENDER MBL LVM POLOCK 63X48 (proyecto Muebles, carpeta MBL LVM POLOCK 63x48), urn:adsk.wipprod:dm.lineage:prCHyFaZSAaNHwu3fZmnvg",
+  "exportado": "2026-11-23, STL binario por pieza, refinamiento alto, mm, Z arriba, frente hacia -Y",
+  "excluido": ["puertas abiertas duplicadas (H-PUERTA IZQ:2, G-PUERTA DER:2)", "manijas de puertas abiertas (:3, :4)", "bisagras (ubicadas para puertas abiertas, ocultas con puertas cerradas)", "lavamanos Trentino del documento (no es el pedido)"],
+  "traslacion_mm": {
+    "cuerpo-base.stl": [0, 1.5, 0], "cuerpo-lat-der.stl": [0, 1.5, 0], "cuerpo-lat-izq.stl": [0, 1.5, 0],
+    "cuerpo-entrepano.stl": [0, 1.5, 0], "cuerpo-ref-del.stl": [0, 1.5, 0], "cuerpo-ref-tras.stl": [0, 1.5, 0],
+    "puerta-der.stl": [0, 0, 0], "puerta-izq.stl": [0, 0, 0],
+    "manija-1.stl": [-138, -14.9585, -19], "manija-2.stl": [31, -14.9585, -19]
+  },
+  "grupos": {"acabado": ["cuerpo-*", "puerta-*"], "manija_negra": ["manija-*"]},
+  "anclaje_lavamanos": {"cx_mm": 0, "atras_mm": 231.0, "apoyo_mm": 480.0, "regla": "centro X, borde trasero, borde inferior del faldón lateral sobre la tapa (render-lavamanos-stl-capas.py)"}
+}

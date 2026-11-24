@@ -1,0 +1,29 @@
+{
+  "status": "approved_and_integrated_in_alejandro",
+  "furniture": "Vitelli",
+  "finish": "Soder",
+  "basin_size_cm": [
+    63,
+    48
+  ],
+  "state": "closed",
+  "environment": "Ventana cálida · Microcemento",
+  "available_combinations": [
+    {
+      "id": "oslo",
+      "name": "Oslo",
+      "src": "/images/muebles/piloto-63x48/vitelli-soder-oslo.633ed989f360.webp",
+      "width": 1600,
+      "height": 1600,
+      "sha256": "633ed989f3600e2f25b021d4ee9824ce71f69851f6460741766a5dda81fc3c56"
+    },
+    {
+      "id": "genova",
+      "name": "Génova",
+      "src": "/images/muebles/piloto-63x48/vitelli-soder-genova.50830a2c4f3c.webp",
+      "width": 1600,
+      "height": 1600,
+      "sha256": "50830a2c4f3c3f2fbfcd31a4abf1372cddec5fcda015b51282f66e0e8713cfda"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "r1-gpt26-a": {
+    "px_por_m": 498.0,
+    "dist_camara_m": 3.998,
+    "cam_x_m": 0.0833,
+    "shift_y": -0.001,
+    "altura_espejo_centro_m": 1.586
+  }
+}

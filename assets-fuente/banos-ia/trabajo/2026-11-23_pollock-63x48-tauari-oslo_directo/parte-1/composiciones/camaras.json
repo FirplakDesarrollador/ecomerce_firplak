@@ -1,0 +1,23 @@
+{
+  "gpt26-a": {
+    "px_por_m": 262.0,
+    "dist_camara_m": 3.8,
+    "cam_x_m": 0.0706,
+    "shift_y": -0.0748,
+    "altura_espejo_centro_m": 1.565
+  },
+  "gpt26-b": {
+    "px_por_m": 256.0,
+    "dist_camara_m": 3.889,
+    "cam_x_m": 0.082,
+    "shift_y": -0.0789,
+    "altura_espejo_centro_m": 1.559
+  },
+  "flux3-a": {
+    "px_por_m": 402.0,
+    "dist_camara_m": 3.018,
+    "cam_x_m": 0.0037,
+    "shift_y": -0.1327,
+    "altura_espejo_centro_m": 1.445
+  }
+}

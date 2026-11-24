@@ -1,0 +1,6 @@
+20/11/2026: el usuario aprueba las dos imágenes finales del piloto.
+WebP publicados localmente con huella de contenido y compresión sin pérdida.
+Se verificó igualdad de cada píxel con los PNG aprobados.
+Pendiente: decidir la incorporación de Vitelli al catálogo de Alejandro; actualmente no figura entre sus siete muebles.
+No se modificaron los componentes, selectores ni el catálogo del sitio.
+No se generaron nuevas imágenes ni se gastaron créditos adicionales.

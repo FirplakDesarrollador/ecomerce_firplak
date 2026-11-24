@@ -1,0 +1,60 @@
+{
+  "sesion": "2026-11-23_pollock-63x48-tauari-oslo_directo",
+  "flujo": "d5bfdeda-2049-4adb-b756-b22c764395ae",
+  "producto": {
+    "mueble": "Pollock 63x48 (Fusion: RENDER MBL LVM POLOCK 63X48)",
+    "lavamanos": "Oslo 63x48 (Fusion: Lavamanos Oslo 63x48 v4)",
+    "acabado": "Tauari",
+    "griferia": "monocomando de base negro mate (genérica, no SKU Firplak)"
+  },
+  "entregables": [
+    {
+      "archivo": "firplak-pollock-63x48-tauari-oslo-63x48-bano-beige_1360x2048.jpg",
+      "formato": "JPG q92 4:4:4 sRGB",
+      "resolucion": [
+        1360,
+        2048
+      ],
+      "proporcion": "2:3",
+      "canal": "e-commerce",
+      "bytes": 490947,
+      "sha256": "26655dd6850e92a2802af80969b6d770d0733ad4e8c039c02ed1ef0af413238a"
+    }
+  ],
+  "origen": {
+    "placa": "trabajo/.../parte-1/ronda-1/gpt26-a.png (edición fiel de la referencia del usuario, GPT Image 2.6)",
+    "producto": "render Cycles real (parte-2/render-final.py, 512 muestras)",
+    "composicion": "parte-2/componer-final.py"
+  },
+  "qa": {
+    "deltaE76_tauari_vs_muestra": 0.75,
+    "meta_deltaE": 2,
+    "lab_render": [
+      66.9,
+      6.7,
+      23.2
+    ],
+    "lab_muestra": [
+      66.9,
+      6.0,
+      22.7
+    ],
+    "calibracion_tauari": {
+      "hue": 0.504,
+      "sat": 1.23,
+      "val": 0.78
+    },
+    "geometria": "producto = render directo de los STL de Fusion (sin repintado IA); IoU con su máscara = 1 por construcción",
+    "placa_fuera_de_producto_y_sombra": "sin cambios (0 px modificados)",
+    "escala": "498 px/m en la pared; tapa del Oslo a 0,86 m del piso"
+  },
+  "creditos_higgsfield": {
+    "parte1": 13.5,
+    "parte2": 0
+  },
+  "aprobaciones": {
+    "parte1": "ronda 1, 2026-11-23",
+    "formato": "JPG 1360x2048, 1 imagen e-commerce",
+    "final": "aprobada por el usuario 2026-11-23"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "jobs": [
+    {
+      "index": 4,
+      "basin": "oslo",
+      "job_id": "f58ce011-eef5-4c98-ae6c-56be5a4b84f8"
+    },
+    {
+      "index": 5,
+      "basin": "genova",
+      "job_id": "db057ec0-f42f-4355-8de3-7407dbf8abc8"
+    }
+  ],
+  "model": "gpt_image_2_6",
+  "quality": "high",
+  "resolution": "2k",
+  "estimated_batch_credits": 5.5,
+  "estimated_pilot_total_credits": 13.75,
+  "prompt": "Photorealistic retouch of this EXACT product montage, not a redesign. Treat every product edge and seam as locked: keep the vanity, basin and black faucet in exactly the same pixel positions, silhouettes, proportions, sizes, perspective, camera and framing. This is a real manufactured 63 x 48 cm wall-mounted wooden vanity with a white basin. Keep the doors and drawers CLOSED. Preserve the wood pattern direction, pale natural Soder wood color, every drawer gap and door seam, the basin bowl shape and all rims, the faucet shape and mounting point. Do not add or remove a drain or hole; copy the reference geometry precisely. Improve only photographic realism: glossy white basin reflections with restrained highlights, fine realistic wood grain on the existing panels, subtle black metal finish, physically plausible contact shadows and warm window light from the LEFT matching the existing microcement room. The reference wall, mirror fragment, floor and all background content must remain unchanged. No objects, plants, towels, text, logos, new fixtures or decor. Do not crop, zoom, rotate, shift, stretch, round off, smooth away or remodel any geometry. Keep the same warm sand microcement and the exact same light direction. Product photography, realistic materials and light while preserving the reference structure exactly."
+}

@@ -1,0 +1,51 @@
+{
+  "iou_oslo_stl_vs_aprobado": 0.9983,
+  "meta_iou": 0.94,
+  "capas": {
+    "bari": {
+      "tamano": [
+        1600,
+        1600
+      ],
+      "modo": "RGBA",
+      "bounds": [
+        310,
+        251,
+        1357,
+        863
+      ],
+      "alfa_parcial": true,
+      "pixeles_en_borde": 0
+    },
+    "siena": {
+      "tamano": [
+        1600,
+        1600
+      ],
+      "modo": "RGBA",
+      "bounds": [
+        312,
+        246,
+        1354,
+        863
+      ],
+      "alfa_parcial": true,
+      "pixeles_en_borde": 0
+    },
+    "trentino": {
+      "tamano": [
+        1600,
+        1600
+      ],
+      "modo": "RGBA",
+      "bounds": [
+        316,
+        275,
+        1347,
+        859
+      ],
+      "alfa_parcial": true,
+      "pixeles_en_borde": 0
+    }
+  }
+}

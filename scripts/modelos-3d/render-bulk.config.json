@@ -1,0 +1,25 @@
+{
+  "encuadre": "ajustar",
+  "margen": 1.08,
+  "resolucion": [2000, 2000],
+  "lente_mm": 70,
+  "vistas": [
+    { "nombre": "34", "azimut": -35, "elevacion": 18 },
+    { "nombre": "frente", "azimut": 0, "elevacion": 8 },
+    { "nombre": "lado", "azimut": -90, "elevacion": 8 }
+  ],
+  "importacion": {
+    "stl": { "escala": 0.001, "arriba": "Z", "adelante": "Y" },
+    "obj": { "escala": 1.0, "arriba": "Y", "adelante": "NEGATIVE_Z" }
+  },
+  "material_modo": "uniforme",
+  "material": { "color": "#f2f0ec", "rugosidad": 0.35, "metalico": 0.0 },
+  "suavizado_angulo": 30,
+  "fondo": "#ffffff",
+  "sombra_piso": true,
+  "luces": { "principal": 1.0, "relleno": 0.25, "contra": 0.6, "ambiente": 0.12 },
+  "exposicion": 0.0,
+  "perfil_color": "AgX",
+  "motor": { "muestras": 128, "gpu": true },
+  "por_archivo": {}
+}

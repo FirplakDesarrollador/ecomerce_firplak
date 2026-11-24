@@ -36,3 +36,12 @@ banos-ia/
 | Muebles | tiziano 63×48 (OBJ + MTL, en cm) | `assets-fuente/generativo-63x48/piloto-capas/modelos` |
 
 Los binarios no se versionan en git (igual que el resto de `assets-fuente/`); la copia de seguridad la hace OneDrive.
+
+## Lecciones (sesión 2026-11-23, Pollock 63x48 Tauari + Oslo 63x48)
+Para minimizar correcciones del usuario (detalle en el flujo VIBEWORKFLOW d5bfdeda):
+1. **Producto:** del ensamble "RENDER MBL LVM …" exportar solo piezas del mueble (traen otro lavamanos y duplicados); el lavamanos, de su propio documento. Confirmar con el usuario el render neutro con nombres de pieza antes de seguir.
+2. **Ambiente:** con imagen de referencia, editar la referencia (quitar solo lo que se reemplaza). No ofrecer "baño nuevo con su estilo" por defecto. Control de fidelidad antes de mostrar placas.
+3. **Acabado:** calibrar ΔE ≤2 en la Parte 1 (no al final). Tauari: hue 0,504 · sat 1,23 · val 0,78.
+4. **Sombras:** shadow catcher + oclusión de contacto (`parte-2/componer-final.py`) ya en la propuesta.
+5. **Grifería:** preguntar al inicio si hay 3D del SKU Firplak.
+6. Scripts reutilizables: `trabajo/2026-11-23_pollock-63x48-tauari-oslo_directo/{base,parte-1,parte-2}`.

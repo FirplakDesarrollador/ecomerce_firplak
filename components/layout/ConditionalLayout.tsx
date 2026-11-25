@@ -12,9 +12,11 @@ interface ConditionalLayoutProps {
 export default function ConditionalLayout({ children }: ConditionalLayoutProps) {
   const pathname = usePathname();
   const isLoomereHomePage = pathname === '/';
+  // Páginas de categoría con diseño oscuro cinematográfico propio
+  const isDarkCategoryPage = pathname.startsWith('/categoria/hidromasajes');
 
-  if (isLoomereHomePage) {
-    return <main className="min-h-screen bg-[#070c18]">{children}</main>;
+  if (isLoomereHomePage || isDarkCategoryPage) {
+    return <>{children}</>;
   }
 
   return (

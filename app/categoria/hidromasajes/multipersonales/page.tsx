@@ -89,7 +89,7 @@ export default function MultipersonalesPage() {
       style={{ background: 'linear-gradient(180deg, #09111f 0%, #060c18 60%, #04080f 100%)' }}
     >
       {/* ── Sub-navegación ── */}
-      <nav className="sticky top-0 z-30 border-b border-white/[0.07]"
+      <nav className="sticky top-12 sm:top-[108px] z-30 border-b border-white/[0.07]"
         style={{ background: 'rgba(6,12,24,0.88)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
         <div className="max-w-7xl mx-auto px-6">
           <ul className="flex items-center gap-1 overflow-x-auto">

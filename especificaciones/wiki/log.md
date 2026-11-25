@@ -6,6 +6,11 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-11-24] feat | Opción D: incorporación de combinación Tiziano + Quadratto 63x48
+- **Compatibilidad aprobada:** Incorporación del lavamanos Quadratto verificado con mueble Tiziano 63x48 (`CAPAS_PILOTO_D`), ampliando a 10 las parejas verificadas de la matriz de la visualización Alejandro.
+- **Render y Capas:** Generación y publicación aditiva de la capa webp de Quadratto con grifería negra integrada (`lavamanos-quadratto.6df30071cf00.webp`) y validación morfológica sin recodificar capas previas.
+- **Pruebas:** Actualización de pruebas unitarias y e2e (`opcionD.test.ts`, `opcionD.spec.ts`), con 67 tests pasando al 100%.
+
 ## [2026-11-23] feat | Sesión Lavamanos & Muebles · Opción D: Estudio Mix & Match (propuesta Alejandro)
 - **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble/mix-match` (y redirección desde `?opcion=d`).
 - **Diseño & UI:** Estética integrada con el home de Alejandro (Loomere) en vidrio pizarra, degradado de malla oficial (Navy #324354 / Sage #7B8E90 / Crema #F6F3EE), carruseles de selección lateral con resorte físico y selector flotante de prototipos.

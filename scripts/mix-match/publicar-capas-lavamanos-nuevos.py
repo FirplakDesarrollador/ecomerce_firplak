@@ -24,19 +24,20 @@ MANIFEST = PUBLIC / 'manifest.json'
 URL = '/images/muebles/capas-63x48/'
 
 FUENTE_MATRIZ = 'Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3'
-NUEVOS = ['bari', 'siena', 'trentino']
-# Solo cruces publicados en firplak.com 63x48. Tiziano+Quadratto queda pendiente de
-# decisión (VIBEWORKFLOW lo marcó como no ofrecible); Tiziano+Bari no existe en la web.
+NUEVOS = ['bari', 'siena', 'trentino', 'quadratto']
+# Solo cruces publicados en firplak.com 63x48. Tiziano+Quadratto lo aprobó el usuario el
+# 2026-11-24 (VIBEWORKFLOW lo marcaba no ofrecible); Vitelli+Quadratto y Tiziano+Bari no se ofrecen.
 CRUCES = [('vitelli', 'bari'), ('vitelli', 'siena'), ('vitelli', 'trentino'),
-          ('tiziano', 'siena'), ('tiziano', 'trentino')]
-PROHIBIDOS = {('tiziano', 'quadratto'), ('tiziano', 'bari')}
+          ('tiziano', 'siena'), ('tiziano', 'trentino'), ('tiziano', 'quadratto')]
+PROHIBIDOS = {('vitelli', 'quadratto'), ('tiziano', 'bari')}
+CONSULTA = {('tiziano', 'quadratto'): '2026-11-24'}
 NOMBRES = {'vitelli': 'VITELLI', 'tiziano': 'TIZIANO', 'bari': 'BARI', 'siena': 'SIENA',
-           'trentino': 'TRENTINO'}
+           'trentino': 'TRENTINO', 'quadratto': 'QUADRATTO'}
 
 
 def fuente_web(mueble, lavamanos):
     return (f'firplak.com, LAVAMANOS {NOMBRES[lavamanos]} + MUEBLE {NOMBRES[mueble]} 63X48, '
-            'consultado 2026-11-23')
+            f'consultado {CONSULTA.get((mueble, lavamanos), "2026-11-23")}')
 
 
 def publish(image, name):
@@ -76,11 +77,11 @@ for mueble, lavamanos in CRUCES:
     if (mueble, lavamanos) not in existentes:
         manifest['verified_combinations'].append({'mueble': mueble, 'lavamanos': lavamanos, 'acabado': 'soder',
                                                   'estado': 'cerrado', 'fuente': fuente_web(mueble, lavamanos)})
-manifest['compatibility_source'] = FUENTE_MATRIZ + '; Bari, Siena y Trentino: firplak.com (ver fuente por cruce)'
+manifest['compatibility_source'] = FUENTE_MATRIZ + '; Bari, Siena, Trentino y Quadratto: firplak.com (ver fuente por cruce)'
 
 pares = {(c['mueble'], c['lavamanos']) for c in manifest['verified_combinations']}
 assert not pares & PROHIBIDOS, pares & PROHIBIDOS
-assert len(pares) == 9, sorted(pares)
+assert len(pares) == 10, sorted(pares)
 assert antes == json.dumps({k: manifest[k] for k in ['environment', 'cabinets', 'product_frame', 'shadow_frame']},
                            sort_keys=True)
 for basin, valor in basins_antes.items():

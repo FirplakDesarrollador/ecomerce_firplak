@@ -30,22 +30,25 @@ test('Alejandro conserva ambiente y la otra pieza al recorrer las cuatro parejas
     expect(await page.locator('[data-seleccion]').evaluateAll(capas => capas.reduce((n, capa) => n + capa.getAnimations().length, 0))).toBe(0);
   }
   expect(pedidos).toEqual([]);
-  await page.goto(URL_ESTUDIO + '?mueble=tiziano&lavamanos=quadratto&acabado=mitte');
+  // Vitelli + Quadratto no se ofrece: cae a Oslo.
+  await page.goto(URL_ESTUDIO + '?mueble=vitelli&lavamanos=quadratto&acabado=mitte');
   await expect(page).toHaveURL(/lavamanos=oslo.*acabado=soder/);
-  await page.getByRole('button', { name: 'Lavamanos Oslo', exact: true }).click();
-  // Tiziano: Oslo, Génova, Siena y Trentino; Bari y Quadratto no se ofrecen.
-  await expect(page.getByRole('radiogroup', { name: 'Galería de lavamanos' }).getByRole('radio')).toHaveCount(4);
+  await page.goto(URL_ESTUDIO + '?mueble=tiziano&lavamanos=quadratto&acabado=mitte');
+  await expect(page).toHaveURL(/lavamanos=quadratto.*acabado=soder/);
+  await page.getByRole('button', { name: 'Lavamanos Quadratto', exact: true }).click();
+  // Tiziano: Oslo, Génova, Siena, Trentino y Quadratto; Bari no se ofrece.
+  await expect(page.getByRole('radiogroup', { name: 'Galería de lavamanos' }).getByRole('radio')).toHaveCount(5);
   await page.goto(URL_ESTUDIO + '?mueble=tiziano&lavamanos=bari&acabado=soder');
   await expect(page).toHaveURL(/lavamanos=oslo/);
 });
 
-test('recorre los nueve cruces publicados sin cambiar ambiente ni mueble', async ({ page }) => {
+test('recorre los diez cruces publicados sin cambiar ambiente ni mueble', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const manifest = await (await page.request.get('http://localhost:3000/images/muebles/capas-63x48/manifest.json')).json();
   const visitados: string[] = [];
   for (const [mueble, lavamanos] of [
     ['vitelli', ['oslo', 'genova', 'bari', 'siena', 'trentino']],
-    ['tiziano', ['oslo', 'genova', 'siena', 'trentino']],
+    ['tiziano', ['oslo', 'genova', 'siena', 'trentino', 'quadratto']],
   ] as const) {
     await page.goto(`${URL_ESTUDIO}?mueble=${mueble}&lavamanos=oslo&acabado=soder`);
     await expect(page.getByText('Cargando tu combinación', { exact: true })).toHaveCount(0);

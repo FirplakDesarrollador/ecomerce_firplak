@@ -11,13 +11,14 @@
     "genova",
     "bari",
     "siena",
-    "trentino"
+    "trentino",
+    "quadratto"
   ],
   "finish": "soder",
   "state": "cerrado",
-  "verified_pairs": 9,
+  "verified_pairs": 10,
   "unit_tests_passed": 67,
-  "browser_tests_passed": 4,
+  "browser_tests_passed": 3,
   "typescript": "passed",
   "eslint_errors": 0,
   "eslint_preexisting_warnings": 13,
@@ -40,29 +41,43 @@
       "oslo",
       "genova",
       "siena",
-      "trentino"
+      "trentino",
+      "quadratto"
     ]
   },
   "not_offered": {
-    "tiziano+quadratto": "pendiente de decisión del usuario (VIBEWORKFLOW: no ofrecible)",
+    "vitelli+quadratto": "no se ofrece (decisión del usuario 2026-11-24)",
     "tiziano+bari": "no publicado en firplak.com",
-    "parma/quadratto/oasis/doha": "sin cruce verificado en este piloto"
+    "parma/quadratto-marfil/oasis/doha": "sin cruce verificado en este piloto"
   },
   "new_basins_source": "STL Autodesk Fusion 63x48, render PBR en referencia-ambiente-34-v3-completo.blend, sin pulido IA (IoU Oslo STL vs aprobado 0,9983)",
   "new_basins_publish_script": "scripts/mix-match/publicar-capas-lavamanos-nuevos.py (aditivo; no re-ejecuta publicar-capas-piloto.py)",
-  "independence_check": "validacion-cruces-stl.json: cambio fuera del lavamanos 0 y fondo fuera de producto/sombra 0 en los 9 cruces",
+  "independence_check": "validacion-cruces-stl.json: cambio fuera del lavamanos 0 y fondo fuera de producto/sombra 0 en los 10 cruces",
   "browser_evidence": [
     "navegador-escritorio-{vitelli-bari,vitelli-siena,vitelli-trentino,tiziano-siena,tiziano-trentino}.png",
     "navegador-movil-*.png",
     "navegador-stl-escritorio.png",
     "navegador-stl-movil.png",
     "transicion-mueble-trentino.png",
-    "transicion-lavamanos-trentino-oslo.png"
+    "transicion-lavamanos-trentino-oslo.png",
+    "navegador-escritorio-tiziano-quadratto.png",
+    "navegador-movil-tiziano-quadratto.png",
+    "navegador-escritorio-galeria-quadratto.png",
+    "revision-tiziano-quadratto.png"
   ],
   "pending": [
     "Trentino sin perforación de grifería en su CAD; se muestra con grifo (por confirmar)",
     "Capas nuevas sin pulido IA: pueden verse algo más mates que Oslo/Génova",
-    "Tiziano+Quadratto pendiente de decisión"
+    "Quadratto: grifo ubicado por medida del STL; la perforación queda oculta bajo el grifo y no se comprobó con foto del producto real"
   ],
-  "updated": "2026-11-23"
+  "updated": "2026-11-24",
+  "browser_tests_failed_preexisting": {
+    "pruebas-e2e/opcionD.spec.ts:79 (gesto horizontal en 375 px)": "falla también con el manifest anterior (9 cruces); no lo causa Quadratto"
+  },
+  "tiziano_quadratto": {
+    "fuente": "firplak.com, LAVAMANOS QUADRATTO + MUEBLE TIZIANO 63X48cm; aprobado por el usuario 2026-11-24",
+    "stl_sha256": "ccc0734d3bb08a4e2cf1e0fe37bc661a40f7eb55571a9a45e30106284529f17d",
+    "griferia": "salpicadero trasero 19,8 mm: grifo bajado 19,8 mm desde el tope y adelantado 40,5 mm hasta la perforación (GRIFO en render-lavamanos-stl-capas.py)",
+    "capa": "public/images/muebles/capas-63x48/lavamanos-quadratto.6df30071cf00.webp"
+  }
 }

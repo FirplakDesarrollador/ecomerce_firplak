@@ -70,11 +70,27 @@
       ],
       "grifo_dz_mm": -30.03,
       "capa": "lavamanos-trentino-negro.png"
+    },
+    "quadratto": {
+      "archivo": "quadratto-63x48.stl",
+      "dims_mm": [
+        630.0,
+        480.0,
+        179.8
+      ],
+      "traslacion_m": [
+        0.0,
+        -0.23998,
+        0.40099
+      ],
+      "grifo_dz_mm": -44.02,
+      "grifo_dy_mm": -40.5,
+      "capa": "lavamanos-quadratto-negro.png"
     }
   },
   "fuente": "STL binario mm exportado de Autodesk Fusion (validacion.json)",
   "geometry_modified": false,
   "ai_generation": false,
   "camera_changed": false,
-  "griferia": "Grifo negro del GLB Vitelli, trasladado solo en altura"
+  "griferia": "Grifo negro del GLB Vitelli, trasladado en altura (y en Y donde GRIFO lo indica)"
 }

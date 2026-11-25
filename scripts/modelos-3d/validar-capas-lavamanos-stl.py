@@ -15,8 +15,9 @@ from PIL import Image
 
 PILOTO = Path(sys.argv[1]) / 'assets-fuente/generativo-63x48/piloto-capas'
 CAPAS = Path(sys.argv[2])
-NUEVOS = ['bari', 'siena', 'trentino']
-CRUCES = [('vitelli', 'bari'), ('vitelli', 'siena'), ('vitelli', 'trentino'), ('tiziano', 'siena'), ('tiziano', 'trentino')]
+NUEVOS = ['bari', 'siena', 'trentino', 'quadratto']
+CRUCES = [('vitelli', 'bari'), ('vitelli', 'siena'), ('vitelli', 'trentino'), ('tiziano', 'siena'), ('tiziano', 'trentino'),
+          ('tiziano', 'quadratto')]  # Vitelli+Quadratto no se ofrece
 
 
 def rgba(ruta):

@@ -49,6 +49,10 @@ exec(compile(tree, str(SOURCE), 'exec'), lib)
 # Ejes de exportación verificados en validacion.json de los STL.
 ARRIBA = {'siena': 'Z'}
 BORDE = 0.003  # m desde el borde lateral para medir el faldón
+# Ajuste de grifería medido en el STL: Quadratto tiene salpicadero trasero de 19,8 mm y su
+# perforación está a -76,5 mm del borde trasero (Oslo: -36 mm). bajo_tope baja el grifo del punto
+# más alto (tope del salpicadero) a la cubierta; dy lo adelanta hasta la perforación.
+GRIFO = {'quadratto': {'bajo_tope': 0.0198, 'dy': -0.0405}}
 
 
 def kind(o):
@@ -75,7 +79,8 @@ def anclas(pts):
     apoyo: borde inferior del faldón lateral, que descansa sobre la tapa del mueble (0,48 m).
     La profundidad del faldón cambia por modelo (Oslo 60 mm, Bari 50, Siena 54, Trentino 30,
     Génova 80), por eso no se alinea por la cara superior.
-    cubierta: punto más alto (estos lavamanos no tienen salpicadero); ahí se apoya el grifo.
+    cubierta: punto más alto. En los modelos sin salpicadero es la cubierta donde se apoya el grifo;
+    en los que tienen salpicadero (Quadratto) es el tope de este, y GRIFO corrige altura y avance.
     """
     mn, mx = pts.min(0), pts.max(0)
     cx = (mn[0] + mx[0]) / 2
@@ -158,15 +163,17 @@ for lid in ids:
         o.data.materials.append(esmalte)
     bpy.context.view_layer.update()
     a2 = anclas(vertices(stl))
-    dz = a2['cubierta'] - ref['cubierta']  # la grifería se apoya en la cubierta trasera
+    ajuste = GRIFO.get(lid, {})
+    dz = a2['cubierta'] - ajuste.get('bajo_tope', 0) - ref['cubierta']  # el grifo se apoya en la cubierta
     for o in grifo:
-        o.location = base_grifo[o.name] + Vector((0, 0, dz))
+        o.location = base_grifo[o.name] + Vector((0, ajuste.get('dy', 0), dz))
     nombre = f'calibracion-{lid}-stl.png' if lid == 'oslo' else f'lavamanos-{lid}-negro.png'
     destino = OUT / (f'prueba-{lid}-stl.png' if prueba else nombre)
     s.render.filepath = str(destino)
     bpy.ops.render.render(write_still=True)
     datos = {'archivo': f'{lid}-63x48.stl', 'dims_mm': a['dims_mm'],
              'traslacion_m': [round(float(d), 5) for d in delta], 'grifo_dz_mm': round(dz * 1000, 2),
+             'grifo_dy_mm': round(ajuste.get('dy', 0) * 1000, 2),
              'capa': destino.name}
     informe['lavamanos'][lid] = datos
     print('CAPA', lid, json.dumps(datos), flush=True)
@@ -176,7 +183,7 @@ for lid in ids:
 if not prueba:
     informe.update({'fuente': 'STL binario mm exportado de Autodesk Fusion (validacion.json)',
                     'geometry_modified': False, 'ai_generation': False, 'camera_changed': False,
-                    'griferia': 'Grifo negro del GLB Vitelli, trasladado solo en altura'})
+                    'griferia': 'Grifo negro del GLB Vitelli, trasladado en altura (y en Y donde GRIFO lo indica)'})
     previo = OUT / "fuente-lavamanos-stl.json"
     if previo.exists():
         informe["lavamanos"] = {**json.loads(previo.read_text(encoding="utf-8"))["lavamanos"], **informe["lavamanos"]}

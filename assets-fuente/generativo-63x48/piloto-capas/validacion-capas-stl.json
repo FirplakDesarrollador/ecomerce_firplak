@@ -46,6 +46,21 @@
       ],
       "alfa_parcial": true,
       "pixeles_en_borde": 0
+    },
+    "quadratto": {
+      "tamano": [
+        1600,
+        1600
+      ],
+      "modo": "RGBA",
+      "bounds": [
+        310,
+        311,
+        1355,
+        863
+      ],
+      "alfa_parcial": true,
+      "pixeles_en_borde": 0
     }
   }
 }

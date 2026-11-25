@@ -69,6 +69,16 @@
         1347,
         859
       ]
+    },
+    "quadratto": {
+      "src": "/images/muebles/capas-63x48/lavamanos-quadratto.6df30071cf00.webp",
+      "faucet": "Negro",
+      "bounds": [
+        310,
+        311,
+        1355,
+        863
+      ]
     }
   },
   "cabinets": {
@@ -164,7 +174,14 @@
       "acabado": "soder",
       "estado": "cerrado",
       "fuente": "firplak.com, LAVAMANOS TRENTINO + MUEBLE TIZIANO 63X48, consultado 2026-11-23"
+    },
+    {
+      "mueble": "tiziano",
+      "lavamanos": "quadratto",
+      "acabado": "soder",
+      "estado": "cerrado",
+      "fuente": "firplak.com, LAVAMANOS QUADRATTO + MUEBLE TIZIANO 63X48, consultado 2026-11-24"
     }
   ],
-  "compatibility_source": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3; Bari, Siena y Trentino: firplak.com (ver fuente por cruce)"
+  "compatibility_source": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3; Bari, Siena, Trentino y Quadratto: firplak.com (ver fuente por cruce)"
 }

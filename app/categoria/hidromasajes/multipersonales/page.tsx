@@ -88,29 +88,6 @@ export default function MultipersonalesPage() {
       className="min-h-screen text-white"
       style={{ background: 'linear-gradient(180deg, #09111f 0%, #060c18 60%, #04080f 100%)' }}
     >
-      {/* ── Sub-navegación ── */}
-      <nav className="sticky top-12 sm:top-[108px] z-30 border-b border-white/[0.07]"
-        style={{ background: 'rgba(6,12,24,0.88)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <ul className="flex items-center gap-1 overflow-x-auto">
-            {SUBCATEGORIAS.map((sub) => (
-              <li key={sub.href}>
-                <Link
-                  href={sub.href}
-                  className={`block px-5 py-4 text-[11px] font-medium tracking-[0.2em] uppercase whitespace-nowrap transition-colors duration-200 ${
-                    sub.activo
-                      ? 'text-white border-b border-white'
-                      : 'text-white/35 hover:text-white/70'
-                  }`}
-                >
-                  {sub.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
-
       {/* ── Hero ── */}
       <section className="relative h-[55vh] min-h-[380px] overflow-hidden">
         {/* Video de fondo (mismo de la experiencia Isabel/Gabriel) */}
@@ -161,6 +138,29 @@ export default function MultipersonalesPage() {
           </a>
         </div>
       </section>
+
+      {/* ── Sub-navegación ── */}
+      <nav className="sticky top-12 sm:top-[108px] z-30 border-b border-white/[0.07]"
+        style={{ background: 'rgba(6,12,24,0.88)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <ul className="flex items-center gap-1 overflow-x-auto">
+            {SUBCATEGORIAS.map((sub) => (
+              <li key={sub.href}>
+                <Link
+                  href={sub.href}
+                  className={`block px-5 py-4 text-[11px] font-medium tracking-[0.2em] uppercase whitespace-nowrap transition-colors duration-200 ${
+                    sub.activo
+                      ? 'text-white border-b border-white'
+                      : 'text-white/35 hover:text-white/70'
+                  }`}
+                >
+                  {sub.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
 
       {/* ── Filtros ── */}
       <section className="px-6 pt-14 pb-10" id="productos">

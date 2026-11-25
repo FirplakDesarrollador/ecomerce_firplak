@@ -50,7 +50,7 @@ const PRODUCT_LINES: ProductLine[] = [
     subcategories: [
       { title: 'hidromasajes indor', url: '/categoria-producto/jacuzzis-e-hidromasajes/1-persona/' },
       { title: 'freestanding', url: '/categoria-producto/jacuzzis-e-hidromasajes/freestanding/' },
-      { title: 'multipersonales', url: '/categoria-producto/jacuzzis-e-hidromasajes/multipersonales/' },
+      { title: 'multipersonales', url: '/categoria/hidromasajes/multipersonales' },
       { title: 'tinas', url: '/categoria-producto/jacuzzis-e-hidromasajes/tinas/' },
       { title: 'accesorios', url: '/categoria-producto/jacuzzis-e-hidromasajes/accesorios-tinas/' },
     ]

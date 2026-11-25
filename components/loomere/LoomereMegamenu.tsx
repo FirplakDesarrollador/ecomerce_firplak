@@ -1,21 +1,27 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  X, 
-  Sparkles, 
-  Zap, 
-  Tag, 
-  Briefcase, 
-  FileText, 
-  Phone, 
-  MapPin, 
-  BookOpen, 
+import { useRouter } from 'next/navigation';
+import {
+  X,
+  Sparkles,
+  Zap,
+  Tag,
+  Briefcase,
+  FileText,
+  Phone,
+  MapPin,
+  BookOpen,
   ChevronRight,
   ShieldCheck,
   ArrowUpRight
 } from 'lucide-react';
 import { triggerAccessFeedback } from '@/components/ui/AccessFeedbackToast';
+
+// Rutas Next.js ya construidas — navegan directo sin toast.
+const LIVE_ROUTES = new Set([
+  '/categoria/hidromasajes/multipersonales',
+]);
 
 interface LoomereMegamenuProps {
   isOpen: boolean;
@@ -48,7 +54,7 @@ const CATEGORY_GROUPS: CategoryGroup[] = [
       { name: '1 Persona', url: '/categoria-producto/jacuzzis-e-hidromasajes/1-persona/' },
       { name: '2 Personas', url: '/categoria-producto/jacuzzis-e-hidromasajes/2-personas/' },
       { name: 'Freestanding (Exentas)', url: '/categoria-producto/jacuzzis-e-hidromasajes/freestanding/' },
-      { name: 'Multipersonales', url: '/categoria-producto/jacuzzis-e-hidromasajes/multipersonales/' },
+      { name: 'Multipersonales', url: '/categoria/hidromasajes/multipersonales' },
       { name: 'Tinas Tradicionales', url: '/categoria-producto/jacuzzis-e-hidromasajes/tinas/' },
       { name: 'Accesorios Tinas', url: '/categoria-producto/jacuzzis-e-hidromasajes/accesorios-tinas/' },
       { name: '⚡ Envío Rápido Hidromasajes', url: '/categoria-producto/jacuzzis-e-hidromasajes/envio-rapido-hidromasajes/', isQuickShip: true, badge: '< 48 Horas' },
@@ -169,12 +175,18 @@ const CORPORATE_LINKS = [
 
 export default function LoomereMegamenu({ isOpen, onClose }: LoomereMegamenuProps) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>('hidromasajes');
+  const router = useRouter();
 
   if (!isOpen) return null;
 
   const activeCategory = CATEGORY_GROUPS.find((c) => c.id === selectedCategoryId) || CATEGORY_GROUPS[0];
 
   const handleLinkClick = (title: string, url: string, category: string) => {
+    if (LIVE_ROUTES.has(url)) {
+      onClose();
+      router.push(url);
+      return;
+    }
     triggerAccessFeedback({
       title,
       url,

@@ -113,18 +113,20 @@ export default function MultipersonalesPage() {
 
       {/* ── Hero ── */}
       <section className="relative h-[55vh] min-h-[380px] overflow-hidden">
-        {/* Imagen de fondo */}
-        <Image
-          src="https://www.firplak.com/wp-content/uploads/2017/09/Hidromasaje-Chatanoogan-iso-Amb-empotrar-kit-1200x1200.jpg"
-          alt="Hidromasajes multipersonales Firplak"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center scale-105"
-        />
+        {/* Video de fondo (mismo de la experiencia Isabel/Gabriel) */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover object-center scale-105"
+        >
+          <source src="/videos/loomere/viaje_4_exterior.mp4" type="video/mp4" media="(min-width: 768px)" />
+          <source src="/videos/loomere/viaje_4_exterior-m.mp4" type="video/mp4" />
+        </video>
 
         {/* Capas de oscuridad + gloss */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(4,8,15,0.88) 0%, rgba(6,12,24,0.72) 60%, rgba(4,8,15,0.60) 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(4,8,15,0.75) 0%, rgba(6,12,24,0.55) 60%, rgba(4,8,15,0.45) 100%)' }} />
         {/* Velo inferior para transición suave */}
         <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to bottom, transparent, #060c18)' }} />
 

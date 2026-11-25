@@ -116,10 +116,7 @@ export default function MultipersonalesPage() {
           <p className="text-[10px] tracking-[0.35em] uppercase text-white/40 mb-3">
             Hidromasajes · Colección
           </p>
-          <h1
-            className="text-5xl sm:text-6xl lg:text-7xl font-light leading-none mb-5"
-            style={{ fontFamily: 'var(--font-playfair, Georgia, serif)' }}
-          >
+          <h1 className="font-sans font-light text-5xl sm:text-6xl lg:text-7xl leading-tight tracking-tight mb-5">
             Multipersonales
           </h1>
           <p className="text-white/50 text-sm max-w-sm leading-relaxed mb-7">
@@ -240,10 +237,7 @@ export default function MultipersonalesPage() {
                   {/* Info */}
                   <div className="flex flex-col flex-1 p-5 gap-4">
                     <div>
-                      <h2
-                        className="text-xl font-light leading-none tracking-wide"
-                        style={{ fontFamily: 'var(--font-playfair, Georgia, serif)' }}
-                      >
+                      <h2 className="font-sans font-light text-xl leading-tight tracking-wide">
                         {producto.nombre}
                       </h2>
                       <p className="text-white/35 text-[11px] mt-1.5 tracking-wide">
@@ -316,10 +310,7 @@ export default function MultipersonalesPage() {
               <p className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-2">
                 Atención personalizada
               </p>
-              <h3
-                className="text-2xl sm:text-3xl font-light"
-                style={{ fontFamily: 'var(--font-playfair, Georgia, serif)' }}
-              >
+              <h3 className="font-sans font-light text-2xl sm:text-3xl tracking-tight">
                 ¿Cuál es el ideal para ti?
               </h3>
               <p className="text-white/40 text-sm mt-2">

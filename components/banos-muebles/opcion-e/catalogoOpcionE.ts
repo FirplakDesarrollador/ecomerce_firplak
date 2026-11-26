@@ -1,60 +1,60 @@
 /**
- * Opción D · Mix & Match isométrico: catálogo.
+ * Opción E · Mix & Match isométrico: catálogo.
  * Renders iso del usuario (v3 iso): Vitelli y Tucano × Oslo, Génova, Parma y Siena, cerrado y abierto,
  * más los muebles solos. Cada render trae un modelo de grifería: el Vitelli el bajo (níquel), el Tucano
  * el alto (negro); los dos se pueden poner en cualquier mueble.
  */
 import type { TonoGrifo } from '../opcion-c/pixelesC';
 
-export const RUTA_D = '/images/muebles/opcion-d';
+export const RUTA_E = '/images/muebles/opcion-e';
 
-export type IdMuebleD = 'vitelli' | 'tucano';
-export type IdLavamanosD = 'oslo' | 'genova' | 'parma' | 'siena';
-export type IdAcabadoD = 'blanco-nevado' | 'tauari' | 'mali' | 'nola' | 'tambo' | 'candelaria';
-export type IdColorLavamanosD = 'blanco' | 'marfil' | 'niebla';
-export type IdGrifoD = 'bajo' | 'alto';
-export type IdAcabadoGrifoD = 'niquel' | 'negro' | 'cromo' | 'oro';
-export type IdCompraD = 'conjunto' | 'mueble' | 'lavamanos' | 'griferia';
-export type EstadoD = 'cerrado' | 'abierto';
+export type IdMuebleE = 'vitelli' | 'tucano';
+export type IdLavamanosE = 'oslo' | 'genova' | 'parma' | 'siena';
+export type IdAcabadoE = 'blanco-nevado' | 'tauari' | 'mali' | 'nola' | 'tambo' | 'candelaria';
+export type IdColorLavamanosE = 'blanco' | 'marfil' | 'niebla';
+export type IdGrifoE = 'bajo' | 'alto';
+export type IdAcabadoGrifoE = 'niquel' | 'negro' | 'cromo' | 'oro';
+export type IdCompraE = 'conjunto' | 'mueble' | 'lavamanos' | 'griferia';
+export type EstadoE = 'cerrado' | 'abierto';
 
-export interface SeleccionD {
-  mueble: IdMuebleD;
-  acabado: IdAcabadoD;
-  lavamanos: IdLavamanosD;
-  color: IdColorLavamanosD;
-  grifo: IdGrifoD;
-  acabadoGrifo: IdAcabadoGrifoD;
-  compra: IdCompraD;
+export interface SeleccionE {
+  mueble: IdMuebleE;
+  acabado: IdAcabadoE;
+  lavamanos: IdLavamanosE;
+  color: IdColorLavamanosE;
+  grifo: IdGrifoE;
+  acabadoGrifo: IdAcabadoGrifoE;
+  compra: IdCompraE;
 }
 
-export interface MuebleD {
-  id: IdMuebleD;
+export interface MuebleE {
+  id: IdMuebleE;
   nombre: string;
   frentes: string;
   rasgos: string[];
 }
 
-export const MUEBLES_D: MuebleD[] = [
+export const MUEBLES_E: MuebleE[] = [
   { id: 'vitelli', nombre: 'Vitelli', frentes: 'Puerta y dos cajones', rasgos: ['Cajones con rieles de extensión total de 35 cm', 'Puerta y cajones con cierre suave'] },
   { id: 'tucano', nombre: 'Tucano', frentes: 'Dos cajones', rasgos: ['Rieles de extensión total de 35 cm', 'Cajones con cierre suave'] },
 ];
 
-export interface LavamanosD {
-  id: IdLavamanosD;
+export interface LavamanosE {
+  id: IdLavamanosE;
   nombre: string;
   forma: string;
   medida: string;
 }
 
-export const LAVAMANOS_D: LavamanosD[] = [
+export const LAVAMANOS_E: LavamanosE[] = [
   { id: 'oslo', nombre: 'Oslo', forma: 'Poceta rectangular', medida: '63 × 48 cm' },
   { id: 'genova', nombre: 'Génova', forma: 'Poceta trapezoidal', medida: '63 × 48 cm' },
   { id: 'parma', nombre: 'Parma', forma: 'Poceta ovalada con apoyo lateral', medida: '63 × 48 cm' },
   { id: 'siena', nombre: 'Siena', forma: 'Poceta de frente curvo', medida: '63 × 48 cm' },
 ];
 
-export interface ColorLavamanosD {
-  id: IdColorLavamanosD;
+export interface ColorLavamanosE {
+  id: IdColorLavamanosE;
   nombre: string;
   /** Color del gelcoat (0-255) con luz plena; null = el blanco del render. */
   color: [number, number, number] | null;
@@ -62,14 +62,14 @@ export interface ColorLavamanosD {
 }
 
 /** Gelcoat: colores tomados de las muestras del usuario (marfil y niebla). */
-export const COLORES_LAVAMANOS_D: ColorLavamanosD[] = [
+export const COLORES_LAVAMANOS_E: ColorLavamanosE[] = [
   { id: 'blanco', nombre: 'Blanco', color: null, muestra: '#f5f5f3' },
   { id: 'marfil', nombre: 'Marfil', color: [238, 231, 215], muestra: '#eee7d7' },
   { id: 'niebla', nombre: 'Niebla', color: [98, 96, 97], muestra: '#626061' },
 ];
 
-export interface AcabadoD {
-  id: IdAcabadoD;
+export interface AcabadoE {
+  id: IdAcabadoE;
   nombre: string;
   tipo: 'Unicolor' | 'Melamina maderada';
   /** Color plano (unicolor) o textura del tablero. */
@@ -79,30 +79,30 @@ export interface AcabadoD {
   cmTextura: number;
 }
 
-export const ACABADOS_D: AcabadoD[] = [
+export const ACABADOS_E: AcabadoE[] = [
   { id: 'blanco-nevado', nombre: 'Blanco nevado', tipo: 'Unicolor', plano: [244, 244, 241], cmTextura: 60 },
-  { id: 'tauari', nombre: 'Tauari', tipo: 'Melamina maderada', textura: `${RUTA_D}/acabado-tauari.webp`, cmTextura: 70 },
-  { id: 'mali', nombre: 'Mali', tipo: 'Melamina maderada', textura: `${RUTA_D}/acabado-mali.webp`, cmTextura: 55 },
-  { id: 'nola', nombre: 'Nola', tipo: 'Melamina maderada', textura: `${RUTA_D}/acabado-nola.webp`, cmTextura: 80 },
-  { id: 'tambo', nombre: 'Tambo', tipo: 'Melamina maderada', textura: `${RUTA_D}/acabado-tambo.webp`, cmTextura: 60 },
-  { id: 'candelaria', nombre: 'Candelaria', tipo: 'Melamina maderada', textura: `${RUTA_D}/acabado-candelaria.webp`, cmTextura: 60 },
+  { id: 'tauari', nombre: 'Tauari', tipo: 'Melamina maderada', textura: `${RUTA_E}/acabado-tauari.webp`, cmTextura: 70 },
+  { id: 'mali', nombre: 'Mali', tipo: 'Melamina maderada', textura: `${RUTA_E}/acabado-mali.webp`, cmTextura: 55 },
+  { id: 'nola', nombre: 'Nola', tipo: 'Melamina maderada', textura: `${RUTA_E}/acabado-nola.webp`, cmTextura: 80 },
+  { id: 'tambo', nombre: 'Tambo', tipo: 'Melamina maderada', textura: `${RUTA_E}/acabado-tambo.webp`, cmTextura: 60 },
+  { id: 'candelaria', nombre: 'Candelaria', tipo: 'Melamina maderada', textura: `${RUTA_E}/acabado-candelaria.webp`, cmTextura: 60 },
 ];
 
-export interface GrifoD {
-  id: IdGrifoD;
+export interface GrifoE {
+  id: IdGrifoE;
   nombre: string;
   detalle: string;
   /** Acabado con el que viene renderizado (el único que no es vista previa). */
-  base: IdAcabadoGrifoD;
+  base: IdAcabadoGrifoE;
 }
 
-export const GRIFOS_D: GrifoD[] = [
+export const GRIFOS_E: GrifoE[] = [
   { id: 'bajo', nombre: 'Monocontrol bajo', detalle: 'Caño corto, aireador de aire inducido', base: 'niquel' },
   { id: 'alto', nombre: 'Monocontrol alto', detalle: 'Caño largo, aireador de aire inducido', base: 'negro' },
 ];
 
-export interface AcabadoGrifoD {
-  id: IdAcabadoGrifoD;
+export interface AcabadoGrifoE {
+  id: IdAcabadoGrifoE;
   nombre: string;
   muestra: string;
   /** Tono simulado a partir del grifo renderizado (níquel o negro). */
@@ -111,7 +111,7 @@ export interface AcabadoGrifoD {
 }
 
 const BLANCO: [number, number, number] = [1, 1, 1];
-export const ACABADOS_GRIFO_D: AcabadoGrifoD[] = [
+export const ACABADOS_GRIFO_E: AcabadoGrifoE[] = [
   {
     id: 'niquel', nombre: 'Níquel cepillado', muestra: 'linear-gradient(135deg,#d8d2c6,#8f887c 55%,#cfc8bb)',
     tonoDesdeNiquel: null,
@@ -134,13 +134,13 @@ export const ACABADOS_GRIFO_D: AcabadoGrifoD[] = [
   },
 ];
 
-export interface CompraD {
-  id: IdCompraD;
+export interface CompraE {
+  id: IdCompraE;
   nombre: string;
   detalle: string;
 }
 
-export const COMPRAS_D: CompraD[] = [
+export const COMPRAS_E: CompraE[] = [
   { id: 'conjunto', nombre: 'Conjunto completo', detalle: 'Mueble, lavamanos y grifería' },
   { id: 'mueble', nombre: 'Solo el mueble', detalle: 'Sin lavamanos ni grifería' },
   { id: 'lavamanos', nombre: 'Solo el lavamanos', detalle: 'Gelcoat, sin grifería' },
@@ -148,9 +148,9 @@ export const COMPRAS_D: CompraD[] = [
 ];
 
 /** Precios sugeridos (COP) mientras llegan los reales; el conjunto es la suma de las partes. */
-export const PRECIOS_SUGERIDOS_D = { mueble: 720_000, lavamanos: 320_000, griferia: 280_000 } as const;
+export const PRECIOS_SUGERIDOS_E = { mueble: 720_000, lavamanos: 320_000, griferia: 280_000 } as const;
 
-export const INICIAL_D: SeleccionD = {
+export const INICIAL_E: SeleccionE = {
   mueble: 'vitelli',
   acabado: 'tauari',
   lavamanos: 'oslo',
@@ -160,17 +160,17 @@ export const INICIAL_D: SeleccionD = {
   compra: 'conjunto',
 };
 
-export const TOTAL_COMBINACIONES_D =
-  MUEBLES_D.length * ACABADOS_D.length * LAVAMANOS_D.length * COLORES_LAVAMANOS_D.length * GRIFOS_D.length * ACABADOS_GRIFO_D.length;
+export const TOTAL_COMBINACIONES_E =
+  MUEBLES_E.length * ACABADOS_E.length * LAVAMANOS_E.length * COLORES_LAVAMANOS_E.length * GRIFOS_E.length * ACABADOS_GRIFO_E.length;
 
 /** Archivos de un cuerpo (mueble con un lavamanos o solo) en un estado. */
-export function rutaCuerpoD(mueble: IdMuebleD, pieza: IdLavamanosD | 'solo', estado: EstadoD) {
+export function rutaCuerpoE(mueble: IdMuebleE, pieza: IdLavamanosE | 'solo', estado: EstadoE) {
   const id = `${mueble}__${pieza}__${estado}`;
-  return { foto: `${RUTA_D}/${id}.webp`, capa: `${RUTA_D}/${id}-capa.webp`, luz: `${RUTA_D}/${id}-luz.webp` };
+  return { foto: `${RUTA_E}/${id}.webp`, capa: `${RUTA_E}/${id}-capa.webp`, luz: `${RUTA_E}/${id}-luz.webp` };
 }
 
 /** Archivos de una tapa (lavamanos con un modelo de grifería). */
-export function rutaTapaD(lavamanos: IdLavamanosD, grifo: IdGrifoD) {
+export function rutaTapaE(lavamanos: IdLavamanosE, grifo: IdGrifoE) {
   const id = `tapa__${lavamanos}__${grifo}`;
-  return { foto: `${RUTA_D}/${id}.webp`, capa: `${RUTA_D}/${id}-capa.webp` };
+  return { foto: `${RUTA_E}/${id}.webp`, capa: `${RUTA_E}/${id}-capa.webp` };
 }

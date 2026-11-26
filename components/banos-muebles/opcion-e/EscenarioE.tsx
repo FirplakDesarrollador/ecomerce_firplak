@@ -2,17 +2,17 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { DoorClosed, DoorOpen, Droplets, Layers } from 'lucide-react';
-import { COMPRAS_D, type IdCompraD, type IdLavamanosD, type IdMuebleD, type SeleccionD } from './catalogoOpcionD';
-import { ALTO_D, ANCHO_D, cuerpoPintado, tapaPintada } from './componerD';
-import { cotaCajon, crearMotorD, type MotorD, type MovimientoD } from './animacionD';
-import { ChorroD, FONDO_POCETA_D, LupaAireador } from './AguaD';
-import { formatoPesos, grifoReal, nombresD, precioD } from './opcionDLogica';
-import { CAJONES_D, SALIDA_GRIFO_D } from './rendersOpcionD';
+import { COMPRAS_E, type IdCompraE, type IdLavamanosE, type IdMuebleE, type SeleccionE } from './catalogoOpcionE';
+import { ALTO_E, ANCHO_E, cuerpoPintado, tapaPintada } from './componerE';
+import { cotaCajon, crearMotorE, type MotorE, type MovimientoE } from './animacionE';
+import { ChorroE, FONDO_POCETA_E, LupaAireador } from './AguaE';
+import { formatoPesos, grifoReal, nombresE, precioE } from './opcionELogica';
+import { CAJONES_E, SALIDA_GRIFO_E } from './rendersOpcionE';
 
 // Panel flotante claro del sistema de diseño (glass-panel), igual que A, B y C.
-export const VIDRIO_D = 'border border-white/70 bg-white/80 shadow-[0_8px_30px_rgba(50,67,84,0.14)] backdrop-blur-[20px]';
+export const VIDRIO_E = 'border border-white/70 bg-white/80 shadow-[0_8px_30px_rgba(50,67,84,0.14)] backdrop-blur-[20px]';
 
-const RELACION = ANCHO_D / ALTO_D;
+const RELACION = ANCHO_E / ALTO_E;
 const pct = (v: number, total: number) => `${(v / total) * 100}%`;
 
 /** Copia congelada de un lienzo, encima del actual, para animar su salida. */
@@ -43,15 +43,15 @@ function copiar(destino: HTMLCanvasElement, origen: HTMLCanvasElement) {
 }
 
 /** Región del render que se encuadra según lo que se compra. */
-function regionCompra(compra: IdCompraD, cajaGrifo: [number, number, number, number], lavamanos: IdLavamanosD, salidaX: number): [number, number, number, number] | null {
-  if (compra === 'griferia') return [Math.min(cajaGrifo[0], salidaX - 60), cajaGrifo[1] - 30, cajaGrifo[2] + 40, FONDO_POCETA_D[lavamanos] + 40];
+function regionCompra(compra: IdCompraE, cajaGrifo: [number, number, number, number], lavamanos: IdLavamanosE, salidaX: number): [number, number, number, number] | null {
+  if (compra === 'griferia') return [Math.min(cajaGrifo[0], salidaX - 60), cajaGrifo[1] - 30, cajaGrifo[2] + 40, FONDO_POCETA_E[lavamanos] + 40];
   if (compra === 'lavamanos') return [330, 30, 1590, 640];
-  if (compra === 'mueble') return [0, 290, ANCHO_D, ALTO_D];
+  if (compra === 'mueble') return [0, 290, ANCHO_E, ALTO_E];
   return null;
 }
 
-export interface EscenarioDProps {
-  sel: SeleccionD;
+export interface EscenarioEProps {
+  sel: SeleccionE;
   abierto: boolean;
   agua: boolean;
   avisoCierre: boolean;
@@ -59,16 +59,16 @@ export interface EscenarioDProps {
   reducirMovimiento: boolean;
   onAlternarAbierto: () => void;
   onAlternarAgua: () => void;
-  onCompra: (c: IdCompraD) => void;
+  onCompra: (c: IdCompraE) => void;
   onListo: () => void;
   onError: (mensaje: string) => void;
 }
 
 /**
- * Escenario de la Opción D: el render iso partido en cuerpo (mueble, animado) y tapa (lavamanos y
+ * Escenario de la Opción E: el render iso partido en cuerpo (mueble, animado) y tapa (lavamanos y
  * grifería). Lo que se compra decide qué se resalta y cómo se encuadra.
  */
-export default function EscenarioD({
+export default function EscenarioE({
   sel,
   abierto,
   agua,
@@ -80,7 +80,7 @@ export default function EscenarioD({
   onCompra,
   onListo,
   onError,
-}: EscenarioDProps) {
+}: EscenarioEProps) {
   const [tam, setTam] = useState({ w: 0, h: 0 });
   const [cuerpoListo, setCuerpoListo] = useState(false);
   const [tapaLista, setTapaLista] = useState(false);
@@ -101,17 +101,17 @@ export default function EscenarioD({
   const cotaMarcaB = useRef<SVGLineElement>(null);
   const cotaEtiqueta = useRef<HTMLDivElement>(null);
   const cotaNumero = useRef<HTMLSpanElement>(null);
-  const motor = useRef<MotorD | null>(null);
-  const mostradoCuerpo = useRef<{ mueble: IdMuebleD; acabado: string; pieza: string } | null>(null);
+  const motor = useRef<MotorE | null>(null);
+  const mostradoCuerpo = useRef<{ mueble: IdMuebleE; acabado: string; pieza: string } | null>(null);
   const mostradoTapa = useRef<string | null>(null);
   const objetivo = useRef(abierto);
   const primeraOrden = useRef(true);
 
-  const n = nombresD(sel);
-  const pieza: IdLavamanosD | 'solo' = sel.compra === 'mueble' ? 'solo' : sel.lavamanos;
+  const n = nombresE(sel);
+  const pieza: IdLavamanosE | 'solo' = sel.compra === 'mueble' ? 'solo' : sel.lavamanos;
   const listo = cuerpoListo && tapaLista;
-  const salida = SALIDA_GRIFO_D[sel.lavamanos][sel.grifo] as [number, number];
-  const fondo = FONDO_POCETA_D[sel.lavamanos];
+  const salida = SALIDA_GRIFO_E[sel.lavamanos][sel.grifo] as [number, number];
+  const fondo = FONDO_POCETA_E[sel.lavamanos];
   const puedeAbrir = sel.compra === 'conjunto' || sel.compra === 'mueble';
   const puedeAgua = sel.compra === 'conjunto' || sel.compra === 'griferia';
   const aguaVisible = agua && puedeAgua;
@@ -129,7 +129,7 @@ export default function EscenarioD({
   useEffect(() => {
     const lienzo = lienzoCuerpo.current;
     if (!lienzo) return;
-    const alPintar = (m: MovimientoD, mueble: IdMuebleD) => {
+    const alPintar = (m: MovimientoE, mueble: IdMuebleE) => {
       const g = cotaGrupo.current, et = cotaEtiqueta.current, num = cotaNumero.current;
       const linea = cotaLinea.current, a = cotaMarcaA.current, b = cotaMarcaB.current;
       if (!g || !et || !num || !linea || !a || !b) return;
@@ -150,11 +150,11 @@ export default function EscenarioD({
         marca.setAttribute('y2', `${p[1] + ny * 12}`);
       }
       const mx = (c.desde[0] + c.hasta[0]) / 2 + nx * 62, my = (c.desde[1] + c.hasta[1]) / 2 + ny * 62;
-      et.style.left = pct(mx, ANCHO_D);
-      et.style.top = pct(my, ALTO_D);
+      et.style.left = pct(mx, ANCHO_E);
+      et.style.top = pct(my, ALTO_E);
       num.textContent = `${c.centimetros} cm`;
     };
-    const m = crearMotorD(lienzo, alPintar);
+    const m = crearMotorE(lienzo, alPintar);
     motor.current = m;
     return () => m.destruir();
   }, []);
@@ -208,7 +208,7 @@ export default function EscenarioD({
     const clave = m?.claveActual();
     if (!m || !clave) return;
     let cancelado = false;
-    const [mueble, piezaA, acabado] = clave.split('|') as [IdMuebleD, IdLavamanosD | 'solo', SeleccionD['acabado']];
+    const [mueble, piezaA, acabado] = clave.split('|') as [IdMuebleE, IdLavamanosE | 'solo', SeleccionE['acabado']];
     cuerpoPintado(mueble, piezaA, 'abierto', acabado)
       .then((a) => {
         if (cancelado) return;
@@ -270,11 +270,11 @@ export default function EscenarioD({
   const region = regionCompra(sel.compra, cajaGrifo, sel.lavamanos, salida[0]);
   let escala = 1, tx = 0, ty = 0;
   if (region && anchoCaja > 0) {
-    const k = anchoCaja / ANCHO_D;
+    const k = anchoCaja / ANCHO_E;
     const rw = (region[2] - region[0]) * k, rh = (region[3] - region[1]) * k;
     const maximo = sel.compra === 'griferia' ? 1.9 : sel.compra === 'lavamanos' ? 1.45 : 1.12;
     escala = Math.max(1, Math.min(maximo, (tam.w * 0.84) / rw, (tam.h - 150) / rh));
-    const cx = ((region[0] + region[2]) / 2 - ANCHO_D / 2) * k, cy = ((region[1] + region[3]) / 2 - ALTO_D / 2) * k;
+    const cx = ((region[0] + region[2]) / 2 - ANCHO_E / 2) * k, cy = ((region[1] + region[3]) / 2 - ALTO_E / 2) * k;
     tx = -cx * escala;
     ty = -cy * escala + (sel.compra === 'griferia' ? 0 : 4);
   } else {
@@ -307,22 +307,22 @@ export default function EscenarioD({
     if ((e.target as HTMLElement).closest('button, a')) return;
     const r = caja.current?.getBoundingClientRect();
     if (!r || !listo) return;
-    const x = ((e.clientX - r.left) / r.width) * ANCHO_D, y = ((e.clientY - r.top) / r.height) * ALTO_D;
+    const x = ((e.clientX - r.left) / r.width) * ANCHO_E, y = ((e.clientY - r.top) / r.height) * ALTO_E;
     const m = 40;
     if (puedeAgua && x > cajaGrifo[0] - m && x < cajaGrifo[2] + m && y > cajaGrifo[1] - m && y < cajaGrifo[3] + m) {
       onAlternarAgua();
       return;
     }
-    if (!puedeAbrir || x < 0 || y < 0 || x >= ANCHO_D || y >= ALTO_D) return;
+    if (!puedeAbrir || x < 0 || y < 0 || x >= ANCHO_E || y >= ALTO_E) return;
     const alfa = lienzoCuerpo.current?.getContext('2d')?.getImageData(Math.floor(x), Math.floor(y), 1, 1).data[3] ?? 0;
     if (alfa > 24) onAlternarAbierto();
   };
 
-  const precio = precioD(sel.compra);
+  const precio = precioE(sel.compra);
   const compra = n.compra;
   const fondoEscenario = 'bg-[radial-gradient(ellipse_at_50%_32%,#f8f5f0_0%,#ece6dd_62%,#e3dbd0_100%)]';
   const sombra = 'drop-shadow(0 28px 30px rgba(60,45,30,0.2))';
-  const frenteArriba = CAJONES_D[sel.mueble][0].frente[1];
+  const frenteArriba = CAJONES_E[sel.mueble][0].frente[1];
 
   return (
     <div
@@ -344,7 +344,7 @@ export default function EscenarioD({
           style={{ width: anchoCaja, height: altoCaja, transform: `translate(${tx}px, ${ty}px) scale(${escala})`, transition: transicion }}
         >
           <div ref={capaCuerpo} className="absolute inset-0" style={{ ...estiloCuerpo, filter: `${estiloCuerpo.filter === 'none' ? '' : 'grayscale(1) '}${sombra}` }}>
-            <canvas ref={lienzoCuerpo} width={ANCHO_D} height={ALTO_D} className="absolute inset-0 h-full w-full" />
+            <canvas ref={lienzoCuerpo} width={ANCHO_E} height={ALTO_E} className="absolute inset-0 h-full w-full" />
             <div
               ref={barrido}
               aria-hidden
@@ -353,15 +353,15 @@ export default function EscenarioD({
             />
           </div>
           <div ref={capaTapa} className="absolute inset-0" style={estiloTapa}>
-            <canvas ref={lienzoTapa} width={ANCHO_D} height={ALTO_D} className="absolute inset-0 h-full w-full" />
+            <canvas ref={lienzoTapa} width={ANCHO_E} height={ALTO_E} className="absolute inset-0 h-full w-full" />
           </div>
           <div ref={capaGrifo} className="pointer-events-none absolute inset-0" style={estiloGrifo}>
-            <canvas ref={lienzoGrifo} width={ANCHO_D} height={ALTO_D} className="absolute inset-0 h-full w-full" />
+            <canvas ref={lienzoGrifo} width={ANCHO_E} height={ALTO_E} className="absolute inset-0 h-full w-full" />
           </div>
 
           {/* Agua y cota, en coordenadas del render */}
-          <svg viewBox={`0 0 ${ANCHO_D} ${ALTO_D}`} className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" aria-hidden>
-            <ChorroD salida={salida} fondo={fondo} grifo={sel.grifo} abierta={aguaVisible && listo} quieto={reducirMovimiento} />
+          <svg viewBox={`0 0 ${ANCHO_E} ${ALTO_E}`} className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" aria-hidden>
+            <ChorroE salida={salida} fondo={fondo} grifo={sel.grifo} abierta={aguaVisible && listo} quieto={reducirMovimiento} />
             <g style={{ opacity: puedeAbrir ? 1 : 0, transition: 'opacity 300ms' }}>
               <g ref={cotaGrupo} style={{ opacity: 0, transition: 'opacity 200ms' }} stroke="#324354" strokeLinecap="round">
                 <line ref={cotaLinea} strokeWidth="2.6" opacity="0.7" />
@@ -375,7 +375,7 @@ export default function EscenarioD({
           <div
             ref={cotaEtiqueta}
             aria-hidden
-            className={`pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-semibold text-[#324354] transition-opacity duration-200 sm:text-[11px] ${VIDRIO_D}`}
+            className={`pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-semibold text-[#324354] transition-opacity duration-200 sm:text-[11px] ${VIDRIO_E}`}
             style={{ opacity: 0, left: '60%', top: '96%', visibility: puedeAbrir ? 'visible' : 'hidden' }}
           >
             <span ref={cotaNumero} className="tabular-nums">0 cm</span>
@@ -383,10 +383,10 @@ export default function EscenarioD({
           </div>
           <div
             aria-hidden
-            className={`pointer-events-none absolute z-10 -translate-y-1/2 whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-semibold text-[#324354] transition-[opacity,transform] duration-500 sm:text-[11px] ${VIDRIO_D}`}
+            className={`pointer-events-none absolute z-10 -translate-y-1/2 whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-semibold text-[#324354] transition-[opacity,transform] duration-500 sm:text-[11px] ${VIDRIO_E}`}
             style={{
-              left: pct(frenteArriba[0] + 34, ANCHO_D),
-              top: pct(frenteArriba[1] + 60, ALTO_D),
+              left: pct(frenteArriba[0] + 34, ANCHO_E),
+              top: pct(frenteArriba[1] + 60, ALTO_E),
               opacity: avisoCierre && puedeAbrir ? 1 : 0,
               transform: `translateY(-50%) translateX(${avisoCierre ? 0 : -8}px)`,
             }}
@@ -395,8 +395,8 @@ export default function EscenarioD({
           </div>
           <div
             aria-hidden
-            className={`pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-full px-2 py-0.5 text-[9px] font-semibold text-[#58696b] transition-opacity duration-500 sm:text-[10px] ${VIDRIO_D}`}
-            style={{ left: pct((cajaGrifo[0] + cajaGrifo[2]) / 2, ANCHO_D), top: pct(cajaGrifo[1] - 10, ALTO_D), opacity: sel.compra === 'lavamanos' ? 1 : 0 }}
+            className={`pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-full px-2 py-0.5 text-[9px] font-semibold text-[#58696b] transition-opacity duration-500 sm:text-[10px] ${VIDRIO_E}`}
+            style={{ left: pct((cajaGrifo[0] + cajaGrifo[2]) / 2, ANCHO_E), top: pct(cajaGrifo[1] - 10, ALTO_E), opacity: sel.compra === 'lavamanos' ? 1 : 0 }}
           >
             Grifería no incluida
           </div>
@@ -405,7 +405,7 @@ export default function EscenarioD({
             <span
               aria-hidden
               className="pointer-events-none absolute h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#324354]/50 motion-safe:animate-ping"
-              style={{ left: pct(salida[0], ANCHO_D), top: pct(salida[1] + 8, ALTO_D) }}
+              style={{ left: pct(salida[0], ANCHO_E), top: pct(salida[1] + 8, ALTO_E) }}
             />
           )}
         </div>
@@ -419,7 +419,7 @@ export default function EscenarioD({
       )}
 
       {/* Precio de lo que se compra */}
-      <div className={`absolute left-3 top-3 z-10 rounded-2xl px-3.5 py-2 text-[#324354] ${VIDRIO_D}`} aria-live="polite">
+      <div className={`absolute left-3 top-3 z-10 rounded-2xl px-3.5 py-2 text-[#324354] ${VIDRIO_E}`} aria-live="polite">
         <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#58696b]">{compra.nombre}</p>
         <p className="text-base font-semibold tabular-nums leading-tight sm:text-lg">
           {formatoPesos(precio)}
@@ -436,7 +436,7 @@ export default function EscenarioD({
             aria-pressed={abierto}
             aria-label={abierto ? 'Cerrar puerta y cajones' : 'Abrir puerta y cajones'}
             title={abierto ? 'Cerrar (cierre suave)' : 'Abrir'}
-            className={`flex h-11 items-center gap-1.5 rounded-full px-3.5 text-xs font-semibold transition-colors duration-150 ${abierto ? 'bg-[#324354] text-white shadow-[0_8px_30px_rgba(50,67,84,0.25)]' : `text-[#324354] ${VIDRIO_D}`}`}
+            className={`flex h-11 items-center gap-1.5 rounded-full px-3.5 text-xs font-semibold transition-colors duration-150 ${abierto ? 'bg-[#324354] text-white shadow-[0_8px_30px_rgba(50,67,84,0.25)]' : `text-[#324354] ${VIDRIO_E}`}`}
           >
             {abierto ? <DoorClosed className="h-4 w-4" aria-hidden /> : <DoorOpen className="h-4 w-4" aria-hidden />}
             <span className="hidden sm:inline">{abierto ? 'Cerrar' : 'Abrir'}</span>
@@ -449,7 +449,7 @@ export default function EscenarioD({
             aria-pressed={agua}
             aria-label={agua ? 'Cerrar el agua' : 'Abrir el agua'}
             title={agua ? 'Cerrar el agua' : 'Abrir el agua: mira el aireador'}
-            className={`flex h-11 items-center gap-1.5 rounded-full px-3.5 text-xs font-semibold transition-colors duration-150 ${agua ? 'bg-[#324354] text-white shadow-[0_8px_30px_rgba(50,67,84,0.25)]' : `text-[#324354] ${VIDRIO_D}`}`}
+            className={`flex h-11 items-center gap-1.5 rounded-full px-3.5 text-xs font-semibold transition-colors duration-150 ${agua ? 'bg-[#324354] text-white shadow-[0_8px_30px_rgba(50,67,84,0.25)]' : `text-[#324354] ${VIDRIO_E}`}`}
           >
             <Droplets className="h-4 w-4" aria-hidden />
             <span className="hidden sm:inline">{agua ? 'Cerrar agua' : 'Agua'}</span>
@@ -465,7 +465,7 @@ export default function EscenarioD({
         <div className="h-[84px] w-[84px] shrink-0 overflow-hidden rounded-full shadow-[0_10px_30px_rgba(50,67,84,0.22)] sm:h-[124px] sm:w-[124px]">
           <LupaAireador acabado={sel.acabadoGrifo} quieto={reducirMovimiento} />
         </div>
-        <div className={`hidden max-w-[190px] rounded-2xl px-3 py-2 sm:block ${VIDRIO_D}`}>
+        <div className={`hidden max-w-[190px] rounded-2xl px-3 py-2 sm:block ${VIDRIO_E}`}>
           <p className="text-xs font-semibold text-[#324354]">Aireador de aire inducido</p>
           <p className="mt-0.5 text-[11px] leading-snug text-[#58696b]">El agua arrastra aire por los costados: sale un chorro suave, espumoso y que salpica menos.</p>
           {!grifoReal(sel) && <p className="mt-1 text-[10px] text-[#58696b]">Acabado {n.acabadoGrifo.nombre.toLowerCase()} en vista previa.</p>}
@@ -475,13 +475,13 @@ export default function EscenarioD({
       {/* Qué se compra */}
       <div className="absolute inset-x-3 bottom-3 z-10 flex flex-col items-center gap-2">
         {listo && !interactuo && sel.compra === 'conjunto' && !abierto && !avisoCierre && (
-          <p className={`pointer-events-none max-w-full truncate rounded-full px-3.5 py-2 text-[11px] font-medium text-[#324354] sm:text-xs ${VIDRIO_D}`}>
+          <p className={`pointer-events-none max-w-full truncate rounded-full px-3.5 py-2 text-[11px] font-medium text-[#324354] sm:text-xs ${VIDRIO_E}`}>
             <span className="sm:hidden">Toca el mueble o la grifería</span>
             <span className="hidden sm:inline">Toca el mueble para abrirlo · toca la grifería para abrir el agua</span>
           </p>
         )}
-        <div role="radiogroup" aria-label="Qué te llevas" className={`flex w-full max-w-[460px] rounded-full p-1 ${VIDRIO_D}`}>
-          {COMPRAS_D.map((c) => {
+        <div role="radiogroup" aria-label="Qué te llevas" className={`flex w-full max-w-[460px] rounded-full p-1 ${VIDRIO_E}`}>
+          {COMPRAS_E.map((c) => {
             const activa = c.id === sel.compra;
             const corto = c.id === 'conjunto' ? 'Conjunto' : c.id === 'mueble' ? 'Mueble' : c.id === 'lavamanos' ? 'Lavamanos' : 'Grifería';
             return (
@@ -490,7 +490,7 @@ export default function EscenarioD({
                 type="button"
                 role="radio"
                 aria-checked={activa}
-                aria-label={`${c.nombre}: ${formatoPesos(precioD(c.id))}, precio sugerido`}
+                aria-label={`${c.nombre}: ${formatoPesos(precioE(c.id))}, precio sugerido`}
                 onClick={() => onCompra(c.id)}
                 className={`h-10 min-w-0 flex-1 truncate rounded-full px-1.5 text-[11px] font-semibold transition-colors duration-150 sm:px-3 sm:text-xs ${activa ? 'bg-[#324354] text-white' : 'text-[#324354] hover:bg-black/5'}`}
               >

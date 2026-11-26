@@ -6,11 +6,11 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
-## [2026-11-26] feat | Sesión Lavamanos & Muebles · Opción D: Mix & Match isométrico
-- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=d`; cuarto botón "Opción D · Mix & Match iso" en la barra de prototipos. A, B y C siguen igual.
+## [2026-11-26] feat | Sesión Lavamanos & Muebles · Opción E: Mix & Match isométrico
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=e`; botón "Opción E · Mix & Match iso" en la barra de prototipos. A, B, C y la Opción D de Alejandro siguen igual (se llama E para no chocar con ella).
 - **Fuente:** 20 renders iso del usuario (Vitelli y Tucano × Oslo, Génova, Parma y Siena, cerrado y abierto, más los muebles solos) y los tableros de *Linea FPK / Nuevos linea*.
 - **Experiencia:** mueble + 6 acabados (blanco unicolor plano, 5 melaminas maderadas), lavamanos + gelcoat blanco/marfil/niebla, grifería baja o alta + 4 acabados, cierre suave y cota de rieles de 35 cm resueltos desde los renders cerrado/abierto, agua con aireador de aire inducido, compra del conjunto o de cada pieza con precio sugerido.
-- **Documentación:** [banos_muebles_opcion_d.md](banos_muebles_opcion_d.md).
+- **Documentación:** [banos_muebles_opcion_e.md](banos_muebles_opcion_e.md).
 
 ## [2026-11-26] feat | Ricardo · Loop: gran recorrido y capítulo 2, lavamanos
 - **Gran recorrido:** un solo scroll infinito con la casa vista desde arriba como punto de encuentro: azul → hidromasaje → casa → lavamanos → grifería → gota → casa → hidromasaje → azul. Etiquetas de la casa clicables por capítulo.

@@ -1,5 +1,5 @@
 /**
- * Opción D · movimiento de cajones y puerta a partir de dos renders (cerrado y abierto).
+ * Opción E · movimiento de cajones y puerta a partir de dos renders (cerrado y abierto).
  *
  * Cajones: el render abierto se dibuja recortado al volumen que barre cada frente desde el mueble
  * hasta donde está (envolvente del frente y del frente retrocedido), con una transformación que lo
@@ -7,9 +7,9 @@
  * Puerta: gira sobre la bisagra; su cara exterior sale del render cerrado y, pasado el ángulo en
  * que se ve de canto, la interior (con las bisagras) sale del render abierto.
  */
-import type { IdMuebleD } from './catalogoOpcionD';
-import { curvaApertura, curvaCierre } from './opcionDLogica';
-import { CAJONES_D, LIENZO_D, PUERTA_D, type CajonD } from './rendersOpcionD';
+import type { IdMuebleE } from './catalogoOpcionE';
+import { curvaApertura, curvaCierre } from './opcionELogica';
+import { CAJONES_E, LIENZO_E, PUERTA_E, type CajonE } from './rendersOpcionE';
 
 type P = [number, number];
 
@@ -17,13 +17,13 @@ type P = [number, number];
 const ANGULO_PUERTA = (90.8 * Math.PI) / 180;
 
 /** Frente de un cajón en la posición de apertura e (0 cerrado, 1 como en el render abierto). */
-export function frenteEn(c: CajonD, e: number): P[] {
+export function frenteEn(c: CajonE, e: number): P[] {
   const k = 1 + (c.escala - 1) * e;
   return c.frente.map(([x, y]) => [c.centro[0] + (x - c.centro[0]) * k + c.mueve[0] * e, c.centro[1] + (y - c.centro[1]) * k + c.mueve[1] * e]);
 }
 
 /** Transformación que lleva un punto del render abierto a la apertura e: [escala, dx, dy]. */
-export function transformacionCajon(c: CajonD, e: number): [number, number, number] {
+export function transformacionCajon(c: CajonE, e: number): [number, number, number] {
   const k = (1 + (c.escala - 1) * e) / c.escala;
   return [k, c.centro[0] + c.mueve[0] * e - k * (c.mueve[0] + c.centro[0]), c.centro[1] + c.mueve[1] * e - k * (c.mueve[1] + c.centro[1])];
 }
@@ -38,7 +38,7 @@ function envolvente(pts: P[]): P[] {
 }
 
 /** Volumen visible del cajón en coordenadas del render abierto, para una apertura e. */
-export function volumenCajon(c: CajonD, e: number): P[] {
+export function volumenCajon(c: CajonE, e: number): P[] {
   const abierto = frenteEn(c, 1);
   const atras = abierto.map(([x, y]): P => [x - c.mueve[0] * e, y - c.mueve[1] * e]);
   return envolvente([...abierto, ...atras]);
@@ -52,7 +52,7 @@ const trazar = (ctx: CanvasRenderingContext2D, pts: P[]) => {
 
 /** Puerta: vectores del canto libre respecto a la bisagra (arriba y abajo), cerrada y girada 90°. */
 function geometriaPuerta() {
-  const c = PUERTA_D.cerrada, o = PUERTA_D.abierta;
+  const c = PUERTA_E.cerrada, o = PUERTA_E.abierta;
   const cos = Math.cos(ANGULO_PUERTA), sin = Math.sin(ANGULO_PUERTA);
   const vec = (f: readonly number[], h: readonly number[]): P => [f[0] - h[0], f[1] - h[1]];
   const ancho = { a: vec(c.fa, c.ha), b: vec(c.fb, c.hb) };
@@ -122,12 +122,12 @@ export function dibujarMovimiento(
   ctx: CanvasRenderingContext2D,
   cerrado: CanvasImageSource,
   abierto: CanvasImageSource,
-  mueble: IdMuebleD,
+  mueble: IdMuebleE,
   cajones: number,
   puerta: number,
 ) {
   const { width, height } = ctx.canvas;
-  const esc = width / LIENZO_D.ancho;
+  const esc = width / LIENZO_E.ancho;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, width, height);
   ctx.setTransform(esc, 0, 0, esc, 0, 0);
@@ -137,13 +137,13 @@ export function dibujarMovimiento(
   if (cajones >= 1 && (p >= 1 || !conPuerta)) { ctx.drawImage(abierto, 0, 0); return; }
 
   ctx.drawImage(cerrado, 0, 0);
-  const lista = CAJONES_D[mueble];
+  const lista = CAJONES_E[mueble];
 
   // Hueco: donde estaban los frentes cerrados se ve el interior del render abierto.
   if (cajones > 0) dentroDe(ctx, esc, abierto, lista.map((c) => c.frente as P[]));
   if (p > 0) {
-    const c = PUERTA_D.cerrada;
-    const borde = PUERTA_D.abierta.ha[0] + 8;
+    const c = PUERTA_E.cerrada;
+    const borde = PUERTA_E.abierta.ha[0] + 8;
     dentroDe(ctx, esc, abierto, [[[borde, c.ha[1]], [c.fa[0], c.fa[1]], [c.fb[0], c.fb[1]], [borde, c.hb[1]]]]);
     // Junto a la bisagra el render abierto tiene el arranque de la puerta: entra a medida que gira.
     dentroDe(ctx, esc, abierto, [[[c.ha[0] - 2, c.ha[1]], [borde, c.ha[1]], [borde, c.hb[1]], [c.hb[0] - 2, c.hb[1]]]], p * p);
@@ -153,7 +153,7 @@ export function dibujarMovimiento(
   if (p > 0) {
     const q = puertaEn(p);
     const destino: P[] = [q.ha, q.fa, q.fb, q.hb];
-    const pc = PUERTA_D.cerrada, po = PUERTA_D.abierta;
+    const pc = PUERTA_E.cerrada, po = PUERTA_E.abierta;
     const origen: P[] = q.exterior
       ? [[pc.ha[0], pc.ha[1]], [pc.fa[0], pc.fa[1]], [pc.fb[0], pc.fb[1]], [pc.hb[0], pc.hb[1]]]
       : [[po.ha[0], po.ha[1]], [po.fa[0], po.fa[1]], [po.fb[0], po.fb[1]], [po.hb[0], po.hb[1]]];
@@ -188,7 +188,7 @@ export function dibujarMovimiento(
       lista.forEach((otro, j) => {
         if (j === i) return;
         ctx.beginPath();
-        ctx.rect(-50, -50, LIENZO_D.ancho + 100, LIENZO_D.alto + 100);
+        ctx.rect(-50, -50, LIENZO_E.ancho + 100, LIENZO_E.alto + 100);
         trazar(ctx, frenteEn(otro, 1));
         ctx.clip('evenodd');
       });
@@ -202,14 +202,14 @@ export function dibujarMovimiento(
 
 /* ---------------- Línea de tiempo ---------------- */
 
-export interface MovimientoD {
+export interface MovimientoE {
   cajones: number;
   puerta: number;
 }
 
 /** Abrir es ágil; cerrar dura más porque el último tramo va despacio (amortiguador). */
-export const DURACION_ABRIR_D = 1150;
-export const DURACION_CERRAR_D = 1900;
+export const DURACION_ABRIR_E = 1150;
+export const DURACION_CERRAR_E = 1900;
 
 const tramo = (t: number, desde: number, hasta: number) => (t - desde) / (hasta - desde);
 
@@ -219,7 +219,7 @@ const tramo = (t: number, desde: number, hasta: number) => (t - desde) / (hasta 
  * entran primero y la puerta cierra después. Cada pieza parte de donde estaba (se puede invertir
  * a mitad de camino sin saltos).
  */
-export function movimientoEn(desde: MovimientoD, abrir: boolean, t: number, conPuerta: boolean): MovimientoD {
+export function movimientoEn(desde: MovimientoE, abrir: boolean, t: number, conPuerta: boolean): MovimientoE {
   if (abrir) {
     const c = conPuerta ? curvaApertura(tramo(t, 0.26, 1)) : curvaApertura(t);
     const p = conPuerta ? curvaApertura(tramo(t, 0, 0.62)) : 0;
@@ -231,14 +231,14 @@ export function movimientoEn(desde: MovimientoD, abrir: boolean, t: number, conP
 }
 
 /** Recorrido real de los rieles de extensión total. */
-export const EXTENSION_CM_D = 35;
+export const EXTENSION_CM_E = 35;
 
 /**
  * Cota del recorrido del cajón de abajo: va del frente cerrado al frente en la apertura e, por
  * debajo de la arista inferior derecha y un poco separada, como en un plano.
  */
-export function cotaCajon(mueble: IdMuebleD, e: number, separacion = 30) {
-  const lista = CAJONES_D[mueble];
+export function cotaCajon(mueble: IdMuebleE, e: number, separacion = 30) {
+  const lista = CAJONES_E[mueble];
   const c = lista[lista.length - 1];
   const a = c.frente[2] as P;
   const b = frenteEn(c, e)[2];
@@ -248,13 +248,13 @@ export function cotaCajon(mueble: IdMuebleD, e: number, separacion = 30) {
   if (ny < 0) { nx = -nx; ny = -ny; }
   const desde: P = [a[0] + nx * separacion, a[1] + ny * separacion];
   const hasta: P = [b[0] + nx * separacion, b[1] + ny * separacion];
-  return { desde, hasta, normal: [nx, ny] as P, centimetros: Math.round(EXTENSION_CM_D * e) };
+  return { desde, hasta, normal: [nx, ny] as P, centimetros: Math.round(EXTENSION_CM_E * e) };
 }
 
 /* ---------------- Motor: dibuja el cuerpo y lo anima (fuera de React) ---------------- */
 
-export interface CuerposD {
-  mueble: IdMuebleD;
+export interface CuerposE {
+  mueble: IdMuebleE;
   clave: string;
   cerrado: HTMLCanvasElement;
   abierto: HTMLCanvasElement | null;
@@ -264,11 +264,11 @@ export interface CuerposD {
  * Lleva el estado del movimiento y lo dibuja en `lienzo` con requestAnimationFrame. `alPintar`
  * recibe cada cuadro (para la cota y las etiquetas que acompañan al cajón).
  */
-export function crearMotorD(lienzo: HTMLCanvasElement, alPintar: (m: MovimientoD, mueble: IdMuebleD) => void) {
+export function crearMotorE(lienzo: HTMLCanvasElement, alPintar: (m: MovimientoE, mueble: IdMuebleE) => void) {
   const ctx = lienzo.getContext('2d');
-  let cuerpos: CuerposD | null = null;
-  let mov: MovimientoD = { cajones: 0, puerta: 0 };
-  let orden: { abrir: boolean; inicio: number | null; desde: MovimientoD; duracion: number } | null = null;
+  let cuerpos: CuerposE | null = null;
+  let mov: MovimientoE = { cajones: 0, puerta: 0 };
+  let orden: { abrir: boolean; inicio: number | null; desde: MovimientoE; duracion: number } | null = null;
   let raf = 0;
 
   const pintar = () => {
@@ -294,7 +294,7 @@ export function crearMotorD(lienzo: HTMLCanvasElement, alPintar: (m: MovimientoD
   return {
     movimiento: () => mov,
     /** Cuerpos nuevos (otro mueble, acabado o lavamanos): se dibujan en el estado actual. */
-    ponerCuerpos(c: CuerposD) {
+    ponerCuerpos(c: CuerposE) {
       cuerpos = c;
       pintar();
     },
@@ -314,7 +314,7 @@ export function crearMotorD(lienzo: HTMLCanvasElement, alPintar: (m: MovimientoD
         pintar();
         return;
       }
-      orden = { abrir, inicio: null, desde: { ...mov }, duracion: abrir ? DURACION_ABRIR_D : DURACION_CERRAR_D };
+      orden = { abrir, inicio: null, desde: { ...mov }, duracion: abrir ? DURACION_ABRIR_E : DURACION_CERRAR_E };
       raf = requestAnimationFrame(paso);
     },
     destruir() {
@@ -324,4 +324,4 @@ export function crearMotorD(lienzo: HTMLCanvasElement, alPintar: (m: MovimientoD
   };
 }
 
-export type MotorD = ReturnType<typeof crearMotorD>;
+export type MotorE = ReturnType<typeof crearMotorE>;

@@ -1,20 +1,20 @@
 'use client';
 
 import React, { useId } from 'react';
-import type { IdAcabadoGrifoD, IdGrifoD, IdLavamanosD } from './catalogoOpcionD';
+import type { IdAcabadoGrifoE, IdGrifoE, IdLavamanosE } from './catalogoOpcionE';
 
 /** Fila (en el render) donde el chorro llega al fondo de cada poceta, bajo la salida de la grifería. */
-export const FONDO_POCETA_D: Record<IdLavamanosD, number> = { oslo: 430, genova: 430, parma: 452, siena: 440 };
+export const FONDO_POCETA_E: Record<IdLavamanosE, number> = { oslo: 430, genova: 430, parma: 452, siena: 440 };
 
 /** Ancho del chorro en la salida del aireador (px del render). */
-export const ANCHO_CHORRO_D: Record<IdGrifoD, number> = { bajo: 19, alto: 16 };
+export const ANCHO_CHORRO_E: Record<IdGrifoE, number> = { bajo: 19, alto: 16 };
 
 /**
  * Chorro aireado dentro del SVG del escenario (coordenadas del render). Blanco lechoso con burbujas
  * que bajan, bordes con un leve tono para que se lea sobre el gelcoat blanco y un remanso de espuma
  * en el fondo de la poceta. Al abrir, el chorro baja desde el aireador; al cerrar, la cola cae.
  */
-export function ChorroD({
+export function ChorroE({
   salida,
   fondo,
   grifo,
@@ -23,13 +23,13 @@ export function ChorroD({
 }: {
   salida: readonly [number, number];
   fondo: number;
-  grifo: IdGrifoD;
+  grifo: IdGrifoE;
   abierta: boolean;
   quieto: boolean;
 }) {
   const id = useId().replace(/:/g, '');
   const [x, y0] = salida;
-  const w0 = ANCHO_CHORRO_D[grifo];
+  const w0 = ANCHO_CHORRO_E[grifo];
   const w1 = w0 * 0.84;
   const y1 = fondo;
   const forma = `M ${x - w0 / 2} ${y0} L ${x + w0 / 2} ${y0} L ${x + w1 / 2} ${y1} Q ${x} ${y1 + 5} ${x - w1 / 2} ${y1} Z`;
@@ -97,7 +97,7 @@ export function ChorroD({
 }
 
 /** Tres tonos (claro, medio, oscuro) del metal elegido para el corte del aireador. */
-const METAL: Record<IdAcabadoGrifoD, [string, string, string]> = {
+const METAL: Record<IdAcabadoGrifoE, [string, string, string]> = {
   niquel: ['#e2ddd3', '#a39c90', '#6f695f'],
   negro: ['#55555a', '#2a2a2d', '#111113'],
   cromo: ['#f6f8fb', '#b9c1ca', '#7d8792'],
@@ -108,7 +108,7 @@ const METAL: Record<IdAcabadoGrifoD, [string, string, string]> = {
  * Corte del aireador de aire inducido: el agua baja por el centro, el aire entra por las ranuras
  * de los costados, se mezcla en las mallas y sale un chorro blanco y espumoso.
  */
-export function LupaAireador({ acabado, quieto }: { acabado: IdAcabadoGrifoD; quieto: boolean }) {
+export function LupaAireador({ acabado, quieto }: { acabado: IdAcabadoGrifoE; quieto: boolean }) {
   const id = useId().replace(/:/g, '');
   const [claro, medio, oscuro] = METAL[acabado];
   const burbujas = [

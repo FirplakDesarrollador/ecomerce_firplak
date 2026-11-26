@@ -1,5 +1,5 @@
-// Opción D · Mix & Match isométrico: prepara los renders iso para la web.
-// Uso: node scripts/mix-match/preparar-opcion-d.mjs <carpeta-renders-iso> <carpeta-tableros>
+// Opción E · Mix & Match isométrico: prepara los renders iso para la web.
+// Uso: node scripts/mix-match/preparar-opcion-e.mjs <carpeta-renders-iso> <carpeta-tableros>
 //
 // Cada render se separa en:
 //   cuerpo  (mueble, por debajo del lavamanos)          <mueble>__<lavamanos|solo>__<estado>.webp
@@ -17,10 +17,10 @@ const sharp = require('sharp');
 
 const [FUENTE, TABLEROS] = process.argv.slice(2);
 if (!FUENTE || !TABLEROS) {
-  console.error('Uso: node scripts/mix-match/preparar-opcion-d.mjs <carpeta-renders-iso> <carpeta-tableros>');
+  console.error('Uso: node scripts/mix-match/preparar-opcion-e.mjs <carpeta-renders-iso> <carpeta-tableros>');
   process.exit(1);
 }
-const SALIDA = path.resolve('public/images/muebles/opcion-d');
+const SALIDA = path.resolve('public/images/muebles/opcion-e');
 const N = 2000;
 const MUEBLES = { vitelli: 'Vitelli', tucano: 'Tucano' };
 const LAVAMANOS = { oslo: 'Oslo', genova: 'Genova', parma: 'Parma', siena: 'Siena' };
@@ -36,7 +36,7 @@ const ACABADOS = {
   candelaria: 'candelaria blanco.jpg',
 };
 
-// Geometría medida sobre los renders de 2000 px (perfiles de borde; ver especificaciones/wiki/banos_muebles_opcion_d.md).
+// Geometría medida sobre los renders de 2000 px (perfiles de borde; ver especificaciones/wiki/banos_muebles_opcion_e.md).
 /** Arista vertical frente/costado del mueble y pendientes de las aristas horizontales. */
 const ESQUINA_X = 1352;
 const PENDIENTE_FRENTE = 0.197;
@@ -183,10 +183,19 @@ for (const l of Object.keys(LAVAMANOS)) {
     const i = y * W + x;
     if (y >= corte[x]) continue;
     const lv = lum(V, i) * (V[i * 4 + 3] / 255), lt = lum(T, i) * (T[i * 4 + 3] / 255);
-    if (T[i * 4 + 3] > 120 && lt < 95) mAlto[i] = 1;
+    // Negro mate: neutro y oscuro, también su canto iluminado (gris medio).
+    const [, st] = hsv(T[i * 4], T[i * 4 + 1], T[i * 4 + 2]);
+    const negroT = T[i * 4 + 3] > 120 && lt < 95;
+    if (negroT || (T[i * 4 + 3] > 120 && lt < 150 && st < 0.12)) mAlto[i] = 1;
     const [, sv] = hsv(V[i * 4], V[i * 4 + 1], V[i * 4 + 2]);
     const lavamanosEnV = lv > 205 && sv < 0.06;
-    if (V[i * 4 + 3] > 120 && Math.abs(lv - lt) > 18 && !lavamanosEnV && !(lt < 95 && lv > 175) && (sv > 0.05 || V[i * 4 + 3] < 250 || lv < 150)) mBajo[i] = 1;
+    const difiere = Math.abs(lv - lt) > 18 && !(lt < 95 && lv > 175) && (sv > 0.05 || V[i * 4 + 3] < 250 || lv < 150);
+    // Donde los dos grifos se cruzan la diferencia es pequeña (níquel oscuro sobre negro): ahí es
+    // grifo bajo todo lo que no sea gelcoat claro.
+    const cruce = negroT && lv < 190;
+    // Contra el fondo vacío del otro render todo lo que haya es grifo (también sus cantos oscuros).
+    const fondoEnT = T[i * 4 + 3] < 60;
+    if (V[i * 4 + 3] > 120 && (fondoEnT || (!lavamanosEnV && (difiere || cruce)))) mBajo[i] = 1;
   }
   const limpiar = async (m) => {
     // Cierre morfológico y relleno de huecos (los brillos del metal no son lavamanos).
@@ -341,19 +350,19 @@ for (const [id, f] of Object.entries(ACABADOS)) {
 }
 
 // 5. Datos para el navegador.
-const ts = `// Generado por scripts/mix-match/preparar-opcion-d.mjs: no editar a mano.
-// Coordenadas en píxeles de las imágenes de la Opción D (${W} × ${H}).
-export const LIENZO_D = { ancho: ${W}, alto: ${H} } as const;
+const ts = `// Generado por scripts/mix-match/preparar-opcion-e.mjs: no editar a mano.
+// Coordenadas en píxeles de las imágenes de la Opción E (${W} × ${H}).
+export const LIENZO_E = { ancho: ${W}, alto: ${H} } as const;
 /** Arista frente/costado y pendientes de las aristas horizontales (para orientar la veta). */
-export const ORIENTACION_D = { esquinaX: ${ESQUINA_X - CX}, pendienteFrente: ${PENDIENTE_FRENTE}, pendienteCostado: ${PENDIENTE_COSTADO} } as const;
-export interface CajonD { frente: [number, number][]; mueve: [number, number]; escala: number; centro: [number, number] }
-export const CAJONES_D: Record<'vitelli' | 'tucano', CajonD[]> = ${JSON.stringify(cajonesRecorte)};
-export const PUERTA_D = ${JSON.stringify({ cerrada: Object.fromEntries(Object.entries(PUERTA.cerrada).map(([k, v]) => [k, enRecorte(v)])), abierta: Object.fromEntries(Object.entries(PUERTA.abierta).map(([k, v]) => [k, enRecorte(v)])) })} as const;
+export const ORIENTACION_E = { esquinaX: ${ESQUINA_X - CX}, pendienteFrente: ${PENDIENTE_FRENTE}, pendienteCostado: ${PENDIENTE_COSTADO} } as const;
+export interface CajonE { frente: [number, number][]; mueve: [number, number]; escala: number; centro: [number, number] }
+export const CAJONES_E: Record<'vitelli' | 'tucano', CajonE[]> = ${JSON.stringify(cajonesRecorte)};
+export const PUERTA_E = ${JSON.stringify({ cerrada: Object.fromEntries(Object.entries(PUERTA.cerrada).map(([k, v]) => [k, enRecorte(v)])), abierta: Object.fromEntries(Object.entries(PUERTA.abierta).map(([k, v]) => [k, enRecorte(v)])) })} as const;
 /** Boca de cada grifería (aireador) sobre cada lavamanos. */
-export const SALIDA_GRIFO_D: Record<'oslo' | 'genova' | 'parma' | 'siena', Record<'bajo' | 'alto', [number, number]>> = ${JSON.stringify(salidas)};
-export const GRIFO_RENDER_D = ${JSON.stringify(GRIFO_DE)} as const;
-export const COLOR_ACABADO_D: Record<string, string> = ${JSON.stringify(muestras)};
+export const SALIDA_GRIFO_E: Record<'oslo' | 'genova' | 'parma' | 'siena', Record<'bajo' | 'alto', [number, number]>> = ${JSON.stringify(salidas)};
+export const GRIFO_RENDER_E = ${JSON.stringify(GRIFO_DE)} as const;
+export const COLOR_ACABADO_E: Record<string, string> = ${JSON.stringify(muestras)};
 `;
-fs.writeFileSync(path.resolve('components/banos-muebles/opcion-d/rendersOpcionD.ts'), ts);
+fs.writeFileSync(path.resolve('components/banos-muebles/opcion-e/rendersOpcionE.ts'), ts);
 const total = fs.readdirSync(SALIDA).reduce((a, f) => a + fs.statSync(path.join(SALIDA, f)).size, 0);
 console.log('listo', fs.readdirSync(SALIDA).length, 'archivos,', (total / 1024 / 1024).toFixed(1), 'MB', { salidas, muestras });

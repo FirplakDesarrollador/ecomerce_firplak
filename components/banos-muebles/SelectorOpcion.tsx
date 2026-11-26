@@ -1,17 +1,17 @@
 import Link from 'next/link';
 
-export type OpcionExperiencia = 'a' | 'b' | 'c' | 'd';
+export type OpcionExperiencia = 'a' | 'b' | 'c' | 'e';
 
 const OPCIONES: { id: OpcionExperiencia; nombre: string; detalle: string }[] = [
   { id: 'a', nombre: 'Opción A', detalle: 'Configurador 3D' },
   { id: 'b', nombre: 'Opción B', detalle: 'Mix & Match' },
   { id: 'c', nombre: 'Opción C', detalle: 'Ricardo' },
-  { id: 'd', nombre: 'Opción D', detalle: 'Mix & Match iso' },
+  { id: 'e', nombre: 'Opción E', detalle: 'Mix & Match iso' },
 ];
 
 /**
  * Prototipos en revision: alterna entre formatos de la sesion
- * "lavamanos & muebles" sin perder ninguno (?opcion=a | b | c | d).
+ * "lavamanos & muebles" sin perder ninguno (?opcion=a | b | c | e; la D es la de Alejandro, en Dev).
  */
 export default function SelectorOpcion({ activa }: { activa: OpcionExperiencia }) {
   return (

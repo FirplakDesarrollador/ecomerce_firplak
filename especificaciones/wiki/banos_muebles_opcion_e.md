@@ -1,20 +1,20 @@
-# Sesión Lavamanos & Muebles · Opción D: Mix & Match isométrico
+# Sesión Lavamanos & Muebles · Opción E: Mix & Match isométrico
 
 > [!IMPORTANT]
 > **Estrategia Condensada del Segmento**:
-> La **Opción D** arma el baño pieza por pieza sobre los renders isométricos del usuario (v3 iso): **mueble** y su acabado, **lavamanos** y su color de gelcoat, **grifería** y su acabado. Se **abre** con el cierre suave real (arranque rápido, final lento) y la cota de los rieles de 35 cm, se **abre el agua** para ver el aireador de aire inducido, y se compra **el conjunto o cada pieza sola** con su precio sugerido. Todo sale de los renders, sin renders nuevos ni 3D en el navegador. Convive con las opciones [A](banos_muebles_opcion_a.md), [B](banos_muebles_opcion_b.md) y [C](banos_muebles_opcion_c.md) en la misma ruta.
+> La **Opción E** arma el baño pieza por pieza sobre los renders isométricos del usuario (v3 iso): **mueble** y su acabado, **lavamanos** y su color de gelcoat, **grifería** y su acabado. Se **abre** con el cierre suave real (arranque rápido, final lento) y la cota de los rieles de 35 cm, se **abre el agua** para ver el aireador de aire inducido, y se compra **el conjunto o cada pieza sola** con su precio sugerido. Todo sale de los renders, sin renders nuevos ni 3D en el navegador. Convive con las opciones [A](banos_muebles_opcion_a.md), [B](banos_muebles_opcion_b.md) y [C](banos_muebles_opcion_c.md) en la misma ruta, y con la Opción D de Alejandro (`./mix-match`); se llama **E** para no chocar con ella.
 
 ## 1. Dónde vive
 
 | Pieza | Ruta |
 |---|---|
-| Página | `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=d` |
-| Selector | `components/banos-muebles/SelectorOpcion.tsx` ("Opción D · Mix & Match iso") |
-| Experiencia | `components/banos-muebles/opcion-d/` (`EstudioD.tsx` página y panel, `EscenarioD.tsx` escenario, `animacionD.ts` movimiento de cajones y puerta, `AguaD.tsx` chorro y aireador, `componerD.ts` composición, `pixelesD.ts` operaciones de píxel, `catalogoOpcionD.ts`, `opcionDLogica.ts`) |
-| Datos de renders | `components/banos-muebles/opcion-d/rendersOpcionD.ts` (generado) |
-| Imágenes | `public/images/muebles/opcion-d/` (88 archivos, ~4,4 MB; se descargan por demanda) |
-| Script | `node scripts/mix-match/preparar-opcion-d.mjs "<carpeta v3 iso>" "<carpeta Nuevos linea>"` |
-| Pruebas | `pruebas-unitarias/opcionD.test.ts` |
+| Página | `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=e` |
+| Selector | `components/banos-muebles/SelectorOpcion.tsx` ("Opción E · Mix & Match iso") |
+| Experiencia | `components/banos-muebles/opcion-e/` (`EstudioE.tsx` página y panel, `EscenarioE.tsx` escenario, `animacionE.ts` movimiento de cajones y puerta, `AguaE.tsx` chorro y aireador, `componerE.ts` composición, `pixelesE.ts` operaciones de píxel, `catalogoOpcionE.ts`, `opcionELogica.ts`) |
+| Datos de renders | `components/banos-muebles/opcion-e/rendersOpcionE.ts` (generado) |
+| Imágenes | `public/images/muebles/opcion-e/` (88 archivos, ~4,4 MB; se descargan por demanda) |
+| Script | `node scripts/mix-match/preparar-opcion-e.mjs "<carpeta v3 iso>" "<carpeta Nuevos linea>"` |
+| Pruebas | `pruebas-unitarias/opcionE.test.ts` |
 
 ## 2. Catálogo
 
@@ -43,10 +43,10 @@
 2. **Acabados.** Cada cuerpo trae una capa (madera y plano frente/costado) y una **luz** filtrada que respeta los bordes (transformada de dominio): alisa la veta del render para que el blanco sea plano y se detiene en juntas y cambios de plano para no dejar halos.
 3. **Cajones.** Entre el render cerrado y el abierto: el cajón se dibuja recortado al volumen que barre su frente y trasladado a la apertura actual; el hueco muestra el interior del render abierto. Se dibujan de abajo hacia arriba.
 4. **Puerta.** Gira sobre la bisagra (ángulo del render abierto, ~91°) como dos triángulos con transformación afín: cara exterior del render cerrado hasta quedar de canto (~50°) y luego la interior con las bisagras del render abierto.
-5. **Agua.** SVG en coordenadas del render, desde la salida del aireador (`SALIDA_GRIFO_D`) hasta el fondo de la poceta (`FONDO_POCETA_D`).
+5. **Agua.** SVG en coordenadas del render, desde la salida del aireador (`SALIDA_GRIFO_E`) hasta el fondo de la poceta (`FONDO_POCETA_E`).
 
 ## 5. Para sumar piezas
 
 - **Otro mueble:** render iso cerrado y abierto, solo y con cada lavamanos, misma cámara (2000 × 2000 con alfa). Medir los frentes de los cajones (y la puerta) cerrados y su desplazamiento en el abierto (`CAJONES` / `PUERTA` del script) y volver a correr el script.
-- **Otro lavamanos:** un render por mueble, cerrado y abierto. La salida de la grifería se detecta sola; el fondo de la poceta se ajusta a ojo en `FONDO_POCETA_D`.
-- **Otro acabado:** foto del tablero en la carpeta de tableros y una línea en `ACABADOS` del script y en `ACABADOS_D`.
+- **Otro lavamanos:** un render por mueble, cerrado y abierto. La salida de la grifería se detecta sola; el fondo de la poceta se ajusta a ojo en `FONDO_POCETA_E`.
+- **Otro acabado:** foto del tablero en la carpeta de tableros y una línea en `ACABADOS` del script y en `ACABADOS_E`.

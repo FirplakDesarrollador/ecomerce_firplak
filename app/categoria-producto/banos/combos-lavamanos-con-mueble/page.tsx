@@ -3,7 +3,7 @@ import { VITELLI_63 } from '@/components/banos-muebles/catalogoMuebles';
 import ConfiguradorVitelliA from '@/components/banos-muebles/opcion-a/ConfiguradorVitelliA';
 import MixMatchB from '@/components/banos-muebles/opcion-b/MixMatchB';
 import EstudioC from '@/components/banos-muebles/opcion-c/EstudioC';
-import EstudioD from '@/components/banos-muebles/opcion-d/EstudioD';
+import EstudioE from '@/components/banos-muebles/opcion-e/EstudioE';
 import SelectorOpcion, { type OpcionExperiencia } from '@/components/banos-muebles/SelectorOpcion';
 
 // Destino de "lavamanos & muebles" en el menu de la landing. Sesion de
@@ -12,7 +12,7 @@ import SelectorOpcion, { type OpcionExperiencia } from '@/components/banos-muebl
 //   ?opcion=b               Mix & Match sobre renders fotorrealistas
 //   ?opcion=c               Estudio Mix & Match (propuesta Ricardo; el landing
 //                           "Ricardo" abre esta opcion)
-//   ?opcion=d               Mix & Match isometrico: muebles, lavamanos y griferia
+//   ?opcion=e               Mix & Match isometrico: muebles, lavamanos y griferia
 //                           con sus acabados, cierre suave, aireador y precio por pieza
 export const metadata: Metadata = {
   title: 'Lavamanos y muebles · Arma tu mueble de baño | Firplak',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 function opcionDe(valor: string | undefined): OpcionExperiencia {
   const v = valor?.toLowerCase();
-  return v === 'b' || v === 'c' || v === 'd' ? v : 'a';
+  return v === 'b' || v === 'c' || v === 'e' ? v : 'a';
 }
 
 export default async function CombosLavamanosConMueblePage({
@@ -35,7 +35,7 @@ export default async function CombosLavamanosConMueblePage({
   return (
     <>
       <SelectorOpcion activa={activa} />
-      {activa === 'd' ? <EstudioD /> : activa === 'c' ? <EstudioC /> : activa === 'b' ? <MixMatchB /> : <ConfiguradorVitelliA mueble={VITELLI_63} />}
+      {activa === 'e' ? <EstudioE /> : activa === 'c' ? <EstudioC /> : activa === 'b' ? <MixMatchB /> : <ConfiguradorVitelliA mueble={VITELLI_63} />}
     </>
   );
 }

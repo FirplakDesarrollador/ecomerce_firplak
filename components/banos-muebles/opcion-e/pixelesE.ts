@@ -1,12 +1,12 @@
 /**
- * Opción D · operaciones de píxel puras (sin DOM).
+ * Opción E · operaciones de píxel puras (sin DOM).
  *
  * Cuerpo (mueble): capa R = madera, G = plano (0 frente, 255 costado); luz aparte (gris, x128).
  * Tapa (lavamanos + grifería): capa R = gelcoat, G = grifería.
  */
 import { tonoMetal, type ImagenRGBA, type TonoGrifo } from '../opcion-c/pixelesC';
 
-export interface CapaCuerpoD {
+export interface CapaCuerpoE {
   ancho: number;
   idx: Uint32Array;
   mascara: Uint8Array;
@@ -14,7 +14,7 @@ export interface CapaCuerpoD {
   luz: Uint8Array;
 }
 
-export function prepararCuerpo(capa: ImagenRGBA, luz: ImagenRGBA): CapaCuerpoD {
+export function prepararCuerpo(capa: ImagenRGBA, luz: ImagenRGBA): CapaCuerpoE {
   const c = capa.data, l = luz.data, total = capa.width * capa.height;
   let n = 0;
   for (let i = 0; i < total; i++) if (c[i * 4] > 8) n++;
@@ -31,14 +31,14 @@ export function prepararCuerpo(capa: ImagenRGBA, luz: ImagenRGBA): CapaCuerpoD {
 }
 
 /** Orientación de la veta: arista frente/costado, pendientes de las aristas y píxeles por centímetro. */
-export interface VetaD {
+export interface VetaE {
   esquinaX: number;
   pendienteFrente: number;
   pendienteCostado: number;
   pxPorCm: number;
 }
 
-export interface MaterialD {
+export interface MaterialE {
   /** Unicolor: color con luz plena. */
   plano?: [number, number, number];
   /** Melamina maderada: textura (veta vertical en la imagen) y ancho real que cubre. */
@@ -51,7 +51,7 @@ export interface MaterialD {
  * horizontales; en los costados (y la puerta abierta) corre en vertical. La textura se espeja al
  * repetirse para que no se note la unión.
  */
-export function aplicarMadera(o: Uint8ClampedArray | Uint8Array, capa: CapaCuerpoD, material: MaterialD, veta: VetaD) {
+export function aplicarMadera(o: Uint8ClampedArray | Uint8Array, capa: CapaCuerpoE, material: MaterialE, veta: VetaE) {
   const { ancho, idx, mascara, costado, luz } = capa;
   const tex = material.textura;
   const plano = material.plano;
@@ -87,7 +87,7 @@ export function aplicarMadera(o: Uint8ClampedArray | Uint8Array, capa: CapaCuerp
   }
 }
 
-export interface CapaTapaD {
+export interface CapaTapaE {
   ancho: number;
   lav: Uint32Array;
   mLav: Uint8Array;
@@ -100,7 +100,7 @@ export interface CapaTapaD {
 
 const lum = (d: Uint8ClampedArray | Uint8Array, q: number) => 0.2126 * d[q] + 0.7152 * d[q + 1] + 0.0722 * d[q + 2];
 
-export function prepararTapa(foto: ImagenRGBA, capa: ImagenRGBA): CapaTapaD {
+export function prepararTapa(foto: ImagenRGBA, capa: ImagenRGBA): CapaTapaE {
   const c = capa.data, f = foto.data, total = capa.width * capa.height;
   let nl = 0, ng = 0;
   for (let i = 0; i < total; i++) { if (c[i * 4] > 8) nl++; if (c[i * 4 + 1] > 8) ng++; }
@@ -126,7 +126,7 @@ const BLANCO_GELCOAT = 238;
  * Tiñe el gelcoat: el color multiplica la luz del render y los brillos (reflejos del esmalte)
  * se conservan blancos, como en un gelcoat real.
  */
-export function aplicarColorLavamanos(o: Uint8ClampedArray | Uint8Array, capa: CapaTapaD, color: [number, number, number]) {
+export function aplicarColorLavamanos(o: Uint8ClampedArray | Uint8Array, capa: CapaTapaE, color: [number, number, number]) {
   for (let n = 0; n < capa.lav.length; n++) {
     const q = capa.lav[n] * 4;
     const L = lum(o, q) / BLANCO_GELCOAT;
@@ -142,7 +142,7 @@ export function aplicarColorLavamanos(o: Uint8ClampedArray | Uint8Array, capa: C
 }
 
 /** Recolorea la grifería renderizada con otro tono de metal; forma y reflejos son los del render. */
-export function aplicarGrifoD(o: Uint8ClampedArray | Uint8Array, capa: CapaTapaD, tono: TonoGrifo) {
+export function aplicarGrifoE(o: Uint8ClampedArray | Uint8Array, capa: CapaTapaE, tono: TonoGrifo) {
   const alto = capa.grifoY1 - capa.grifoY0;
   for (let n = 0; n < capa.grifo.length; n++) {
     const i = capa.grifo[n], q = i * 4;

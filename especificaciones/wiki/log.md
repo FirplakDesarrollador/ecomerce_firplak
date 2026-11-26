@@ -6,6 +6,12 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-11-26] feat | Sesión Lavamanos & Muebles · Opción D: Mix & Match isométrico
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=d`; cuarto botón "Opción D · Mix & Match iso" en la barra de prototipos. A, B y C siguen igual.
+- **Fuente:** 20 renders iso del usuario (Vitelli y Tucano × Oslo, Génova, Parma y Siena, cerrado y abierto, más los muebles solos) y los tableros de *Linea FPK / Nuevos linea*.
+- **Experiencia:** mueble + 6 acabados (blanco unicolor plano, 5 melaminas maderadas), lavamanos + gelcoat blanco/marfil/niebla, grifería baja o alta + 4 acabados, cierre suave y cota de rieles de 35 cm resueltos desde los renders cerrado/abierto, agua con aireador de aire inducido, compra del conjunto o de cada pieza con precio sugerido.
+- **Documentación:** [banos_muebles_opcion_d.md](banos_muebles_opcion_d.md).
+
 ## [2026-11-26] feat | Ricardo · Loop: gran recorrido y capítulo 2, lavamanos
 - **Gran recorrido:** un solo scroll infinito con la casa vista desde arriba como punto de encuentro: azul → hidromasaje → casa → lavamanos → grifería → gota → casa → hidromasaje → azul. Etiquetas de la casa clicables por capítulo.
 - **Lavamanos:** la casa gira 90° y se pliega hasta el mueble (render real con placa viva: plantas, sombras de árbol en el patio, reflejo del espejo), apertura de puertas (provisional: fundido entre los renders cerrado y abierto), zoom a la grifería (recorte exacto ampliado con Topaz) y una gota WebGL con la casa adentro que lleva de vuelta a la casa sin corte.

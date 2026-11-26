@@ -167,6 +167,7 @@ export default function LoomereExperience() {
           {/* Header Navbar */}
           <LoomereNavbar
             currentSceneIndex={activeSceneIndex}
+            directCategories={true}
             onOpenMegamenu={() => {
               setIsMegamenuOpen(true);
               setIsCatalogOpen(false);

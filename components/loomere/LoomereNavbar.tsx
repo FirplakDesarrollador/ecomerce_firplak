@@ -23,6 +23,11 @@ interface LoomereNavbarProps {
    * PRODUCT_LINES; el landing Ricardo abre la Opcion C del estudio Mix & Match.
    */
   urlLavamanosMuebles?: string;
+  /**
+   * Muestra las categorías principales permanentemente visibles sin el botón de Menú.
+   * Exclusivo de la visualización de Alejandro.
+   */
+  directCategories?: boolean;
 }
 
 interface SubcategoryItem {
@@ -104,7 +109,8 @@ const PRODUCT_LINES: ProductLine[] = [
 export default function LoomereNavbar({
   currentSceneIndex,
   onOpenMegamenu,
-  urlLavamanosMuebles
+  urlLavamanosMuebles,
+  directCategories = false
 }: LoomereNavbarProps) {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -133,12 +139,16 @@ export default function LoomereNavbar({
 
   return (
     <>
-      {(isContactOpen || isCategoriesOpen) && (
+      {(isContactOpen || selectedCategory !== null || isCategoriesOpen) && (
         <div
-          className="fixed inset-0 z-40"
+          className={`fixed inset-0 z-40 ${
+            directCategories && isCategoriesOpen && !isContactOpen && selectedCategory === null
+              ? 'md:hidden'
+              : ''
+          }`}
           onClick={() => {
             setIsContactOpen(false);
-            setIsCategoriesOpen(false);
+            if (!directCategories || isCategoriesOpen) setIsCategoriesOpen(false);
             setSelectedCategory(null);
           }}
         />
@@ -153,10 +163,14 @@ export default function LoomereNavbar({
         }}
       >
         {/* Header Único: Navegación Principal con Marca FIRPLAK */}
-        <div className="max-w-[1620px] mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between relative">
+        <div
+          className={`max-w-[1620px] mx-auto px-4 sm:px-8 flex items-center justify-between relative transition-all duration-300 ${
+            directCategories ? 'h-12 sm:h-[60px]' : 'h-16 sm:h-20'
+          }`}
+        >
 
-          {/* Left: Menú de Líneas de Producto Trigger Button (Hamburguesa simple de 3 líneas) */}
-          <div className="flex items-center gap-1.5 sm:gap-2 z-10">
+          {/* Left: Menú de Líneas de Producto Trigger Button (En directCategories solo aparece en móvil) */}
+          <div className={`items-center gap-1.5 sm:gap-2 z-10 ${directCategories ? 'flex md:hidden' : 'flex'}`}>
             <button
               onClick={() => {
                 const nextState = !isCategoriesOpen;
@@ -335,25 +349,33 @@ export default function LoomereNavbar({
         </div>
 
         {/* Franja de Líneas de Producto Expandible: Animación CSS Grid 0fr -> 1fr */}
+        {/* En directCategories: permanente en desktop (md:), colapsable con menú hamburguesa en móvil (< md) */}
         <div
-          className="grid transition-[grid-template-rows,opacity] duration-300 ease-out"
-          style={{
-            gridTemplateRows: isCategoriesOpen ? '1fr' : '0fr',
-            opacity: isCategoriesOpen ? 1 : 0,
-            pointerEvents: isCategoriesOpen ? 'auto' : 'none'
-          }}
+          className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+            directCategories
+              ? isCategoriesOpen
+                ? 'grid-rows-[1fr] opacity-100 pointer-events-auto'
+                : 'grid-rows-[0fr] opacity-0 pointer-events-none md:grid-rows-[1fr] md:opacity-100 md:pointer-events-auto'
+              : isCategoriesOpen
+                ? 'grid-rows-[1fr] opacity-100 pointer-events-auto'
+                : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+          }`}
         >
           <div className="overflow-hidden">
             <div
               className="max-w-[1620px] mx-auto px-4 sm:px-8 relative transition-all duration-300"
               style={{
-                paddingTop: '16px',
-                paddingBottom: activeLine ? '22px' : '24px'
+                paddingTop: directCategories ? '12px' : '16px',
+                paddingBottom: activeLine
+                  ? (directCategories ? '16px' : '22px')
+                  : (directCategories ? '18px' : '24px')
               }}
             >
               <nav
                 aria-label="Líneas de producto Firplak"
-                className="w-full grid grid-cols-2 sm:flex sm:flex-row items-center gap-3 sm:gap-4 text-[14.5px] sm:text-[15.5px] tracking-wide text-white lowercase"
+                className={`w-full grid grid-cols-2 sm:flex sm:flex-row items-center gap-2 sm:gap-4 tracking-wide text-white lowercase ${
+                  directCategories ? 'text-[13.5px] sm:text-[14.5px]' : 'text-[14.5px] sm:text-[15.5px]'
+                }`}
                 style={{ justifyContent: 'space-evenly' }}
               >
                 {PRODUCT_LINES.map((line) => {
@@ -367,7 +389,7 @@ export default function LoomereNavbar({
                       onClick={() => {
                         setSelectedCategory(prev => prev === line.id ? null : line.id);
                       }}
-                      className={`py-1 px-3 rounded-lg transition-all duration-200 text-center sm:text-left whitespace-nowrap lowercase cursor-pointer ${isSelected
+                      className={`min-h-[44px] py-1 px-3 rounded-lg transition-all duration-200 text-center sm:text-left whitespace-nowrap lowercase cursor-pointer flex items-center justify-center ${isSelected
                         ? 'text-white font-semibold opacity-100'
                         : isDimmed
                           ? 'text-white/50 opacity-50 hover:opacity-75 hover:text-white/80'
@@ -393,8 +415,8 @@ export default function LoomereNavbar({
                   <div
                     className="border-t border-white/15"
                     style={{
-                      marginTop: '16px',
-                      paddingTop: '20px'
+                      marginTop: directCategories ? '12px' : '16px',
+                      paddingTop: directCategories ? '15px' : '20px'
                     }}
                   >
                     <nav
@@ -409,7 +431,7 @@ export default function LoomereNavbar({
                           key={sub.title}
                           href={url}
                           onClick={() => {
-                            setIsCategoriesOpen(false);
+                            if (!directCategories) setIsCategoriesOpen(false);
                             setSelectedCategory(null);
                             handleTopAccess(sub.title, url, activeLine.title);
                           }}

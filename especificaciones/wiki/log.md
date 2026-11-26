@@ -12,6 +12,14 @@ Registro de auditorías, ingestas y consultas realizadas en el wiki de especific
 - **Pendiente de Ricardo:** render de 48 cuadros de la apertura de las puertas desde su escena 3D.
 - **Documentación:** [landing_loop_inception_bano.md](landing_loop_inception_bano.md).
 
+## [2026-11-11] feat | Header Alejandro: menú hamburguesa exclusivo para móvil y categorías directas en desktop
+- **Visualización:** Alejandro (`LoomereExperience`).
+- **Comportamiento adaptativo:**
+  - *Desktop (`>= md`):* El botón hamburguesa "Menú" queda completamente oculto y la franja de las 6 categorías principales se mantiene permanentemente visible en el segundo nivel.
+  - *Móvil (`< md`):* El botón hamburguesa "Menú" se muestra exclusivamente en pantallas móviles para abrir y cerrar el menú de categorías bajo demanda.
+- **Compresión 25%:** Altura de cabecera reducida (60px desktop / 48px mobile en nivel 1, y paddings verticales optimizados a 12px / 18px en nivel 2) preservando touch targets $\ge 44 \times 44$ px.
+- **Aislamiento:** La propiedad `directCategories` en `LoomereNavbar` preserva la cabecera original en las visualizaciones de Ricardo e Isabel/Gabriel.
+
 ## [2026-11-06] feat | Ricardo · Loop v2: cámara continua, placas vivas y profundidad
 - **Cámara:** sin pausas quietas (curva continua en velocidad), inercia de 0,14 s y giro de la casa a través de la cima del bucle.
 - **Placas vivas:** clips de cámara fija (agua y remolino en el primer plano; humo de la vela, agua y patio en el baño; luz, árbol y agua en la casa) con el producto del render encima por máscara.
@@ -29,6 +37,11 @@ Registro de auditorías, ingestas y consultas realizadas en el wiki de especific
 - **Fuente:** 12 renders del usuario (Vitelli × Oslo, Génova, Parma y Siena, cerrado y abierto; mueble solo; vista 3/4; foto del Gola Curva).
 - **Experiencia:** vistas Conjunto / Lavamanos / Mueble, abrir y cerrar, 5 acabados, grifería negra y 3 de vista previa, "Sorpréndeme", sección "Por dentro", escenario pegado en móvil.
 - **Documentación:** [banos_muebles_opcion_c.md](banos_muebles_opcion_c.md).
+
+## [2026-10-28] docs | Fusión Unificada de Referentes Externos (referentes_externos.md)
+- **Fusión completa:** Unificación integral de `referentes_externo.md` (7 pilares internacionales de arquitectura, interacción y GUI) y `referentes_externos.md` (Awwwards, benchmarks de nicho, investigación académica de Nielsen Norman Group y anotaciones de dirección de Alejandro Isaza) en [referentes_externos.md](referentes_externos.md).
+- **Preservación total de información:** Se conservaron todos los 13 referentes, matrices Mermaid integradas, tablas comparativas, enlaces de especificación técnica y las 6 notas al pie con comentarios directivos.
+- **Eliminación de redundancia:** Se eliminó `referentes_externo.md` para evitar duplicidad y se unificaron todos los enlaces hacia [referentes_externos.md](referentes_externos.md).
 
 ## [2026-10-22] docs | Informe de escalabilidad del configurador de muebles
 - **Nuevo:** [informe_escalabilidad_configurador.md](informe_escalabilidad_configurador.md), versión Markdown completa del informe (antes solo como presentación).

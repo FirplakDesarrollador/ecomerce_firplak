@@ -55,10 +55,14 @@ export interface UniformesPlaca {
   blur: number;
 }
 
-type Fuente = HTMLVideoElement | HTMLImageElement;
+type Fuente = HTMLVideoElement | HTMLImageElement | HTMLCanvasElement;
 
 const listo = (f: Fuente) =>
-  f instanceof HTMLVideoElement ? f.readyState >= 2 && f.videoWidth > 0 : f.complete && f.naturalWidth > 0;
+  f instanceof HTMLVideoElement
+    ? f.readyState >= 2 && f.videoWidth > 0
+    : f instanceof HTMLCanvasElement
+      ? f.width > 0
+      : f.complete && f.naturalWidth > 0;
 
 export class PlacaViva {
   private readonly gl: WebGLRenderingContext;

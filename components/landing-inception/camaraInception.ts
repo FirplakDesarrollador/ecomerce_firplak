@@ -59,9 +59,12 @@ export function recorrido(p: number): number {
   return p <= 0.5 ? p * 2 : (1 - p) * 2;
 }
 
-interface Parada { s: number; camara: Camara }
+export interface Parada { s: number; camara: Camara; giro?: number }
 
-const centroDe = (c: Capa, fx = 0.5, fy = 0.5): Punto => ({ x: c.x + c.lado * fx, y: c.y + c.lado * fy });
+export const centroDe = (c: Capa, fx = 0.5, fy = 0.5): Punto => ({ x: c.x + c.lado * fx, y: c.y + c.lado * fy });
+
+/** Vista de la casa entera según la proporción de pantalla (siempre cabe completa). */
+export const vistaCasa = (aspecto: number) => (aspecto < 1 ? Math.max(1, 1.02 / aspecto) : Math.max(1, aspecto * 1.06));
 
 /**
  * Centro del baño en su parada. El escenario es un cuadrado que cubre la pantalla: en
@@ -73,7 +76,7 @@ export const centroBano = (aspecto: number): Punto =>
 
 function paradas(aspecto: number): Parada[] {
   const banoCentro = centroBano(aspecto);
-  const vistaCasa = aspecto < 1 ? Math.max(1, 1.02 / aspecto) : Math.max(1, aspecto * 1.06);
+  const vCasa = vistaCasa(aspecto);
   const llave = PUNTO_MUNDO;
   // Ninguna parada es quieta: en cada una la cámara sigue alejándose y paneando un poco,
   // sin dejar de cubrir la pantalla con la imagen que está al frente.
@@ -83,8 +86,8 @@ function paradas(aspecto: number): Parada[] {
     { s: TRAMOS.llave[1], camara: { x: llave.x + azul.lado * 0.004, y: llave.y, vista: azul.lado * 0.99 } },
     { s: TRAMOS.bano[0], camara: { x: banoCentro.x - bano.lado * 0.05, y: banoCentro.y, vista: bano.lado * 0.86 } },
     { s: TRAMOS.bano[1], camara: { ...banoCentro, vista: bano.lado * 0.99 } },
-    { s: TRAMOS.casa[0], camara: { ...centroDe(casa), vista: vistaCasa * 0.97 } },
-    { s: 1, camara: { ...centroDe(casa), vista: vistaCasa * 1.02 } },
+    { s: TRAMOS.casa[0], camara: { ...centroDe(casa), vista: vCasa * 0.97 } },
+    { s: 1, camara: { ...centroDe(casa), vista: vCasa * 1.02 } },
   ];
 }
 
@@ -108,25 +111,44 @@ function pendientes(xs: number[], ys: number[]): number[] {
  * de todas las paradas, de modo que la velocidad del zoom nunca salta.
  */
 export function camara(s: number, aspecto = 1): Camara {
-  const lista = paradas(aspecto);
+  const { x, y, vista } = trayecto(paradas(aspecto), s);
+  return { x, y, vista };
+}
+
+const hermite = (ys: number[], m: number[], i: number, h: number, t: number) => {
+  const t2 = t * t, t3 = t2 * t;
+  return (2 * t3 - 3 * t2 + 1) * ys[i] + (t3 - 2 * t2 + t) * h * m[i] + (-2 * t3 + 3 * t2) * ys[i + 1] + (t3 - t2) * h * m[i + 1];
+};
+
+/**
+ * Recorre una lista de paradas: escala por curva monótona continua en velocidad, centro por
+ * el punto fijo de la semejanza entre paradas y giro (si lo hay) por su propia curva monótona.
+ */
+export function trayecto(lista: Parada[], s: number): Camara & { giro: number } {
   const xs = lista.map((p) => p.s), ys = lista.map((p) => Math.log(p.camara.vista));
-  const m = pendientes(xs, ys);
+  const gs = lista.map((p) => p.giro ?? 0);
+  const m = pendientes(xs, ys), mg = pendientes(xs, gs);
   const v = clamp01(s);
   let i = 0;
   while (i < lista.length - 2 && v > lista[i + 1].s) i++;
   const a = lista[i], b = lista[i + 1];
   const h = b.s - a.s, t = (v - a.s) / h;
-  const t2 = t * t, t3 = t2 * t;
-  const lnV = (2 * t3 - 3 * t2 + 1) * ys[i] + (t3 - 2 * t2 + t) * h * m[i] + (-2 * t3 + 3 * t2) * ys[i + 1] + (t3 - t2) * h * m[i + 1];
-  const vista = Math.exp(lnV);
+  const vista = Math.exp(hermite(ys, m, i, h, t));
+  const giro = hermite(gs, mg, i, h, t);
   const k = b.camara.vista / a.camara.vista;
   const kt = vista / a.camara.vista;
   if (Math.abs(1 - k) < 1e-6) {
-    return { x: mezcla(a.camara.x, b.camara.x, t), y: mezcla(a.camara.y, b.camara.y, t), vista };
+    return { x: mezcla(a.camara.x, b.camara.x, t), y: mezcla(a.camara.y, b.camara.y, t), vista, giro };
   }
   const fx = (b.camara.x - k * a.camara.x) / (1 - k);
   const fy = (b.camara.y - k * a.camara.y) / (1 - k);
-  return { x: fx + (a.camara.x - fx) * kt, y: fy + (a.camara.y - fy) * kt, vista };
+  return { x: fx + (a.camara.x - fx) * kt, y: fy + (a.camara.y - fy) * kt, vista, giro };
+}
+
+/** Giro de la casa en el capítulo 1: sube y vuelve a cero en la casa, sin detenerse al empalmar. */
+export function giroCapitulo1(s: number, ida: boolean, grados = 7): number {
+  const g = grados * Math.sin(Math.PI * clamp01((s - 0.6) / 0.4));
+  return ida ? g : -g;
 }
 
 /**
@@ -179,10 +201,13 @@ export function escena(s: number, cam: Camara, reducirMovimiento = false) {
   const floracion = 1 - suave(TRAMOS.floracion[0], TRAMOS.floracion[1], s);
   const ventana = ([a, b]: readonly [number, number], margen = 0.02) =>
     Math.min(suave(a - margen, a + margen, s), 1 - suave(b - margen, b + margen, s));
+  const opacidadCasa = suave(0.05, 0.45, giroPliegue);
   return {
     opacidadAzul: 1 - suave(azul.lado * 1.08, azul.lado * 2.0, cam.vista),
     opacidadBano: 1 - suave(0.1, 0.6, giroPliegue),
-    opacidadCasa: suave(0.05, 0.45, giroPliegue),
+    opacidadCasa,
+    /** Etiquetas de los espacios sobre la casa vista desde arriba. */
+    pines: suave(0.88, 0.96, s) * opacidadCasa,
     // Inclinación de cámara: el baño (pared) se va hacia arriba y la casa (piso) se endereza.
     anguloBano: reducirMovimiento ? 0 : -40 * giroPliegue,
     anguloCasa: reducirMovimiento ? 0 : 55 * (1 - giroPliegue),

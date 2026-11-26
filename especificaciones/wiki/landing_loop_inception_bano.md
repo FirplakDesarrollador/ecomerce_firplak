@@ -1,8 +1,8 @@
-# Landing Ricardo · Loop: recorrido Inception del baño
+# Landing Ricardo · Loop: recorrido Inception por la casa
 
 > [!IMPORTANT]
 > **Estrategia Condensada del Segmento**:
-> Un landing en bucle donde el scroll mueve una sola cámara por un mundo de imágenes anidadas: el **punto azul** del mando de agua fría vive dentro de los mandos, los mandos dentro del **baño** y el baño dentro de la **casa** vista desde arriba. La cámara sale del azul hasta la casa y vuelve a entrar; el scroll nunca termina. Es el primer capítulo (baño) de un recorrido por cada espacio de la casa.
+> Un landing en bucle donde el scroll mueve una sola cámara por un mundo de imágenes anidadas. La **casa vista desde arriba** es el punto de encuentro: cada espacio es un capítulo que baja desde la casa, muestra el producto real y vuelve a la casa. Hoy: **hidromasaje** (del punto azul del mando a la casa) y **lavamanos** (de la casa al mueble, a la grifería y a una gota que lleva la casa adentro). Cocina y zona de ropas se suman al mismo guion. El scroll nunca termina.
 
 ## 1. Dónde vive
 
@@ -11,51 +11,51 @@
 | Página | `/?v=ricardo-loop` (también `?v=loop`, `?v=inception`, `?v=v4`) |
 | Selector | Botón "Ricardo · Loop" en `components/landing-cinematic/LandingSwitcher.tsx` |
 | Experiencia | `components/landing-inception/InceptionBanoExperience.tsx` |
-| Cámara (lógica pura) | `components/landing-inception/camaraInception.ts` |
-| Geometría medida | `components/landing-inception/geometriaBano.ts` (generado) |
-| Imágenes | `public/images/inception/bano-{azul,bano,casa}.webp` (2048 px, ~0,9 MB en total) |
-| Script | `scripts/inception/preparar-keyframes.mjs <azul.png> <bano.png> <casa.png>` |
-| Pruebas | `pruebas-unitarias/inception.test.ts` |
+| Guion (capítulos y fotograma) | `components/landing-inception/guion.ts` |
+| Capítulo 1 · hidromasaje | `components/landing-inception/camaraInception.ts` (+ `geometriaBano.ts`, `profundidadBano.ts` generados) |
+| Capítulo 2 · lavamanos | `components/landing-inception/capituloLavamanos.ts` (+ `profundidadLavamanos.ts` generado) |
+| Proyección con giro | `components/landing-inception/proyeccion.ts` |
+| WebGL | `placaViva.ts` (placas con paralaje y desenfoque) y `gotaLente.ts` (la gota) |
+| Imágenes | `public/images/inception/bano-*.webp`, `lav-*.webp` |
+| Placas vivas | `public/videos/inception/{bano-azul,bano-bano,bano-casa,lav-cerrado}.mp4` (y `-m.mp4` para móvil) |
+| Scripts | `scripts/inception/`: `preparar-keyframes`, `preparar-profundidad`, `preparar-lavamanos`, `analizar-placa`, `componer-placa` |
+| Pruebas | `pruebas-unitarias/inception.test.ts`, `pruebas-unitarias/guion.test.ts` |
 | Rama | Solo `Ric` (pedido del usuario: no se fusiona a `Dev` todavía) |
 
-## 2. Recorrido
+## 2. Gran recorrido
 
-| Tramo (salida) | Qué se ve |
-|---|---|
-| Azul | Pantalla llena del color medido en el punto del render; se contrae hasta ser el punto real. |
-| Llave | Primer plano real de los tres mandos: rojo, azul (centro) y liso. |
-| Hacia el baño | Zoom continuo desde los mandos hasta el baño completo, con la mujer tocando los mandos. |
-| Baño | Pausa con CTA "Ver hidromasajes freestanding". |
-| Pliegue | La cámara se inclina sobre la tina: el baño se funde y la casa se endereza hasta verse desde arriba. |
-| Casa | Planta completa con los espacios marcados (Baño "estás aquí"; Patio, Cuarto, Cocina y Zona de lavado "pronto") y un giro leve. |
+Un bucle de 1600 svh: **azul → hidromasaje → casa → lavamanos → grifería → gota → casa → hidromasaje → azul**. El documento tiene tres vueltas y, al acercarse a un borde, salta una vuelta entera sin que cambie la imagen.
 
-La segunda mitad del bucle recorre los mismos tramos al revés y termina en el azul, que es el primer cuadro: el documento tiene tres vueltas y, al acercarse a un borde, salta una vuelta entera sin que cambie la imagen. El indicador lateral (Azul, Llave, Baño, Casa) lleva a cada parada.
+| Capítulo | Parte del bucle | Qué pasa |
+|---|---|---|
+| 1 · ida | 0–0,28 | Del azul (color medido en el punto del render) a los mandos, al baño con ella y, plegándose, a la casa vista desde arriba. |
+| 2 · lavamanos | 0,28–0,74 | La casa gira 90° (la pared del lavamanos queda al fondo), baja y se pliega hasta el mueble; las puertas se abren; zoom a la grifería (recorte exacto del mismo render); se forma una gota que cae con la cámara; dentro de la gota está la casa; al llenar la pantalla, es la casa vista desde arriba. |
+| 1 · vuelta | 0,74–1 | De la casa baja al baño, a los mandos y al azul, que es el primer cuadro. |
+
+En la casa vista desde arriba, las etiquetas **Hidromasaje** y **Lavamanos** llevan a su capítulo; **Cocina** y **Zona de ropas** dicen "pronto". El indicador lateral (Azul, Hidromasaje, Casa, Lavamanos, Grifería) marca la parada que se ve, también de vuelta.
 
 ## 3. Cómo funciona
 
-- **Mundo anidado:** cada imagen se coloca dentro de la otra con medidas tomadas en los keyframes (mando del baño = punto azul del primer plano; tina del baño = tina de la casa).
-- **Cámara siempre en movimiento:** el zoom es logarítmico alrededor del punto fijo de la semejanza entre paradas, y su escala sigue una curva monótona continua en velocidad (Fritsch-Carlson) por todas las paradas: no hay pausas quietas, en cada parada sigue alejándose y paneando sin dejar de cubrir la pantalla. En la cima del bucle la casa sigue girando mientras la cámara da la vuelta.
-- **Inercia:** un solo bucle de `requestAnimationFrame` persigue al scroll con una constante de 0,14 s; el salto de vuelta del scroll infinito se aplica también a la cámara para que no se note. Escribe `transform` y `opacity` directo en el DOM (sin estado de React por cuadro).
-- **Placas vivas:** cada imagen tiene un clip de 8 s con la cámara fija (agua, luz, hojas, ella) que se reproduce en bucle aunque el scroll esté quieto. El producto del render va encima del clip con una máscara (ver §4), así el movimiento no lo puede deformar.
-- **Profundidad:** el primer plano y el baño se dibujan en WebGL (`placaViva.ts`) con su mapa de profundidad (Depth Anything): al panear, lo cercano se desplaza más que lo lejano; al acercarse, crece más rápido; un vaivén lento hace respirar la cámara en reposo.
-- **Desenfoque de zoom:** radial, proporcional a la velocidad real del zoom.
-- **Pliegue:** `perspective()` dentro de cada capa, girando alrededor de la tina, con los bordes difuminados.
-- **Movimiento reducido:** sin inercia, pliegue, giro, paralaje ni desenfoque; solo fundidos.
-
-| Archivo | Para qué |
-|---|---|
-| `public/videos/inception/bano-{azul,bano,casa}.mp4` | Placas vivas 2048 px (y `-m.mp4` a 1080 para móvil) |
-| `public/images/inception/bano-{azul,bano}-prof.webp` | Mapas de profundidad (1 = cerca) |
-| `components/landing-inception/profundidadBano.ts` | Profundidad que queda quieta en el paralaje (generado por `scripts/inception/preparar-profundidad.mjs`) |
+- **Mundo y proyección:** el mundo es la casa vista desde arriba (0 a 1). Cada imagen es una capa con centro, lado y giro propios (el lavamanos y la grifería van girados 90°). La cámara tiene centro, vista y **giro**; `transformCapa` arma el `transform` CSS y el pliegue gira sobre un eje horizontal de la pantalla que pasa por el pivote (tina o lavabo), con la perspectiva dentro de la capa.
+- **Trayectos:** `trayecto()` recorre paradas con zoom logarítmico alrededor del punto fijo de la semejanza, escala y giro por curvas monótonas continuas en velocidad (Fritsch-Carlson). Ninguna parada es quieta. `mira()` ajusta cada encuadre para que la imagen del frente siempre cubra la pantalla según el zoom y la proporción.
+- **Guion:** `fotograma(p)` devuelve, para cualquier punto del bucle, la cámara, la opacidad, inclinación y pivote de cada capa, la floración del azul, las puertas, la gota, las etiquetas y los textos. El componente solo dibuja.
+- **La gota:** lente WebGL a pantalla completa: dentro de una gota con brillo y borde de agua se ve la casa (el mismo video de la placa) ampliada en el centro. Mientras cae, la cámara la sigue; al final su contenido pasa sin corte al encuadre de la casa y la cámara "atraviesa".
+- **Puertas:** una secuencia de cuadros mezclada en un lienzo que pasa a ser la fuente de la placa del mueble (con su paralaje y desenfoque). Hoy son los renders cerrado y abierto con un fundido; ver §5.
+- **Inercia, placas vivas, profundidad y desenfoque:** como en el capítulo 1 (constante de 0,14 s; clips de cámara fija con el render encima; paralaje por mapa de profundidad; desenfoque radial por velocidad de zoom, que ignora el salto del portal).
+- **Movimiento reducido:** sin inercia, pliegues, giros, paralaje ni desenfoque.
 
 ## 4. Regla de fidelidad del producto
 
-El usuario exige que el producto sea **real**. Las imágenes generadas cambiaron los mandos (un botón grande, colores en el cubo equivocado) y un video de prueba convirtió la ducha de mano en un grifo. Por eso:
+El producto (tina, mandos, ducha, mueble, lavabo, grifería) sale **siempre de los renders**. Nada de producto dibujado por IA:
 
-1. **Primer plano:** recorte del render real ampliado con Topaz en modo CGI (sin inventar formas), quitando antes el ruido de render.
-2. **Baño:** el render real es la base; la mujer generada se recorta por diferencia con el render y se compone **detrás** de la tina; tina, cubierta, ducha y mandos del render quedan siempre delante.
-3. **Videos:** solo clips de **cámara fija** con el mismo cuadro al inicio y al final (bucle cerrado). Se verifica que la cámara no se mueva (desplazamiento 0 contra el keyframe) y se pone encima el render donde manda la máscara: en el primer plano todo menos el agua; en el baño todo menos agua, ella, la vela y el patio, con tina, ducha y mandos siempre del render. Las transiciones entre imágenes nunca son video generado: las hace la cámara del código.
+1. **Primeros planos:** recorte del render real ampliado con Topaz CGI, quitando antes el ruido de render.
+2. **Personas:** generadas aparte y compuestas sobre el render con la profundidad correcta (ella, detrás de la tina).
+3. **Placas vivas:** solo clips de **cámara fija** con el mismo cuadro al inicio y al final. `analizar-placa.mjs` verifica desplazamiento 0 y marca qué se mueve; `componer-placa.mjs` pone encima el render con la máscara. Lavamanos: se mueven las plantas, el patio (sombras de árbol) y el reflejo del espejo; mueble, lavabo, grifería y sanitario quedan del render.
+4. **Transiciones:** nunca son video generado; las hace la cámara del código.
 
 ## 5. Pendientes
-- [ ] Capítulos siguientes con la misma técnica: cocina, zona de lavado, cuarto, patio.
-- [ ] Nombre comercial y ficha del hidromasaje para el CTA.
+
+- [ ] **Render de la apertura de las puertas** (lo hace Ricardo desde su escena 3D): misma cámara y luz que los renders del lavamanos; PNG cuadrados de 2048 px; 48 cuadros `lav_puertas_000.png` (= render cerrado) a `lav_puertas_047.png` (= render abierto); ambas puertas, movimiento con aceleración y frenado suaves; sin desenfoque de movimiento. Se cargan en `CUADROS_PUERTAS`.
+- [ ] Opcional: primer plano de la grifería renderizado a 2048 px con el mismo ángulo del recorte (más detalle que la ampliación).
+- [ ] Capítulos siguientes: cocina y zona de ropas, con la misma estructura (bajar desde la casa, producto real, volver a la casa).
+- [ ] Nombre comercial y ficha del hidromasaje y del mueble para los CTA.

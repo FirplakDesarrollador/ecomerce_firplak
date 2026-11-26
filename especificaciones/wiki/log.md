@@ -6,6 +6,12 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-11-26] feat | Ricardo · Loop: gran recorrido y capítulo 2, lavamanos
+- **Gran recorrido:** un solo scroll infinito con la casa vista desde arriba como punto de encuentro: azul → hidromasaje → casa → lavamanos → grifería → gota → casa → hidromasaje → azul. Etiquetas de la casa clicables por capítulo.
+- **Lavamanos:** la casa gira 90° y se pliega hasta el mueble (render real con placa viva: plantas, sombras de árbol en el patio, reflejo del espejo), apertura de puertas (provisional: fundido entre los renders cerrado y abierto), zoom a la grifería (recorte exacto ampliado con Topaz) y una gota WebGL con la casa adentro que lleva de vuelta a la casa sin corte.
+- **Pendiente de Ricardo:** render de 48 cuadros de la apertura de las puertas desde su escena 3D.
+- **Documentación:** [landing_loop_inception_bano.md](landing_loop_inception_bano.md).
+
 ## [2026-11-06] feat | Ricardo · Loop v2: cámara continua, placas vivas y profundidad
 - **Cámara:** sin pausas quietas (curva continua en velocidad), inercia de 0,14 s y giro de la casa a través de la cima del bucle.
 - **Placas vivas:** clips de cámara fija (agua y remolino en el primer plano; humo de la vela, agua y patio en el baño; luz, árbol y agua en la casa) con el producto del render encima por máscara.

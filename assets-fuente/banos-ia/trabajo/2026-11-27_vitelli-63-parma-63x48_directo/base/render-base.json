@@ -1,0 +1,76 @@
+{
+  "mueble_glb_bbox_mm": [
+    [
+      -312.0,
+      -476.0,
+      -0.0
+    ],
+    [
+      312.0,
+      81.8,
+      480.0
+    ]
+  ],
+  "excluidos_del_glb": [
+    "Bisagras",
+    "Grifo",
+    "Lavamanos_genova",
+    "Lavamanos_oslo",
+    "Lavamanos_parma",
+    "Lavamanos_siena",
+    "Sifon"
+  ],
+  "piezas_mueble": [
+    "CajonInferior",
+    "CajonSuperior",
+    "Carcasa",
+    "Puerta"
+  ],
+  "tapa_mm": 480.0,
+  "trasera_carcasa_mm": 0.0,
+  "parma_stl_anclado_bbox_mm": [
+    [
+      -317.5,
+      -484.0,
+      350.0
+    ],
+    [
+      317.5,
+      0.0,
+      500.0
+    ]
+  ],
+  "control_parma_glb_bbox_mm": [
+    [
+      -317.5,
+      -484.0,
+      350.0
+    ],
+    [
+      317.5,
+      -0.0,
+      500.0
+    ]
+  ],
+  "control_dif_max_mm": 0.0,
+  "huecos_cubierta_y_m": [
+    [
+      -0.4806,
+      -0.4121
+    ],
+    [
+      -0.3805,
+      -0.1031
+    ],
+    [
+      -0.071,
+      -0.0033
+    ]
+  ],
+  "perforacion_griferia_m": {
+    "x": 0.0,
+    "y": -0.0371,
+    "detectada": true,
+    "cubierta_z_m": 0.5
+  }
+}

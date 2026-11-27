@@ -1,0 +1,37 @@
+{
+  "tope_parte1": 10,
+  "saldo_inicial": 1821.34,
+  "trabajos": [
+    {
+      "job": "02f8ffd8-1f22-4a0c-adba-6c2ecafa1f0d",
+      "modelo": "gpt_image_2_6 2k medium",
+      "creditos": 1.75,
+      "uso": "placa vacía (edición de la referencia) · elegida gpt26-a"
+    },
+    {
+      "job": "49645ad0-0e86-4004-8b82-63d937e63be7",
+      "modelo": "gpt_image_2_6 2k medium",
+      "creditos": 1.75,
+      "uso": "placa vacía (edición de la referencia) · pasó control, no usada"
+    },
+    {
+      "job": "41c3bca8-1b7b-4a84-9250-f1b01026485a",
+      "modelo": "gpt_image_2_6 2k medium",
+      "creditos": 1.75,
+      "uso": "decoración sobre el montaje · elegida deco-a"
+    },
+    {
+      "job": "ec6da10d-413e-4cf3-8e83-3cd7f4e33bb1",
+      "modelo": "gpt_image_2_6 2k medium",
+      "creditos": 1.75,
+      "uso": "decoración sobre el montaje · no usada"
+    },
+    {
+      "job": "d234f8cf-47e8-445c-8244-1f36d113b887",
+      "modelo": "gpt_image_2_6 2k medium",
+      "creditos": 1.75,
+      "uso": "ronda 1: decoración sobre el mueble reubicado"
+    }
+  ],
+  "gastado_parte1": 8.75
+}

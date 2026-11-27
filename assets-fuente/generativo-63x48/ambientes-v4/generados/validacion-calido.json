@@ -1,0 +1,64 @@
+{
+  "ambiente": "calido",
+  "fondo": "calido-1-e530da9b.png",
+  "tamano_original": [
+    2048,
+    1360
+  ],
+  "normalizacion": "estirar",
+  "aspecto_original_vs_3_2_pct": 0.392,
+  "meta_px": 3.0,
+  "rasgos": {
+    "espejo": {
+      "desvio_px": 1.0,
+      "traslacion_optima": [
+        0,
+        -1
+      ],
+      "chamfer_medio_optimo": 2.61,
+      "mediana_px": 1.0,
+      "p90_px": 19.49,
+      "pct_a_3px": 81.5,
+      "puntos": 1420,
+      "estado": "APROBADO"
+    },
+    "ventana": {
+      "desvio_px": 1.41,
+      "traslacion_optima": [
+        1,
+        1
+      ],
+      "chamfer_medio_optimo": 1.41,
+      "mediana_px": 1.0,
+      "p90_px": 5.0,
+      "pct_a_3px": 84.1,
+      "puntos": 6563,
+      "estado": "APROBADO"
+    },
+    "union_fondo": {
+      "metodo": "perfil perpendicular (max gradiente)",
+      "desvio_px": 0.5,
+      "mediana_dif_px": 0.5,
+      "p90_abs_px": 11.5,
+      "muestras": 36,
+      "estado": "APROBADO"
+    },
+    "union_derecha": {
+      "metodo": "perfil perpendicular (max gradiente)",
+      "desvio_px": 1.0,
+      "mediana_dif_px": 1.0,
+      "p90_abs_px": 3.0,
+      "muestras": 60,
+      "estado": "APROBADO"
+    },
+    "esquina": {
+      "metodo": "perfil perpendicular (max gradiente)",
+      "desvio_px": 1.0,
+      "mediana_dif_px": -1.0,
+      "p90_abs_px": 2.0,
+      "muestras": 51,
+      "estado": "APROBADO"
+    }
+  },
+  "resultado": "APROBADO"
+}

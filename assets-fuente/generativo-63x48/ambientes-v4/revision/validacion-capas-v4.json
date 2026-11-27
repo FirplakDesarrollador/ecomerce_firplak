@@ -1,0 +1,293 @@
+{
+  "fecha": "2026-11-27",
+  "fuente": "render PBR (render-capas-v4.py); sin IA ni pulido en producto",
+  "pulido_ia": "NO APLICA (capas 100 % render CAD/GLB/STL)",
+  "creditos_producto": 0,
+  "cruces": 10,
+  "ambientes": [
+    "moderno",
+    "calido"
+  ],
+  "ambiente_igual_fuera_de_producto_y_sombra": {
+    "moderno:tiziano-genova": 0,
+    "moderno:tiziano-oslo": 0,
+    "moderno:tiziano-quadratto": 0,
+    "moderno:tiziano-siena": 0,
+    "moderno:tiziano-trentino": 0,
+    "moderno:vitelli-bari": 0,
+    "moderno:vitelli-genova": 0,
+    "moderno:vitelli-oslo": 0,
+    "moderno:vitelli-siena": 0,
+    "moderno:vitelli-trentino": 0,
+    "calido:tiziano-genova": 0,
+    "calido:tiziano-oslo": 0,
+    "calido:tiziano-quadratto": 0,
+    "calido:tiziano-siena": 0,
+    "calido:tiziano-trentino": 0,
+    "calido:vitelli-bari": 0,
+    "calido:vitelli-genova": 0,
+    "calido:vitelli-oslo": 0,
+    "calido:vitelli-siena": 0,
+    "calido:vitelli-trentino": 0
+  },
+  "cambio_lavamanos_fuera_de_lavamanos": {
+    "moderno:vitelli:bari->genova": 0,
+    "moderno:vitelli:bari->oslo": 0,
+    "moderno:vitelli:bari->siena": 0,
+    "moderno:vitelli:bari->trentino": 0,
+    "moderno:vitelli:genova->oslo": 0,
+    "moderno:vitelli:genova->siena": 0,
+    "moderno:vitelli:genova->trentino": 0,
+    "moderno:vitelli:oslo->siena": 0,
+    "moderno:vitelli:oslo->trentino": 0,
+    "moderno:vitelli:siena->trentino": 0,
+    "moderno:tiziano:genova->oslo": 0,
+    "moderno:tiziano:genova->quadratto": 0,
+    "moderno:tiziano:genova->siena": 0,
+    "moderno:tiziano:genova->trentino": 0,
+    "moderno:tiziano:oslo->quadratto": 0,
+    "moderno:tiziano:oslo->siena": 0,
+    "moderno:tiziano:oslo->trentino": 0,
+    "moderno:tiziano:quadratto->siena": 0,
+    "moderno:tiziano:quadratto->trentino": 0,
+    "moderno:tiziano:siena->trentino": 0,
+    "calido:vitelli:bari->genova": 0,
+    "calido:vitelli:bari->oslo": 0,
+    "calido:vitelli:bari->siena": 0,
+    "calido:vitelli:bari->trentino": 0,
+    "calido:vitelli:genova->oslo": 0,
+    "calido:vitelli:genova->siena": 0,
+    "calido:vitelli:genova->trentino": 0,
+    "calido:vitelli:oslo->siena": 0,
+    "calido:vitelli:oslo->trentino": 0,
+    "calido:vitelli:siena->trentino": 0,
+    "calido:tiziano:genova->oslo": 0,
+    "calido:tiziano:genova->quadratto": 0,
+    "calido:tiziano:genova->siena": 0,
+    "calido:tiziano:genova->trentino": 0,
+    "calido:tiziano:oslo->quadratto": 0,
+    "calido:tiziano:oslo->siena": 0,
+    "calido:tiziano:oslo->trentino": 0,
+    "calido:tiziano:quadratto->siena": 0,
+    "calido:tiziano:quadratto->trentino": 0,
+    "calido:tiziano:siena->trentino": 0
+  },
+  "bandas_sombra": {
+    "moderno:vitelli": {
+      "marco": [
+        1800,
+        1200
+      ],
+      "alfa_max_borde_sup_izq_der": 0,
+      "alfa_max_borde_inferior_piso": 131,
+      "fraccion_lienzo_sin_sombra": 0.8183,
+      "salto_max_entre_pixeles_vecinos": 108,
+      "bbox": [
+        34,
+        4,
+        1553,
+        1200
+      ]
+    },
+    "moderno:tiziano": {
+      "marco": [
+        1800,
+        1200
+      ],
+      "alfa_max_borde_sup_izq_der": 0,
+      "alfa_max_borde_inferior_piso": 131,
+      "fraccion_lienzo_sin_sombra": 0.8185,
+      "salto_max_entre_pixeles_vecinos": 106,
+      "bbox": [
+        34,
+        4,
+        1549,
+        1200
+      ]
+    },
+    "calido:vitelli": {
+      "marco": [
+        1800,
+        1200
+      ],
+      "alfa_max_borde_sup_izq_der": 0,
+      "alfa_max_borde_inferior_piso": 131,
+      "fraccion_lienzo_sin_sombra": 0.8183,
+      "salto_max_entre_pixeles_vecinos": 108,
+      "bbox": [
+        34,
+        4,
+        1553,
+        1200
+      ]
+    },
+    "calido:tiziano": {
+      "marco": [
+        1800,
+        1200
+      ],
+      "alfa_max_borde_sup_izq_der": 0,
+      "alfa_max_borde_inferior_piso": 131,
+      "fraccion_lienzo_sin_sombra": 0.8185,
+      "salto_max_entre_pixeles_vecinos": 106,
+      "bbox": [
+        34,
+        4,
+        1549,
+        1200
+      ]
+    }
+  },
+  "contorno_escena": {
+    "vitelli-oslo": {
+      "iou": 0.99992,
+      "distancia_contorno_media_px": 0.009,
+      "p95_px": 0.0,
+      "max_px": 1.0,
+      "alfa_dif_media": 0.00017,
+      "estado": "APROBADO"
+    },
+    "vitelli-genova": {
+      "iou": 0.99991,
+      "distancia_contorno_media_px": 0.01,
+      "p95_px": 0.0,
+      "max_px": 1.0,
+      "alfa_dif_media": 0.00016,
+      "estado": "APROBADO"
+    },
+    "tiziano-genova": {
+      "iou": 0.99987,
+      "distancia_contorno_media_px": 1.475,
+      "p95_px": 0.0,
+      "max_px": 174.0,
+      "alfa_dif_media": 0.00017,
+      "estado": "APROBADO"
+    },
+    "tiziano-quadratto": {
+      "iou": 0.99988,
+      "distancia_contorno_media_px": 1.377,
+      "p95_px": 0.0,
+      "max_px": 157.757,
+      "alfa_dif_media": 0.00016,
+      "estado": "APROBADO"
+    },
+    "vitelli-siena": {
+      "iou": 0.99987,
+      "distancia_contorno_media_px": 0.012,
+      "p95_px": 0.0,
+      "max_px": 1.0,
+      "alfa_dif_media": 0.00016,
+      "estado": "APROBADO"
+    }
+  },
+  "contacto_lavamanos": {
+    "oslo": {
+      "contacto_mm": {
+        "cx_mm": 0.0,
+        "atras_mm": 0.02,
+        "apoyo_mm": 480.0
+      },
+      "bounds_1600": [
+        220,
+        155,
+        1380,
+        647
+      ],
+      "grifo_xy_mm": [
+        0.0,
+        -35.5
+      ],
+      "grifo_deck_z_mm": 540.0
+    },
+    "genova": {
+      "contacto_mm": {
+        "cx_mm": 0.0,
+        "atras_mm": 0.02,
+        "apoyo_mm": 480.0
+      },
+      "bounds_1600": [
+        220,
+        127,
+        1380,
+        647
+      ],
+      "grifo_xy_mm": [
+        0.0,
+        -36.0
+      ],
+      "grifo_deck_z_mm": 560.0
+    },
+    "bari": {
+      "contacto_mm": {
+        "cx_mm": 0.0,
+        "atras_mm": 0.02,
+        "apoyo_mm": 480.0
+      },
+      "bounds_1600": [
+        220,
+        169,
+        1380,
+        647
+      ],
+      "grifo_xy_mm": [
+        0.0,
+        -42.5
+      ],
+      "grifo_deck_z_mm": 530.0
+    },
+    "siena": {
+      "contacto_mm": {
+        "cx_mm": 0.0,
+        "atras_mm": 0.02,
+        "apoyo_mm": 480.0
+      },
+      "bounds_1600": [
+        220,
+        164,
+        1379,
+        647
+      ],
+      "grifo_xy_mm": [
+        0.0,
+        -40.5
+      ],
+      "grifo_deck_z_mm": 534.0
+    },
+    "trentino": {
+      "contacto_mm": {
+        "cx_mm": 0.0,
+        "atras_mm": 0.02,
+        "apoyo_mm": 480.0
+      },
+      "bounds_1600": [
+        224,
+        196,
+        1372,
+        645
+      ],
+      "grifo_xy_mm": [
+        0.0,
+        -36.0
+      ],
+      "grifo_deck_z_mm": 510.0
+    },
+    "quadratto": {
+      "contacto_mm": {
+        "cx_mm": 0.0,
+        "atras_mm": 0.02,
+        "apoyo_mm": 480.0
+      },
+      "bounds_1600": [
+        219,
+        221,
+        1380,
+        647
+      ],
+      "grifo_xy_mm": [
+        0.0,
+        -65.0
+      ],
+      "grifo_deck_z_mm": 496.0
+    }
+  }
+}

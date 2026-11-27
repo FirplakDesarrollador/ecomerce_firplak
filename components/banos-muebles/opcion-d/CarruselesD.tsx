@@ -4,18 +4,22 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { type SeleccionD } from './catalogoOpcionD';
-import { CAPAS_PILOTO_D, LAVAMANOS_CAPAS_D, MUEBLES_CAPAS_D } from './capasPilotoD';
+import { AMBIENTES_D, CAPAS_PILOTO_D, LAVAMANOS_CAPAS_D, MUEBLES_CAPAS_D } from './capasPilotoD';
 import { useDeslizamientoD } from './useDeslizamientoD';
 
 type Fila = 'lavamanos' | 'mueble';
-const AMBIENTE = CAPAS_PILOTO_D.environment;
+// Todos los ambientes comparten lienzo, cámara y marco de producto.
+const LIENZO = AMBIENTES_D[0];
 const MARCO = CAPAS_PILOTO_D.product_frame;
 const MUEBLES = Object.entries(MUEBLES_CAPAS_D).flatMap(([mueble, acabados]) =>
   Object.entries(acabados).flatMap(([acabado, estados]) => estados.cerrado ? [{
-    mueble, acabado, src: estados.cerrado.src, sombra: estados.cerrado.shadow,
+    mueble, acabado, src: estados.cerrado.src,
   }] : []));
 const LAVAMANOS = Object.entries(LAVAMANOS_CAPAS_D);
-const TOTAL_CAPAS = 1 + LAVAMANOS.length + MUEBLES.reduce((n, m) => n + (m.sombra ? 2 : 1), 0);
+const TOTAL_CAPAS = new Set([
+  ...AMBIENTES_D.flatMap((a) => [a.src, ...MUEBLES.map((m) => a.shadows[m.mueble]).filter(Boolean)]),
+  ...MUEBLES.map((m) => m.src), ...LAVAMANOS.map(([, l]) => l.src),
+]).size;
 const VIDRIO_CONTROLES = {
   backgroundColor: 'rgba(15, 23, 42, 0.94)', backdropFilter: 'blur(20px)',
   border: '1px solid rgba(255, 255, 255, 0.14)',
@@ -36,6 +40,8 @@ function Flecha({ lado, etiqueta, fila, onClick }: {
 
 interface CarruselesDProps {
   sel: SeleccionD;
+  /** Ambiente activo: cambia solo el nodo de ambiente; las piezas no se recargan ni se mueven. */
+  ambiente: string;
   direcciones: Record<Fila, number>;
   animar: boolean;
   onPaso: (fila: Fila, paso: number) => void;
@@ -45,7 +51,7 @@ interface CarruselesDProps {
 /** Una sola combinación activa; el ambiente nunca depende de la selección.
  * Todas las piezas comparten cámara y marco, y permanecen precargadas.
  */
-export default function CarruselesD({ sel, direcciones, animar, onPaso, onCargado }: CarruselesDProps) {
+export default function CarruselesD({ sel, ambiente, direcciones, animar, onPaso, onCargado }: CarruselesDProps) {
   const escenario = useRef<HTMLDivElement>(null);
   const [tam, setTam] = useState({ w: 0, h: 0 });
   const [error, setError] = useState(false);
@@ -69,10 +75,10 @@ export default function CarruselesD({ sel, direcciones, animar, onPaso, onCargad
   };
   const fallo = () => { setError(true); onCargado(); };
   // Se acerca TODO el ambiente en móvil, nunca las piezas por separado.
-  const ancho = Math.max(tam.w, tam.h * AMBIENTE.width / AMBIENTE.height) * (tam.w < 640 ? 1.35 : 1);
+  const ancho = Math.max(tam.w, tam.h * LIENZO.width / LIENZO.height) * (tam.w < 640 ? 1.35 : 1);
   const marco = {
-    left: `${MARCO.x / AMBIENTE.width * 100}%`, top: `${MARCO.y / AMBIENTE.height * 100}%`,
-    width: `${MARCO.width / AMBIENTE.width * 100}%`, height: `${MARCO.height / AMBIENTE.height * 100}%`,
+    left: `${MARCO.x / LIENZO.width * 100}%`, top: `${MARCO.y / LIENZO.height * 100}%`,
+    width: `${MARCO.width / LIENZO.width * 100}%`, height: `${MARCO.height / LIENZO.height * 100}%`,
   };
   const capa = (src: string, tipo: string, id: string, activa: boolean, seleccion = id) => (
     <div key={seleccion} aria-hidden data-capa={tipo} data-pieza={id} data-seleccion={seleccion} data-activa={activa}
@@ -98,12 +104,25 @@ export default function CarruselesD({ sel, direcciones, animar, onPaso, onCargad
       }}
       onPointerCancel={() => { toque.current = null; }}>
       <div data-marco-ambiente className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2"
-        style={{ width: ancho, height: ancho * AMBIENTE.height / AMBIENTE.width }}>
-        <Image data-capa="ambiente" src={AMBIENTE.src} alt="" fill unoptimized priority sizes="100vw"
-          onLoad={() => cargada(AMBIENTE.src)} onError={fallo} />
-        {MUEBLES.map((m) => m.sombra && capa(m.sombra, 'sombra', m.mueble, sel.mueble === m.mueble && sel.acabado === m.acabado, `${m.mueble}__${m.acabado}`))}
+        style={{ width: ancho, height: ancho * LIENZO.height / LIENZO.width }}>
+        {/* Un nodo persistente por ambiente (placa + sombras de cada mueble en su lienzo completo).
+            El entrante se funde encima; el saliente se oculta al terminar, sin trasladar nada. */}
+        {AMBIENTES_D.map((a) => {
+          const activo = a.id === ambiente;
+          return (
+            <div key={a.id} data-ambiente={a.id} data-activa={activo}
+              className={`absolute inset-0 transition-opacity motion-reduce:transition-none ${activo ? 'z-[1] opacity-100 duration-500' : 'z-0 opacity-0 delay-500 duration-0'}`}>
+              <Image data-capa="ambiente" data-activa={activo} src={a.src} alt="" fill unoptimized priority sizes="100vw"
+                onLoad={() => cargada(a.src)} onError={fallo} />
+              {MUEBLES.map((m) => a.shadows[m.mueble] && capa(a.shadows[m.mueble], 'sombra', m.mueble, sel.mueble === m.mueble && sel.acabado === m.acabado, `${m.mueble}__${m.acabado}`))}
+            </div>
+          );
+        })}
+        {/* Piezas compartidas por todos los ambientes, encima de ellos. */}
+        <div className="absolute inset-0 z-[2]">
         {MUEBLES.map((m) => capa(m.src, 'mueble', m.mueble, sel.mueble === m.mueble && sel.acabado === m.acabado, `${m.mueble}__${m.acabado}`))}
         {LAVAMANOS.map(([id, l]) => capa(l.src, 'lavamanos', id, sel.lavamanos === id))}
+        </div>
       </div>
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 to-transparent" />
       <Flecha lado="izq" fila="lavamanos" etiqueta="Lavamanos anterior" onClick={() => onPaso('lavamanos', -1)} />

@@ -1,0 +1,54 @@
+{
+  "version": 4,
+  "source_resolution": [
+    1800,
+    1200
+  ],
+  "camera_position": [
+    -1.4544289,
+    -2.8638591,
+    1.11
+  ],
+  "camera_rotation": [
+    1.570796327,
+    0.0,
+    -0.506145483
+  ],
+  "camera_note": "Variante A aprobada: nivelada (dos puntos de fuga), ojos a 1,40 m, 3,0 m al centro del mueble (0,-0,24)",
+  "environment_lens_mm": 35.0,
+  "environment_shift": [
+    0.0,
+    -0.117
+  ],
+  "product_lens_mm": 100.0,
+  "product_shift": [
+    0.00677,
+    -0.75937
+  ],
+  "product_resolution": [
+    1600,
+    1600
+  ],
+  "product_crop_in_background": [
+    589.2651,
+    552.8031023603439,
+    1219.2651,
+    1182.803102360344
+  ],
+  "product_bbox_vitelli_oslo_px": [
+    676.2140214443207,
+    613.3189916610718,
+    1132.3153495788574,
+    1122.2918450832367
+  ],
+  "margin_fraction_min": 0.096,
+  "verified_full_product_crop_inside_background": true,
+  "mirror_bbox_px": [
+    689.1327202320099,
+    77.01458930969238,
+    988.5810256004333,
+    539.8078680038452
+  ],
+  "base_scene": "referencia-ambiente-34-v3-completo.blend",
+  "lights": "Sol y cielo del piloto sin cambios; apliques y LED solo de acento (apagados en capas de producto)"
+}

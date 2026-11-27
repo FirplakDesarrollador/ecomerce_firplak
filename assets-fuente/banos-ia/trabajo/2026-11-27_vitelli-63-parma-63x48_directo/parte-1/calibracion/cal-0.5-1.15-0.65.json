@@ -1,0 +1,19 @@
+{
+  "f_px": 1300.0,
+  "lente_mm": 22.85,
+  "vp": [
+    714.0,
+    976.0
+  ],
+  "cam_h_m": 1.1,
+  "pared_izq_x_m": -0.82,
+  "y_espejo_m": 2.131,
+  "y_centro_kit_m": 2.131,
+  "base_mueble_m": 0.36,
+  "cubierta_m": 0.86,
+  "calibracion": {
+    "hue": 0.5,
+    "sat": 1.15,
+    "val": 0.65
+  }
+}

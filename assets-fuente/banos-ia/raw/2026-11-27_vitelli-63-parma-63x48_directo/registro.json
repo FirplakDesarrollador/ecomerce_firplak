@@ -1,0 +1,24 @@
+{
+  "sesion": "2026-11-27_vitelli-63-parma-63x48_directo",
+  "origen": "directo",
+  "entradas": [
+    {
+      "archivo": "01-ambiente/ref-bano-salvia-234cm.webp",
+      "fecha": "2026-11-27",
+      "origen": "chat"
+    },
+    {
+      "archivo": "02-montaje/ref-acabado-madera.jpg",
+      "fecha": "2026-11-27",
+      "origen": "chat",
+      "acabado": "Soder"
+    }
+  ],
+  "decisiones": [
+    {
+      "fecha": "2026-11-27",
+      "a1": "Vitelli 63 + Parma 63x48, griferia generica de base"
+    }
+  ],
+  "tope_creditos_parte1": 10
+}

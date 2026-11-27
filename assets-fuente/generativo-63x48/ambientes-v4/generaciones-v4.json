@@ -1,0 +1,44 @@
+{
+  "fecha": "2026-11-27",
+  "modelo": "gpt_image_2_6 (high, 2k, 3:2)",
+  "cotizacion": "2 creditos/imagen (estimate_image_cost 2026-11-27)",
+  "tope": {
+    "intentos": 4,
+    "creditos": 8
+  },
+  "referencias": {
+    "12b020cc-68d7-42ca-b723-cef93a3b41a6": "greybox-moderno-vacio.png",
+    "fc15a803-dfc1-4645-81dd-8a0e847d973d": "greybox-calido-vacio.png",
+    "d28da0f5-99da-4631-be23-a61417e1d334": "piloto fondo-A-placa.png (solo material)"
+  },
+  "trabajos": [
+    {
+      "ambiente": "moderno",
+      "intento": 1,
+      "job_id": "120f7271-5b0b-4005-bbcb-0d634642c7fe",
+      "cargo": 2,
+      "validacion": "FALLO: union pared-piso 4,0 px (>3); color beige/arena en vez de gris calido",
+      "archivo": "generados/moderno-1-120f7271.png"
+    },
+    {
+      "ambiente": "calido",
+      "intento": 1,
+      "job_id": "e530da9b-45e5-4149-99e6-e2a744eaf594",
+      "cargo": 2,
+      "validacion": "APROBADO tecnico (max 1,41 px)",
+      "archivo": "generados/calido-1-e530da9b.png"
+    },
+    {
+      "ambiente": "moderno",
+      "intento": 2,
+      "job_id": "1369e9b3-32cb-4a26-9ac6-5ce9dbd5a296",
+      "cargo": 2,
+      "validacion": "APROBADO tecnico (max 2,0 px)",
+      "archivo": "generados/moderno-2-1369e9b3.png"
+    }
+  ],
+  "gasto_total": 6,
+  "intentos_usados": 3,
+  "nota": "Transacciones de 1,75 creditos a las 19:29Z del mismo dia no pertenecen a esta tarea (anteriores a la subida de referencias).",
+  "normalizacion": "2048x1360 -> 1800x1200 estirando (aspecto 0,39 %); elegida porque alinea mejor que recorte central en ambos ambientes"
+}

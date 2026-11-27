@@ -18,7 +18,7 @@
   "state": "cerrado",
   "verified_pairs": 10,
   "unit_tests_passed": 67,
-  "browser_tests_passed": 3,
+  "browser_tests_passed": 4,
   "typescript": "passed",
   "eslint_errors": 0,
   "eslint_preexisting_warnings": 13,
@@ -70,14 +70,81 @@
     "Capas nuevas sin pulido IA: pueden verse algo más mates que Oslo/Génova",
     "Quadratto: grifo ubicado por medida del STL; la perforación queda oculta bajo el grifo y no se comprobó con foto del producto real"
   ],
-  "updated": "2026-11-24",
-  "browser_tests_failed_preexisting": {
-    "pruebas-e2e/opcionD.spec.ts:79 (gesto horizontal en 375 px)": "falla también con el manifest anterior (9 cruces); no lo causa Quadratto"
-  },
+  "updated": "2026-11-27",
   "tiziano_quadratto": {
     "fuente": "firplak.com, LAVAMANOS QUADRATTO + MUEBLE TIZIANO 63X48cm; aprobado por el usuario 2026-11-24",
     "stl_sha256": "ccc0734d3bb08a4e2cf1e0fe37bc661a40f7eb55571a9a45e30106284529f17d",
     "griferia": "salpicadero trasero 19,8 mm: grifo bajado 19,8 mm desde el tope y adelantado 40,5 mm hasta la perforación (GRIFO en render-lavamanos-stl-capas.py)",
     "capa": "public/images/muebles/capas-63x48/lavamanos-quadratto.6df30071cf00.webp"
+  },
+  "browser_tests_note": "opcionD.spec.ts 20/20 con --repeat-each=5; la falla intermitente del gesto era Fast Refresh por escribir en assets-fuente (bug 031)",
+  "escena_v4": {
+    "fecha": "2026-11-27",
+    "estado": "integrado en revisión local (sin commit, sin despliegue)",
+    "url": "http://localhost:3001/categoria-producto/banos/combos-lavamanos-con-mueble/mix-match?ambiente=moderno|calido",
+    "camara": "nivelada, dos puntos de fuga (rot X 90°, Z -29°), ojos 1,40 m, 3,0 m; ambiente 35 mm shift_y -0,117; producto 100 mm, recorte 630 px (encuadre-v4.json)",
+    "ambientes": {
+      "moderno": "aprobado por el usuario 2026-11-27 (job 1369e9b3)",
+      "calido": "aprobado por el usuario 2026-11-27 (job e530da9b)"
+    },
+    "control_fondos_vs_greybox": {
+      "meta_px": 3,
+      "moderno": "APROBADO",
+      "calido": "APROBADO",
+      "detalle": "ambientes-v4/generados/*/validacion-*.json"
+    },
+    "creditos": {
+      "tope": 8,
+      "cobrados": 6,
+      "intentos": 3,
+      "jobs": [
+        "120f7271 (moderno, FALLÓ 4 px + color)",
+        "e530da9b (calido, APROBADO)",
+        "1369e9b3 (moderno, APROBADO)"
+      ],
+      "producto": 0
+    },
+    "capas": "render PBR CAD/GLB/STL (render-capas-v4.py), sin pulido IA: control de líneas de pulido NO APLICA",
+    "contorno_escena": {
+      "vitelli-oslo": {
+        "iou": 0.99993,
+        "p95_px": 0.0,
+        "estado": "APROBADO"
+      },
+      "tiziano-quadratto": {
+        "iou": 0.9999,
+        "p95_px": 0.0,
+        "estado": "APROBADO"
+      },
+      "vitelli-siena": {
+        "iou": 0.99986,
+        "p95_px": 0.0,
+        "estado": "APROBADO"
+      }
+    },
+    "contorno_nota": "tiziano-quadratto: max 158 px por un orificio de desagüe de 4x3 px transparente en capas (en escena se ve el interior del mueble); IoU 0,9999",
+    "ambiente_igual_fuera_de_producto_y_sombra": "0 en 20 composiciones (10 cruces x 2 ambientes)",
+    "cambio_lavamanos_fuera_de_lavamanos": "0 en todos los pares",
+    "sombras": "lienzo completo por ambiente y mueble, luz directa x 0,62 (calibrado contra GI); bordes sup/izq/der alfa 0; continúa por el borde inferior (piso)",
+    "bandas_sombra_inspeccion": "0 bandas visibles en reposo (compuestos y capturas de navegador); la placa de sombra no se traslada (e2e)",
+    "pruebas": {
+      "unitarias": "69/69 (vitest, 2026-11-27)",
+      "e2e_opcionD": "5/5 con URL_BASE=http://localhost:3001",
+      "tsc": "sin errores",
+      "eslint": "0 errores, 13 avisos previos"
+    },
+    "navegador": {
+      "escritorio_1440x900": "desborde 0, selector 116x44/99x44",
+      "movil_375x812": "desborde 0, selector 44x44",
+      "capturas": "ambientes-v4/revision/navegador-*.png"
+    },
+    "no_medido": [
+      "768x1024 y 1920x1080 solo vía e2e de encuadre (sin captura)",
+      "ΔE de acabado (sin pulido; color del render PBR)"
+    ],
+    "observaciones": [
+      "El producto se ilumina igual en ambos ambientes (capas compartidas); en el cálido se ve algo más frío que la pared",
+      "Archivos WebP v2 anteriores siguen en public/ sin referencias (no borrados)"
+    ]
   }
 }

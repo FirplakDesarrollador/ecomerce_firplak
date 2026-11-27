@@ -6,6 +6,13 @@
 
 Registro de auditorías, ingestas y consultas realizadas en el wiki de especificaciones.
 
+## [2026-11-26] feat | Sesión Lavamanos & Muebles · Opción E: Mix & Match isométrico
+- **Ruta:** `/categoria-producto/banos/combos-lavamanos-con-mueble?opcion=e`; botón "Opción E · Mix & Match iso" en la barra de prototipos (y en la píldora de la Opción D). A, B, C y la Opción D de Alejandro siguen igual; se llama E para no chocar con ella.
+- **Fuente:** 20 renders iso de Ricardo (Vitelli y Tucano × Oslo, Génova, Parma y Siena, cerrado y abierto, más los muebles solos) y los tableros de *Linea FPK / Nuevos linea*.
+- **Experiencia:** mueble + 6 acabados (blanco unicolor plano, 5 melaminas maderadas), lavamanos + gelcoat blanco/marfil/niebla, grifería baja o alta + 4 acabados, cierre suave y cota de rieles de 35 cm resueltos desde los renders cerrado/abierto, agua con aireador de aire inducido, compra del conjunto o de cada pieza con precio sugerido.
+- **Barra de prototipos:** con cinco opciones, en móvil muestra solo la letra de cada una (como la píldora de la Opción D); desde `sm` sigue igual.
+- **Documentación:** [banos_muebles_opcion_e.md](banos_muebles_opcion_e.md).
+
 ## [2026-11-24] feat | Opción D: incorporación de combinación Tiziano + Quadratto 63x48
 - **Compatibilidad aprobada:** Incorporación del lavamanos Quadratto verificado con mueble Tiziano 63x48 (`CAPAS_PILOTO_D`), ampliando a 10 las parejas verificadas de la matriz de la visualización Alejandro.
 - **Render y Capas:** Generación y publicación aditiva de la capa webp de Quadratto con grifería negra integrada (`lavamanos-quadratto.6df30071cf00.webp`) y validación morfológica sin recodificar capas previas.

@@ -4,11 +4,12 @@ import { VITELLI_63 } from '@/components/banos-muebles/catalogoMuebles';
 import ConfiguradorVitelliA from '@/components/banos-muebles/opcion-a/ConfiguradorVitelliA';
 import MixMatchB from '@/components/banos-muebles/opcion-b/MixMatchB';
 import EstudioC from '@/components/banos-muebles/opcion-c/EstudioC';
+import EstudioE from '@/components/banos-muebles/opcion-e/EstudioE';
 import SelectorOpcion, { type OpcionExperiencia } from '@/components/banos-muebles/SelectorOpcion';
 import { RUTA_ESTUDIO_D } from '@/components/banos-muebles/rutas';
 
 // Destino de "lavamanos & muebles" en el menu de la landing. Sesion de
-// muebles de bano con cuatro formatos en revision:
+// muebles de bano con cinco formatos en revision:
 //   ?opcion=a (por defecto) configurador 3D del Vitelli 63
 //   ?opcion=b               Mix & Match sobre renders fotorrealistas
 //   ?opcion=c               Estudio Mix & Match (propuesta Ricardo; el landing
@@ -16,6 +17,8 @@ import { RUTA_ESTUDIO_D } from '@/components/banos-muebles/rutas';
 //   ?opcion=d               redirige a ./mix-match: Mix & Match de piezas sueltas
 //                           con la UI del home de Alejandro (ruta propia: sin
 //                           header ni footer del sitio)
+//   ?opcion=e               Mix & Match isometrico: muebles, lavamanos y griferia
+//                           con sus acabados, cierre suave, aireador y precio por pieza
 export const metadata: Metadata = {
   title: 'Lavamanos y muebles · Arma tu mueble de baño | Firplak',
   description:
@@ -24,7 +27,7 @@ export const metadata: Metadata = {
 
 function opcionDe(valor: string | undefined): Exclude<OpcionExperiencia, 'd'> | 'd' {
   const v = valor?.toLowerCase();
-  return v === 'b' || v === 'c' || v === 'd' ? v : 'a';
+  return v === 'b' || v === 'c' || v === 'd' || v === 'e' ? v : 'a';
 }
 
 export default async function CombosLavamanosConMueblePage({
@@ -44,7 +47,7 @@ export default async function CombosLavamanosConMueblePage({
   return (
     <>
       <SelectorOpcion activa={activa} />
-      {activa === 'c' ? <EstudioC /> : activa === 'b' ? <MixMatchB /> : <ConfiguradorVitelliA mueble={VITELLI_63} />}
+      {activa === 'e' ? <EstudioE /> : activa === 'c' ? <EstudioC /> : activa === 'b' ? <MixMatchB /> : <ConfiguradorVitelliA mueble={VITELLI_63} />}
     </>
   );
 }

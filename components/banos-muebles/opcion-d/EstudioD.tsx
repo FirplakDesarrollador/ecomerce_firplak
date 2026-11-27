@@ -10,6 +10,7 @@ import AccessFeedbackToast from '@/components/ui/AccessFeedbackToast';
 import PildoraPrototipos from '../PildoraPrototipos';
 import { RUTA_ESTUDIO_D } from '../rutas';
 import CarruselesD from './CarruselesD';
+import { AMBIENTES_D, AMBIENTE_INICIAL_D, ambienteD, escribirAmbienteD, leerAmbienteD } from './capasPilotoD';
 import {
   INICIAL_D,
   MEDIDAS_D,
@@ -80,6 +81,8 @@ export default function EstudioD() {
       } };
     }), []);
   const [estado, setEstado] = useState<EstadoD>('cerrado');
+  // Nodo independiente de la selección: cambiar producto no cambia el ambiente y viceversa.
+  const [ambiente, setAmbiente] = useState(AMBIENTE_INICIAL_D);
   const [listo, setListo] = useState(false);
   const [galeria, setGaleria] = useState<Galeria>(null);
   const [medida, setMedida] = useState(MEDIDA_INICIAL_D);
@@ -99,6 +102,7 @@ export default function EstudioD() {
   useEffect(() => {
     const id = requestAnimationFrame(() => {
       setSel(leerSeleccionD(window.location.search));
+      setAmbiente(leerAmbienteD(window.location.search));
       urlLeida.current = true;
     });
     return () => cancelAnimationFrame(id);
@@ -106,8 +110,8 @@ export default function EstudioD() {
 
   useEffect(() => {
     if (!urlLeida.current) return;
-    window.history.replaceState(null, '', escribirSeleccionD(window.location.search, sel));
-  }, [sel]);
+    window.history.replaceState(null, '', escribirAmbienteD(escribirSeleccionD(window.location.search, sel), ambiente));
+  }, [sel, ambiente]);
 
   // Alto del navbar fijo (Loomere): el contenido arranca debajo.
   useEffect(() => {
@@ -130,7 +134,7 @@ export default function EstudioD() {
       ? setSel((s) => normalizarD({ ...s, lavamanos: rotar(lavamanosDe(s.mueble), s.lavamanos, paso) }), { fila, sentido: paso })
       : setSel((s) => normalizarD({ ...s, mueble: rotar(MUEBLES_D, s.mueble, paso) }), { fila, sentido: paso });
 
-  const urlCombinacion = () => `${window.location.origin}${RUTA_ESTUDIO_D}${escribirSeleccionD('', sel)}`;
+  const urlCombinacion = () => `${window.location.origin}${RUTA_ESTUDIO_D}${escribirAmbienteD(escribirSeleccionD('', sel), ambiente)}`;
   const cotizar = () => window.open(enlaceCotizacionD(sel, urlCombinacion()), '_blank', 'noopener,noreferrer');
   const copiarEnlace = async () => {
     try {
@@ -203,11 +207,11 @@ export default function EstudioD() {
 
         {/* Ambiente persistente y una única combinación de capas intercambiables. */}
         <section
-          aria-label={`Tu combinación: lavamanos ${n.lavamanos.nombre} sobre el mueble ${n.mueble.nombre} en acabado ${n.acabado.nombre}, ${abrir ? 'abierto' : 'cerrado'}`}
+          aria-label={`Tu combinación: lavamanos ${n.lavamanos.nombre} sobre el mueble ${n.mueble.nombre} en acabado ${n.acabado.nombre}, ${abrir ? 'abierto' : 'cerrado'}, ambiente ${ambienteD(ambiente).nombre.toLowerCase()}`}
           className="relative mt-4 h-[58svh] min-h-[340px] overflow-hidden rounded-[28px] lg:h-[calc(100svh-var(--cab)-232px)] lg:min-h-[440px]"
           style={VIDRIO}
         >
-          <CarruselesD sel={sel} direcciones={direcciones} animar={listo} onPaso={pasar} onCargado={() => setListo(true)} />
+          <CarruselesD sel={sel} ambiente={ambiente} direcciones={direcciones} animar={listo} onPaso={pasar} onCargado={() => setListo(true)} />
 
           {/* Nombres de la combinacion */}
           <div className="pointer-events-none absolute bottom-3 left-4 z-20 sm:bottom-4 sm:left-6">
@@ -354,6 +358,35 @@ export default function EstudioD() {
               );
             })}
             <span className="text-xs font-semibold text-white/85">{n.acabado.nombre}</span>
+          </div>
+
+          {/* Ambiente: solo cambia la placa y sus sombras, nunca las piezas. */}
+          <div className="flex items-center gap-2 px-1">
+            <span className="hidden text-[10px] font-medium uppercase tracking-wider text-white/55 md:inline">Ambiente</span>
+            <div role="radiogroup" aria-label="Ambiente" className="flex items-center gap-1 rounded-full border border-white/15 bg-white/5 p-0.5">
+              {AMBIENTES_D.map((a) => {
+                const elegido = a.id === ambiente;
+                return (
+                  <button
+                    key={a.id}
+                    type="button"
+                    role="radio"
+                    aria-checked={elegido}
+                    aria-label={`Ambiente ${a.nombre}`}
+                    title={`${a.nombre}: ${a.descripcion}`}
+                    onClick={() => setAmbiente(a.id)}
+                    className={`flex h-11 min-w-11 items-center gap-2 rounded-full p-1 text-xs font-semibold transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:pr-3 ${
+                      elegido ? 'bg-white text-zinc-950 shadow-md' : 'text-white/85 hover:bg-white/10'
+                    }`}
+                  >
+                    <span className={`relative block h-9 w-9 shrink-0 overflow-hidden rounded-full ${elegido ? 'ring-2 ring-zinc-950/10' : 'ring-1 ring-white/25'}`}>
+                      <Image src={a.thumb} alt="" fill unoptimized sizes="36px" className="object-cover" />
+                    </span>
+                    <span className="hidden sm:inline">{a.nombre}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <div className="ml-auto flex items-center gap-2">

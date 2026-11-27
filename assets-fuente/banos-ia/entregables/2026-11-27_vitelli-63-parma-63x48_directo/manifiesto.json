@@ -1,0 +1,57 @@
+{
+  "sesion": "2026-11-27_vitelli-63-parma-63x48_directo",
+  "flujo": "d5bfdeda-2049-4adb-b756-b22c764395ae",
+  "producto": {
+    "mueble": "Vitelli 63 (piezas Carcasa, Puerta, CajonSuperior, CajonInferior del GLB del configurador; Fusion no disponible)",
+    "lavamanos": "Parma 63x48 (STL de Fusion, anclaje validado vs GLB: 0,0 mm)",
+    "acabado": "Soder",
+    "griferia": "monocomando de base negro mate (genérica, no SKU Firplak)"
+  },
+  "entregables": [
+    {
+      "archivo": "firplak-vitelli-63-soder-parma-63x48-bano-salvia_1360x2048.jpg",
+      "formato": "JPG q92 4:4:4 sRGB",
+      "resolucion": [
+        1360,
+        2048
+      ],
+      "proporcion": "2:3",
+      "canal": "e-commerce",
+      "bytes": 542820,
+      "sha256": "4d2dbb4c6811b924c6b906e2ff0128d286fb788f4a9122793cef4fcd2791e265"
+    }
+  ],
+  "origen": {
+    "referencia": "raw/2026-11-27_vitelli-63-parma-63x48_directo/01-ambiente/ref-bano-salvia-234cm.webp",
+    "placa": "parte-1/placas/gpt26-a.png (GPT Image 2.6, edición mínima)",
+    "producto": "render Cycles 768 muestras (parte-1/escena-parte1.py, y centro 1,75 m)",
+    "decoracion": "parte-1/ronda-1/deco.png (GPT Image 2.6), integrada solo en zonas de decoración"
+  },
+  "qa": {
+    "deltaE76_soder_vs_muestra": 1.79,
+    "meta": 2,
+    "lab_render": [
+      73.6,
+      2.4,
+      14.0
+    ],
+    "lab_muestra": [
+      72.3,
+      3.7,
+      14.2
+    ],
+    "geometria": "producto = render directo (sin repintado IA); 7.779 px del producto tapados por la decoración",
+    "px_placa_cambiados_total": 375002,
+    "px_cambiados_fuera_de_producto": 159478,
+    "dif_media_vs_propuesta_aprobada": 0.03,
+    "camara": "VP (714,976), altura 1,10 m, pared izq. a 0,82 m, f 1300 px"
+  },
+  "creditos_higgsfield": {
+    "parte1": 8.75,
+    "parte2": 0
+  },
+  "aprobaciones": {
+    "parte1": "ronda 1, 2026-11-27",
+    "formato": "JPG 1360x2048, 1 imagen e-commerce"
+  }
+}

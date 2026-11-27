@@ -1,16 +1,67 @@
 {
-  "version": 2,
-  "environment": {
-    "id": "ventana-calida-microcemento",
-    "src": "/images/muebles/capas-63x48/ambiente.c4aeca5a04d2.webp",
-    "width": 1800,
-    "height": 1200
+  "version": 3,
+  "default_environment": "moderno",
+  "camera": {
+    "camera_position": [
+      -1.4544289,
+      -2.8638591,
+      1.11
+    ],
+    "camera_rotation": [
+      1.570796327,
+      0.0,
+      -0.506145483
+    ],
+    "environment_lens_mm": 35.0,
+    "environment_shift": [
+      0.0,
+      -0.117
+    ],
+    "product_lens_mm": 100.0,
+    "product_shift": [
+      0.00677,
+      -0.75937
+    ],
+    "product_crop_in_background": [
+      589.2651,
+      552.8031023603439,
+      1219.2651,
+      1182.803102360344
+    ]
   },
+  "environments": [
+    {
+      "id": "moderno",
+      "nombre": "Moderno",
+      "descripcion": "Microcemento gris cálido, LED y repisa",
+      "src": "/images/muebles/capas-63x48/v4-ambiente-moderno.4d482befc1a5.webp",
+      "width": 1800,
+      "height": 1200,
+      "thumb": "/images/muebles/capas-63x48/v4-ambiente-moderno-mini.10662b97b27d.webp",
+      "shadows": {
+        "vitelli": "/images/muebles/capas-63x48/v4-sombra-moderno-vitelli.1b2efbf5f317.webp",
+        "tiziano": "/images/muebles/capas-63x48/v4-sombra-moderno-tiziano.980a47335e32.webp"
+      }
+    },
+    {
+      "id": "calido",
+      "nombre": "Cálido",
+      "descripcion": "Microcemento arena y piedra clara",
+      "src": "/images/muebles/capas-63x48/v4-ambiente-calido.5c6fe0898ce6.webp",
+      "width": 1800,
+      "height": 1200,
+      "thumb": "/images/muebles/capas-63x48/v4-ambiente-calido-mini.153917dea93f.webp",
+      "shadows": {
+        "vitelli": "/images/muebles/capas-63x48/v4-sombra-calido-vitelli.ccaafac78e08.webp",
+        "tiziano": "/images/muebles/capas-63x48/v4-sombra-calido-tiziano.5a19e8fb0117.webp"
+      }
+    }
+  ],
   "product_frame": {
-    "x": 585,
-    "y": 537.2218734025955,
-    "width": 630,
-    "height": 630,
+    "x": 589.2651,
+    "y": 552.8031023603439,
+    "width": 630.0000000000001,
+    "height": 630.0000000000001,
     "resolution": 1600
   },
   "shadow_frame": {
@@ -21,63 +72,63 @@
   },
   "basins": {
     "oslo": {
-      "src": "/images/muebles/capas-63x48/lavamanos-oslo.afb9e87c7272.webp",
+      "src": "/images/muebles/capas-63x48/v4-lavamanos-oslo.5d5cf6a584ed.webp",
       "faucet": "Negro",
       "bounds": [
-        311,
-        239,
-        1355,
-        1414
+        220,
+        155,
+        1380,
+        647
       ]
     },
     "genova": {
-      "src": "/images/muebles/capas-63x48/lavamanos-genova.c3e46582ab4f.webp",
+      "src": "/images/muebles/capas-63x48/v4-lavamanos-genova.b643c27f0e13.webp",
       "faucet": "Negro",
       "bounds": [
-        316,
-        239,
-        1376,
-        1414
+        220,
+        127,
+        1380,
+        647
       ]
     },
     "bari": {
-      "src": "/images/muebles/capas-63x48/lavamanos-bari.a3dc4ae86a88.webp",
+      "src": "/images/muebles/capas-63x48/v4-lavamanos-bari.822304366439.webp",
       "faucet": "Negro",
       "bounds": [
-        310,
-        251,
-        1357,
-        863
+        220,
+        169,
+        1380,
+        647
       ]
     },
     "siena": {
-      "src": "/images/muebles/capas-63x48/lavamanos-siena.827dde917c8c.webp",
+      "src": "/images/muebles/capas-63x48/v4-lavamanos-siena.92223f14e0b0.webp",
       "faucet": "Negro",
       "bounds": [
-        312,
-        246,
-        1354,
-        863
+        220,
+        164,
+        1379,
+        647
       ]
     },
     "trentino": {
-      "src": "/images/muebles/capas-63x48/lavamanos-trentino.f8a4046e3a14.webp",
+      "src": "/images/muebles/capas-63x48/v4-lavamanos-trentino.d7da25da96c7.webp",
       "faucet": "Negro",
       "bounds": [
-        316,
-        275,
-        1347,
-        859
+        224,
+        196,
+        1372,
+        645
       ]
     },
     "quadratto": {
-      "src": "/images/muebles/capas-63x48/lavamanos-quadratto.6df30071cf00.webp",
+      "src": "/images/muebles/capas-63x48/v4-lavamanos-quadratto.47d54030bd93.webp",
       "faucet": "Negro",
       "bounds": [
-        310,
-        311,
-        1355,
-        863
+        219,
+        221,
+        1380,
+        647
       ]
     }
   },
@@ -85,13 +136,12 @@
     "vitelli": {
       "soder": {
         "cerrado": {
-          "src": "/images/muebles/capas-63x48/vitelli-soder-cerrado.8b4530990ddc.webp",
-          "shadow": "/images/muebles/capas-63x48/sombra-vitelli.8e2f93d207eb.webp",
+          "src": "/images/muebles/capas-63x48/v4-vitelli-soder-cerrado.6325275d823f.webp",
           "bounds": [
-            315,
-            411,
-            1347,
-            1416
+            222,
+            417,
+            1373,
+            1447
           ]
         }
       }
@@ -99,13 +149,12 @@
     "tiziano": {
       "soder": {
         "cerrado": {
-          "src": "/images/muebles/capas-63x48/tiziano-soder-cerrado.a489dfd84cec.webp",
-          "shadow": "/images/muebles/capas-63x48/sombra-tiziano.2b89794854d0.webp",
+          "src": "/images/muebles/capas-63x48/v4-tiziano-soder-cerrado.96138b12bfba.webp",
           "bounds": [
-            315,
-            411,
-            1346,
-            1417
+            222,
+            417,
+            1372,
+            1451
           ]
         }
       }

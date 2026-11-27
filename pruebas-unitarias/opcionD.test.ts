@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { describe, it, expect } from 'vitest';
 import { INICIAL_D, MEDIDAS_D, MUEBLES_D, LAVAMANOS_D, TOTAL_COMBINACIONES_D, acabadosDe, lavamanosDe, capaMuebleD, capaLavamanosD } from '../components/banos-muebles/opcion-d/catalogoOpcionD';
-import { CAPAS_PILOTO_D, capasSeleccionD, combinacionVerificadaD } from '../components/banos-muebles/opcion-d/capasPilotoD';
+import { AMBIENTES_D, AMBIENTE_INICIAL_D, CAPAS_PILOTO_D, capasSeleccionD, combinacionVerificadaD, escribirAmbienteD, leerAmbienteD, normalizarAmbienteD } from '../components/banos-muebles/opcion-d/capasPilotoD';
 import { leerSeleccionD, escribirSeleccionD, normalizarD, nombresD, sorprenderD, rotar, enlaceCotizacionD } from '../components/banos-muebles/opcion-d/opcionDLogica';
 
 const publico = (url: string) => path.join(process.cwd(), 'public', url);
@@ -41,17 +41,21 @@ describe('Alejandro · ambiente persistente y productos intercambiables', () => 
 
   it('cada capa es un archivo local existente con huella de contenido', () => {
     const srcs = new Set<string>();
-    for (const combo of CAPAS_PILOTO_D.verified_combinations) {
-      const capas = capasSeleccionD(combo)!;
-      for (const src of Object.values(capas)) {
-        expect(src).toMatch(/^\/images\/muebles\/capas-63x48\/[a-z0-9-]+\.[a-f0-9]{12}\.webp$/);
-        expect(fs.existsSync(publico(src!))).toBe(true);
-        srcs.add(src!);
+    for (const ambiente of AMBIENTES_D) {
+      expect(fs.existsSync(publico(ambiente.thumb))).toBe(true);
+      for (const combo of CAPAS_PILOTO_D.verified_combinations) {
+        const capas = capasSeleccionD(combo, ambiente.id)!;
+        for (const src of Object.values(capas)) {
+          expect(src).toMatch(/^\/images\/muebles\/capas-63x48\/[a-z0-9-]+\.[a-f0-9]{12}\.webp$/);
+          expect(fs.existsSync(publico(src!))).toBe(true);
+          srcs.add(src!);
+        }
+        expect(capaMuebleD(combo.mueble, combo.acabado, 'cerrado')?.src).toBe(capas.mueble);
+        expect(capaLavamanosD(combo.lavamanos).src).toBe(capas.lavamanos);
       }
-      expect(capaMuebleD(combo.mueble, combo.acabado, 'cerrado')?.src).toBe(capas.mueble);
-      expect(capaLavamanosD(combo.lavamanos).src).toBe(capas.lavamanos);
     }
-    expect(srcs.size).toBe(11); // Un fondo, seis lavamanos, dos muebles y dos sombras.
+    // Dos ambientes, cuatro sombras (una por mueble y ambiente), seis lavamanos y dos muebles.
+    expect(srcs.size).toBe(14);
   });
 
   it('cada cruce publicado declara su fuente de compatibilidad', () => {
@@ -91,8 +95,39 @@ describe('Alejandro · ambiente persistente y productos intercambiables', () => 
     }
   });
 
+  it('cambiar de ambiente conserva las piezas y cambiar de pieza conserva el ambiente', () => {
+    expect(AMBIENTES_D.map(a => a.id)).toEqual(['moderno', 'calido']);
+    expect(AMBIENTE_INICIAL_D).toBe('moderno');
+    for (const combo of CAPAS_PILOTO_D.verified_combinations) {
+      const a = capasSeleccionD(combo, 'moderno')!;
+      const b = capasSeleccionD(combo, 'calido')!;
+      expect(a.mueble).toBe(b.mueble);
+      expect(a.lavamanos).toBe(b.lavamanos);
+      expect(a.ambiente).not.toBe(b.ambiente);
+      expect(a.sombra).not.toBe(b.sombra);
+      expect(a.ambiente).toBe(AMBIENTES_D[0].src);
+      expect(b.ambiente).toBe(AMBIENTES_D[1].src);
+    }
+  });
+
+  it('el ambiente del enlace solo acepta ids publicados', () => {
+    expect(leerAmbienteD('?ambiente=CALIDO')).toBe('calido');
+    expect(leerAmbienteD('?ambiente=../../secret')).toBe('moderno');
+    expect(leerAmbienteD('')).toBe('moderno');
+    expect(normalizarAmbienteD('constructor')).toBe('moderno');
+    expect(capasSeleccionD(INICIAL_D, '__proto__')!.ambiente).toBe(AMBIENTES_D[0].src);
+    const url = escribirAmbienteD(escribirSeleccionD('?opcion=d', INICIAL_D), 'calido');
+    expect(url).toContain('opcion=d');
+    expect(leerAmbienteD(url)).toBe('calido');
+    expect(leerSeleccionD(url)).toEqual(INICIAL_D);
+  });
+
   it('mantiene un marco de cámara común dentro del ambiente, sin reajustes por selección', () => {
-    const e = CAPAS_PILOTO_D.environment, f = CAPAS_PILOTO_D.product_frame;
+    const e = AMBIENTES_D[0], f = CAPAS_PILOTO_D.product_frame;
+    for (const a of AMBIENTES_D) expect([a.width, a.height]).toEqual([e.width, e.height]);
+    // Cámara de dos puntos de fuga: rotación X = 90° (nivelada) y la misma posición para ambiente y producto.
+    expect(CAPAS_PILOTO_D.camera.camera_rotation[0]).toBeCloseTo(Math.PI / 2, 6);
+    expect(CAPAS_PILOTO_D.camera.camera_rotation[1]).toBe(0);
     expect(f.width).toBe(f.height);
     expect(f.resolution).toBe(1600);
     expect(f.x).toBeGreaterThanOrEqual(0);

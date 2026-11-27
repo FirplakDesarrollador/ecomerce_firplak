@@ -1,0 +1,103 @@
+{
+  "ambiente": "moderno",
+  "fondo": "moderno-2-1369e9b3.png",
+  "tamano_original": [
+    2048,
+    1360
+  ],
+  "normalizacion": "estirar",
+  "aspecto_original_vs_3_2_pct": 0.392,
+  "meta_px": 3.0,
+  "rasgos": {
+    "espejo": {
+      "desvio_px": 1.0,
+      "traslacion_optima": [
+        0,
+        1
+      ],
+      "chamfer_medio_optimo": 2.26,
+      "mediana_px": 1.0,
+      "p90_px": 7.0,
+      "pct_a_3px": 67.4,
+      "puntos": 2037,
+      "estado": "APROBADO"
+    },
+    "ventana": {
+      "desvio_px": 1.41,
+      "traslacion_optima": [
+        1,
+        1
+      ],
+      "chamfer_medio_optimo": 1.2,
+      "mediana_px": 1.0,
+      "p90_px": 2.2,
+      "pct_a_3px": 94.0,
+      "puntos": 6471,
+      "estado": "APROBADO"
+    },
+    "union_fondo": {
+      "metodo": "perfil perpendicular (max gradiente)",
+      "desvio_px": 2.0,
+      "mediana_dif_px": 2.0,
+      "p90_abs_px": 25.5,
+      "muestras": 46,
+      "estado": "APROBADO"
+    },
+    "union_derecha": {
+      "metodo": "perfil perpendicular (max gradiente)",
+      "desvio_px": 1.0,
+      "mediana_dif_px": 1.0,
+      "p90_abs_px": 9.9,
+      "muestras": 38,
+      "estado": "APROBADO"
+    },
+    "esquina": {
+      "metodo": "perfil perpendicular (max gradiente)",
+      "desvio_px": 0.0,
+      "mediana_dif_px": 0.0,
+      "p90_abs_px": 21.9,
+      "muestras": 58,
+      "estado": "APROBADO"
+    },
+    "repisa": {
+      "desvio_px": 1.41,
+      "traslacion_optima": [
+        -1,
+        1
+      ],
+      "chamfer_medio_optimo": 2.67,
+      "mediana_px": 1.0,
+      "p90_px": 9.1,
+      "pct_a_3px": 77.8,
+      "puntos": 1866,
+      "estado": "APROBADO"
+    },
+    "apliques": {
+      "desvio_px": 1.0,
+      "traslacion_optima": [
+        -1,
+        0
+      ],
+      "chamfer_medio_optimo": 0.98,
+      "mediana_px": 1.0,
+      "p90_px": 4.0,
+      "pct_a_3px": 88.5,
+      "puntos": 1479,
+      "estado": "APROBADO"
+    },
+    "planta": {
+      "desvio_px": 1.0,
+      "traslacion_optima": [
+        0,
+        -1
+      ],
+      "chamfer_medio_optimo": 2.57,
+      "mediana_px": 1.4,
+      "p90_px": 6.39,
+      "pct_a_3px": 75.5,
+      "puntos": 8432,
+      "estado": "APROBADO"
+    }
+  },
+  "resultado": "APROBADO"
+}

@@ -39,8 +39,14 @@ test('Alejandro conserva ambiente y la otra pieza al recorrer las cuatro parejas
   await page.goto(URL_ESTUDIO + '?mueble=tiziano&lavamanos=quadratto&acabado=mitte');
   await expect(page).toHaveURL(/lavamanos=quadratto.*acabado=soder/);
   await page.getByRole('button', { name: 'Lavamanos Quadratto', exact: true }).click();
-  // Tiziano: Oslo, Génova, Siena, Trentino y Quadratto; Bari no se ofrece.
-  await expect(page.getByRole('radiogroup', { name: 'Galería de lavamanos' }).getByRole('radio')).toHaveCount(5);
+  // La galería de Tiziano muestra exactamente sus lavamanos publicados (Bari no se ofrece).
+  const publicado = await (await page.request.get(`${BASE}/images/muebles/capas-63x48/manifest.json`)).json();
+  const deTiziano = new Set(
+    publicado.verified_combinations
+      .filter((c: { mueble: string }) => c.mueble === 'tiziano')
+      .map((c: { lavamanos: string }) => c.lavamanos),
+  ).size;
+  await expect(page.getByRole('radiogroup', { name: 'Galería de lavamanos' }).getByRole('radio')).toHaveCount(deTiziano);
   await page.goto(URL_ESTUDIO + '?mueble=tiziano&lavamanos=bari&acabado=soder');
   await expect(page).toHaveURL(/lavamanos=oslo/);
 });
@@ -50,11 +56,15 @@ test('recorre los diez cruces publicados en cada ambiente sin cambiar ambiente n
   const manifest = await (await page.request.get(`${BASE}/images/muebles/capas-63x48/manifest.json`)).json();
   const visitados: string[] = [];
   for (const ambiente of manifest.environments.map((a: { id: string }) => a.id))
-  for (const [mueble, lavamanos] of [
-    ['vitelli', ['oslo', 'genova', 'bari', 'siena', 'trentino']],
-    ['tiziano', ['oslo', 'genova', 'siena', 'trentino', 'quadratto']],
-  ] as const) {
-    await page.goto(`${URL_ESTUDIO}?mueble=${mueble}&lavamanos=oslo&acabado=soder&ambiente=${ambiente}`);
+  // Recorrido derivado del manifiesto (que sale del registro del catálogo): cada mueble con sus
+  // lavamanos verificados, en el orden publicado.
+  for (const [mueble, lavamanos, acabado] of Object.keys(manifest.cabinets).map((m: string) => [
+    m,
+    Object.keys(manifest.basins).filter((l: string) => manifest.verified_combinations.some(
+      (c: { mueble: string; lavamanos: string }) => c.mueble === m && c.lavamanos === l)),
+    Object.keys(manifest.cabinets[m])[0],
+  ] as [string, string[], string])) {
+    await page.goto(`${URL_ESTUDIO}?mueble=${mueble}&lavamanos=${lavamanos[0]}&acabado=${acabado}&ambiente=${ambiente}`);
     await expect(page.getByText('Cargando tu combinación', { exact: true })).toHaveCount(0);
     await page.locator('[data-escena-capas] img').evaluateAll(async images => {
       await Promise.all(images.map(image => (image as HTMLImageElement).decode()));
@@ -78,9 +88,12 @@ test('recorre los diez cruces publicados en cada ambiente sin cambiar ambiente n
       visitados.push(`${ambiente}:${mueble}+${id}`);
     }
     await page.getByRole('button', { name: 'Lavamanos siguiente', exact: true }).click();
-    await expect(page.locator('[data-capa="lavamanos"][data-activa="true"]')).toHaveAttribute('data-pieza', 'oslo');
+    await expect(page.locator('[data-capa="lavamanos"][data-activa="true"]')).toHaveAttribute('data-pieza', lavamanos[0]);
   }
-  expect(visitados).toHaveLength(manifest.verified_combinations.length * manifest.environments.length);
+  const parejasUnicas = new Set(
+    manifest.verified_combinations.map((c: { mueble: string; lavamanos: string }) => `${c.mueble}+${c.lavamanos}`),
+  ).size;
+  expect(visitados).toHaveLength(parejasUnicas * manifest.environments.length);
 });
 
 test('cambiar de ambiente conserva las piezas y cambiar de pieza conserva el ambiente', async ({ page }) => {
@@ -148,7 +161,8 @@ test('las piezas salen lateralmente, entran por el lado contrario y se pueden in
       for (const animation of pieza.getAnimations()) { animation.pause(); animation.currentTime = tiempo; }
     }
     return piezas.map(pieza => ({
-      id: pieza.dataset.pieza, x: new DOMMatrixReadOnly(getComputedStyle(pieza).transform).m41,
+      id: pieza.dataset.pieza, sel: pieza.dataset.seleccion,
+      x: new DOMMatrixReadOnly(getComputedStyle(pieza).transform).m41,
       opacity: Number(getComputedStyle(pieza).opacity),
     }));
   }, { fila, tiempo });
@@ -156,20 +170,27 @@ test('las piezas salen lateralmente, entran por el lado contrario y se pueden in
     await page.locator('[data-escena-capas]').evaluate(root => root.getAnimations({ subtree: true }).forEach(animation => animation.finish()));
     await expect.poll(() => page.locator('[data-escena-capas]').evaluate(root => root.getAnimations({ subtree: true }).length)).toBe(0);
   };
+  // Muebles en el orden publicado (registro del catálogo). Con dos, el segundo avance da la vuelta
+  // y mantiene el sentido; con más, simplemente avanza.
+  const manifest = await (await page.request.get(`${BASE}/images/muebles/capas-63x48/manifest.json`)).json();
+  const m = Object.keys(manifest.cabinets);
+  const acabadoInicial = Object.keys(manifest.cabinets[m[0]])[0];
   for (const [boton, entra, sale, signo] of [
-    ['Mueble siguiente', 'tiziano', 'vitelli', 1],
-    // Con dos opciones, avanzar otra vez mantiene el sentido incluso al dar la vuelta.
-    ['Mueble siguiente', 'vitelli', 'tiziano', 1],
-    ['Mueble anterior', 'tiziano', 'vitelli', -1],
+    ['Mueble siguiente', m[1], m[0], 1],
+    ['Mueble siguiente', m[2 % m.length], m[1], 1],
+    ['Mueble anterior', m[1], m[2 % m.length], -1],
   ] as const) {
+    const selEntra = `${entra}__${acabadoInicial}`;
+    const selSale = `${sale}__${acabadoInicial}`;
     await page.getByRole('button', { name: boton, exact: true }).click();
     const principio = await estado('mueble', 0);
-    expect(principio.find(p => p.id === entra)!.x * signo).toBeGreaterThan(1400);
-    expect(principio.find(p => p.id === sale)!.x).toBe(0);
+    expect(principio.find(p => p.sel === selEntra)!.x * signo).toBeGreaterThan(1400);
+    expect(principio.find(p => p.sel === selSale)!.x).toBe(0);
     const medio = await estado('mueble', 180);
-    expect(medio.find(p => p.id === sale)!.x * signo).toBeLessThan(0);
-    expect(medio.find(p => p.id === entra)!.x * signo).toBeGreaterThan(0);
-    expect(medio.every(p => p.opacity === 1)).toBe(true);
+    expect(medio.find(p => p.sel === selSale)!.x * signo).toBeLessThan(0);
+    expect(medio.find(p => p.sel === selEntra)!.x * signo).toBeGreaterThan(0);
+    expect([selSale, selEntra].every(s => medio.find(p => p.sel === s)!.opacity === 1)).toBe(true);
+    expect(medio.filter(p => p.sel !== selSale && p.sel !== selEntra).every(p => p.opacity === 0)).toBe(true);
     expect(await page.locator('[data-capa="sombra"]').evaluateAll(capas => capas.every(capa => new DOMMatrixReadOnly(getComputedStyle(capa).transform).m41 === 0))).toBe(true);
     expect(await page.locator('[data-capa="lavamanos"][data-activa="true"]').evaluate(node => new DOMMatrixReadOnly(getComputedStyle(node).transform).m41)).toBe(0);
     expect(await fondo!.evaluate(node => node === document.querySelector('[data-capa="ambiente"][data-activa="true"]'))).toBe(true);
@@ -177,7 +198,26 @@ test('las piezas salen lateralmente, entran por el lado contrario y se pueden in
     // la página de los otros workers a mitad de animación (bug 031).
     if (entra === 'tiziano' && signo === 1) await page.screenshot({ path: test.info().outputPath('transicion-mueble.png') });
     await terminar();
-    expect((await estado('mueble', 650)).find(p => p.id === entra)!.x).toBe(0);
+    expect((await estado('mueble', 650)).find(p => p.sel === selEntra)!.x).toBe(0);
+  }
+  // Cambiar solo de acabado del mismo mueble hace fundido en el sitio (sin desplazamiento lateral).
+  const acabados = Object.keys(manifest.cabinets[m[1]]);
+  if (acabados.length > 1) {
+    const nuevo = acabados[1];
+    const nombreNuevo = manifest.finishes[nuevo]?.nombre ?? nuevo;
+    const grupoAcabado = page.getByRole('radiogroup', { name: 'Acabado del mueble' });
+    await grupoAcabado.getByRole('radio', { name: nombreNuevo, exact: true }).click();
+    const mitadFundido = await estado('mueble', 160);
+    const entraAcabado = mitadFundido.find(p => p.sel === `${m[1]}__${nuevo}`)!;
+    const saleAcabado = mitadFundido.find(p => p.sel === `${m[1]}__${acabadoInicial}`)!;
+    expect(entraAcabado.x).toBe(0);
+    expect(saleAcabado.x).toBe(0);
+    expect(entraAcabado.opacity).toBeGreaterThan(0);
+    expect(entraAcabado.opacity).toBeLessThan(1);
+    await terminar();
+    await expect(page.locator('[data-capa="mueble"][data-activa="true"]')).toHaveAttribute('data-seleccion', `${m[1]}__${nuevo}`);
+    await grupoAcabado.getByRole('radio', { name: manifest.finishes[acabadoInicial]?.nombre ?? acabadoInicial, exact: true }).click();
+    await terminar();
   }
   await page.getByRole('button', { name: 'Lavamanos siguiente', exact: true }).click();
   const antes = await estado('lavamanos', 120);

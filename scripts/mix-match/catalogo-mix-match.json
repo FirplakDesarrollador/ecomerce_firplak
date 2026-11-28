@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "descripcion": "Registro único del Mix & Match (Opción D). Fuente de verdad de ambientes, acabados, muebles, lavamanos y cruces. render-capas-v4.py renderiza lo que falta según este archivo, publicar-capas-v4.py arma el manifiesto desde aquí y las pruebas derivan sus expectativas de aquí. Para agregar algo: editar este archivo, correr el render en modo faltantes y publicar.",
+  "escena": {
+    "id": "v4",
+    "carpeta": "assets-fuente/generativo-63x48/ambientes-v4",
+    "encuadre": "encuadre-v4.json",
+    "ambiente_reflejos": "moderno",
+    "nota": "Cambiar cámara, luz o encuadre es el flujo de reset (VIBEWORKFLOW dffb6324): crea una escena nueva, no se edita esta."
+  },
+  "ambiente_por_defecto": "moderno",
+  "ambientes": [
+    {
+      "id": "moderno",
+      "nombre": "Moderno",
+      "descripcion": "Microcemento gris cálido, LED y repisa",
+      "constructor": "ambiente_moderno",
+      "placa": "placa-moderno.png",
+      "fondo": "Higgsfield job 1369e9b3-32cb-4a26-9ac6-5ce9dbd5a296, aprobado por el usuario 2026-11-27"
+    },
+    {
+      "id": "calido",
+      "nombre": "Cálido",
+      "descripcion": "Microcemento arena y piedra clara",
+      "constructor": "espejo_simple",
+      "placa": "placa-calido.png",
+      "fondo": "Higgsfield job e530da9b-45e5-4149-99e6-e2a744eaf594, aprobado por el usuario 2026-11-27"
+    }
+  ],
+  "acabados": {
+    "soder": {
+      "nombre": "Soder",
+      "textura": "public/images/muebles/vitelli-63/acabados/soder.webp"
+    },
+    "gracia": {
+      "nombre": "Gracia",
+      "textura": "public/images/muebles/vitelli-63/acabados/gracia.webp",
+      "ajuste_color": {
+        "gamma": 0.85,
+        "rgb_mult": [1.576, 1.941, 2.003],
+        "roughness_veta": [0.34, 0.64],
+        "bump_fuerza": 0.22,
+        "coat": 0.12
+      }
+    }
+  },
+  "griferia": {
+    "fuente": "public/models/muebles/vitelli-63.glb",
+    "objetos": "Grifo_",
+    "acabado": "Negro"
+  },
+  "grupos_corte": {
+    "tapa-48": {
+      "mueble_corte": "vitelli",
+      "nota": "Los lavamanos se renderizan con este mueble como holdout. Todo mueble del grupo debe tener el mismo plano de contacto (centro, espalda y tapa a ±0,5 mm); el render lo comprueba."
+    }
+  },
+  "muebles": [
+    {
+      "id": "vitelli",
+      "nombre": "Vitelli",
+      "descripcion": "Elevado · puerta y dos cajones",
+      "medida": "63x48",
+      "fuente": {
+        "tipo": "glb_vitelli",
+        "archivo": "public/models/muebles/vitelli-63.glb"
+      },
+      "grupo_corte": "tapa-48",
+      "acabados": ["soder", "gracia"],
+      "estados": ["cerrado"]
+    },
+    {
+      "id": "tiziano",
+      "nombre": "Tiziano",
+      "descripcion": "Elevado · puerta y dos cajones",
+      "medida": "63x48",
+      "fuente": {
+        "tipo": "obj",
+        "archivo": "assets-fuente/generativo-63x48/piloto-capas/modelos/tiziano-63x48.obj",
+        "unidades": "cm",
+        "escala": 0.01,
+        "traslacion_origen": [-31.289298, -39.55, 37.139298],
+        "z_extra_m": 0.48
+      },
+      "grupo_corte": "tapa-48",
+      "acabados": ["soder", "gracia"],
+      "estados": ["cerrado"]
+    }
+  ],
+  "lavamanos": [
+    {"id": "oslo", "nombre": "Oslo", "forma": "Poceta rectangular", "fuente": {"tipo": "stl", "archivo": "assets-fuente/banos-ia/modelos-3d/lavamanos/oslo-63x48.stl", "arriba": "Y"}},
+    {"id": "genova", "nombre": "Génova", "forma": "Poceta trapezoidal", "fuente": {"tipo": "stl", "archivo": "assets-fuente/banos-ia/modelos-3d/lavamanos/genova-63x48.stl", "arriba": "Y"}},
+    {"id": "bari", "nombre": "Bari", "forma": "Poceta de líneas suaves", "fuente": {"tipo": "stl", "archivo": "assets-fuente/banos-ia/modelos-3d/lavamanos/bari-63x48.stl", "arriba": "Y"}},
+    {"id": "siena", "nombre": "Siena", "forma": "Poceta de frente curvo", "fuente": {"tipo": "stl", "archivo": "assets-fuente/banos-ia/modelos-3d/lavamanos/siena-63x48.stl", "arriba": "Z"}},
+    {"id": "trentino", "nombre": "Trentino", "forma": "Poceta con desagüe a la vista", "fuente": {"tipo": "stl", "archivo": "assets-fuente/banos-ia/modelos-3d/lavamanos/trentino-63x48.stl", "arriba": "Y"}},
+    {"id": "quadratto", "nombre": "Quadratto", "forma": "Poceta ovalada · blanco", "fuente": {"tipo": "stl", "archivo": "assets-fuente/banos-ia/modelos-3d/lavamanos/quadratto-63x48.stl", "arriba": "Y"}}
+  ],
+  "cruces": [
+    {"mueble": "vitelli", "lavamanos": "oslo", "acabado": "soder", "estado": "cerrado", "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3"},
+    {"mueble": "vitelli", "lavamanos": "genova", "acabado": "soder", "estado": "cerrado", "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3"},
+    {"mueble": "tiziano", "lavamanos": "oslo", "acabado": "soder", "estado": "cerrado", "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3"},
+    {"mueble": "tiziano", "lavamanos": "genova", "acabado": "soder", "estado": "cerrado", "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3"},
+    {"mueble": "vitelli", "lavamanos": "bari", "acabado": "soder", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS BARI + MUEBLE VITELLI 63X48, consultado 2026-11-23"},
+    {"mueble": "vitelli", "lavamanos": "siena", "acabado": "soder", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS SIENA + MUEBLE VITELLI 63X48, consultado 2026-11-23"},
+    {"mueble": "vitelli", "lavamanos": "trentino", "acabado": "soder", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS TRENTINO + MUEBLE VITELLI 63X48, consultado 2026-11-23"},
+    {"mueble": "tiziano", "lavamanos": "siena", "acabado": "soder", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS SIENA + MUEBLE TIZIANO 63X48, consultado 2026-11-23"},
+    {"mueble": "tiziano", "lavamanos": "trentino", "acabado": "soder", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS TRENTINO + MUEBLE TIZIANO 63X48, consultado 2026-11-23"},
+    {"mueble": "tiziano", "lavamanos": "quadratto", "acabado": "soder", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS QUADRATTO + MUEBLE TIZIANO 63X48, consultado 2026-11-24"},
+    {"mueble": "vitelli", "lavamanos": "oslo", "acabado": "gracia", "estado": "cerrado", "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3; acabado Gracia confirmado 2026-11-27"},
+    {"mueble": "vitelli", "lavamanos": "genova", "acabado": "gracia", "estado": "cerrado", "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3; acabado Gracia confirmado 2026-11-27"},
+    {"mueble": "tiziano", "lavamanos": "oslo", "acabado": "gracia", "estado": "cerrado", "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3; acabado Gracia confirmado 2026-11-27"},
+    {"mueble": "tiziano", "lavamanos": "genova", "acabado": "gracia", "estado": "cerrado", "fuente": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3; acabado Gracia confirmado 2026-11-27"},
+    {"mueble": "vitelli", "lavamanos": "bari", "acabado": "gracia", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS BARI + MUEBLE VITELLI 63X48, consultado 2026-11-23; acabado Gracia confirmado 2026-11-27"},
+    {"mueble": "vitelli", "lavamanos": "siena", "acabado": "gracia", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS SIENA + MUEBLE VITELLI 63X48, consultado 2026-11-23; acabado Gracia confirmado 2026-11-27"},
+    {"mueble": "vitelli", "lavamanos": "trentino", "acabado": "gracia", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS TRENTINO + MUEBLE VITELLI 63X48, consultado 2026-11-23; acabado Gracia confirmado 2026-11-27"},
+    {"mueble": "tiziano", "lavamanos": "siena", "acabado": "gracia", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS SIENA + MUEBLE TIZIANO 63X48, consultado 2026-11-23; acabado Gracia confirmado 2026-11-27"},
+    {"mueble": "tiziano", "lavamanos": "trentino", "acabado": "gracia", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS TRENTINO + MUEBLE TIZIANO 63X48, consultado 2026-11-23; acabado Gracia confirmado 2026-11-27"},
+    {"mueble": "tiziano", "lavamanos": "quadratto", "acabado": "gracia", "estado": "cerrado", "fuente": "firplak.com, LAVAMANOS QUADRATTO + MUEBLE TIZIANO 63X48, consultado 2026-11-24; acabado Gracia confirmado 2026-11-27"}
+  ],
+  "no_ofrecidos": [
+    {"mueble": "vitelli", "lavamanos": "quadratto", "motivo": "Decisión del usuario 2026-11-24"},
+    {"mueble": "tiziano", "lavamanos": "bari", "motivo": "No publicado en firplak.com (consultado 2026-11-23)"}
+  ],
+  "compatibilidad_resumen": "Matriz de compatibilidad BAÑOS 2025, páginas 1 y 3; Bari, Siena, Trentino y Quadratto: firplak.com (ver fuente por cruce)",
+  "publicacion": {
+    "sombra_k": 0.62,
+    "casos_contorno": [["vitelli", "oslo"], ["vitelli", "genova"], ["tiziano", "genova"], ["tiziano", "quadratto"], ["vitelli", "siena"]]
+  }
+}

@@ -12,7 +12,7 @@
  * DATO COMERCIAL PENDIENTE: sin precios; se cotiza con un asesor.
  */
 import { ARCHIVOS_D, LAVAMANOS_RENDER_D, MUEBLES_RENDER_D, type CajaD } from './rendersOpcionD';
-import { CAPAS_PILOTO_D, LAVAMANOS_CAPAS_D, MUEBLES_CAPAS_D } from './capasPilotoD';
+import { CAPAS_PILOTO_D, INFO_MUEBLES_CAPAS_D, LAVAMANOS_CAPAS_D, MUEBLES_CAPAS_D } from './capasPilotoD';
 
 export type { CajaD };
 
@@ -67,8 +67,16 @@ const MUEBLES_ARCHIVO_D: MuebleD[] = [
   { id: 'godai', nombre: 'Godai', descripcion: 'Estructura de piso · cubo con cajón', medida: MEDIDA },
 ];
 
-/** Piloto por capas: únicamente productos con fuente y cruces verificados. */
-export const MUEBLES_D = MUEBLES_ARCHIVO_D.filter((m) => m.id in MUEBLES_CAPAS_D);
+/**
+ * Piloto por capas: únicamente productos con fuente y cruces verificados, en el orden del registro
+ * del catálogo. Una pieza nueva del registro aparece sin tocar este archivo (nombre desde el manifiesto).
+ */
+export const MUEBLES_D: MuebleD[] = Object.keys(MUEBLES_CAPAS_D).map((id) => {
+  const info = INFO_MUEBLES_CAPAS_D[id];
+  const archivo = MUEBLES_ARCHIVO_D.find((m) => m.id === id);
+  return info ? { id, nombre: info.nombre, descripcion: info.descripcion, medida: archivo?.medida ?? MEDIDA }
+    : archivo ?? { id, nombre: id, descripcion: '', medida: MEDIDA };
+});
 
 const LAVAMANOS_ARCHIVO_D: LavamanosD[] = [
   { id: 'oslo', nombre: 'Oslo', medida: MEDIDA, forma: 'Poceta rectangular', griferia: 'Cromo' },
@@ -80,7 +88,16 @@ const LAVAMANOS_ARCHIVO_D: LavamanosD[] = [
   { id: 'quadratto', nombre: 'Quadratto', medida: MEDIDA, forma: 'Poceta ovalada · blanco', griferia: 'Cromo' },
   { id: 'quadratto-marfil', nombre: 'Quadratto marfil', medida: MEDIDA, forma: 'Poceta ovalada · marfil', griferia: 'Cromo' },
 ];
-export const LAVAMANOS_D = LAVAMANOS_ARCHIVO_D.filter((l) => l.id in LAVAMANOS_CAPAS_D);
+export const LAVAMANOS_D: LavamanosD[] = Object.entries(LAVAMANOS_CAPAS_D).map(([id, capa]) => {
+  const archivo = LAVAMANOS_ARCHIVO_D.find((l) => l.id === id);
+  return {
+    id,
+    nombre: capa.nombre ?? archivo?.nombre ?? id,
+    medida: archivo?.medida ?? MEDIDA,
+    forma: capa.forma ?? archivo?.forma ?? '',
+    griferia: capa.faucet === 'Cromo' ? 'Cromo' : 'Negro',
+  };
+});
 
 /** Orden de la paleta; cada mueble muestra solo los que tiene renderizados. */
 export const ACABADOS_D: AcabadoD[] = [

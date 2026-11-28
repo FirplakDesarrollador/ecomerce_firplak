@@ -23,8 +23,10 @@ interface ManifestV3 {
   environment?: { id: string; src: string; width: number; height: number };
   product_frame: { x: number; y: number; width: number; height: number; resolution: number };
   shadow_frame: { x: number; y: number; width: number; height: number };
-  basins: Record<string, { src: string; faucet: string }>;
+  basins: Record<string, { src: string; faucet: string; nombre?: string; forma?: string }>;
   cabinets: MueblesPublicados;
+  /** Nombres desde el registro del catálogo (scripts/mix-match/catalogo-mix-match.json). */
+  cabinet_info?: Record<string, { nombre: string; descripcion: string; medida: string }>;
   verified_combinations: Array<{ mueble: string; lavamanos: string; acabado: string; estado: string; fuente: string }>;
   compatibility_source: string;
 }
@@ -57,7 +59,8 @@ export const CAPAS_PILOTO_D = manifest;
 export const AMBIENTES_D: AmbienteCapasD[] = resolverAmbientes(manifest);
 export const AMBIENTE_INICIAL_D: string = manifest.default_environment ?? AMBIENTES_D[0]?.id ?? '';
 export const MUEBLES_CAPAS_D: MueblesPublicados = manifest.cabinets;
-export const LAVAMANOS_CAPAS_D: Record<string, { src: string; faucet: string }> = manifest.basins;
+export const LAVAMANOS_CAPAS_D: Record<string, { src: string; faucet: string; nombre?: string; forma?: string }> = manifest.basins;
+export const INFO_MUEBLES_CAPAS_D = manifest.cabinet_info ?? {};
 
 /** Los parámetros de URL nunca se convierten en rutas: solo se aceptan ids publicados. */
 export function normalizarAmbienteD(id: string | null | undefined): string {

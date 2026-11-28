@@ -36,7 +36,10 @@ ROOT = Path(__file__).resolve().parents[2]
 PILOT = ROOT / 'assets-fuente/generativo-63x48/piloto-ventana-calida-34'
 OUT = ROOT / 'assets-fuente/generativo-63x48/ambientes-v4'
 BASE_BLEND = PILOT / 'referencia-ambiente-34-v3-completo.blend'
-AMBIENTES = ('moderno', 'calido')
+# Ambientes desde el registro del catálogo (id + función constructora de este archivo).
+CATALOGO = json.loads((ROOT / 'scripts/mix-match/catalogo-mix-match.json').read_text(encoding='utf-8'))
+AMBIENTES = tuple(a['id'] for a in CATALOGO['ambientes'])
+CONSTRUCTORES = {a['id']: a['constructor'] for a in CATALOGO['ambientes']}
 
 # ---- Cámara aprobada (variante A) -------------------------------------------------------------
 PISO_Z = -0.29
@@ -273,10 +276,7 @@ def abrir(ambiente):
     bpy.ops.wm.open_mainfile(filepath=str(BASE_BLEND))
     s = bpy.context.scene
     preparar_cuarto()
-    if ambiente == 'moderno':
-        ambiente_moderno()
-    else:
-        espejo_simple()
+    globals()[CONSTRUCTORES[ambiente]]()  # p. ej., ambiente_moderno o espejo_simple
     c = s.camera
     c.location = CAM_LOC
     c.rotation_euler = CAM_ROT

@@ -118,10 +118,16 @@ export default function CarruselesD({ sel, ambiente, direcciones, animar, onPaso
             </div>
           );
         })}
-        {/* Piezas compartidas por todos los ambientes, encima de ellos. */}
+        {/* Piezas compartidas por todos los ambientes, encima de ellos.
+            Muebles y lavamanos en contextos de apilamiento propios para que el lavamanos
+            permanezca siempre por encima del mueble incluso durante el fundido de acabados. */}
         <div className="absolute inset-0 z-[2]">
-        {MUEBLES.map((m) => capa(m.src, 'mueble', m.mueble, sel.mueble === m.mueble && sel.acabado === m.acabado, `${m.mueble}__${m.acabado}`))}
-        {LAVAMANOS.map(([id, l]) => capa(l.src, 'lavamanos', id, sel.lavamanos === id))}
+          <div className="absolute inset-0 z-[1]">
+            {MUEBLES.map((m) => capa(m.src, 'mueble', m.mueble, sel.mueble === m.mueble && sel.acabado === m.acabado, `${m.mueble}__${m.acabado}`))}
+          </div>
+          <div className="absolute inset-0 z-[2]">
+            {LAVAMANOS.map(([id, l]) => capa(l.src, 'lavamanos', id, sel.lavamanos === id))}
+          </div>
         </div>
       </div>
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/80 to-transparent" />

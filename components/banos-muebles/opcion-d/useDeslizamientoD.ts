@@ -3,9 +3,13 @@
 import { useEffect, useLayoutEffect, useRef, type RefObject } from 'react';
 import { DURACION_DESLIZAMIENTO_D, estadoResorteD, fotogramasResorteD } from './resorteD';
 
-interface EnCurso { animation: Animation; desde: number; hasta: number; velocidad: number }
+const DURACION_FUNDIDO_ACABADO_D = 320;
 
-/** Movimiento independiente por fila; permite invertirlo desde su posición y velocidad actuales. */
+interface EnCurso { animation: Animation; desde: number; hasta: number; velocidad: number; modo: 'deslizar' | 'fundido' }
+
+/** Movimiento independiente por fila; permite invertirlo desde su posición y velocidad actuales.
+ * Cuando cambia solo el acabado del mismo mueble, hace un fundido suave en el sitio sin deslizar.
+ */
 export function useDeslizamientoD(escenario: RefObject<HTMLDivElement | null>, fila: 'mueble' | 'lavamanos', seleccion: string, direccion: number, animar: boolean) {
   const anterior = useRef<string | null>(null);
   const animaciones = useRef(new Map<HTMLElement, EnCurso>());
@@ -23,6 +27,53 @@ export function useDeslizamientoD(escenario: RefObject<HTMLDivElement | null>, f
         animaciones.current.get(capa)?.animation.cancel();
         animaciones.current.delete(capa);
         capa.style.willChange = '';
+        capa.style.zIndex = '';
+      }
+      return;
+    }
+    const soloAcabado = fila === 'mueble' && antes.split('__')[0] === seleccion.split('__')[0];
+    if (soloAcabado) {
+      for (const capa of capas) {
+        const activa = capa.dataset.activa === 'true';
+        const eraActiva = capa.dataset.seleccion === antes;
+        const curso = animaciones.current.get(capa);
+        if (!activa && !eraActiva && !curso) continue;
+        if (typeof capa.animate !== 'function') continue;
+        const opacidadActual = Number(getComputedStyle(capa).opacity);
+        if (curso) {
+          curso.animation.cancel();
+          animaciones.current.delete(capa);
+        }
+        // La sombra del mismo mueble no cambia: evitar cualquier parpadeo al alternar acabado.
+        if (capa.dataset.capa === 'sombra') {
+          capa.style.willChange = '';
+          capa.style.zIndex = '';
+          continue;
+        }
+        capa.style.willChange = 'opacity';
+        // El acabado entrante sube sobre el saliente para no traslucir la pared a mitad del fundido.
+        capa.style.zIndex = activa ? '2' : '1';
+        const frames: Keyframe[] = activa
+          ? [
+              { transform: 'translate3d(0, 0, 0)', opacity: curso ? opacidadActual : 0 },
+              { transform: 'translate3d(0, 0, 0)', opacity: 1 },
+            ]
+          : [
+              { transform: 'translate3d(0, 0, 0)', opacity: curso ? opacidadActual : 1, offset: 0 },
+              { transform: 'translate3d(0, 0, 0)', opacity: curso ? opacidadActual : 1, offset: 0.85 },
+              { transform: 'translate3d(0, 0, 0)', opacity: 0, offset: 1 },
+            ];
+        const animation = capa.animate(frames, {
+          duration: DURACION_FUNDIDO_ACABADO_D, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both',
+        });
+        animaciones.current.set(capa, { animation, desde: 0, hasta: 0, velocidad: 0, modo: 'fundido' });
+        animation.onfinish = () => {
+          if (animaciones.current.get(capa)?.animation !== animation) return;
+          animaciones.current.delete(capa);
+          animation.cancel();
+          capa.style.willChange = '';
+          capa.style.zIndex = '';
+        };
       }
       return;
     }
@@ -36,18 +87,21 @@ export function useDeslizamientoD(escenario: RefObject<HTMLDivElement | null>, f
       let desde = activa ? direccion * distancia : 0;
       let velocidad = 0;
       if (curso) {
-        const transform = getComputedStyle(capa).transform;
-        const estado = estadoResorteD(curso.desde, curso.hasta, curso.velocidad, Number(curso.animation.currentTime ?? 0) / 1000);
-        desde = capa.dataset.capa === 'sombra' ? estado.x : transform === 'none' ? 0 : new DOMMatrixReadOnly(transform).m41;
-        velocidad = estado.velocidad;
+        if (curso.modo === 'deslizar') {
+          const transform = getComputedStyle(capa).transform;
+          const estado = estadoResorteD(curso.desde, curso.hasta, curso.velocidad, Number(curso.animation.currentTime ?? 0) / 1000);
+          desde = capa.dataset.capa === 'sombra' ? estado.x : transform === 'none' ? 0 : new DOMMatrixReadOnly(transform).m41;
+          velocidad = estado.velocidad;
+        }
         curso.animation.cancel();
       }
       const hasta = activa ? 0 : !eraActiva && curso ? curso.hasta : -direccion * distancia;
+      capa.style.zIndex = '';
       capa.style.willChange = 'transform, opacity';
       const animation = capa.animate(fotogramasResorteD(desde, hasta, velocidad, distancia, capa.dataset.capa === 'sombra'), {
         duration: DURACION_DESLIZAMIENTO_D, easing: 'linear', fill: 'both',
       });
-      animaciones.current.set(capa, { animation, desde, hasta, velocidad });
+      animaciones.current.set(capa, { animation, desde, hasta, velocidad, modo: 'deslizar' });
       animation.onfinish = () => {
         if (animaciones.current.get(capa)?.animation !== animation) return;
         animaciones.current.delete(capa);
@@ -65,6 +119,7 @@ export function useDeslizamientoD(escenario: RefObject<HTMLDivElement | null>, f
       for (const [capa, curso] of cursos) {
         curso.animation.cancel();
         capa.style.willChange = '';
+        capa.style.zIndex = '';
       }
       cursos.clear();
     };
